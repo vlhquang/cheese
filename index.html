@@ -31,7 +31,6 @@
         .mascot-box { background: #fff9c4; padding: 15px; border-radius: 15px; border: 3px dashed #fbc02d; font-size: 1.1em; max-width: 450px; font-weight: bold; }
         .analysis-box { background: #ffcdd2; color: #c62828; padding: 10px; border-radius: 10px; display: none; max-width: 450px; font-weight: bold; border: 2px solid #c62828;}
         
-        /* Box Ghi chú bài học chi tiết */
         .lesson-note { background: #e3f2fd; color: #0277bd; padding: 15px; border-radius: 10px; border: 2px solid #81d4fa; max-width: 450px; text-align: left; display: none; font-size: 15px; line-height: 1.5;}
         .lesson-note h4 { margin: 0 0 8px 0; color: #01579b; font-size: 18px;}
 
@@ -45,6 +44,16 @@
         .highlight-move { background: radial-gradient(circle, #4caf50 25%, transparent 25%) !important; border-radius: 50%; }
         
         .tournament-setup input { padding: 5px; width: 50px; font-size: 16px; font-weight: bold; text-align: center; margin: 0 5px;}
+
+        /* Hiệu ứng nhịp đập cho bài học đang được chọn */
+        .active-lesson {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(255, 152, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0); }
+        }
     </style>
 </head>
 <body>
@@ -58,23 +67,16 @@
     </div>
 
     <div class="container">
-        <!-- Ví Xu -->
         <div class="dashboard">
             <h2>🪙 Ví: <span id="coinBalance">0</span> Xu</h2>
             <button class="btn btn-claim" onclick="claimSavings()">💰 Đổi 1000 Xu = 10k VNĐ</button>
         </div>
 
-        <!-- Sách hướng dẫn (Chỉ hiện trong Roadmap) -->
         <div class="lesson-note" id="lessonNote"></div>
-
-        <!-- Mascot & Phân Tích -->
         <div class="mascot-box" id="mascotText">🤖 Chọn bài học đầu tiên để bắt đầu nhé!</div>
         <div class="analysis-box" id="analysisText"></div>
 
-        <!-- Bàn Cờ -->
         <div class="board-wrapper"><div id="board"></div></div>
-
-        <!-- Khu vực Control Panel động (Thay đổi theo Tab) -->
         <div class="mode-controls" id="modeControls"></div>
     </div>
 
@@ -104,92 +106,89 @@
             else { box.style.display = 'none'; }
         }
 
-        // --- DATA LỘ TRÌNH HỌC TẬP TỪNG BƯỚC (FULL HƯỚNG DẪN + HỢP LỆ FEN) ---
+        // --- DATA LỘ TRÌNH (Đã thêm Tốt phụ ở góc để chống lỗi Hòa cờ của Engine) ---
         const ROADMAP = [
-            // Giai đoạn 1: Căn bản
             { 
                 category: "Giai đoạn 1: Cách di chuyển",
-                title: "Bài 1: Khởi động Tốt (Pawn)", 
+                title: "Bài 1: Khởi động Tốt", 
                 fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e2e4", 
-                note: "Quân Tốt như lính bộ binh. Lần đầu tiên, nó có thể bước lên 2 ô. Nhưng khi ăn quân địch, nó lại phải 'ăn chéo' sang 2 bên.<br><br><b>Nhiệm vụ:</b> Nhấp vào quân Tốt ở giữa (ô e2) và đẩy nó lên 2 bước (ô e4) để chiếm trung tâm!",
+                note: "Quân Tốt như lính bộ binh. Lần đầu tiên, nó có thể bước lên 2 ô. <br><br><b>Nhiệm vụ:</b> Nhấp vào quân Tốt ở giữa (ô e2) và đẩy nó lên 2 bước (ô e4) để chiếm trung tâm!",
                 mascot: "Đẩy Tốt lên e4 để mở đường nào!"
             },
             { 
                 category: "Giai đoạn 1: Cách di chuyển",
-                title: "Bài 2: Xe quét đường (Rook)", 
-                fen: "7k/8/8/8/8/2R3r1/8/K7 w - - 0 1", targetMove: "c3g3", 
-                note: "Quân Xe như một chiếc xe tải bọc thép. Nó di chuyển theo <b>đường thẳng</b> (ngang hoặc dọc) bao nhiêu ô tùy thích. Nó rất mạnh trong việc càn quét bàn cờ mở.<br><br><b>Nhiệm vụ:</b> Dùng Xe trắng (c3) lao thẳng tới tông hỏng Xe đen (g3).",
-                mascot: "Đạp ga Xe tải trắng đâm thẳng vào Xe tải đen!"
+                title: "Bài 2: Xe quét đường", 
+                fen: "7k/7p/8/8/8/2R3r1/P7/K7 w - - 0 1", targetMove: "c3g3", 
+                note: "Quân Xe đi theo <b>đường thẳng</b> (ngang hoặc dọc).<br><br><b>Nhiệm vụ:</b> Dùng Xe trắng (c3) lao thẳng tới tông hỏng Xe đen (g3).",
+                mascot: "Đạp ga Xe tải trắng đâm thẳng vào Xe đen!"
             },
             { 
                 category: "Giai đoạn 1: Cách di chuyển",
-                title: "Bài 3: Tượng đi chéo (Bishop)", 
-                fen: "7k/8/4b3/8/2B5/8/8/K7 w - - 0 1", targetMove: "c4e6", 
-                note: "Quân Tượng di chuyển theo <b>đường chéo</b> (chữ X). Tượng ở ô màu sáng sẽ mãi mãi chỉ đi trên ô sáng. Ứng dụng của Tượng là tấn công từ xa.<br><br><b>Nhiệm vụ:</b> Trượt quân Tượng trắng theo đường chéo để bắt Tượng đen.",
+                title: "Bài 3: Tượng đi chéo", 
+                fen: "7k/7p/4b3/8/2B5/8/P7/K7 w - - 0 1", targetMove: "c4e6", 
+                note: "Quân Tượng di chuyển theo <b>đường chéo</b> (chữ X).<br><br><b>Nhiệm vụ:</b> Trượt quân Tượng trắng theo đường chéo để bắt Tượng đen.",
                 mascot: "Tượng trắng đang nhắm trúng Tượng đen. Trượt chéo lên ăn nó!"
             },
             { 
                 category: "Giai đoạn 1: Cách di chuyển",
-                title: "Bài 4: Mã nhảy chữ L (Knight)", 
-                fen: "7k/8/8/3p4/8/2N5/8/K7 w - - 0 1", targetMove: "c3d5", 
-                note: "Mã là chiếc xe mô-tô địa hình duy nhất <b>có thể nhảy qua đầu</b> quân khác! Nó đi theo hình chữ L (2 ô thẳng, 1 ô ngang). Rất lợi hại khi đánh cận chiến.<br><br><b>Nhiệm vụ:</b> Phi Mã (c3) theo hình chữ L lên bắt quân Tốt đen (d5).",
+                title: "Bài 4: Mã nhảy chữ L", 
+                fen: "7k/7p/8/3p4/8/2N5/P7/K7 w - - 0 1", targetMove: "c3d5", 
+                note: "Mã là quân duy nhất <b>có thể nhảy qua đầu</b> quân khác! Nó đi theo hình chữ L.<br><br><b>Nhiệm vụ:</b> Phi Mã (c3) theo hình chữ L lên bắt quân Tốt đen (d5).",
                 mascot: "Phi ngựa theo chữ L để bắt quân Tốt đen!"
             },
             { 
                 category: "Giai đoạn 1: Cách di chuyển",
-                title: "Bài 5: Hậu uy quyền (Queen)", 
-                fen: "7k/8/8/8/3r4/8/8/Q3K3 w - - 0 1", targetMove: "a1d4", 
-                note: "Hậu là 'siêu xe' mạnh nhất! Hậu mang sức mạnh của cả Xe (đi thẳng) và Tượng (đi chéo). Mất Hậu là thiệt hại vô cùng lớn.<br><br><b>Nhiệm vụ:</b> Hậu trắng (a1) đang nhìn thấy Xe đen (d4) theo đường chéo. Bay tới bắt ngay!",
+                title: "Bài 5: Hậu uy quyền", 
+                fen: "7k/7p/8/8/3r4/8/P7/Q3K3 w - - 0 1", targetMove: "a1d4", 
+                note: "Hậu mang sức mạnh của cả Xe (đi thẳng) và Tượng (đi chéo).<br><br><b>Nhiệm vụ:</b> Hậu trắng (a1) đang nhìn thấy Xe đen (d4) theo đường chéo. Bay tới bắt ngay!",
                 mascot: "Siêu xe Hậu trắng vút theo đường chéo lên bắt Xe đen!"
             },
-
-            // Giai đoạn 2: Chiến thuật cơ bản
             { 
-                category: "Giai đoạn 2: Chiến thuật Ô tô",
-                title: "Bài 6: Đòn chĩa đôi (Knight Fork)", 
-                fen: "4q1k1/8/8/8/4N3/8/8/6K1 w - - 0 1", targetMove: "e4f6", 
-                note: "Chiến thuật 'Chĩa Đôi' (Fork) là dùng 1 quân tấn công 2 quân địch cùng lúc. Mã là vua của đòn này!<br><br><b>Nhiệm vụ:</b> Nhảy Mã trắng (e4) lên ô f6. Tại đây, Mã vừa 'Chiếu Vua' đen, vừa đe dọa ăn Hậu đen cùng một lúc!",
+                category: "Giai đoạn 2: Chiến thuật",
+                title: "Bài 6: Đòn chĩa đôi", 
+                fen: "4q1k1/7p/8/8/4N3/8/P7/6K1 w - - 0 1", targetMove: "e4f6", 
+                note: "Dùng 1 quân tấn công 2 quân địch cùng lúc.<br><br><b>Nhiệm vụ:</b> Nhảy Mã trắng (e4) lên ô f6. Tại đây, Mã vừa 'Chiếu Vua' đen, vừa đe dọa ăn Hậu đen cùng một lúc!",
                 mascot: "Nhảy Mã lên f6 để dọa 1 lúc cả Vua và Hậu đen!"
             },
             { 
-                category: "Giai đoạn 2: Chiến thuật Ô tô",
-                title: "Bài 7: Đòn giằng (Pin / Skewer)", 
-                fen: "4k3/4q3/8/8/8/8/8/R5K1 w - - 0 1", targetMove: "a1e1", 
-                note: "Đòn 'Giằng' là trói chân quân địch. <br><br><b>Nhiệm vụ:</b> Kéo Xe trắng từ a1 sang e1. Lúc này Xe sẽ 'chiếu' Vua đen thông qua Hậu đen. Hậu đen sẽ không thể né đi được vì phải làm mộc che cho Vua!",
+                category: "Giai đoạn 2: Chiến thuật",
+                title: "Bài 7: Đòn giằng", 
+                fen: "4k3/4q2p/8/8/8/8/P7/R5K1 w - - 0 1", targetMove: "a1e1", 
+                note: "Đòn 'Giằng' là trói chân quân địch.<br><br><b>Nhiệm vụ:</b> Kéo Xe trắng từ a1 sang e1. Hậu đen sẽ bị ghim chặt vì phải làm mộc che cho Vua!",
                 mascot: "Kéo Xe sang e1 để trói chặt Hậu đen trước mặt Vua!"
             },
             { 
-                category: "Giai đoạn 2: Chiến thuật Ô tô",
-                title: "Bài 8: Nhập thành (Castling)", 
+                category: "Giai đoạn 2: Chiến thuật",
+                title: "Bài 8: Nhập thành", 
                 fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQK2R w KQkq - 0 1", targetMove: "e1g1", 
-                note: "Luật đặc biệt: Trận đấu thực tế rất nguy hiểm, Vua cần có 'boong-ke'. Nếu Vua và Xe chưa từng di chuyển, và không có vật cản, Vua có thể nhảy 2 ô về phía Xe để trốn.<br><br><b>Nhiệm vụ:</b> Nhấp vào Vua trắng (e1), rồi nhấp vào ô g1 để Nhập thành (Xe sẽ tự động nhảy qua).",
+                note: "Giấu Vua vào nơi an toàn.<br><br><b>Nhiệm vụ:</b> Nhấp vào Vua trắng (e1), rồi nhấp vào ô g1 để Nhập thành (Xe sẽ tự động nhảy qua bảo vệ).",
                 mascot: "Giấu Vua vào góc an toàn! Nhấn Vua e1 rồi chọn g1."
             },
             { 
-                category: "Giai đoạn 2: Chiến thuật Ô tô",
-                title: "Bài 9: Phong cấp (Promotion)", 
-                fen: "7k/4P3/8/8/8/8/8/6K1 w - - 0 1", targetMove: "e7e8", 
-                note: "Luật siêu phàm: Nếu 1 chú Tốt nhỏ bé có thể đi đến tận cuối bản đồ của phe địch, nó sẽ biến hình (Phong cấp) thành Hậu, Xe, Tượng hoặc Mã!<br><br><b>Nhiệm vụ:</b> Đẩy Tốt trắng lên e8 để biến nó thành Hậu!",
+                category: "Giai đoạn 2: Chiến thuật",
+                title: "Bài 9: Phong cấp", 
+                fen: "7k/4P2p/8/8/8/8/P7/6K1 w - - 0 1", targetMove: "e7e8", 
+                note: "Nếu Tốt đi đến tận cuối bản đồ phe địch, nó sẽ biến hình.<br><br><b>Nhiệm vụ:</b> Đẩy Tốt trắng lên e8 để biến nó thành Hậu!",
                 mascot: "Đẩy Tốt lên e8 để biến hình thành Hậu mạnh mẽ!"
             },
-
-            // Giai đoạn 3: Thực chiến
             { 
-                category: "Giai đoạn 3: Thực chiến bàn cờ",
-                title: "Bài 10: Chiếu bí 1 nước (Scholar's Mate)", 
+                category: "Giai đoạn 3: Thực chiến",
+                title: "Bài 10: Chiếu bí 1 nước", 
                 fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4", targetMove: "f3f7", 
-                note: "Đây là bàn cờ đầy đủ. 'Chiếu bí' (Checkmate) là khi Vua bị tấn công và không thể chạy trốn, không thể cản phá.<br><br><b>Nhiệm vụ:</b> Quan sát: Hậu trắng (f3) và Tượng trắng (c4) đang cùng nhắm vào ô f7 của quân đen. Hãy lấy Hậu trắng ăn vào f7 để chiếu bí Vua đen ngay lập tức!",
+                note: "Chiếu bí là khi Vua bị tấn công và không thể chạy trốn.<br><br><b>Nhiệm vụ:</b> Dùng Hậu trắng (f3) ăn vào ô f7 để chiếu bí Vua đen ngay lập tức!",
                 mascot: "Dùng Hậu trắng ăn Tốt ở f7 để Chiếu bí ngay lập tức!"
             }
         ];
 
-        // --- CÁC BIẾN STATE CHUNG ---
+        // --- STATE ---
         var board = null, game = new Chess(), selectedSquare = null;
         let currentMode = 'roadmap', currentPuzzle = 0;
         let tourneyConfig = { rounds: 3, prize: 500, currentRound: 1, active: false };
+        let autoNextTimeout = null;
 
-        // --- LOGIC RENDER TABS ---
+        // --- RENDER TABS ---
         function switchTab(mode) {
+            clearTimeout(autoNextTimeout); // Hủy tự động chuyển bài nếu chuyển tab
             currentMode = mode;
             $('.tab-btn').removeClass('active');$(`.tab-btn[onclick="switchTab('${mode}')"]`).addClass('active');
             showAnalysis(false);
@@ -227,26 +226,35 @@
                     html += `<div class="category-header">🏁 ${p.category}</div>`;
                     currentCat = p.category;
                 }
+                
                 let isDone = completedPuzzles.includes(i);
+                let isActive = (i === currentPuzzle);
+                
                 let btnStyle = isDone ? "background:#4caf50; border: 2px solid #388e3c;" : "background:#03a9f4; border: 2px solid #0288d1;";
                 let icon = isDone ? "✅" : "▶️";
-                html += `<button class="btn" style="${btnStyle}; text-align: left; margin-bottom: 5px;" onclick="loadPuzzle(${i})">
-                            ${icon} ${p.title}
+                let activeClass = isActive ? " active-lesson" : "";
+                let activeText = isActive ? " (Đang học)" : "";
+                
+                if (isActive) {
+                    btnStyle += " border-color: #ff9800; background: #ff9800;";
+                    icon = "🎯"; 
+                }
+
+                html += `<button class="btn${activeClass}" style="${btnStyle}; text-align: left; margin-bottom: 5px;" onclick="loadPuzzle(${i})">
+                            ${icon} ${p.title} ${activeText}
                          </button>`;
             });
             html += `</div>`;
             controls.innerHTML = html;
         }
 
-        // --- CÁC HÀM GAMEPLAY ---
+        // --- GAMEPLAY ---
         function loadPuzzle(index) {
+            clearTimeout(autoNextTimeout);
             currentPuzzle = index;
             let p = ROADMAP[index];
             
-            // Xóa state cũ và load FEN mới
-            let isLoaded = game.load(p.fen);
-            if(!isLoaded) console.error("Lỗi FEN bài học: " + p.title);
-            
+            game.load(p.fen);
             board.position(game.fen());
             
             document.getElementById('lessonNote').innerHTML = `<h4>📖 Hướng dẫn: ${p.title}</h4>${p.note}`;
@@ -277,7 +285,7 @@
             document.getElementById('modeControls').innerHTML = `<h3>🏆 Giải Đấu: Vòng ${tourneyConfig.currentRound}/${tourneyConfig.rounds}</h3><p>Thưởng vô địch: ${tourneyConfig.prize} Xu</p>`;
         }
 
-        // --- TƯƠNG TÁC BÀN CỜ ---
+        // --- BÀN CỜ CLICK-TO-MOVE ---
         function removeHighlights() { $('#board .square-55d63').removeClass('highlight-select highlight-move'); }
         function highlightValidMoves(square) {
             removeHighlights(); $('#board .square-' + square).addClass('highlight-select');
@@ -286,7 +294,13 @@
         }
 
         $('#board').on('click', '.square-55d63', function () {
-            if (game.game_over() || game.turn() === 'b') return;
+            // Loại bỏ Game Over Lock cho chế độ Roadmap (Chống lỗi nhận diện hòa cờ sai của thư viện)
+            if (currentMode === 'roadmap') {
+                if (game.turn() === 'b') return;
+            } else {
+                if (game.game_over() || game.turn() === 'b') return;
+            }
+
             var square = $(this).attr('data-square');
             var piece = game.get(square);
 
@@ -297,19 +311,23 @@
             if (selectedSquare) {
                 var attempt = selectedSquare + square; 
                 
-                // LOGIC LỘ TRÌNH HỌC (PUZZLE)
+                // LOGIC ROADMAP (PUZZLE)
                 if(currentMode === 'roadmap') {
                     if(attempt === ROADMAP[currentPuzzle].targetMove) {
-                        // Gọi game.move để giả lập cờ trên engine
                         game.move({from: selectedSquare, to: square, promotion: 'q'});
                         board.position(game.fen());
                         
                         if(!completedPuzzles.includes(currentPuzzle)) {
-                            mascotSpeak("🎉 Chính xác! Tuyệt vời, con nhận được 10 Xu!");
+                            mascotSpeak("🎉 Chính xác! Tuyệt vời, con nhận được 10 Xu! (Tự chuyển bài tiếp sau 2s...)");
                             addCoins(10);
                             completedPuzzles.push(currentPuzzle);
                             localStorage.setItem('completedPuzzles', JSON.stringify(completedPuzzles));
                             renderRoadmapUI(); 
+                            
+                            // Auto next
+                            if (currentPuzzle + 1 < ROADMAP.length) {
+                                autoNextTimeout = setTimeout(() => loadPuzzle(currentPuzzle + 1), 2500);
+                            }
                         } else {
                             mascotSpeak("🎉 Ôn tập bài rất tốt! Nhấn bài học khác để tiếp tục nhé!");
                         }
@@ -323,7 +341,7 @@
                     }
                 }
 
-                // LOGIC THI ĐẤU AI VÀ GIẢI ĐẤU
+                // LOGIC ĐẤU AI VÀ GIẢI ĐẤU
                 var move = game.move({ from: selectedSquare, to: square, promotion: 'q' });
                 if (move === null) {
                     mascotSpeak("🛑 Sai luật cờ rồi con ơi!");
@@ -365,7 +383,7 @@
             checkGameOver();
         }
 
-        // --- KẾT THÚC GAME ---
+        // --- KẾT THÚC THỰC CHIẾN ---
         function checkGameOver() {
             if (game.game_over()) {
                 if (game.in_checkmate()) {
@@ -404,7 +422,6 @@
             return false;
         }
 
-        // Khởi tạo Bàn cờ
         var config = { draggable: false, position: 'start', pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png' };
         board = Chessboard('board', config);
         
