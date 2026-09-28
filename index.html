@@ -8,16 +8,11 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap');
 
-        body {
-            font-family: 'Nunito', sans-serif; background-color: #e0f7fa; text-align: center; margin: 0; padding: 20px; color: #333;
-        }
+        body { font-family: 'Nunito', sans-serif; background-color: #e0f7fa; text-align: center; margin: 0; padding: 20px; color: #333; }
         h1 { color: #ff5722; font-size: 2.2em; margin-bottom: 10px; }
         
         .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .tab-btn {
-            padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer;
-            border: 2px solid #0288d1; background: #fff; color: #0288d1; border-radius: 10px; transition: 0.2s;
-        }
+        .tab-btn { padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer; border: 2px solid #0288d1; background: #fff; color: #0288d1; border-radius: 10px; transition: 0.2s; }
         .tab-btn.active { background: #0288d1; color: #fff; box-shadow: 0 4px 0 #01579b; transform: translateY(-2px);}
 
         .container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
@@ -31,8 +26,9 @@
         .mascot-box { background: #fff9c4; padding: 15px; border-radius: 15px; border: 3px dashed #fbc02d; font-size: 1.1em; max-width: 450px; font-weight: bold; }
         .analysis-box { background: #ffcdd2; color: #c62828; padding: 10px; border-radius: 10px; display: none; max-width: 450px; font-weight: bold; border: 2px solid #c62828;}
         
-        .lesson-note { background: #e3f2fd; color: #0277bd; padding: 15px; border-radius: 10px; border: 2px solid #81d4fa; max-width: 450px; text-align: left; display: none; font-size: 15px; line-height: 1.5;}
-        .lesson-note h4 { margin: 0 0 8px 0; color: #01579b; font-size: 18px;}
+        .lesson-note { background: #e3f2fd; color: #0277bd; padding: 15px; border-radius: 10px; border: 2px solid #81d4fa; max-width: 450px; text-align: left; display: none; font-size: 15px; line-height: 1.6;}
+        .lesson-note h4 { margin: 0 0 8px 0; color: #01579b; font-size: 18px; display: flex; justify-content: space-between;}
+        .step-badge { background: #ff9800; color: white; padding: 2px 8px; border-radius: 10px; font-size: 14px; }
 
         .board-wrapper { padding: 10px; background: #333; border-radius: 10px; border: 5px solid #ffeb3b; width: 400px; }
         
@@ -44,11 +40,7 @@
         .highlight-move { background: radial-gradient(circle, #4caf50 25%, transparent 25%) !important; border-radius: 50%; }
         
         .tournament-setup input { padding: 5px; width: 50px; font-size: 16px; font-weight: bold; text-align: center; margin: 0 5px;}
-
-        /* Hiệu ứng nhịp đập cho bài học đang được chọn */
-        .active-lesson {
-            animation: pulse 1.5s infinite;
-        }
+        .active-lesson { animation: pulse 1.5s infinite; }
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.7); }
             70% { box-shadow: 0 0 0 8px rgba(255, 152, 0, 0); }
@@ -96,99 +88,90 @@
             document.getElementById('coinBalance').innerText = coins;
         }
         function claimSavings() {
-            if (coins >= 1000) { addCoins(-1000); alert("🎉 Đổi thành công 10.000 VNĐ! Nhờ bố mẹ bỏ ống heo nhé!"); } 
+            if (coins >= 1000) { addCoins(-1000); alert("🎉 Đổi thành công 10.000 VNĐ!"); } 
             else { alert(`Cần thêm ${1000 - coins} Xu nữa!`); }
         }
         function mascotSpeak(text) { document.getElementById('mascotText').innerText = text; }
         function showAnalysis(text) { 
             let box = document.getElementById('analysisText');
-            if(text) { box.style.display = 'block'; box.innerText = "🔍 Phân tích: " + text; } 
+            if(text) { box.style.display = 'block'; box.innerText = "🔍 " + text; } 
             else { box.style.display = 'none'; }
         }
 
-        // --- DATA LỘ TRÌNH (Đã thêm Tốt phụ ở góc để chống lỗi Hòa cờ của Engine) ---
+        // --- CẤU TRÚC DỮ LIỆU ĐA VÍ DỤ (MULTI-STEP) ---
         const ROADMAP = [
             { 
                 category: "Giai đoạn 1: Cách di chuyển",
-                title: "Bài 1: Khởi động Tốt", 
-                fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e2e4", 
-                note: "Quân Tốt như lính bộ binh. Lần đầu tiên, nó có thể bước lên 2 ô. <br><br><b>Nhiệm vụ:</b> Nhấp vào quân Tốt ở giữa (ô e2) và đẩy nó lên 2 bước (ô e4) để chiếm trung tâm!",
-                mascot: "Đẩy Tốt lên e4 để mở đường nào!"
+                title: "Bài 1: Luật của quân Tốt", 
+                steps: [
+                    {
+                        fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e2e4", 
+                        note: "<b>Luật 1: Bước đi đầu tiên.</b><br>Quân Tốt chỉ được đi thẳng về phía trước. Ở lần di chuyển đầu tiên của mỗi quân Tốt, nó có đặc quyền bước lên 2 ô cùng lúc để nhanh chóng chiếm trung tâm.<br><br>👉 Nhấp vào Tốt Trắng ở e2 và đẩy lên e4.",
+                        mascot: "Đẩy Tốt lên 2 bước để mở đường nào!"
+                    },
+                    {
+                        fen: "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "e4d5", 
+                        note: "<b>Luật 2: Cách ăn quân.</b><br>Tốt đi thẳng, nhưng lại <b>ăn quân theo đường chéo</b> 1 ô về phía trước. Nó không thể ăn quân nằm ngay trước mặt nó.<br><br>👉 Tốt Trắng e4 có thể ăn chéo Tốt Đen d5. Thử ngay!",
+                        mascot: "Tốt ăn chéo! Nhấp vào Tốt trắng rồi nhấp vào Tốt đen d5."
+                    }
+                ]
             },
             { 
                 category: "Giai đoạn 1: Cách di chuyển",
-                title: "Bài 2: Xe quét đường", 
-                fen: "7k/7p/8/8/8/2R3r1/P7/K7 w - - 0 1", targetMove: "c3g3", 
-                note: "Quân Xe đi theo <b>đường thẳng</b> (ngang hoặc dọc).<br><br><b>Nhiệm vụ:</b> Dùng Xe trắng (c3) lao thẳng tới tông hỏng Xe đen (g3).",
-                mascot: "Đạp ga Xe tải trắng đâm thẳng vào Xe đen!"
+                title: "Bài 2: Hậu uy quyền", 
+                steps: [
+                    {
+                        fen: "7k/7p/8/8/8/8/P7/Q3K3 w - - 0 1", targetMove: "a1a8", 
+                        note: "<b>Luật di chuyển:</b> Hậu là quân cờ mạnh nhất. Nó được đi theo đường thẳng (ngang, dọc) giống Xe, và đi theo đường chéo giống Tượng, bao nhiêu ô tùy thích.<br><br>👉 Di chuyển Hậu trắng (a1) thẳng tắp lên a8.",
+                        mascot: "Hậu đi thẳng! Lên kịch trần ô a8 nhé."
+                    },
+                    {
+                        fen: "Q6k/7p/8/8/3r4/8/P7/4K3 w - - 0 1", targetMove: "a8d5", 
+                        note: "<b>Ứng dụng ăn quân:</b> Hậu cũng ăn quân theo đúng quỹ đạo di chuyển của nó (ngang, dọc, chéo).<br><br>👉 Ở ô a8, Hậu trắng đang nhìn thấy Xe đen d5 theo đường chéo. Bay tới ăn nó!",
+                        mascot: "Siêu xe Hậu trắng vút theo đường chéo lên bắt Xe đen!"
+                    }
+                ]
             },
             { 
-                category: "Giai đoạn 1: Cách di chuyển",
-                title: "Bài 3: Tượng đi chéo", 
-                fen: "7k/7p/4b3/8/2B5/8/P7/K7 w - - 0 1", targetMove: "c4e6", 
-                note: "Quân Tượng di chuyển theo <b>đường chéo</b> (chữ X).<br><br><b>Nhiệm vụ:</b> Trượt quân Tượng trắng theo đường chéo để bắt Tượng đen.",
-                mascot: "Tượng trắng đang nhắm trúng Tượng đen. Trượt chéo lên ăn nó!"
-            },
-            { 
-                category: "Giai đoạn 1: Cách di chuyển",
-                title: "Bài 4: Mã nhảy chữ L", 
-                fen: "7k/7p/8/3p4/8/2N5/P7/K7 w - - 0 1", targetMove: "c3d5", 
-                note: "Mã là quân duy nhất <b>có thể nhảy qua đầu</b> quân khác! Nó đi theo hình chữ L.<br><br><b>Nhiệm vụ:</b> Phi Mã (c3) theo hình chữ L lên bắt quân Tốt đen (d5).",
-                mascot: "Phi ngựa theo chữ L để bắt quân Tốt đen!"
-            },
-            { 
-                category: "Giai đoạn 1: Cách di chuyển",
-                title: "Bài 5: Hậu uy quyền", 
-                fen: "7k/7p/8/8/3r4/8/P7/Q3K3 w - - 0 1", targetMove: "a1d4", 
-                note: "Hậu mang sức mạnh của cả Xe (đi thẳng) và Tượng (đi chéo).<br><br><b>Nhiệm vụ:</b> Hậu trắng (a1) đang nhìn thấy Xe đen (d4) theo đường chéo. Bay tới bắt ngay!",
-                mascot: "Siêu xe Hậu trắng vút theo đường chéo lên bắt Xe đen!"
-            },
-            { 
-                category: "Giai đoạn 2: Chiến thuật",
-                title: "Bài 6: Đòn chĩa đôi", 
-                fen: "4q1k1/7p/8/8/4N3/8/P7/6K1 w - - 0 1", targetMove: "e4f6", 
-                note: "Dùng 1 quân tấn công 2 quân địch cùng lúc.<br><br><b>Nhiệm vụ:</b> Nhảy Mã trắng (e4) lên ô f6. Tại đây, Mã vừa 'Chiếu Vua' đen, vừa đe dọa ăn Hậu đen cùng một lúc!",
-                mascot: "Nhảy Mã lên f6 để dọa 1 lúc cả Vua và Hậu đen!"
-            },
-            { 
-                category: "Giai đoạn 2: Chiến thuật",
-                title: "Bài 7: Đòn giằng", 
-                fen: "4k3/4q2p/8/8/8/8/P7/R5K1 w - - 0 1", targetMove: "a1e1", 
-                note: "Đòn 'Giằng' là trói chân quân địch.<br><br><b>Nhiệm vụ:</b> Kéo Xe trắng từ a1 sang e1. Hậu đen sẽ bị ghim chặt vì phải làm mộc che cho Vua!",
-                mascot: "Kéo Xe sang e1 để trói chặt Hậu đen trước mặt Vua!"
-            },
-            { 
-                category: "Giai đoạn 2: Chiến thuật",
-                title: "Bài 8: Nhập thành", 
-                fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQK2R w KQkq - 0 1", targetMove: "e1g1", 
-                note: "Giấu Vua vào nơi an toàn.<br><br><b>Nhiệm vụ:</b> Nhấp vào Vua trắng (e1), rồi nhấp vào ô g1 để Nhập thành (Xe sẽ tự động nhảy qua bảo vệ).",
-                mascot: "Giấu Vua vào góc an toàn! Nhấn Vua e1 rồi chọn g1."
-            },
-            { 
-                category: "Giai đoạn 2: Chiến thuật",
-                title: "Bài 9: Phong cấp", 
-                fen: "7k/4P2p/8/8/8/8/P7/6K1 w - - 0 1", targetMove: "e7e8", 
-                note: "Nếu Tốt đi đến tận cuối bản đồ phe địch, nó sẽ biến hình.<br><br><b>Nhiệm vụ:</b> Đẩy Tốt trắng lên e8 để biến nó thành Hậu!",
-                mascot: "Đẩy Tốt lên e8 để biến hình thành Hậu mạnh mẽ!"
+                category: "Giai đoạn 2: Chiến thuật Ô tô",
+                title: "Bài 3: Nhập thành bảo vệ Vua", 
+                steps: [
+                    {
+                        fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQK2R w KQkq - 0 1", targetMove: "e1g1", 
+                        note: "<b>Nguyên nhân:</b> Vua đứng ở giữa bàn cờ rất dễ bị tấn công. Nhập thành giúp giấu Vua vào góc an toàn và đưa Xe ra giữa chiến trường.<br><b>Luật:</b> Giữa Vua và Xe phải trống, và cả 2 quân chưa từng di chuyển.<br><br>👉 Nhấp vào Vua trắng (e1), rồi chọn ô g1. Xe sẽ tự động nhảy qua bảo vệ.",
+                        mascot: "Giấu Vua vào góc an toàn! Nhấn Vua e1 rồi chọn g1."
+                    }
+                ]
             },
             { 
                 category: "Giai đoạn 3: Thực chiến",
-                title: "Bài 10: Chiếu bí 1 nước", 
-                fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4", targetMove: "f3f7", 
-                note: "Chiếu bí là khi Vua bị tấn công và không thể chạy trốn.<br><br><b>Nhiệm vụ:</b> Dùng Hậu trắng (f3) ăn vào ô f7 để chiếu bí Vua đen ngay lập tức!",
-                mascot: "Dùng Hậu trắng ăn Tốt ở f7 để Chiếu bí ngay lập tức!"
+                title: "Bài 4: Phân tích Chiếu bí 1 nước", 
+                steps: [
+                    {
+                        fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4", targetMove: "f3f7", 
+                        note: "<b>Chiến thuật Scholar's Mate:</b> Hậu trắng (f3) và Tượng trắng (c4) đang cùng nhắm vào điểm yếu f7 của phe Đen.<br><br>👉 Dùng Hậu trắng ăn Tốt f7 để chiếu Vua đen.",
+                        mascot: "Nhấp Hậu f3 lao thẳng vào ăn Tốt f7!"
+                    },
+                    {
+                        fen: "r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4", targetMove: "invalid", // Fake move để hiện text giải thích
+                        note: "<b>Tại sao Vua Đen không thể ăn Hậu Trắng?</b><br>Luật cờ vua: Vua không được tự đi vào ô bị kiểm soát (tự sát). Hậu Trắng ở f7 đang được Tượng Trắng ở c4 <b>bảo vệ từ phía sau</b>. Nếu Vua Đen ăn Hậu, Vua sẽ nằm trong tầm đánh của Tượng Trắng. Do Vua Đen không thể ăn Hậu, cũng không có ô nào để chạy trốn, nên bị gọi là <b>Chiếu Bí (Checkmate)</b>.",
+                        mascot: "Hậu trắng an toàn vì có Tượng c4 bảo vệ. Đen thua rồi!"
+                    }
+                ]
             }
         ];
 
         // --- STATE ---
         var board = null, game = new Chess(), selectedSquare = null;
-        let currentMode = 'roadmap', currentPuzzle = 0;
+        let currentMode = 'roadmap';
+        let currentLessonIndex = 0;
+        let currentStepIndex = 0;
         let tourneyConfig = { rounds: 3, prize: 500, currentRound: 1, active: false };
         let autoNextTimeout = null;
 
         // --- RENDER TABS ---
         function switchTab(mode) {
-            clearTimeout(autoNextTimeout); // Hủy tự động chuyển bài nếu chuyển tab
+            clearTimeout(autoNextTimeout);
             currentMode = mode;
             $('.tab-btn').removeClass('active');$(`.tab-btn[onclick="switchTab('${mode}')"]`).addClass('active');
             showAnalysis(false);
@@ -197,11 +180,11 @@
             let controls = document.getElementById('modeControls');
             if(mode === 'roadmap') {
                 renderRoadmapUI();
-                loadPuzzle(currentPuzzle); 
+                loadStep(currentLessonIndex, currentStepIndex); 
             } else if (mode === 'ranked') {
                 controls.innerHTML = `<h3>Cấp độ AI hiện tại: Level ${aiLevel}</h3>
                     <button class="btn" style="background:#4caf50;" onclick="startRanked()">⚔️ Bắt đầu đấu hạng</button>`;
-                mascotSpeak(`Sẵn sàng đua thực chiến ở Level ${aiLevel} chưa? Thắng sẽ lên cấp!`);
+                mascotSpeak(`Sẵn sàng đua thực chiến ở Level ${aiLevel} chưa?`);
                 game.reset(); board.position('start');
             } else if (mode === 'tournament') {
                 tourneyConfig.active = false;
@@ -211,24 +194,24 @@
                         Thưởng Vô Địch: <input type="number" id="tPrize" value="500" step="50" min="100"> Xu
                     </div><br>
                     <button class="btn" style="background:#f44336;" onclick="startTournament()">🏁 Khai mạc giải</button>`;
-                mascotSpeak("Thiết lập giải đấu của riêng con. Càng nhiều vòng, thưởng càng cao!");
+                mascotSpeak("Thiết lập giải đấu của riêng con!");
                 game.reset(); board.position('start');
             }
         }
 
         function renderRoadmapUI() {
             let controls = document.getElementById('modeControls');
-            let html = `<h3>Bản Đồ Học Tập</h3><p style="font-size:14px; margin-top:-10px;">Hoàn thành bài <b>mới</b> để nhận 10 Xu!</p><div class="roadmap-grid">`;
+            let html = `<h3>Bản Đồ Học Tập</h3><div class="roadmap-grid">`;
             
             let currentCat = '';
-            ROADMAP.forEach((p, i) => {
-                if(p.category !== currentCat) {
-                    html += `<div class="category-header">🏁 ${p.category}</div>`;
-                    currentCat = p.category;
+            ROADMAP.forEach((lesson, i) => {
+                if(lesson.category !== currentCat) {
+                    html += `<div class="category-header">🏁 ${lesson.category}</div>`;
+                    currentCat = lesson.category;
                 }
                 
                 let isDone = completedPuzzles.includes(i);
-                let isActive = (i === currentPuzzle);
+                let isActive = (i === currentLessonIndex);
                 
                 let btnStyle = isDone ? "background:#4caf50; border: 2px solid #388e3c;" : "background:#03a9f4; border: 2px solid #0288d1;";
                 let icon = isDone ? "✅" : "▶️";
@@ -240,49 +223,50 @@
                     icon = "🎯"; 
                 }
 
-                html += `<button class="btn${activeClass}" style="${btnStyle}; text-align: left; margin-bottom: 5px;" onclick="loadPuzzle(${i})">
-                            ${icon} ${p.title} ${activeText}
+                html += `<button class="btn${activeClass}" style="${btnStyle}; text-align: left; margin-bottom: 5px;" onclick="startLesson(${i})">
+                            ${icon} ${lesson.title} ${activeText}
                          </button>`;
             });
             html += `</div>`;
             controls.innerHTML = html;
         }
 
-        // --- GAMEPLAY ---
-        function loadPuzzle(index) {
+        // --- GAMEPLAY MULTI-STEP ---
+        function startLesson(lessonIndex) {
+            currentLessonIndex = lessonIndex;
+            currentStepIndex = 0;
+            loadStep(lessonIndex, 0);
+        }
+
+        function loadStep(lIndex, sIndex) {
             clearTimeout(autoNextTimeout);
-            currentPuzzle = index;
-            let p = ROADMAP[index];
+            let lesson = ROADMAP[lIndex];
+            let step = lesson.steps[sIndex];
             
-            game.load(p.fen);
+            game.load(step.fen);
             board.position(game.fen());
             
-            document.getElementById('lessonNote').innerHTML = `<h4>📖 Hướng dẫn: ${p.title}</h4>${p.note}`;
-            mascotSpeak(p.mascot);
+            let badge = `<span class="step-badge">Ví dụ ${sIndex + 1} / ${lesson.steps.length}</span>`;
+            document.getElementById('lessonNote').innerHTML = `<h4><span>📖 ${lesson.title}</span> ${badge}</h4>${step.note}`;
+            mascotSpeak(step.mascot);
             showAnalysis(false);
             removeHighlights();
             selectedSquare = null;
             
             if(currentMode === 'roadmap') renderRoadmapUI();
-        }
 
-        function startRanked() {
-            game.reset(); board.position('start'); showAnalysis(false);
-            mascotSpeak(`Trận đấu Level ${aiLevel} bắt đầu! Con cầm quân Trắng nhé!`);
-        }
-
-        function startTournament() {
-            tourneyConfig.rounds = parseInt(document.getElementById('tRounds').value);
-            tourneyConfig.prize = parseInt(document.getElementById('tPrize').value);
-            tourneyConfig.currentRound = 1;
-            tourneyConfig.active = true;
-            nextTournamentRound();
-        }
-
-        function nextTournamentRound() {
-            game.reset(); board.position('start'); showAnalysis(false);
-            mascotSpeak(`🏆 VÒNG ${tourneyConfig.currentRound} / ${tourneyConfig.rounds} TRẬN BẮT ĐẦU!`);
-            document.getElementById('modeControls').innerHTML = `<h3>🏆 Giải Đấu: Vòng ${tourneyConfig.currentRound}/${tourneyConfig.rounds}</h3><p>Thưởng vô địch: ${tourneyConfig.prize} Xu</p>`;
+            // Nếu đây là step giải thích tĩnh (không cần di chuyển, ví dụ Checkmate)
+            if(step.targetMove === "invalid") {
+                if(!completedPuzzles.includes(lIndex)) {
+                    addCoins(10);
+                    completedPuzzles.push(lIndex);
+                    localStorage.setItem('completedPuzzles', JSON.stringify(completedPuzzles));
+                }
+                mascotSpeak("🎉 Bài học hoàn tất! Đang chuyển bài tiếp theo...");
+                if (lIndex + 1 < ROADMAP.length) {
+                    autoNextTimeout = setTimeout(() => startLesson(lIndex + 1), 6000); // Đợi 6s cho bé đọc giải thích
+                }
+            }
         }
 
         // --- BÀN CỜ CLICK-TO-MOVE ---
@@ -294,9 +278,8 @@
         }
 
         $('#board').on('click', '.square-55d63', function () {
-            // Loại bỏ Game Over Lock cho chế độ Roadmap (Chống lỗi nhận diện hòa cờ sai của thư viện)
             if (currentMode === 'roadmap') {
-                if (game.turn() === 'b') return;
+                if (game.turn() === 'b' || ROADMAP[currentLessonIndex].steps[currentStepIndex].targetMove === "invalid") return;
             } else {
                 if (game.game_over() || game.turn() === 'b') return;
             }
@@ -311,25 +294,35 @@
             if (selectedSquare) {
                 var attempt = selectedSquare + square; 
                 
-                // LOGIC ROADMAP (PUZZLE)
                 if(currentMode === 'roadmap') {
-                    if(attempt === ROADMAP[currentPuzzle].targetMove) {
+                    let lesson = ROADMAP[currentLessonIndex];
+                    let step = lesson.steps[currentStepIndex];
+
+                    if(attempt === step.targetMove) {
                         game.move({from: selectedSquare, to: square, promotion: 'q'});
                         board.position(game.fen());
                         
-                        if(!completedPuzzles.includes(currentPuzzle)) {
-                            mascotSpeak("🎉 Chính xác! Tuyệt vời, con nhận được 10 Xu! (Tự chuyển bài tiếp sau 2s...)");
-                            addCoins(10);
-                            completedPuzzles.push(currentPuzzle);
-                            localStorage.setItem('completedPuzzles', JSON.stringify(completedPuzzles));
+                        if (currentStepIndex + 1 < lesson.steps.length) {
+                            // CÒN VÍ DỤ TIẾP THEO TRONG BÀI NÀY
+                            mascotSpeak("🚙 Tốt lắm! Chuẩn bị qua ví dụ tiếp theo...");
+                            currentStepIndex++;
+                            autoNextTimeout = setTimeout(() => loadStep(currentLessonIndex, currentStepIndex), 2000);
+                        } else {
+                            // ĐÃ XONG BÀI HỌC NÀY
+                            if(!completedPuzzles.includes(currentLessonIndex)) {
+                                mascotSpeak("🎉 Tuyệt vời! Con đã hoàn thành bài học và nhận 10 Xu!");
+                                addCoins(10);
+                                completedPuzzles.push(currentLessonIndex);
+                                localStorage.setItem('completedPuzzles', JSON.stringify(completedPuzzles));
+                            } else {
+                                mascotSpeak("🎉 Ôn tập rất tốt! Đang chuyển bài...");
+                            }
                             renderRoadmapUI(); 
                             
-                            // Auto next
-                            if (currentPuzzle + 1 < ROADMAP.length) {
-                                autoNextTimeout = setTimeout(() => loadPuzzle(currentPuzzle + 1), 2500);
+                            // Auto next qua bài mới
+                            if (currentLessonIndex + 1 < ROADMAP.length) {
+                                autoNextTimeout = setTimeout(() => startLesson(currentLessonIndex + 1), 2500);
                             }
-                        } else {
-                            mascotSpeak("🎉 Ôn tập bài rất tốt! Nhấn bài học khác để tiếp tục nhé!");
                         }
                         
                         removeHighlights(); selectedSquare = null;
@@ -341,7 +334,7 @@
                     }
                 }
 
-                // LOGIC ĐẤU AI VÀ GIẢI ĐẤU
+                // AI LOGIC GIỮ NGUYÊN BÊN DƯỚI...
                 var move = game.move({ from: selectedSquare, to: square, promotion: 'q' });
                 if (move === null) {
                     mascotSpeak("🛑 Sai luật cờ rồi con ơi!");
@@ -354,7 +347,7 @@
             }
         });
 
-        // --- AI ĐỐI THỦ ---
+        // --- AI (MÁY TÍNH ĐI) ---
         function makeMachineMove() {
             var moves = game.moves({ verbose: true });
             if (moves.length === 0) return;
@@ -370,47 +363,49 @@
                 chosenMove = moves[Math.floor(Math.random() * moves.length)];
             }
 
-            game.move(chosenMove.san);
-            board.position(game.fen());
+            game.move(chosenMove.san); board.position(game.fen());
             
             if(chosenMove.captured) {
                 localStorage.setItem('lastCaptureByAI', `Máy vừa ăn quân ${chosenMove.captured} của con ở ô ${chosenMove.to}.`);
-            } else {
-                localStorage.setItem('lastCaptureByAI', '');
-            }
+            } else { localStorage.setItem('lastCaptureByAI', ''); }
 
-            mascotSpeak("🤖 Tới lượt con!");
-            checkGameOver();
+            mascotSpeak("🤖 Tới lượt con!"); checkGameOver();
         }
 
-        // --- KẾT THÚC THỰC CHIẾN ---
+        // --- CÁC HÀM THỰC CHIẾN KHÁC (RANKED / TOURNAMENT) ---
+        function startRanked() {
+            game.reset(); board.position('start'); showAnalysis(false);
+            mascotSpeak(`Trận đấu Level ${aiLevel} bắt đầu! Con cầm quân Trắng nhé!`);
+        }
+        function startTournament() {
+            tourneyConfig.rounds = parseInt(document.getElementById('tRounds').value);
+            tourneyConfig.prize = parseInt(document.getElementById('tPrize').value);
+            tourneyConfig.currentRound = 1; tourneyConfig.active = true;
+            nextTournamentRound();
+        }
+        function nextTournamentRound() {
+            game.reset(); board.position('start'); showAnalysis(false);
+            mascotSpeak(`🏆 VÒNG ${tourneyConfig.currentRound} / ${tourneyConfig.rounds} TRẬN BẮT ĐẦU!`);
+            document.getElementById('modeControls').innerHTML = `<h3>🏆 Giải Đấu: Vòng ${tourneyConfig.currentRound}/${tourneyConfig.rounds}</h3><p>Thưởng vô địch: ${tourneyConfig.prize} Xu</p>`;
+        }
         function checkGameOver() {
             if (game.game_over()) {
                 if (game.in_checkmate()) {
                     if (game.turn() === 'b') { 
                         if(currentMode === 'ranked') {
-                            aiLevel++; localStorage.setItem('kidLevel', aiLevel);
-                            mascotSpeak(`🏆 QUÁN QUÂN! Con đã lên Level ${aiLevel}! (+30 Xu)`);
-                            addCoins(30); switchTab('ranked');
+                            aiLevel++; localStorage.setItem('kidLevel', aiLevel); mascotSpeak(`🏆 QUÁN QUÂN! Lên Level ${aiLevel}! (+30 Xu)`); addCoins(30); switchTab('ranked');
                         } else if (currentMode === 'tournament') {
                             if(tourneyConfig.currentRound < tourneyConfig.rounds) {
-                                tourneyConfig.currentRound++;
-                                mascotSpeak("Thắng vòng này rồi! Chuẩn bị vòng tiếp theo nào!");
-                                setTimeout(nextTournamentRound, 3000);
+                                tourneyConfig.currentRound++; mascotSpeak("Thắng vòng này rồi! Chuẩn bị vòng tiếp theo nào!"); setTimeout(nextTournamentRound, 3000);
                             } else {
-                                mascotSpeak(`🎉 VÔ ĐỊCH GIẢI ĐẤU! Bỏ túi ${tourneyConfig.prize} Xu!`);
-                                addCoins(tourneyConfig.prize);
-                                setTimeout(() => switchTab('tournament'), 4000);
+                                mascotSpeak(`🎉 VÔ ĐỊCH GIẢI ĐẤU! Bỏ túi ${tourneyConfig.prize} Xu!`); addCoins(tourneyConfig.prize); setTimeout(() => switchTab('tournament'), 4000);
                             }
                         }
                     } else { 
                         mascotSpeak("💥 Xe con bị kẹt mất rồi. Xem nguyên nhân bên dưới nhé!");
                         let reason = localStorage.getItem('lastCaptureByAI');
-                        if(reason) {
-                            showAnalysis(`Nguyên nhân thua: ${reason} Cách khắc phục: Hãy quan sát cẩn thận các quân chủ lực của mình có đang bị đối phương nhắm tới không trước khi đi nhé!`);
-                        } else {
-                            showAnalysis("Vua của con không được che chắn. Ở các ván sau, hãy nhớ Nhập Thành (đưa Vua vào góc) càng sớm càng tốt!");
-                        }
+                        if(reason) showAnalysis(`Nguyên nhân thua: ${reason} Khắc phục: Quan sát cẩn thận các quân chủ lực của mình!`);
+                        else showAnalysis("Vua của con không được che chắn. Hãy nhớ Nhập Thành!");
                         if(currentMode === 'tournament') { tourneyConfig.active = false; setTimeout(() => switchTab('tournament'), 5000); }
                     }
                 } else { 
