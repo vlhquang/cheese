@@ -30,7 +30,7 @@
         .lesson-note h4 { margin: 0 0 8px 0; color: #01579b; font-size: 18px; display: flex; justify-content: space-between;}
         .step-badge { background: #ff9800; color: white; padding: 2px 8px; border-radius: 10px; font-size: 14px; }
 
-        .board-wrapper { padding: 10px; background: #333; border-radius: 10px; border: 5px solid #ffeb3b; width: 400px; position: relative;}
+        .board-wrapper { padding: 10px; background: #333; border-radius: 10px; border: 5px solid #ffeb3b; width: 400px; position: relative; max-width: 95vw;}
         
         /* BẢN ĐỒ ĐỒ HỌA (WINDING ROAD) */
         .mode-controls { background: #fff; padding: 20px; border-radius: 10px; width: 100%; max-width: 450px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden;}
@@ -162,7 +162,7 @@
             else { box.style.display = 'none'; }
         }
 
-        // --- DỮ LIỆU ĐÃ ĐƯỢC FIX LỖI TỌA ĐỘ VÀ KHÔI PHỤC FULL 10 BÀI ---
+        // --- DỮ LIỆU ---
         const ROADMAP = [
             { 
                 category: "1. Động cơ cơ bản",
@@ -194,7 +194,6 @@
                 title: "Trạm 4: Siêu Xe Hậu", 
                 steps: [
                     { fen: "7k/7p/8/8/8/8/8/Q3K3 w - - 0 1", targetMove: "a1a8", note: "Hậu là xe mạnh nhất, đi thẳng và chéo thoải mái.<br>👉 Di chuyển Hậu (a1) thẳng tắp lên a8.", mascot: "Hậu đi thẳng kịch trần ô a8!" },
-                    // Đã fix lỗi tọa độ Xe đen, Hậu nay có thể bắt d5 hoàn toàn hợp lệ
                     { fen: "Q6k/7p/8/3r4/8/8/8/4K3 w - - 0 1", targetMove: "a8d5", note: "👉 Ở ô a8, Hậu trắng nhìn thấy Xe đen ở d5 theo đường chéo. Bay tới ăn nó!", mascot: "Siêu xe Hậu trắng vút theo đường chéo!" }
                 ]
             },
@@ -210,7 +209,6 @@
                 category: "2. Kỹ năng Sinh Tồn",
                 title: "Trạm 6: Nhập thành (Castling)", 
                 steps: [
-                    // Đã fix lỗi FEN để chess.js cho phép nhập thành hợp lệ
                     { fen: "4k3/8/8/8/8/8/8/4K2R w K - 0 1", targetMove: "e1g1", note: "Vua đứng giữa rất nguy hiểm. Nhập thành giúp giấu Vua vào góc và đẩy Xe ra ngoài.<br>👉 Nhấp vào Vua (e1), rồi chọn ô g1. Xe h1 sẽ tự động nhảy qua che cho Vua.", mascot: "Giấu Vua an toàn! Nhấn Vua e1 chọn g1." }
                 ]
             },
@@ -245,20 +243,7 @@
             }
         ];
 
-        // --- STATE CHUNG ---
-        var board = null, game = new Chess(), selectedSquare = null;
-        let currentMode = 'roadmap', currentLessonIndex = 0, currentStepIndex = 0;
-        let tourneyConfig = { rounds: 3, prize: 500, currentRound: 1, active: false };
-        let autoNextTimeout = null;
-        let pendingPromotionMove = null;
-
-        function getStarsHTML(score) {
-            let html = '';
-            for(let i=0; i<3; i++) { html += (i < score) ? '⭐' : '⚫'; }
-            return html;
-        }
-
-        // --- RENDER GIAO DIỆN BẢN ĐỒ ---
+        // --- RENDER GIAO DIỆN BẢN ĐỒ (FIX AUTO-SCROLL MOBILE) ---
         function switchTab(mode) {
             clearTimeout(autoNextTimeout);
             currentMode = mode;
@@ -269,7 +254,9 @@
             
             let controls = document.getElementById('modeControls');
             if(mode === 'roadmap') {
-                renderRoadmapUI(); loadStep(currentLessonIndex, currentStepIndex); 
+                // Chỉ cuộn khi người dùng CHỦ ĐỘNG click sang tab lộ trình
+                renderRoadmapUI(true); 
+                loadStep(currentLessonIndex, currentStepIndex); 
             } else if (mode === 'ranked') {
                 controls.innerHTML = `<h3>Level AI: ${aiLevel}</h3><button class="btn" style="background:#4caf50;" onclick="startRanked()">⚔️ Đấu Hạng</button>`;
                 mascotSpeak(`Sẵn sàng đua thực chiến ở Level ${aiLevel} chưa?`);
@@ -282,7 +269,8 @@
             }
         }
 
-        function renderRoadmapUI() {
+        // Thêm tham số scrollToActive = false để kiểm soát việc cuộn
+        function renderRoadmapUI(scrollToActive = false) {
             let controls = document.getElementById('modeControls');
             let html = `<h3 style="margin-top:0;">🗺️ Bản Đồ Thám Hiểm</h3><div class="map-container">`;
             
@@ -313,10 +301,13 @@
             html += `</div>`;
             controls.innerHTML = html;
 
-            setTimeout(() => {
-                let activeNode = document.querySelector('.active-lesson');
-                if(activeNode) activeNode.scrollIntoView({ behavior: "smooth", block: "center" });
-            }, 100);
+            // CHỈ tự động scroll nếu scrollToActive = true (Tránh nhảy giao diện trên mobile khi đang học)
+            if(scrollToActive) {
+                setTimeout(() => {
+                    let activeNode = document.querySelector('.active-lesson');
+                    if(activeNode) activeNode.scrollIntoView({ behavior: "smooth", block: "center" });
+                }, 100);
+            }
         }
 
         // --- GAMEPLAY ROADMAP ---
@@ -335,9 +326,10 @@
             document.getElementById('lessonNote').innerHTML = `<h4><span>📖 Hướng dẫn</span> ${badge}</h4>${step.note}`;
             mascotSpeak(step.mascot); showAnalysis(false); removeHighlights(); selectedSquare = null;
             
-            if(currentMode === 'roadmap') renderRoadmapUI();
+            // Re-render UI nhưng KHÔNG BẬT cuộn
+            if(currentMode === 'roadmap') renderRoadmapUI(false); 
 
-            // Nếu step tĩnh (giải thích)
+            // Xử lý step tĩnh
             if(step.targetMove === "invalid") {
                 let earnedStars = 3;
                 if (currentLessonErrors === 1) earnedStars = 2;
@@ -398,7 +390,8 @@
                             mascotSpeak(`🎉 Giải xong! Con giữ nguyên mức ${previousStars} ⭐. Thử chơi không sai bước nào để lấy 3 sao nhé!`);
                         }
                         
-                        renderRoadmapUI(); 
+                        // Re-render UI KHÔNG BẬT cuộn
+                        renderRoadmapUI(false); 
                         if (currentLessonIndex + 1 < ROADMAP.length) {
                             autoNextTimeout = setTimeout(() => startLesson(currentLessonIndex + 1), 3500);
                         }
