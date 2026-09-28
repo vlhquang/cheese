@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Viện Cờ Vua Ô Tô - Pro Edition</title>
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap');
+
+        body { font-family: 'Nunito', sans-serif; background-color: #e0f7fa; text-align: center; margin: 0; padding: 20px; color: #333; }
+        h1 { color: #ff5722; font-size: 2.2em; margin-bottom: 10px; }
+        
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer; border: 2px solid #0288d1; background: #fff; color: #0288d1; border-radius: 10px; transition: 0.2s; }
+        .tab-btn.active { background: #0288d1; color: #fff; box-shadow: 0 4px 0 #01579b; transform: translateY(-2px);}
+
+        .container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        
+        .dashboard { background: #fff; padding: 15px; border-radius: 15px; border: 3px solid #ff9800; width: 100%; max-width: 450px; }
+        .dashboard h2 { margin: 5px 0; color: #4caf50; }
+        .btn { padding: 10px 20px; font-size: 16px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; color: white; transition: 0.2s; }
+        .btn:active { transform: translateY(3px); }
+        .btn-claim { background: #ff9800; box-shadow: 0 4px 0 #e65100; }
+        
+        .mascot-box { background: #fff9c4; padding: 15px; border-radius: 15px; border: 3px dashed #fbc02d; font-size: 1.1em; max-width: 450px; font-weight: bold; }
+        .analysis-box { background: #ffcdd2; color: #c62828; padding: 10px; border-radius: 10px; display: none; max-width: 450px; font-weight: bold; border: 2px solid #c62828;}
+        
+        .lesson-note { background: #e3f2fd; color: #0277bd; padding: 15px; border-radius: 10px; border: 2px solid #81d4fa; max-width: 450px; text-align: left; display: none; font-size: 15px; line-height: 1.6;}
+        .lesson-note h4 { margin: 0 0 8px 0; color: #01579b; font-size: 18px; display: flex; justify-content: space-between;}
+        .step-badge { background: #ff9800; color: white; padding: 2px 8px; border-radius: 10px; font-size: 14px; }
+
+        .board-wrapper { padding: 10px; background: #333; border-radius: 10px; border: 5px solid #ffeb3b; width: 400px; position: relative; max-width: 95vw;}
+        
+        /* BẢN ĐỒ ĐỒ HỌA */
+        .mode-controls { background: #fff; padding: 20px; border-radius: 10px; width: 100%; max-width: 450px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden;}
+        .map-container { position: relative; padding: 20px 0; display: flex; flex-direction: column; align-items: center; gap: 30px;}
+        
+        .map-container::before {
+            content: ''; position: absolute; top: 0; left: 50%; width: 12px; height: 100%; 
+            background: repeating-linear-gradient(0deg, #9e9e9e, #9e9e9e 15px, #e0e0e0 15px, #e0e0e0 30px);
+            transform: translateX(-50%); z-index: 1; border-radius: 6px;
+        }
+
+        .map-node-wrapper { display: flex; flex-direction: column; align-items: center; z-index: 2; position: relative; transition: 0.3s;}
+        .map-node-wrapper:hover { transform: scale(1.05); }
+        
+        .map-node {
+            background: #03a9f4; color: white; font-weight: bold; padding: 12px 20px; border-radius: 25px;
+            border: 4px solid #fff; box-shadow: 0 6px 0 #0288d1, 0 8px 10px rgba(0,0,0,0.3);
+            cursor: pointer; width: 220px; font-size: 15px; position: relative;
+        }
+        .map-node.completed { background: #4caf50; box-shadow: 0 6px 0 #388e3c, 0 8px 10px rgba(0,0,0,0.3); }
+        .map-node.active-lesson { background: #ff9800; border-color: #ffe082; box-shadow: 0 6px 0 #f57c00, 0 8px 10px rgba(0,0,0,0.3); animation: pulse 1.5s infinite; }
+        
+        .map-stars { background: #fff; padding: 3px 10px; border-radius: 15px; margin-top: -10px; z-index: 3; border: 2px solid #ccc; font-size: 14px; letter-spacing: 2px;}
+        .category-sign { background: #ffeb3b; color: #f57f17; font-weight: 900; padding: 5px 15px; border-radius: 10px; z-index: 2; border: 3px solid #f57f17; margin: 15px 0 5px 0; text-transform: uppercase; font-size: 12px; width: 80%;}
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .highlight-select { background: rgba(255, 235, 59, 0.8) !important; }
+        .highlight-move { background: radial-gradient(circle, #4caf50 25%, transparent 25%) !important; border-radius: 50%; }
+        
+        #promotionModal {
+            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); z-index: 100; justify-content: center; align-items: center; border-radius: 5px;
+        }
+        .promotion-box { background: white; padding: 15px; border-radius: 15px; text-align: center; border: 4px solid #ff9800; }
+        .promo-pieces { display: flex; gap: 10px; justify-content: center;}
+        .promo-btn { width: 60px; height: 60px; background: #f5f5f5; border: 2px solid #ccc; border-radius: 10px; cursor: pointer; transition: 0.2s; background-size: 80%; background-position: center; background-repeat: no-repeat; }
+        .promo-btn:hover { background-color: #e3f2fd; border-color: #2196f3; transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+    <h1>🏎️ Học Viện Cờ Vua Ô Tô - Pro</h1>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('roadmap')">🗺️ Bản Đồ Học</button>
+        <button class="tab-btn" onclick="switchTab('ranked')">⭐ Đua Thăng Cấp (AI)</button>
+        <button class="tab-btn" onclick="switchTab('tournament')">🏆 Giải Đấu</button>
+    </div>
+
+    <div class="container">
+        <div class="dashboard">
+            <h2>🪙 Ví: <span id="coinBalance">0</span> Xu</h2>
+            <button class="btn btn-claim" onclick="claimSavings()">💰 Đổi 500 Xu = 10k VNĐ</button>
+        </div>
+
+        <div class="lesson-note" id="lessonNote"></div>
+        <div class="mascot-box" id="mascotText">🤖 Khởi động! Nhấn nút 'SẴN SÀNG' ở Bản đồ bên dưới để thám hiểm nhé!</div>
+        <div class="analysis-box" id="analysisText"></div>
+
+        <div class="board-wrapper">
+            <div id="board"></div>
+            <div id="promotionModal">
+                <div class="promotion-box">
+                    <h3 style="margin: 0 0 10px 0; color: #d84315;">Chọn xe biến hình!</h3>
+                    <div class="promo-pieces">
+                        <div class="promo-btn" style="background-image: url('https://chessboardjs.com/img/chesspieces/wikipedia/wQ.png');" onclick="confirmPromotion('q')"></div>
+                        <div class="promo-btn" style="background-image: url('https://chessboardjs.com/img/chesspieces/wikipedia/wR.png');" onclick="confirmPromotion('r')"></div>
+                        <div class="promo-btn" style="background-image: url('https://chessboardjs.com/img/chesspieces/wikipedia/wB.png');" onclick="confirmPromotion('b')"></div>
+                        <div class="promo-btn" style="background-image: url('https://chessboardjs.com/img/chesspieces/wikipedia/wN.png');" onclick="confirmPromotion('n')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mode-controls" id="modeControls" style="max-height: 500px; overflow-y: auto;"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+
+    <script>
+        // --- 1. DỮ LIỆU ROADMAP MỞ RỘNG 5 CHƯƠNG TOÀN DIỆN ---
+        const ROADMAP = [
+            // CHƯƠNG 1: CƠ BẢN DI CHUYỂN
+            { category: "Chương 1: Khám Phá Quân Cờ", title: "Bài 1: Sức mạnh quân Tốt", steps: [
+                { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e2e4", note: "👉 Đẩy Tốt trắng từ e2 lên e4 để chiếm trung tâm bản đồ.", mascot: "Đẩy Tốt lên 2 bước!" },
+                { fen: "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "e4d5", note: "👉 Tốt ăn chéo d5. Thử ngay!", mascot: "Tốt ăn chéo bắt quân địch!" }
+            ]},
+            { category: "Chương 1: Khám Phá Quân Cờ", title: "Bài 2: Xe Tải Gom Rác (Đường Thẳng)", steps: [
+                { fen: "7k/8/2p3p1/8/8/2R5/6p1/K7 w - - 0 1", targetMove: "c3c6", note: "Xe đi đường thẳng. Lái Xe trắng (c3) tiến lên đâm Tốt c6.", mascot: "Lên số! Ăn Tốt c6 trước!" },
+                { fen: "7k/8/2R3p1/8/8/8/6p1/K7 w - - 0 1", targetMove: "c6g6", note: "Bẻ lái sang ngang ăn Tốt g6.", mascot: "Bẻ lái sang phải, ăn g6!" }
+            ]},
+            { category: "Chương 1: Khám Phá Quân Cờ", title: "Bài 3: Tượng Trượt Chéo", steps: [
+                { fen: "7k/5p2/8/8/2B5/8/8/K7 w - - 0 1", targetMove: "c4f7", note: "Tượng di chuyển và bắt quân theo đường chéo chữ X.<br>👉 Trượt Tượng lên ô f7.", mascot: "Tượng lướt chéo lên f7 bắt Tốt!" }
+            ]},
+            { category: "Chương 1: Khám Phá Quân Cờ", title: "Bài 4: Mã Nhảy Chữ L", steps: [
+                { fen: "7k/7p/8/3p4/8/2N5/8/K7 w - - 0 1", targetMove: "c3d5", note: "Mã có thể nhảy qua đầu quân khác theo hình chữ L.<br>👉 Phi Mã lên d5 bắt Tốt đen.", mascot: "Nhảy ngựa chữ L bắt Tốt!" }
+            ]},
+            { category: "Chương 1: Khám Phá Quân Cờ", title: "Bài 5: Siêu Xe Hậu", steps: [
+                { fen: "7k/7p/8/3r4/8/8/Q7/4K3 w - - 0 1", targetMove: "a2d5", note: "Hậu kết hợp sức mạnh của Xe và Tượng.<br>👉 Lái Hậu chéo lên d5 tiêu diệt Xe địch.", mascot: "Hậu vút theo đường chéo ăn Xe!" }
+            ]},
+
+            // CHƯƠNG 2: NGHỆ THUẬT TẤN CÔNG
+            { category: "Chương 2: Đòn Tấn Công", title: "Bài 6: Đòn Chĩa Đôi (Fork)", steps: [
+                { fen: "4q1k1/7p/8/8/4N3/8/8/6K1 w - - 0 1", targetMove: "e4f6", note: "Dùng 1 quân tấn công 2 mục tiêu cùng lúc.<br>👉 Nhảy Mã lên f6 dọa cả Vua lẫn Hậu.", mascot: "Nhảy Mã f6 dọa 1 mũi tên trúng 2 đích!" }
+            ]},
+            { category: "Chương 2: Đòn Tấn Công", title: "Bài 7: Đòn Giằng (Pin)", steps: [
+                { fen: "4k3/4q2p/8/8/8/8/8/R5K1 w - - 0 1", targetMove: "a1e1", note: "Trói chân đối phương không cho di chuyển.<br>👉 Kéo Xe sang e1 ghim chặt Hậu trước mặt Vua.", mascot: "Kéo Xe sang e1 trói chặt Hậu đen!" }
+            ]},
+
+            // CHƯƠNG 3: CHIẾN THUẬT CHIẾU BÍ
+            { category: "Chương 3: Chiếu Bí Kinh Điển", title: "Bài 8: Nhập Thành Bảo Vệ Vua", steps: [
+                { fen: "4k3/8/8/8/8/8/8/4K2R w K - 0 1", targetMove: "e1g1", note: "Giấu Vua vào góc an toàn.<br>👉 Nhấn Vua e1 chọn ô g1.", mascot: "Nhập thành an toàn ngay!" }
+            ]},
+            { category: "Chương 3: Chiếu Bí Kinh Điển", title: "Bài 9: Phong Cấp Biến Hình", steps: [
+                { fen: "7k/4P2p/8/8/8/8/8/6K1 w - - 0 1", targetMove: "e7e8", note: "Tốt xuống hàng cuối được biến hình thành siêu xe!<br>👉 Đẩy Tốt lên e8.", mascot: "Đẩy Tốt lên hàng cuối thăng cấp!" }
+            ]},
+            { category: "Chương 3: Chiếu Bí Kinh Điển", title: "Bài 10: Đòn Chiếu Bí 1 Nước", steps: [
+                { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4", targetMove: "f3f7", note: "👉 Hậu phối hợp với Tượng tiêu diệt điểm yếu f7, chiếu bí Vua đen.", mascot: "Lao Hậu thẳng vào ăn Tốt f7 kết liễu!" },
+                { fen: "r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4", targetMove: "invalid", note: "<b>Giải thích:</b> Vua đen không thể ăn Hậu vì Hậu được bảo vệ bởi Tượng c4. Hết đường chạy -> Chiếu Bí!", mascot: "Chiếu bí hoàn hảo!" }
+            ]},
+
+            // CHƯƠNG 4: KỸ NĂNG PHÒNG THỦ & THOÁT HIỂM
+            { category: "Chương 4: Phòng Thủ & Thoát Hiểm", title: "Bài 11: Né Đòn Chiếu Của Vua", steps: [
+                { fen: "4R1k1/5pp1/8/8/8/8/8/4K3 b - - 0 1", targetMove: "g8h7", note: "<b>Tình huống:</b> Xe trắng ở e8 đang chiếu Vua đen theo hàng ngang.<br>👉 Di chuyển Vua đen từ g8 chạy lên h7 để né đòn.", mascot: "Vua bị chiếu! Chạy ngay lên ô h7!" }
+            ]},
+            { category: "Chương 4: Phòng Thủ & Thoát Hiểm", title: "Bài 12: Dùng Quân Che Chắn", steps: [
+                { fen: "6k1/5ppp/8/1B6/8/8/5PPP/r5K1 w - - 0 1", targetMove: "b5f1", note: "<b>Cách phòng thủ:</b> Khi Vua bị chiếu từ xa bởi Tượng hoặc Xe, nếu không chạy được, ta có thể dùng quân khác chắn giữa đường đi.<br>👉 Xe đen a1 đang chiếu Vua g1. Lùi Tượng b5 về f1 để che chắn!", mascot: "Lấy quân che chắn đường tấn công của địch!" }
+            ]},
+            { category: "Chương 4: Phòng Thủ & Thoát Hiểm", title: "Bài 13: Tiêu Diệt Kẻ Tấn Công", steps: [
+                { fen: "6k1/5ppp/8/4R3/8/8/5PPP/4q1K1 w - - 0 1", targetMove: "e5e1", note: "<b>Cách phòng thủ:</b> Nếu quân địch dám áp sát chiếu Vua mà không có quân bảo vệ, hãy lập tức ăn luôn quân đó để giải vây.<br>👉 Hậu đen e1 đang chiếu Vua. Lao Xe e5 xuống ăn Hậu!", mascot: "Phản công! Ăn ngay quân địch đang chiếu Vua!" }
+            ]},
+
+            // CHƯƠNG 5: KHAI CUỘC VÀ THỰC CHIẾN
+            { category: "Chương 5: Thực Chiến Toàn Bàn Cờ", title: "Bài 14: Nguyên Tắc Khai Cuộc Ô Tô", steps: [
+                { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e2e4", note: "<b>Bí kíp thực chiến:</b><br>1. Đẩy Tốt trung tâm.<br>2. Ra quân Mã trước, Tượng sau.<br>3. Nhập thành nhanh chóng.<br>👉 Bắt đầu ván đấu bằng nước đi kiểm soát trung tâm e4.", mascot: "Khai cuộc chuẩn xác để xe chạy mượt mà!" }
+            ]}
+        ];
+
+        // --- 2. HỆ THỐNG ÂM THANH & LƯU TRỮ ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            if (type === 'move') {
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(80, now + 0.1); gain.gain.setValueAtTime(0.5, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1); osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'error') {
+                osc.type = 'square'; osc.frequency.setValueAtTime(300, now); osc.frequency.setValueAtTime(0, now + 0.1); osc.frequency.setValueAtTime(300, now + 0.2); gain.gain.setValueAtTime(0.2, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.3); osc.start(now); osc.stop(now + 0.3);
+            } else if (type === 'coin') {
+                osc.type = 'sine'; osc.frequency.setValueAtTime(800, now); osc.frequency.setValueAtTime(1200, now + 0.1); gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3); osc.start(now); osc.stop(now + 0.3);
+            }
+        }
+        document.body.addEventListener('click', () => { if (audioCtx.state === 'suspended') audioCtx.resume(); }, { once: true });
+
+        const MUC_DOI_TIEN = 500;
+        let coins = parseInt(localStorage.getItem('kidCoins')) || 0;
+        let aiLevel = parseInt(localStorage.getItem('kidLevel')) || 1;
+        let lessonStars = JSON.parse(localStorage.getItem('lessonStars')) || {}; 
+        let completedPuzzles = Object.keys(lessonStars).map(Number);
+        
+        let isLessonActive = false;
+        let currentLessonErrors = 0; 
+        
+        let getNextLessonIndex = () => {
+            for(let i=0; i<ROADMAP.length; i++) {
+                if(!lessonStars[i]) return i;
+            }
+            return 0; 
+        };
+        let currentLessonIndex = getNextLessonIndex();
+        let currentStepIndex = 0;
+
+        document.getElementById('coinBalance').innerText = coins;
+
+        function addCoins(amount) {
+            coins += amount; localStorage.setItem('kidCoins', coins);
+            document.getElementById('coinBalance').innerText = coins;
+            if (amount > 0) playSound('coin');
+        }
+        function claimSavings() {
+            if (coins >= MUC_DOI_TIEN) { addCoins(-MUC_DOI_TIEN); alert("🎉 Đổi thành công 10.000 VNĐ!"); } 
+            else { alert(`Cần thêm ${MUC_DOI_TIEN - coins} Xu nữa!`); }
+        }
+        function mascotSpeak(text) { document.getElementById('mascotText').innerText = text; }
+        function showAnalysis(text) { 
+            let box = document.getElementById('analysisText');
+            if(text) { box.style.display = 'block'; box.innerText = "🔍 " + text; } 
+            else { box.style.display = 'none'; }
+        }
+
+        // --- STATE & CONFIG ---
+        var board = null, game = new Chess(), selectedSquare = null;
+        let currentMode = 'roadmap';
+        let tourneyConfig = { rounds: 3, prize: 500, currentRound: 1, active: false };
+        let autoNextTimeout = null;
+        let pendingPromotionMove = null;
+
+        // Chấm sao theo số lỗi, chỉ cộng Xu cho phần sao tăng thêm
+        function awardLessonStars(lIndex) {
+            let earnedStars = currentLessonErrors === 0 ? 3 : (currentLessonErrors === 1 ? 2 : 1);
+            let previousStars = lessonStars[lIndex] || 0;
+            let xuThuong = 0;
+            if (earnedStars > previousStars) {
+                xuThuong = (earnedStars - previousStars) * 10;
+                addCoins(xuThuong);
+                lessonStars[lIndex] = earnedStars;
+                localStorage.setItem('lessonStars', JSON.stringify(lessonStars));
+                if(!completedPuzzles.includes(lIndex)) completedPuzzles.push(lIndex);
+            }
+            return { earnedStars, previousStars, xuThuong };
+        }
+
+        function lessonResultText(result) {
+            return result.xuThuong > 0
+                ? `🎉 Hoàn hảo! Con đạt ${result.earnedStars} ⭐ và nhận thêm ${result.xuThuong} Xu!`
+                : `🎉 Giải xong! Con giữ nguyên mức ${result.previousStars} ⭐. Thử chơi không sai bước nào để lấy 3 sao nhé!`;
+        }
+
+        function getStarsHTML(score) {
+            let html = '';
+            for(let i=0; i<3; i++) { html += (i < score) ? '⭐' : '⚫'; }
+            return html;
+        }
+
+        // --- RENDER GIAO DIỆN BẢN ĐỒ ---
+        function switchTab(mode) {
+            clearTimeout(autoNextTimeout);
+            currentMode = mode;
+            $('.tab-btn').removeClass('active');$(`.tab-btn[onclick="switchTab('${mode}')"]`).addClass('active');
+            showAnalysis(false);
+            document.getElementById('promotionModal').style.display = 'none';
+            
+            let controls = document.getElementById('modeControls');
+            if(mode === 'roadmap') {
+                renderRoadmapUI(true); 
+                
+                if (isLessonActive) {
+                    document.getElementById('lessonNote').style.display = 'block';
+                    loadStep(currentLessonIndex, currentStepIndex); 
+                } else {
+                    board.position('start');
+                    mascotSpeak("🤖 Khởi động! Nhấn nút 'SẴN SÀNG BẮT ĐẦU' ở Bản đồ bên dưới để thám hiểm nhé!");
+                    document.getElementById('lessonNote').style.display = 'none';
+                }
+            } else if (mode === 'ranked') {
+                document.getElementById('lessonNote').style.display = 'none';
+                controls.innerHTML = `<h3>Level AI: ${aiLevel}</h3><button class="btn" style="background:#4caf50;" onclick="startRanked()">⚔️ Đấu Hạng</button>`;
+                mascotSpeak(`Sẵn sàng đua thực chiến ở Level ${aiLevel} chưa?`);
+                game.reset(); board.position('start');
+            } else if (mode === 'tournament') {
+                document.getElementById('lessonNote').style.display = 'none';
+                tourneyConfig.active = false;
+                controls.innerHTML = `<h3>Giải Đấu</h3>Số vòng: <input type="number" id="tRounds" value="3" min="1" max="10"> <br><br>Thưởng: <input type="number" id="tPrize" value="500" step="50" min="100"> Xu<br><br><button class="btn" style="background:#f44336;" onclick="startTournament()">🏁 Khai mạc</button>`;
+                mascotSpeak("Thiết lập giải đấu của riêng con!");
+                game.reset(); board.position('start');
+            }
+        }
+
+        function renderRoadmapUI(scrollToActive = false) {
+            let controls = document.getElementById('modeControls');
+            
+            let isFirstPlay = completedPuzzles.length === 0;
+            let startBtnText = isFirstPlay ? "🏁 SẴN SÀNG BẮT ĐẦU!" : `🚀 TIẾP TỤC: ${ROADMAP[currentLessonIndex].title}`;
+            let mainBtnHTML = `<button class="btn active-lesson" style="background:#ff5722; width: 90%; font-size: 16px; margin-bottom: 25px; border: 3px solid #bf360c; text-transform: uppercase;" onclick="startLesson(${currentLessonIndex})">${startBtnText}</button>`;
+
+            let html = `<h3 style="margin-top:0;">🗺️ Bản Đồ Thám Hiểm</h3>${mainBtnHTML}<div class="map-container">`;
+            
+            let currentCat = '';
+            let zigZagMargins = ['0 100px 0 0', '0 0 0 0', '0 0 0 100px', '0 0 0 0']; 
+            
+            ROADMAP.forEach((lesson, i) => {
+                if(lesson.category !== currentCat) {
+                    html += `<div class="category-sign">${lesson.category}</div>`;
+                    currentCat = lesson.category;
+                }
+                
+                let stars = lessonStars[i] || 0;
+                let isActive = (i === currentLessonIndex);
+                let isCompleted = stars > 0;
+                
+                let btnClass = isActive ? "map-node active-lesson" : (isCompleted ? "map-node completed" : "map-node");
+                let icon = isActive ? "🚗" : (isCompleted ? "✅" : "🔒");
+                let marginStyle = `margin: ${zigZagMargins[i % 4]};`;
+
+                html += `<div class="map-node-wrapper" style="${marginStyle}">
+                            <button class="${btnClass}" onclick="startLesson(${i})">
+                                ${icon} ${lesson.title}
+                            </button>
+                            <div class="map-stars">${getStarsHTML(stars)}</div>
+                         </div>`;
+            });
+            html += `</div>`;
+            controls.innerHTML = html;
+
+            if(scrollToActive) {
+                setTimeout(() => {
+                    let activeNode = document.querySelector('.active-lesson');
+                    if(activeNode) activeNode.scrollIntoView({ behavior: "smooth", block: "center" });
+                }, 100);
+            }
+        }
+
+        function startLesson(lessonIndex) {
+            isLessonActive = true;
+            currentLessonIndex = lessonIndex; currentStepIndex = 0; 
+            currentLessonErrors = 0; 
+            document.getElementById('lessonNote').style.display = 'block';
+            loadStep(lessonIndex, 0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function loadStep(lIndex, sIndex) {
+            clearTimeout(autoNextTimeout);
+            let lesson = ROADMAP[lIndex]; let step = lesson.steps[sIndex];
+            game.load(step.fen); board.position(step.fen);
+            
+            let badge = `<span class="step-badge">Ví dụ ${sIndex + 1} / ${lesson.steps.length}</span>`;
+            document.getElementById('lessonNote').innerHTML = `<h4><span>📖 Hướng dẫn</span> ${badge}</h4>${step.note}`;
+            mascotSpeak(step.mascot); showAnalysis(false); removeHighlights(); selectedSquare = null;
+            
+            if(currentMode === 'roadmap') renderRoadmapUI(false); 
+
+            // Bước giải thích (không cần đi quân) ở cuối bài: chấm điểm ngay
+            if(step.targetMove === "invalid") {
+                awardLessonStars(lIndex);
+                if(currentMode === 'roadmap') renderRoadmapUI(false);
+                mascotSpeak("🎉 Bài học hoàn tất! Đang chuyển bài tiếp theo...");
+                if (lIndex + 1 < ROADMAP.length) {
+                    autoNextTimeout = setTimeout(() => startLesson(lIndex + 1), 6000); 
+                }
+            }
+        }
+
+        function confirmPromotion(pieceType) {
+            document.getElementById('promotionModal').style.display = 'none';
+            if (!pendingPromotionMove) return;
+            let attemptStr = pendingPromotionMove.from + pendingPromotionMove.to;
+            var move = game.move({ from: pendingPromotionMove.from, to: pendingPromotionMove.to, promotion: pieceType });
+            pendingPromotionMove = null;
+            if (move !== null) finalizeUserMove(attemptStr); 
+        }
+
+        function finalizeUserMove(attemptStr) {
+            board.position(game.fen()); playSound('move');
+            
+            if(currentMode === 'roadmap') {
+                let lesson = ROADMAP[currentLessonIndex];
+                let step = lesson.steps[currentStepIndex];
+
+                if(attemptStr.startsWith(step.targetMove)) {
+                    if (currentStepIndex + 1 < lesson.steps.length) {
+                        mascotSpeak("🚙 Tốt lắm! Đi tiếp nào...");
+                        currentStepIndex++;
+                        autoNextTimeout = setTimeout(() => loadStep(currentLessonIndex, currentStepIndex), 1000);
+                    } else {
+                        mascotSpeak(lessonResultText(awardLessonStars(currentLessonIndex)));
+                        renderRoadmapUI(false);
+                        if (currentLessonIndex + 1 < ROADMAP.length) {
+                            autoNextTimeout = setTimeout(() => startLesson(currentLessonIndex + 1), 3500);
+                        }
+                    }
+                } else {
+                    currentLessonErrors++; 
+                    playSound('error'); mascotSpeak("🛑 Kít! Nước đi này chưa đúng với hướng dẫn!");
+                    game.undo(); board.position(game.fen()); 
+                }
+            } else {
+                mascotSpeak("🚙 Tốt lắm! Chờ máy tính đi..."); showAnalysis(false);
+                if (!checkGameOver()) { window.setTimeout(makeMachineMove, 600); }
+            }
+            removeHighlights(); selectedSquare = null;
+        }
+
+        function removeHighlights() { $('#board .square-55d63').removeClass('highlight-select highlight-move'); }
+        function highlightValidMoves(square) {
+            removeHighlights(); $('#board .square-' + square).addClass('highlight-select');
+            var moves = game.moves({ square: square, verbose: true });
+            for (var i = 0; i < moves.length; i++) { $('#board .square-' + moves[i].to).addClass('highlight-move'); }
+        }
+
+        $('#board').on('click', '.square-55d63', function () {
+            if (currentMode === 'roadmap') {
+                let step = ROADMAP[currentLessonIndex].steps[currentStepIndex];
+                // Nếu là bài phòng thủ tĩnh (ví dụ 12, 13) hoặc đen đi thì khóa click
+                if (!isLessonActive || step.targetMove === "invalid") return;
+                
+                // Nếu là bài phòng thủ cho quân Đen (ví dụ 11: Vua đen đi g8h8)
+                let isBlackTurnPuzzle = step.fen.split(' ')[1] === 'b';
+                if (isBlackTurnPuzzle) {
+                    let square = $(this).attr('data-square');
+                    let piece = game.get(square);
+                    if (piece && piece.color === 'b') {
+                        selectedSquare = square; highlightValidMoves(square); return;
+                    }
+                    if (selectedSquare) {
+                        let attemptStr = selectedSquare + square;
+                        let testMove = game.move({ from: selectedSquare, to: square });
+                        if (testMove !== null) {
+                            if (attemptStr.startsWith(step.targetMove)) {
+                                board.position(game.fen()); playSound('move');
+                                mascotSpeak(lessonResultText(awardLessonStars(currentLessonIndex)));
+                                renderRoadmapUI(false);
+                                if (currentLessonIndex + 1 < ROADMAP.length) {
+                                    autoNextTimeout = setTimeout(() => startLesson(currentLessonIndex + 1), 3500);
+                                }
+                            } else {
+                                currentLessonErrors++;
+                                playSound('error'); mascotSpeak("🛑 Nước này chưa cứu được Vua. Thử lại nhé!");
+                                game.undo(); board.position(game.fen());
+                            }
+                        } else {
+                            currentLessonErrors++;
+                            playSound('error'); mascotSpeak("🛑 Sai luật cờ rồi!");
+                        }
+                        removeHighlights(); selectedSquare = null;
+                    }
+                    return;
+                }
+            }
+
+            if (currentMode !== 'roadmap' && (game.game_over() || game.turn() === 'b')) return;
+
+            var square = $(this).attr('data-square');
+            var piece = game.get(square);
+
+            if (piece && piece.color === 'w') {
+                selectedSquare = square; highlightValidMoves(square); return;
+            }
+            if (selectedSquare) {
+                let testMove = game.move({ from: selectedSquare, to: square, promotion: 'q' });
+                
+                if (testMove !== null) {
+                    if (testMove.promotion) {
+                        game.undo();
+                        pendingPromotionMove = { from: selectedSquare, to: square };
+                        document.getElementById('promotionModal').style.display = 'flex';
+                        return;
+                    } else {
+                        let attemptStr = selectedSquare + square;
+                        finalizeUserMove(attemptStr);
+                    }
+                } else {
+                    playSound('error'); mascotSpeak("🛑 Sai luật cờ rồi con ơi!");
+                    if(currentMode === 'roadmap') currentLessonErrors++; 
+                    removeHighlights(); selectedSquare = null;
+                }
+            }
+        });
+
+        function makeMachineMove() {
+            var moves = game.moves({ verbose: true });
+            if (moves.length === 0) return;
+            var captureMoves = moves.filter(m => m.captured);
+            var chosenMove;
+            let difficulty = (currentMode === 'ranked') ? (aiLevel * 0.15) : (tourneyConfig.currentRound * 0.2);
+            if(difficulty > 0.9) difficulty = 0.9; 
+
+            if (captureMoves.length > 0 && Math.random() < difficulty) {
+                chosenMove = captureMoves[Math.floor(Math.random() * captureMoves.length)];
+            } else { chosenMove = moves[Math.floor(Math.random() * moves.length)]; }
+
+            game.move(chosenMove.san); board.position(game.fen()); playSound('move');
+            if(chosenMove.captured) { localStorage.setItem('lastCaptureByAI', `Máy vừa ăn ${chosenMove.captured} của con ở ô ${chosenMove.to}.`); } 
+            else { localStorage.setItem('lastCaptureByAI', ''); }
+            mascotSpeak("🤖 Tới lượt con!"); checkGameOver();
+        }
+
+        function startRanked() { game.reset(); board.position('start'); showAnalysis(false); mascotSpeak(`Trận đấu Level ${aiLevel} bắt đầu!`); }
+        function startTournament() {
+            tourneyConfig.rounds = parseInt(document.getElementById('tRounds').value); tourneyConfig.prize = parseInt(document.getElementById('tPrize').value);
+            tourneyConfig.currentRound = 1; tourneyConfig.active = true; nextTournamentRound();
+        }
+        function nextTournamentRound() {
+            game.reset(); board.position('start'); showAnalysis(false);
+            document.getElementById('modeControls').innerHTML = `<h3>🏆 Vòng ${tourneyConfig.currentRound}/${tourneyConfig.rounds}</h3>`;
+        }
+        // Thua hoặc hòa trong giải đấu: cho đấu lại vòng hiện tại hoặc bỏ giải
+        function showTournamentRetry() {
+            if (currentMode !== 'tournament' || !tourneyConfig.active) return;
+            document.getElementById('modeControls').innerHTML = `<h3>🏆 Vòng ${tourneyConfig.currentRound}/${tourneyConfig.rounds}</h3>
+                <button class="btn" style="background:#4caf50;" onclick="nextTournamentRound()">🔁 Đấu lại vòng này</button>
+                <button class="btn" style="background:#9e9e9e;" onclick="switchTab('tournament')">🚪 Bỏ giải</button>`;
+        }
+        function checkGameOver() {
+            if (game.game_over()) {
+                if (game.in_checkmate()) {
+                    if (game.turn() === 'b') { 
+                        if(currentMode === 'ranked') { aiLevel++; localStorage.setItem('kidLevel', aiLevel); addCoins(30); switchTab('ranked'); } 
+                        else if (currentMode === 'tournament') {
+                            if(tourneyConfig.currentRound < tourneyConfig.rounds) { tourneyConfig.currentRound++; setTimeout(nextTournamentRound, 2000); } 
+                            else { addCoins(tourneyConfig.prize); setTimeout(() => switchTab('tournament'), 2000); }
+                        }
+                    } else { 
+                        mascotSpeak("💥 Xe con bị kẹt mất rồi.");
+                        let reason = localStorage.getItem('lastCaptureByAI');
+                        if(reason) showAnalysis(`Nguyên nhân thua: ${reason}`); else showAnalysis("Vua của con không được che chắn.");
+                        showTournamentRetry();
+                    }
+                } else { mascotSpeak("🤝 Hòa cờ! (+5 Xu)"); addCoins(5); showTournamentRetry(); }
+                return true;
+            }
+            return false;
+        }
+
+        var config = { draggable: false, position: 'start', pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png' };
+        board = Chessboard('board', config); switchTab('roadmap'); 
+    </script>
+</body>
+</html>
