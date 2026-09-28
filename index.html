@@ -16,26 +16,38 @@
 
         body { font-family: 'Nunito', sans-serif; background-color: #e0f7fa; text-align: center; margin: 0; padding: var(--page-pad); color: #333; -webkit-tap-highlight-color: transparent; }
         button, .promo-btn, #board { touch-action: manipulation; }
-        h1 { color: #ff5722; font-size: clamp(1.35rem, 5vw, 2.2rem); line-height: 1.2; margin: 0 0 12px; }
+        /* THANH ĐẦU TRANG: [tiêu đề ....... ví] / [tab] — ví gọn luôn thấy ở mọi tab, nhường chỗ cho bàn cờ */
+        .app-header { max-width: 1280px; margin: 0 auto 16px; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title wallet" "tabs tabs"; align-items: center; gap: 10px 12px; }
+        .app-title { grid-area: title; color: #ff5722; font-size: clamp(1.2rem, 4vw, 2rem); line-height: 1.2; margin: 0; text-align: left; }
+        .app-title .t-short { display: none; }
+        .app-header .tabs { grid-area: tabs; }
+        .wallet { grid-area: wallet; display: flex; align-items: center; gap: 10px; background: #fff; border: 2px solid #ff9800; border-radius: 18px; padding: 4px 5px 4px 12px; box-shadow: 0 2px 6px rgba(0, 0, 0, .08); text-align: left; }
+        .wallet-info { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+        .wallet-coins { font-size: 16px; white-space: nowrap; }
+        .wallet-coins b { color: #2e7d32; }
+        .wallet-sub { font-size: 12px; color: #607d8b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .wallet-sub #walletMoney b { color: #e65100; }
+        .wallet-meter { display: block; width: 100%; height: 4px; margin-top: 2px; border-radius: 2px; background: #e0e0e0; overflow: hidden; }
+        .wallet-meter span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #66bb6a, #ffa726); transition: width .4s; }
+        .wallet-claim { border: none; border-radius: 18px; padding: 6px 12px; font-family: inherit; font-size: 14px; font-weight: bold; white-space: nowrap; cursor: pointer; background: #eceff1; color: #78909c; }
+        .wallet-claim.ready { background: #ff9800; color: #fff; box-shadow: 0 3px 0 #e65100; animation: pulse 1.5s infinite; }
+        @media (prefers-reduced-motion: reduce) { .wallet-claim.ready { animation: none; } }
 
-        .tabs { display: flex; justify-content: center; gap: 10px; margin: 0 auto 20px; max-width: 640px; }
+        .tabs { display: flex; justify-content: center; gap: 10px; margin: 0 auto; width: 100%; max-width: 640px; }
         .tab-btn { flex: 1 1 0; min-width: 0; padding: 10px 12px; font-family: inherit; font-size: 16px; font-weight: bold; cursor: pointer; border: 2px solid #0288d1; background: #fff; color: #0288d1; border-radius: 10px; transition: 0.2s; }
         .tab-btn.active { background: #0288d1; color: #fff; box-shadow: 0 4px 0 #01579b; transform: translateY(-2px);}
 
         /* BỐ CỤC: điện thoại 1 cột (bàn cờ nằm giữa hướng dẫn và bản đồ); màn rộng 2 cột */
         .container { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: var(--gap); }
         .side-col { display: contents; }
-        .dashboard { order: 1; }
+        /* Ưu tiên bàn cờ: chỉ có hướng dẫn bài nằm trên; lời linh vật, phân tích, bảng điều khiển nằm dưới bàn cờ */
         .lesson-note { order: 2; }
-        .mascot-box { order: 3; }
-        .analysis-box { order: 4; }
-        .board-col { order: 5; }
+        .board-col { order: 3; }
+        .mascot-box { order: 4; }
+        .analysis-box { order: 5; }
         .mode-controls { order: 6; }
-        .dashboard, .lesson-note, .mascot-box, .analysis-box, .mode-controls { width: 100%; max-width: var(--panel-max); }
+        .lesson-note, .mascot-box, .analysis-box, .mode-controls { width: 100%; max-width: var(--panel-max); }
         .board-col { width: 100%; display: flex; justify-content: center; }
-
-        .dashboard { background: #fff; padding: 12px 15px; border-radius: 15px; border: 3px solid #ff9800; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-around; gap: 8px 12px; }
-        .dashboard h2 { margin: 0; color: #4caf50; font-size: clamp(1.15rem, 4.5vw, 1.5rem); }
         .btn { padding: 10px 20px; font-family: inherit; font-size: 16px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; color: white; transition: 0.2s; }
         .btn:active { transform: translateY(3px); }
         .btn-claim { background: #ff9800; box-shadow: 0 4px 0 #e65100; }
@@ -123,6 +135,16 @@
         .lv-note { margin: 4px 0 0; padding: 8px 10px; border-radius: 10px; background: #eceff1; color: #455a64; font-size: 14px; }
         .level-card.offline { opacity: .6; cursor: not-allowed; }
 
+        /* Nút chọn kiểu "phân đoạn": màu quân (⚪/⚫/🎲), đối thủ (🤖/👥) */
+        .setup-row { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 10px 0; }
+        .setup-label { font-size: 14px; color: #546e7a; }
+        .seg-pick { display: inline-flex; flex-wrap: wrap; justify-content: center; border: 2px solid #0288d1; border-radius: 12px; overflow: hidden; }
+        .seg-pick button { border: none; background: #fff; color: #0288d1; font-family: inherit; font-size: 15px; font-weight: bold; padding: 8px 12px; cursor: pointer; }
+        .seg-pick button + button { border-left: 2px solid #0288d1; }
+        .seg-pick button.active { background: #0288d1; color: #fff; }
+        .scoreboard { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 6px 0; font-size: 15px; }
+        .scoreboard b { font-size: 26px; color: #ff5722; }
+
         /* Nút gạt "Hỗ trợ thi đấu" */
         .assist-toggle { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0 14px; cursor: pointer; text-align: left; }
         .assist-toggle > span:last-child { min-width: 0; }
@@ -134,6 +156,56 @@
         .assist-toggle input:focus-visible + .switch { outline: 3px solid #90caf9; outline-offset: 2px; }
 
         /* Nút gợi ý nổi ở góc bàn cờ: chỉ hiện trên màn dọc thấp, nơi nút Gợi ý bên dưới bàn cờ bị khuất */
+        /* HỘP THOẠI ĐỔI XU */
+        .ex-dialog { width: min(420px, calc(100vw - 24px)); border: 3px solid #ff9800; border-radius: 18px; padding: 18px; text-align: center; font-family: inherit; color: #333; }
+        .ex-dialog::backdrop { background: rgba(0, 0, 0, .55); }
+        .ex-dialog h3 { margin: 0 0 12px; color: #e65100; }
+        .ex-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+        .ex-stats div { background: #fff8e1; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; }
+        .ex-stats span { font-size: 13px; color: #6d4c41; }
+        .ex-stats b { font-size: 22px; color: #2e7d32; }
+        .ex-stats div:last-child b { color: #e65100; }
+        .ex-label { display: block; font-weight: bold; margin-bottom: 6px; }
+        .ex-stepper { display: flex; align-items: center; justify-content: center; gap: 14px; }
+        .ex-stepper button { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #ff9800; background: #fff; color: #e65100; font-size: 24px; font-weight: bold; cursor: pointer; }
+        .ex-stepper button:disabled { opacity: .35; cursor: default; }
+        .ex-stepper output { min-width: 130px; font-size: 28px; font-weight: 900; color: #e65100; }
+        .ex-dialog input[type=range] { width: 100%; margin: 12px 0 8px; accent-color: #ff9800; }
+        .ex-quick { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+        .ex-quick button { border: 2px solid #ffcc80; background: #fff; border-radius: 14px; padding: 5px 10px; font-family: inherit; font-weight: bold; color: #e65100; cursor: pointer; }
+        .ex-after { margin: 12px 0 0; font-size: 15px; color: #455a64; }
+        .ex-notenough { margin: 4px 0 0; color: #455a64; }
+        .ex-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+        .ex-cancel { background: #9e9e9e; }
+        .btn:disabled { opacity: .45; cursor: not-allowed; }
+
+        /* CHẾ ĐỘ TẬP TRUNG KHI THI ĐẤU: ẩn tiêu đề/tab/ví/bảng cấu hình, bàn cờ chiếm gần hết màn hình */
+        .focus-bar, .options-backdrop, .options-close { display: none; }
+        body.focus-mode { --page-pad: 8px; }
+        body.focus-mode .app-header, body.focus-mode .lesson-note, body.focus-mode .app-footer, body.focus-mode .mode-controls, body.focus-mode .float-hint { display: none !important; }
+        body.focus-mode .focus-bar { display: flex; align-items: center; gap: 6px; max-width: 900px; margin: 0 auto 8px; }
+        .focus-title { flex: 1; min-width: 0; text-align: left; font-weight: 900; color: #01579b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .focus-btn { border: 2px solid #0288d1; background: #fff; color: #0288d1; border-radius: 12px; padding: 6px 10px; font-family: inherit; font-size: 15px; font-weight: bold; cursor: pointer; white-space: nowrap; }
+        .focus-btn.focus-options { background: #0288d1; color: #fff; }
+        .focus-btn.focus-hint { border-color: #7e57c2; color: #7e57c2; }
+        body.focus-mode .container { display: flex; flex-direction: column; align-items: center; max-width: none; gap: 8px; }
+        body.focus-mode .side-col { display: contents; }
+        body.focus-mode .board-col { position: static; width: auto; }
+        body.focus-mode .board-wrapper { width: min(calc(100vw - 16px), calc(100vh - 124px)); width: min(calc(100vw - 16px), calc(100svh - 124px)); max-width: none; margin-top: 0; }
+        body.focus-mode .mascot-box, body.focus-mode .analysis-box { width: min(calc(100vw - 16px), 720px); padding: 6px 12px; font-size: 15px; }
+        @media (orientation: landscape) {
+            /* xoay ngang: lời linh vật nằm cạnh bàn cờ để bàn cờ cao hết cỡ */
+            body.focus-mode .container { flex-direction: row; justify-content: center; align-items: flex-start; }
+            body.focus-mode .board-wrapper { width: min(calc(100vw - 260px), calc(100vh - 64px)); width: min(calc(100vw - 260px), calc(100svh - 64px)); }
+            body.focus-mode .mascot-box, body.focus-mode .analysis-box { width: 230px; }
+        }
+        /* Bảng tùy chọn nổi (nút ⚙️): hiện bảng điều khiển của trận trên nền mờ, bàn cờ vẫn giữ nguyên phía sau */
+        body.focus-mode.options-open .options-backdrop { display: block; position: fixed; inset: 0; background: rgba(0, 0, 0, .5); z-index: 190; }
+        body.focus-mode.options-open .options-close { display: block; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 210;
+            border: none; border-radius: 22px; padding: 10px 22px; background: #4caf50; color: #fff; font-family: inherit; font-size: 16px; font-weight: bold; box-shadow: 0 4px 0 #2e7d32; cursor: pointer; }
+        body.focus-mode.options-open .mode-controls { display: block !important; position: fixed; top: 64px; left: 50%; transform: translateX(-50%); z-index: 200;
+            width: min(520px, calc(100vw - 16px)); max-height: calc(100vh - 76px); overflow-y: auto; box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
+
         .float-hint { display: none; position: absolute; top: -50px; right: -4px; z-index: 60; width: 46px; height: 46px; border-radius: 50%;
             border: 3px solid #fff; background: #7e57c2; box-shadow: 0 4px 0 #4527a0, 0 6px 12px rgba(0, 0, 0, .35);
             font-size: 24px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; padding: 0; }
@@ -178,12 +250,31 @@
             .category-sign { font-size: 11px; width: 90%; }
         }
 
-        /* Điện thoại dọc màn thấp (vd. iPhone SE 320×568): thu Ví về 1 hàng mỏng để bàn cờ lên cao hơn */
-        @media (max-width: 480px) and (max-height: 700px) and (orientation: portrait) {
-            h1 { font-size: 1.1rem; margin-bottom: 8px; }
-            .dashboard { flex-wrap: nowrap; justify-content: space-between; padding: 6px 10px; border-width: 2px; border-radius: 12px; }
-            .dashboard h2 { font-size: 1rem; white-space: nowrap; }
-            .dashboard .btn-claim { padding: 6px 10px; font-size: 12px; white-space: nowrap; box-shadow: 0 3px 0 #e65100; }
+        /* Điện thoại dọc: tiêu đề ngắn để ví nằm cùng hàng; màn rất hẹp thì bỏ thanh tiến độ của ví */
+        @media (max-width: 480px) {
+            .app-header { gap: 8px; margin-bottom: 10px; }
+            /* tiêu đề chỉ còn biểu tượng, ví trải rộng để đủ chỗ cho 2 dòng thông tin */
+            .app-header { grid-template-columns: auto minmax(0, 1fr); }
+            .app-title { font-size: 1.6rem; }
+            .app-title .t-long { display: none; }
+            .app-title .t-short { display: inline; }
+            .wallet { gap: 6px; padding: 3px 4px 3px 10px; justify-content: space-between; }
+            .wallet-coins { font-size: 15px; }
+            .wallet-sub { font-size: 11.5px; }
+            .wallet-claim { padding: 6px 10px; font-size: 13px; }
+        }
+        @media (max-width: 360px) { .wl-lbl { display: none; } }
+
+        /* Điện thoại dọc: thu gọn khung hướng dẫn bài để bàn cờ lên cao, thấy trọn ngay khi mở bài */
+        @media (max-width: 480px) and (orientation: portrait) {
+            .lesson-note { padding: 8px 10px; }
+            .lesson-note h4 { font-size: 14px; margin-bottom: 4px; flex-wrap: nowrap; }
+            .lesson-note h4 > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+            .step-badge { font-size: 12px; padding: 1px 7px; }
+            .step-badge .sb-long { display: none; }
+            .note-main { font-size: 15px; line-height: 1.4; }
+            .note-actions { margin-top: 6px; }
+            .btn-demo { padding: 5px 12px; font-size: 14px; box-shadow: 0 3px 0 #4527a0; }
         }
 
         /* Máy tính bảng dọc: vẫn 1 cột nhưng cho bàn cờ rộng hơn */
@@ -199,15 +290,17 @@
             .board-col { grid-column: 1; grid-row: 1; position: sticky; top: 12px; }
             .board-wrapper { max-width: none; }
             .side-col { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; gap: var(--gap); min-width: 0; }
-            .dashboard, .lesson-note, .mascot-box, .analysis-box, .mode-controls { max-width: none; }
+            .lesson-note, .mascot-box, .analysis-box, .mode-controls { max-width: none; }
             .mode-controls { max-height: 70vh; overflow-y: auto; }
         }
 
         /* Màn thấp (điện thoại xoay ngang): ẩn tiêu đề, bàn cờ = chiều cao màn hình trừ thanh tab để thấy trọn bàn cờ */
         @media (max-height: 500px) and (orientation: landscape) {
-            :root { --page-pad: 8px; --board-size: min(560px, 50vw, calc(100vh - 64px)); }
-            h1 { display: none; }
-            .tabs { margin-bottom: 8px; }
+            :root { --page-pad: 8px; --board-size: min(560px, 50vw, calc(100vh - 84px)); } /* 84px = hàng tab + ví + lề */
+            /* ẩn tiêu đề, ví lên cùng hàng với tab: không tốn thêm chiều cao */
+            .app-header { grid-template-areas: "tabs wallet"; margin-bottom: 8px; }
+            .app-title { display: none; }
+            .app-header .tab-btn { padding: 6px 4px; font-size: 13px; white-space: nowrap; }
             .tab-btn { padding: 6px 8px; font-size: 14px; }
             .mode-controls { max-height: none; }
         }
@@ -215,21 +308,65 @@
 </head>
 <body>
 
-    <h1>🏎️ Học Viện Cờ Vua Ô Tô - Pro</h1>
+    <!-- Thanh đầu trang: tiêu đề + ví gọn (hiện ở mọi tab) + các tab -->
+    <header class="app-header">
+        <h1 class="app-title"><span class="t-long">🏎️ Học Viện Cờ Vua Ô Tô - Pro</span><span class="t-short" title="Học Viện Cờ Vua Ô Tô">🏎️</span></h1>
+        <div class="wallet" id="wallet" title="1000 Xu = 10.000 VNĐ">
+            <div class="wallet-info">
+                <span class="wallet-coins">🪙 <b id="coinBalance">0</b> Xu</span>
+                <span class="wallet-sub"><span id="walletMoney">Đổi được 0đ</span> · <span id="walletNeed">cần 1.000 Xu nữa</span></span>
+                <span class="wallet-meter" aria-hidden="true"><span id="walletMeter"></span></span>
+            </div>
+            <button class="wallet-claim" id="walletClaim" onclick="claimSavings()">💰 Đổi</button>
+        </div>
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="switchTab('roadmap')">🗺️ Bản Đồ Học</button>
+            <button class="tab-btn" onclick="switchTab('ranked')">⭐ Đấu AI</button>
+            <button class="tab-btn" onclick="switchTab('tournament')">🏆 Giải Đấu</button>
+        </nav>
+    </header>
 
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('roadmap')">🗺️ Bản Đồ Học</button>
-        <button class="tab-btn" onclick="switchTab('ranked')">⭐ Đấu AI</button>
-        <button class="tab-btn" onclick="switchTab('tournament')">🏆 Giải Đấu</button>
+    <!-- Chế độ tập trung khi đang thi đấu: chỉ còn thanh này + bàn cờ + lời linh vật; tùy chọn mở bằng nút ⚙️ -->
+    <div class="focus-bar" id="focusBar">
+        <span class="focus-title" id="focusTitle"></span>
+        <button class="focus-btn focus-hint" id="focusHint" hidden onclick="requestHint()" aria-label="Gợi ý nước đi, tốn 5 Xu">💡 <small>-5</small></button>
+        <button class="focus-btn" id="focusFullscreen" onclick="toggleFullscreen()" aria-label="Bật/tắt toàn màn hình" title="Toàn màn hình">⛶</button>
+        <button class="focus-btn focus-options" onclick="openOptions()" aria-haspopup="dialog">⚙️ Tùy chọn</button>
     </div>
+    <div class="options-backdrop" id="optionsBackdrop" onclick="closeOptions()"></div>
+    <button class="options-close" id="optionsClose" onclick="closeOptions()">▶ Tiếp tục ván cờ</button>
+
+    <!-- Hộp thoại đổi Xu: xem số Xu, số tiền đổi được, tự chọn số tiền muốn đổi để chừa Xu thi đấu tiếp -->
+    <dialog id="exchangeDialog" class="ex-dialog" aria-labelledby="exTitle">
+        <h3 id="exTitle">💰 Đổi Xu lấy tiền</h3>
+        <div class="ex-stats">
+            <div><span>Xu hiện có</span><b id="exCoins">0</b></div>
+            <div><span>Đổi được tối đa</span><b id="exMax">0đ</b></div>
+        </div>
+        <div id="exPicker">
+            <label for="exRange" class="ex-label">Con muốn đổi bao nhiêu?</label>
+            <div class="ex-stepper">
+                <button type="button" onclick="exStep(-1)" aria-label="Bớt 10.000đ">−</button>
+                <output id="exAmount" for="exRange">10.000đ</output>
+                <button type="button" onclick="exStep(1)" aria-label="Thêm 10.000đ">+</button>
+            </div>
+            <input type="range" id="exRange" min="1" max="1" step="1" value="1" oninput="exRender()">
+            <div class="ex-quick">
+                <button type="button" onclick="exSet(1)">10.000đ</button>
+                <button type="button" onclick="exSet('half')">Một nửa</button>
+                <button type="button" onclick="exSet('all')">Tất cả</button>
+            </div>
+            <p class="ex-after" id="exAfter"></p>
+        </div>
+        <p class="ex-notenough" id="exNotEnough"></p>
+        <div class="ex-actions">
+            <button type="button" class="btn ex-cancel" onclick="closeExchange()">Hủy</button>
+            <button type="button" class="btn btn-claim" id="exConfirm" onclick="confirmExchange()">💰 Đổi</button>
+        </div>
+    </dialog>
 
     <div class="container">
         <div class="side-col">
-            <div class="dashboard">
-                <h2>🪙 Ví: <span id="coinBalance">0</span> Xu</h2>
-                <button class="btn btn-claim" onclick="claimSavings()">💰 Đổi 500 Xu = 10k VNĐ</button>
-            </div>
-
             <div class="lesson-note" id="lessonNote"></div>
             <div class="mascot-box" id="mascotText">🤖 Khởi động! Nhấn nút 'SẴN SÀNG' ở Bản đồ để thám hiểm nhé!</div>
             <div class="analysis-box" id="analysisText"></div>
@@ -287,11 +424,15 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
     </script>
 
     <script>
-        // --- 1. DỮ LIỆU ROADMAP: 12 CHƯƠNG, 37 BÀI ---
+        // --- 1. DỮ LIỆU ROADMAP: 13 CHƯƠNG, 56 BÀI ---
         // id: mã cố định để lưu sao (không phụ thuộc thứ tự bài). Số "Bài N" được đánh tự động khi hiển thị.
-        // goal: 'mate' => chấp nhận MỌI nước chiếu bí (targetMove chỉ là gợi ý). targetMove: "invalid" => bước giải thích.
+        // Cách chấm (goal): mặc định phải đi đúng targetMove · 'mate': mọi nước chiếu bí ·
+        //   'safe': quân ở ô targetMove chạy tới ô không bị tấn công · 'protect': quân ở ô "square" được bảo vệ ·
+        //   'stop-mate': sau nước đi, đối phương hết nước chiếu bí. Khi có goal, targetMove chỉ là gợi ý.
+        //   accept: [...] giới hạn thêm: chỉ nhận các nước trong danh sách (vd. bỏ nước chặn được nhưng mất Hậu).
+        //   targetMove: "invalid" => bước giải thích.
         // note: 1 dòng ngắn. Hình động trên bàn cờ: hideTarget (bài đố, không lộ ô đích), before / after:
-        //   arrows [từ, tới, attack|path|blocked|history] · marks [ô, x|guard] · danger (❌ ô cấm quanh Vua)
+        //   arrows [từ, tới, attack|path|blocked|history] · marks [ô, x|guard|glow] · danger (❌ ô cấm quanh Vua)
         const ROADMAP = [
             // CHƯƠNG 1: QUÂN TỐT
             { id: "pawn", category: "Chương 1: Quân Tốt", title: "Sức mạnh quân Tốt", steps: [
@@ -384,6 +525,9 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             { id: "castle", category: "Chương 8: Nước Đi Đặc Biệt", title: "Nhập Thành Bảo Vệ Vua", steps: [
                 { fen: "4k3/8/8/8/8/8/8/4K2R w K - 0 1", targetMove: "e1g1", note: "🏰 Nhập thành: bấm Vua → chọn <b>g1</b>", mascot: "Nhập thành an toàn ngay!" }
             ]},
+            { id: "castle-long", category: "Chương 8: Nước Đi Đặc Biệt", title: "Nhập Thành Cánh Hậu", steps: [
+                { fen: "4k3/8/8/8/8/8/8/R3K3 w Q - 0 1", targetMove: "e1c1", note: "🏰 Nhập thành <b>cánh Hậu</b>: Vua e1 → c1", mascot: "Vua đi 2 ô sang trái, Xe tự nhảy qua!" }
+            ]},
             { id: "promote", category: "Chương 8: Nước Đi Đặc Biệt", title: "Phong Cấp Biến Hình", steps: [
                 { fen: "7k/4P2p/8/8/8/8/8/6K1 w - - 0 1", targetMove: "e7e8", note: "👑 Tốt về hàng cuối → <b>biến hình</b>!", mascot: "Đẩy Tốt lên hàng cuối thăng cấp!" }
             ]},
@@ -395,6 +539,12 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             { id: "fork", category: "Chương 9: Đòn Tấn Công", title: "Đòn Chĩa Đôi (Fork)", steps: [
                 { fen: "4q1k1/7p/8/8/4N3/8/8/6K1 w - - 0 1", targetMove: "e4f6", hideTarget: true, note: "♞ Tìm ô Mã dọa <b>cả Vua lẫn Hậu</b>!", mascot: "Nhảy Mã f6 dọa 1 mũi tên trúng 2 đích!", after: {"arrows":[["f6","g8","attack"],["f6","e8","attack"]]} }
             ]},
+            { id: "queen-fork", category: "Chương 9: Đòn Tấn Công", title: "Hậu Chĩa Đôi", steps: [
+                { fen: "r5k1/6pp/8/8/8/8/5PPP/3Q2K1 w - - 0 1", targetMove: "d1d5", hideTarget: true, note: "♛ Tìm ô Hậu vừa <b>chiếu Vua</b> vừa <b>dọa Xe</b>!", mascot: "Một nước đi, hai mục tiêu!", after: {"arrows":[["d5","g8","attack"],["d5","a8","attack"]]} }
+            ]},
+            { id: "pawn-fork", category: "Chương 9: Đòn Tấn Công", title: "Tốt Chĩa Đôi", steps: [
+                { fen: "4k3/8/2n1n3/8/3P4/8/8/4K3 w - - 0 1", targetMove: "d4d5", hideTarget: true, note: "♟ Tốt nhỏ cũng <b>chĩa đôi</b> được hai Mã!", mascot: "Tốt 1 điểm dọa 2 Mã 6 điểm!", after: {"arrows":[["d5","c6","attack"],["d5","e6","attack"]]} }
+            ]},
             { id: "pin", category: "Chương 9: Đòn Tấn Công", title: "Đòn Giằng (Pin)", steps: [
                 { fen: "4k3/4q2p/8/8/8/8/8/R5K1 w - - 0 1", targetMove: "a1e1", note: "📌 Ghim Hậu vào Vua: Xe sang <b>cột e</b>", mascot: "Kéo Xe sang e1 trói chặt Hậu đen!", after: {"arrows":[["e1","e8","attack"]],"marks":[["e7","x"]]} }
             ]},
@@ -404,6 +554,16 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             ]},
             { id: "discovered", category: "Chương 9: Đòn Tấn Công", title: "Đòn Phát Hiện", steps: [
                 { fen: "4k3/8/3q4/8/4N3/8/8/4R1K1 w - - 0 1", targetMove: "e4d6", note: "♞ Mã nhảy đi → <b>Xe lộ ra chiếu</b>! Ăn Hậu", mascot: "Mã nhảy ăn Hậu, Xe phía sau chiếu Vua!", before: {"arrows":[["e1","e8","blocked"]]}, after: {"arrows":[["e1","e8","attack"],["d6","e8","attack"]]} }
+            ]},
+            { id: "double-check", category: "Chương 9: Đòn Tấn Công", title: "Chiếu Đôi Kết Liễu", steps: [
+                { fen: "3qkb2/3p1p2/8/8/4N3/8/8/4R1K1 w - - 0 1", targetMove: "e4d6", goal: "mate", note: "⚡ <b>Chiếu đôi</b>: Mã và Xe cùng chiếu, Vua hết đường!", mascot: "Mã nhảy đi, Xe phía sau cũng chiếu!", before: {"arrows":[["e1","e8","blocked"]]} }
+            ]},
+            { id: "free-piece", category: "Chương 9: Đòn Tấn Công", title: "Ăn Quân Bị Bỏ Rơi", steps: [
+                { fen: "4k3/8/3p4/4p3/7b/5N2/8/3K4 w - - 0 1", targetMove: "f3h4", hideTarget: true, note: "🎁 Mã ăn được 2 quân. Chọn quân <b>không ai bảo vệ</b>!", mascot: "Tốt e5 có Tốt d6 canh gác đấy!", before: {"arrows":[["d6","e5","attack"]],"marks":[["e5","guard"]]} }
+            ]},
+            { id: "remove-defender", category: "Chương 9: Đòn Tấn Công", title: "Tiêu Diệt Quân Bảo Vệ", steps: [
+                { fen: "7k/3r2p1/1N3n2/6B1/8/8/8/6K1 w - - 0 1", targetMove: "g5f6", note: "🛡 Mã f6 đang bảo vệ Xe d7 → <b>diệt</b> nó trước!", mascot: "Tượng ăn Mã bảo vệ!", before: {"arrows":[["f6","d7","path"]],"marks":[["d7","guard"]]} },
+                { fen: "7k/3r4/1N3p2/8/8/8/8/6K1 w - - 0 2", targetMove: "b6d7", note: "🎯 Xe d7 hết người bảo vệ → Mã ăn Xe!", mascot: "Xe mồ côi rồi, ăn thôi!" }
             ]},
 
             // CHƯƠNG 10: PHÒNG THỦ & THOÁT HIỂM
@@ -415,6 +575,18 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             ]},
             { id: "capture", category: "Chương 10: Phòng Thủ & Thoát Hiểm", title: "Tiêu Diệt Kẻ Tấn Công", steps: [
                 { fen: "6k1/5ppp/8/4R3/8/8/5PPP/4q1K1 w - - 0 1", targetMove: "e5e1", note: "⚔️ <b>Ăn luôn</b> quân đang chiếu Vua!", mascot: "Phản công! Ăn ngay quân địch đang chiếu Vua!", before: {"arrows":[["e1","g1","attack"]]} }
+            ]},
+            { id: "run-away", category: "Chương 10: Phòng Thủ & Thoát Hiểm", title: "Chạy Quân Bị Dọa", steps: [
+                { fen: "4k3/8/7b/3p4/4N3/8/8/4K3 w - - 0 1", targetMove: "e4c3", goal: "safe", hideTarget: true, note: "🏃 Mã bị Tốt dọa! Chạy tới ô <b>an toàn</b>", mascot: "Tránh cả ô Tượng h6 đang canh nhé!", before: {"arrows":[["d5","e4","attack"],["h6","d2","attack"]],"marks":[["e4","glow"],["d2","x"],["g5","x"]]} }
+            ]},
+            { id: "defend-piece", category: "Chương 10: Phòng Thủ & Thoát Hiểm", title: "Dùng Tốt Bảo Vệ Quân", steps: [
+                { fen: "3rk3/8/8/8/3N4/8/2P1P3/6K1 w - - 0 1", targetMove: "c2c3", goal: "protect", square: "d4", hideTarget: true, note: "🛡 Xe đen dọa Mã d4 → dùng <b>Tốt</b> bảo vệ Mã", mascot: "Có Tốt canh sau lưng, Xe không dám ăn!", before: {"arrows":[["d8","d4","attack"]],"marks":[["d4","glow"]]} }
+            ]},
+            { id: "luft", category: "Chương 10: Phòng Thủ & Thoát Hiểm", title: "Mở Cửa Sổ Cho Vua", steps: [
+                { fen: "4r1k1/5ppp/8/8/8/8/5PPP/6K1 w - - 0 1", targetMove: "h2h3", goal: "stop-mate", hideTarget: true, note: "🪟 Xe đen dọa chiếu hàng cuối → mở <b>cửa sổ</b> cho Vua!", mascot: "Cho Vua một lối thoát là hết sợ!", before: {"arrows":[["e8","e1","attack"]],"marks":[["e1","x"]]} }
+            ]},
+            { id: "scholar-defense", category: "Chương 10: Phòng Thủ & Thoát Hiểm", title: "Chặn Bẫy Mate Học Sinh", steps: [
+                { fen: "r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3", targetMove: "g7g6", goal: "stop-mate", accept: ["g7g6","d8e7","d8f6","g8h6"], hideTarget: true, note: "🛡 Trắng dọa <b>Hậu ăn f7</b> chiếu bí → con cầm quân Đen, chặn lại!", mascot: "Hậu và Tượng cùng nhắm f7!", before: {"arrows":[["h5","f7","attack"],["c4","f7","attack"]],"marks":[["f7","x"]]} }
             ]},
 
             // CHƯƠNG 11: CHIẾU BÍ KINH ĐIỂN
@@ -428,22 +600,55 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             { id: "queenmate", category: "Chương 11: Chiếu Bí Kinh Điển", title: "Hậu Hôn Vua", steps: [
                 { fen: "7k/4Q3/6K1/8/8/8/8/8 w - - 0 1", targetMove: "e7g7", goal: "mate", note: "💋 Hậu áp sát Vua đen, có <b>Vua mình</b> bảo vệ", mascot: "Hậu áp sát, Vua trắng đứng sau bảo vệ!" }
             ]},
+            { id: "rook-mate", category: "Chương 11: Chiếu Bí Kinh Điển", title: "Xe Và Vua Chiếu Bí", steps: [
+                { fen: "4k3/8/4K3/8/8/8/8/R7 w - - 0 1", targetMove: "a1a8", goal: "mate", note: "♜ Vua mình chặn lối, Xe <b>chiếu hàng cuối</b>!", mascot: "Vua trắng canh cửa, Xe kết liễu!" }
+            ]},
+            { id: "smothered", category: "Chương 11: Chiếu Bí Kinh Điển", title: "Chiếu Bí Ngạt Thở", steps: [
+                { fen: "6rk/6pp/8/6N1/8/8/8/6K1 w - - 0 1", targetMove: "g5f7", goal: "mate", note: "😵 Vua bị quân nhà <b>vây kín</b> → Mã chiếu!", mascot: "Quân nhà chặn hết lối thoát!" }
+            ]},
+            { id: "arabian", category: "Chương 11: Chiếu Bí Kinh Điển", title: "Mate Ả Rập", steps: [
+                { fen: "7k/1R6/5N2/8/8/8/8/6K1 w - - 0 1", targetMove: "b7h7", goal: "mate", note: "🐪 <b>Mã + Xe</b> phối hợp chiếu bí trong góc", mascot: "Mã bảo vệ Xe, Xe chiếu Vua!" }
+            ]},
+            { id: "qb-mate", category: "Chương 11: Chiếu Bí Kinh Điển", title: "Hậu Và Tượng Kết Liễu", steps: [
+                { fen: "5rk1/5pp1/8/7Q/8/3B4/8/6K1 w - - 0 1", targetMove: "h5h7", goal: "mate", note: "♛♝ Hậu lao vào <b>h7</b>, có Tượng bảo vệ", mascot: "Tượng bắn đường chéo tới h7!", before: {"arrows":[["d3","h7","path"]]} }
+            ]},
             { id: "ladder", category: "Chương 11: Chiếu Bí Kinh Điển", title: "Hai Xe Lăn Bánh", steps: [
                 { fen: "7k/8/8/8/8/8/1R6/R3K3 w - - 0 1", targetMove: "b2b7", note: "🪜 Xe thứ nhất <b>chặn hàng 7</b>", mascot: "Xe thứ nhất lên b7 chặn đường!", after: {"arrows":[["b7","h7","blocked"]]} },
                 { fen: "6k1/1R6/8/8/8/8/8/R3K3 w - - 0 2", targetMove: "a1a8", goal: "mate", note: "🪜 Xe thứ hai <b>chiếu hàng 8</b>!", mascot: "Xe thứ hai lên hàng cuối kết thúc!" }
+            ]},
+            { id: "fools-mate", category: "Chương 11: Chiếu Bí Kinh Điển", title: "Chiếu Bí Ngốc Nghếch", steps: [
+                { fen: "rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR b KQkq g3 0 2", targetMove: "d8h4", goal: "mate", note: "🤡 Trắng mở toang đường chéo → quân Đen <b>chiếu bí</b> ngay!", mascot: "Tìm đường chéo tới Vua trắng!" }
             ]},
             { id: "stalemate", category: "Chương 11: Chiếu Bí Kinh Điển", title: "Cẩn Thận Hòa Pat!", steps: [
                 { fen: "7k/5K2/8/8/8/8/8/6Q1 w - - 0 1", targetMove: "g1g7", goal: "mate", note: "⚠️ Phải <b>CHIẾU</b>! Hết đường mà không bị chiếu = <b>Hòa pat</b>", mascot: "Đừng dồn Vua đến hết đường mà quên chiếu nhé!" }
             ]},
 
-            // CHƯƠNG 12: THỰC CHIẾN TOÀN BÀN CỜ
-            { id: "opening", category: "Chương 12: Thực Chiến Toàn Bàn Cờ", title: "Nguyên Tắc Khai Cuộc Ô Tô", steps: [
+            // CHƯƠNG 12: TÀN CUỘC CƠ BẢN
+            { id: "pawn-race", category: "Chương 12: Tàn Cuộc Cơ Bản", title: "Tốt Chạy Về Đích", steps: [
+                { fen: "8/8/8/P7/5k2/8/8/7K w - - 0 1", targetMove: "a5a6", note: "🏁 Vua đen ở quá xa, Tốt cứ chạy! Lên a6", mascot: "Đếm thử: Vua đen có đuổi kịp không?" },
+                { fen: "8/8/P7/4k3/8/8/8/7K w - - 1 2", targetMove: "a6a7", note: "⬆️ Lên a7", mascot: "Còn 1 ô nữa!" },
+                { fen: "8/P7/3k4/8/8/8/8/7K w - - 1 3", targetMove: "a7a8", note: "👑 Về đích, <b>phong cấp</b>!", mascot: "Vua đen không kịp rồi!" }
+            ]},
+            { id: "promote-mate", category: "Chương 12: Tàn Cuộc Cơ Bản", title: "Phong Cấp Chiếu Bí", steps: [
+                { fen: "8/5KPk/7p/8/8/8/8/8 w - - 0 1", targetMove: "g7g8q", goal: "mate", note: "👑 Phong cấp <b>đúng quân</b> sẽ chiếu bí ngay!", mascot: "Chọn quân nào để chiếu bí nhỉ?" }
+            ]},
+            { id: "king-catch", category: "Chương 12: Tàn Cuộc Cơ Bản", title: "Vua Đuổi Bắt Tốt", steps: [
+                { fen: "8/8/8/8/p2K4/8/8/7k w - - 0 1", targetMove: "d4c4", note: "♚ Tốt đen chạy về a1. Vua đuổi theo: sang c4", mascot: "Đi chéo để đuổi nhanh hơn!" },
+                { fen: "8/8/8/8/2K5/p7/8/7k w - - 0 2", targetMove: "c4b3", note: "♚ Đứng sát Tốt: lên b3", mascot: "Sắp bắt được rồi!" },
+                { fen: "8/8/8/8/8/1K6/p7/7k w - - 0 3", targetMove: "b3a2", note: "♚ Ăn Tốt!", mascot: "Bắt được Tốt rồi!" }
+            ]},
+
+            // CHƯƠNG 13: THỰC CHIẾN TOÀN BÀN CỜ
+            { id: "opening", category: "Chương 13: Thực Chiến Toàn Bàn Cờ", title: "Nguyên Tắc Khai Cuộc Ô Tô", steps: [
                 { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e2e4", note: "🚀 Khai cuộc: đẩy Tốt <b>trung tâm</b> lên e4", mascot: "Khai cuộc chuẩn xác để xe chạy mượt mà!" }
             ]},
-            { id: "develop", category: "Chương 12: Thực Chiến Toàn Bàn Cờ", title: "Ra Quân & Nhập Thành", steps: [
+            { id: "develop", category: "Chương 13: Thực Chiến Toàn Bàn Cờ", title: "Ra Quân & Nhập Thành", steps: [
                 { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2", targetMove: "g1f3", note: "🐴 Ra <b>Mã</b> trước: lên f3", mascot: "Mã xuất chuồng trước!" },
                 { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "f1c4", note: "♝ Ra <b>Tượng</b>: lên c4", mascot: "Tượng ra đường chéo dài!" },
                 { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "e1g1", note: "🏰 <b>Nhập thành</b>: Vua → g1", mascot: "Cất Vua vào gara an toàn!" }
+            ]},
+            { id: "center-d4", category: "Chương 13: Thực Chiến Toàn Bàn Cờ", title: "Tấn Công Trung Tâm", steps: [
+                { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "d2d4", note: "⚔️ Đẩy Tốt <b>d4</b> tấn công trung tâm", mascot: "Hai Tốt trung tâm sát cánh!" }
             ]}
         ];
 
@@ -586,6 +791,68 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 { illegal: "Quân đó không đi được như vậy!", wrong: "Ra Mã trước: g1 → f3, vừa ra quân vừa dọa Tốt e5." },
                 { moves: { f1b5: "Tượng b5 cũng là nước hay, nhưng bài này đưa Tượng lên c4 để nhắm vào f7!" }, illegal: BISHOP_RULE, wrong: "Đưa Tượng f1 lên c4, nhắm vào điểm yếu f7." },
                 { moves: { e1f1: "Vua đi 1 ô sang f1 là mất quyền nhập thành! Chọn ô g1." }, illegal: "Nhập thành: nhấn Vua e1 rồi chọn ô g1.", wrong: "Đường đã trống, nhập thành: Vua e1 → g1." }
+            ],
+            "castle-long": [
+                { moves: { e1d1: "Đi 1 ô sang d1 chưa phải nhập thành. Nhập thành cánh Hậu: Vua đi 2 ô sang c1!" }, illegal: "Nhập thành cánh Hậu: nhấn Vua e1 rồi chọn ô c1.", wrong: "Nhập thành cánh Hậu: nhấn Vua e1 rồi chọn ô c1." }
+            ],
+            "queen-fork": [
+                { moves: { d1d8: "Hậu d8 chiếu Vua nhưng Xe a8 ăn lại mất Hậu! Tìm ô an toàn hơn." }, illegal: "Hậu đi thẳng hoặc chéo, không nhảy qua quân!", wrong: "Tìm ô Hậu vừa chiếu Vua g8 theo đường chéo, vừa nhắm Xe a8." }
+            ],
+            "pawn-fork": [
+                { illegal: "Tốt chỉ đi thẳng lên, và ăn chéo!", wrong: "Đẩy Tốt lên 1 ô, đứng giữa hai Mã để dọa cả hai." }
+            ],
+            "free-piece": [
+                { moves: { f3e5: "Khoan! Tốt e5 được Tốt d6 bảo vệ, Mã ăn Tốt sẽ bị ăn lại!" }, illegal: KNIGHT_RULE, wrong: "Tượng h4 không có ai bảo vệ: Mã nhảy tới ăn!" }
+            ],
+            "double-check": [
+                { illegal: KNIGHT_RULE, wrong: "Nhảy Mã tới ô chiếu Vua e8, để Xe e1 phía sau cũng chiếu." }
+            ],
+            "remove-defender": [
+                { moves: { b6d7: "Mã ăn Xe ngay thì Mã f6 ăn lại mất. Diệt Mã f6 đang bảo vệ trước!" }, illegal: BISHOP_RULE, wrong: "Tượng g5 ăn Mã f6, quân đang bảo vệ Xe d7." },
+                { illegal: KNIGHT_RULE, wrong: "Mã b6 nhảy ăn Xe d7, giờ không ai bảo vệ nó." }
+            ],
+            "run-away": [
+                { moves: { e4d2: "Ô d2 bị Tượng h6 canh, Mã sẽ bị ăn!", e4g5: "Ô g5 bị Tượng h6 canh, Mã sẽ bị ăn!" }, illegal: KNIGHT_RULE, wrong: "Phải cứu Mã e4: nhảy Mã tới ô không bị quân đen tấn công." }
+            ],
+            "defend-piece": [
+                { moves: { c2c4: "Tốt c4 không bảo vệ được d4. Tốt ăn chéo nên phải đứng ở c3 hoặc e3!", e2e4: "Tốt e4 không bảo vệ được d4. Tốt ăn chéo nên phải đứng ở c3 hoặc e3!" }, illegal: "Tốt chỉ đi thẳng lên!", wrong: "Đặt một Tốt chéo phía sau Mã (c3 hoặc e3) để bảo vệ Mã." }
+            ],
+            "luft": [
+                { moves: { g1h1: "Vua sang h1 vẫn bị kẹt: Xe đen xuống e1 là chiếu bí!" }, illegal: "Quân đó không đi được như vậy!", wrong: "Đẩy một Tốt trước Vua (vd. h3) để Vua có ô thoát." }
+            ],
+            "scholar-defense": [
+                { moves: { d8h4: "Chặn được chiếu bí nhưng Hậu h5 sẽ ăn mất Hậu con!", d8g5: "Chặn được chiếu bí nhưng Hậu h5 sẽ ăn mất Hậu con!", e8e7: "Vua ra e7 rất nguy hiểm! Hãy dùng quân khác bảo vệ f7.", g8f6: "Mã f6 đuổi Hậu nhưng Hậu vẫn ăn f7 chiếu bí được!", d7d5: "Chặn đường Tượng nhưng Tượng ăn d5 rồi lại dọa f7. Có cách chắc chắn hơn!" }, illegal: "Quân đó không đi được như vậy!", wrong: "Bảo vệ f7 hoặc đuổi Hậu: g6, Hậu e7, Hậu f6 hoặc Mã h6." }
+            ],
+            "rook-mate": [
+                { illegal: ROOK_RULE, wrong: "Xe lên hàng 8 chiếu Vua. Vua trắng e6 đã canh hết các ô hàng 7." }
+            ],
+            "smothered": [
+                { illegal: KNIGHT_RULE, wrong: "Mã nhảy tới ô chiếu Vua h8: ô f7." }
+            ],
+            "arabian": [
+                { moves: { b7b8: "Chiếu hàng 8 thì Vua chạy lên g7 mất. Xe vào h7, có Mã bảo vệ!" }, illegal: ROOK_RULE, wrong: "Xe lao vào h7 ngay trước mặt Vua, Mã f6 bảo vệ Xe." }
+            ],
+            "qb-mate": [
+                { illegal: "Hậu đi thẳng hoặc chéo, không nhảy qua quân!", wrong: "Hậu vào h7 chiếu Vua, Tượng d3 bảo vệ Hậu." }
+            ],
+            "fools-mate": [
+                { illegal: "Quân đó không đi được như vậy!", wrong: "Hậu đen chạy chéo tới h4 chiếu Vua trắng." }
+            ],
+            "pawn-race": [
+                { illegal: "Tốt chỉ đi thẳng lên, mỗi lần 1 ô!", wrong: "Đẩy Tốt lên a6." },
+                { illegal: "Tốt chỉ đi thẳng lên, mỗi lần 1 ô!", wrong: "Đẩy Tốt lên a7." },
+                { illegal: "Tốt chỉ đi thẳng lên, mỗi lần 1 ô!", wrong: "Đẩy Tốt lên a8 để phong cấp." }
+            ],
+            "promote-mate": [
+                { illegal: "Tốt chỉ đi thẳng lên!", wrong: "Đẩy Tốt lên g8 và chọn Hậu: Hậu chiếu Vua, Vua trắng f7 bảo vệ Hậu." }
+            ],
+            "king-catch": [
+                { moves: { d4c3: "Đi c3 cũng đuổi được, nhưng bài này đi c4 nhé!" }, illegal: KING_RULE, wrong: "Vua đi chéo sang c4 để đuổi Tốt." },
+                { illegal: KING_RULE, wrong: "Vua lên b3, đứng sát Tốt." },
+                { illegal: KING_RULE, wrong: "Vua ăn Tốt a2!" }
+            ],
+            "center-d4": [
+                { moves: { d2d3: "d3 chỉ đi 1 ô, giữ chắc nhưng chưa tấn công. Đẩy d4 để tấn công e5!" }, illegal: "Quân đó không đi được như vậy!", wrong: "Đẩy Tốt d2 lên d4 tấn công Tốt e5." }
             ]
         };
 
@@ -792,7 +1059,9 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         }
         document.body.addEventListener('click', () => { if (audioCtx.state === 'suspended') audioCtx.resume(); }, { once: true });
 
-        const MUC_DOI_TIEN = 500;
+        const MUC_DOI_TIEN = 1000;   // mỗi 1000 Xu ...
+        const TIEN_MOI_MUC = 10000;  // ... đổi được 10.000 VNĐ
+        function formatVND(n) { return n.toLocaleString('vi-VN') + 'đ'; }
         let coins = parseInt(localStorage.getItem('kidCoins')) || 0;
         // aiLevel = cấp cao nhất đã mở khóa = số cấp đã chinh phục + 1 (AI_LEVELS.length + 1 nghĩa là đã vô địch)
         let aiLevel = Math.min(parseInt(localStorage.getItem('kidLevel')) || 1, AI_LEVELS.length + 1);
@@ -835,16 +1104,81 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         let currentLessonIndex = getNextLessonIndex();
         let currentStepIndex = 0;
 
-        document.getElementById('coinBalance').innerText = coins;
+        // Tình trạng ví: đổi được bao nhiêu tiền ngay bây giờ, và cần thêm bao nhiêu Xu để được thêm 10.000đ
+        function walletState() {
+            let units = Math.floor(coins / MUC_DOI_TIEN);
+            return { units, money: units * TIEN_MOI_MUC, need: MUC_DOI_TIEN - (coins % MUC_DOI_TIEN) };
+        }
+        // Ví gọn trên thanh đầu trang: số Xu · đổi được bao nhiêu tiền · cần bao nhiêu Xu nữa · nút 💰 Đổi
+        function updateWallet() {
+            let s = walletState(), fmt = n => n.toLocaleString('vi-VN');
+            document.getElementById('coinBalance').innerText = fmt(coins);
+            // .wl-lbl: chữ phụ, được ẩn trên màn rất hẹp để dòng thông tin không bị cắt
+            document.getElementById('walletMoney').innerHTML = `<span class="wl-lbl">Đổi được </span><b>${formatVND(s.money)}</b>`;
+            document.getElementById('walletNeed').innerHTML = `cần ${fmt(s.need)} Xu<span class="wl-lbl"> nữa</span>`;
+            document.getElementById('walletMeter').style.width = (coins % MUC_DOI_TIEN) / MUC_DOI_TIEN * 100 + '%'; // tiến độ tới 10.000đ kế tiếp
+            let btn = document.getElementById('walletClaim');
+            btn.classList.toggle('ready', s.units > 0);
+            btn.title = s.units > 0 ? `Đổi ${fmt(s.units * MUC_DOI_TIEN)} Xu lấy ${formatVND(s.money)}` : `Cần thêm ${fmt(s.need)} Xu để đổi ${formatVND(TIEN_MOI_MUC)}`;
+            document.getElementById('wallet').title = `Có ${fmt(coins)} Xu · đổi được ${formatVND(s.money)} · cần ${fmt(s.need)} Xu nữa để được thêm ${formatVND(TIEN_MOI_MUC)} (${fmt(MUC_DOI_TIEN)} Xu = ${formatVND(TIEN_MOI_MUC)})`;
+        }
+        updateWallet();
 
         function addCoins(amount) {
             coins += amount; localStorage.setItem('kidCoins', coins);
-            document.getElementById('coinBalance').innerText = coins;
+            updateWallet();
             if (amount > 0) playSound('coin');
         }
-        function claimSavings() {
-            if (coins >= MUC_DOI_TIEN) { addCoins(-MUC_DOI_TIEN); alert("🎉 Đổi thành công 10.000 VNĐ!"); } 
-            else { alert(`Cần thêm ${MUC_DOI_TIEN - coins} Xu nữa!`); }
+        // --- HỘP THOẠI ĐỔI XU ---
+        // Hiện số Xu, số tiền đổi được tối đa; bé tự chọn đổi bao nhiêu (bội số 10.000đ) để chừa Xu thi đấu tiếp.
+        function claimSavings() { openExchange(); }
+        function openExchange() {
+            let s = walletState(), fmt = n => n.toLocaleString('vi-VN'), dlg = document.getElementById('exchangeDialog');
+            document.getElementById('exCoins').textContent = fmt(coins);
+            document.getElementById('exMax').textContent = formatVND(s.money);
+            let range = document.getElementById('exRange');
+            range.max = Math.max(s.units, 1); range.value = 1;               // mặc định chỉ đổi 10.000đ, chừa lại phần còn lại
+            document.getElementById('exPicker').hidden = s.units === 0;
+            let notEnough = document.getElementById('exNotEnough');
+            notEnough.hidden = s.units > 0;
+            notEnough.textContent = `Chưa đủ để đổi. Cần thêm ${fmt(s.need)} Xu nữa để đổi ${formatVND(TIEN_MOI_MUC)}. Cố lên!`;
+            exRender();
+            if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+        }
+        function closeExchange() {
+            let dlg = document.getElementById('exchangeDialog');
+            if (dlg.close) dlg.close(); else dlg.removeAttribute('open');
+        }
+        // Số phần 10.000đ đang chọn (luôn nằm trong 1..tối đa)
+        function exUnits() {
+            let r = document.getElementById('exRange');
+            return Math.min(Math.max(parseInt(r.value) || 1, 1), parseInt(r.max));
+        }
+        function exStep(delta) { let r = document.getElementById('exRange'); r.value = exUnits() + delta; exRender(); }
+        function exSet(v) {
+            let r = document.getElementById('exRange'), max = parseInt(r.max);
+            r.value = v === 'all' ? max : v === 'half' ? Math.max(1, Math.floor(max / 2)) : v;
+            exRender();
+        }
+        function exRender() {
+            let s = walletState(), units = exUnits(), fmt = n => n.toLocaleString('vi-VN');
+            let spend = units * MUC_DOI_TIEN, max = parseInt(document.getElementById('exRange').max);
+            document.getElementById('exRange').value = units;
+            document.getElementById('exAmount').textContent = formatVND(units * TIEN_MOI_MUC);
+            document.getElementById('exAfter').innerHTML = `Dùng <b>${fmt(spend)} Xu</b> · còn lại <b>${fmt(coins - spend)} Xu</b> để thi đấu tiếp`;
+            document.querySelector('.ex-stepper button:first-child').disabled = units <= 1;
+            document.querySelector('.ex-stepper button:last-child').disabled = units >= max;
+            let ok = s.units > 0, btn = document.getElementById('exConfirm');
+            btn.disabled = !ok;
+            btn.textContent = ok ? `💰 Đổi ${formatVND(units * TIEN_MOI_MUC)}` : '💰 Đổi';
+        }
+        function confirmExchange() {
+            let s = walletState();
+            if (s.units === 0) return;
+            let units = Math.min(exUnits(), s.units), fmt = n => n.toLocaleString('vi-VN');
+            addCoins(-units * MUC_DOI_TIEN);
+            closeExchange();
+            mascotSpeak(`🎉 Đổi thành công ${formatVND(units * TIEN_MOI_MUC)}! Nhờ bố mẹ trao thưởng nhé. Ví còn ${fmt(coins)} Xu.`);
         }
         function mascotSpeak(text) { document.getElementById('mascotText').innerText = text; }
         function showAnalysis(text) { 
@@ -856,7 +1190,34 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         // --- STATE & CONFIG ---
         var board = null, game = new Chess(), selectedSquare = null;
         let currentMode = 'roadmap';
-        let tourneyConfig = { rounds: 3, prize: 500, currentRound: 1, active: false };
+        // Giải đấu: opponent 'ai' | 'friend' (2 người cùng máy) · colorPref: màu con/Người chơi 1 chọn ('w'|'b'|'random')
+        // score: [Người chơi 1, Người chơi 2] khi đấu 2 người · friendlyRound: ván giao hữu (không thưởng, không tính vòng)
+        let tourneyConfig = { rounds: 3, prize: 500, currentRound: 1, active: false, opponent: 'ai', colorPref: 'w', p1Color: 'w', score: [0, 0], friendlyRound: false };
+        let playerColor = 'w';   // màu quân của con trong trận (2 người: màu của Người chơi 1 ở ván này)
+        // Giải đấu: ai đang cầm quân phía đối thủ lúc này ('ai' | 'friend'). Đổi được bất cứ lúc nào, kể cả giữa ván.
+        // (tourneyConfig.opponent chỉ là kiểu giải chọn lúc khai mạc: quyết định cách tính thưởng / tỉ số)
+        let opponentNow = 'ai';
+        let rankedColorPref = localStorage.getItem('rankedColor') || 'w';
+        const COLOR_NAMES = { w: 'Trắng', b: 'Đen' };
+        const COLOR_ICONS = { w: '⚪', b: '⚫' };
+        function otherColor(c) { return c === 'w' ? 'b' : 'w'; }
+        function resolveColor(pref) { return pref === 'random' ? (Math.random() < 0.5 ? 'w' : 'b') : pref; }
+        // Máy có đang điều khiển bên tới lượt không (tắt khi đấu 2 người hoặc khi tạm ngừng AI)
+        function aiControlsTurn() {
+            if (currentMode === 'tournament' && opponentNow !== 'ai') return false;
+            return game.turn() !== playerColor;
+        }
+        // Lật bàn cờ theo màu quân của người chơi (quân của con luôn ở phía dưới)
+        function setOrientation(color) {
+            board.orientation(color === 'b' ? 'black' : 'white');
+            positionOverlay();
+        }
+        // Nút chọn màu quân: ⚪ Trắng · ⚫ Đen · 🎲 Ngẫu nhiên (fn: tên hàm được gọi với giá trị đã chọn)
+        function colorPickerHTML(pref, fn) {
+            return `<div class="seg-pick" role="group" aria-label="Chọn màu quân">` +
+                [['w', '⚪ Trắng'], ['b', '⚫ Đen'], ['random', '🎲 Ngẫu nhiên']].map(([v, t]) =>
+                    `<button class="${pref === v ? 'active' : ''}" aria-pressed="${pref === v}" onclick="${fn}('${v}')">${t}</button>`).join('') + `</div>`;
+        }
         let matchActive = false; // Đấu AI / Giải Đấu: chỉ được đi quân sau khi nhấn bắt đầu
         let autoNextTimeout = null;
         let pendingPromotionMove = null;
@@ -886,9 +1247,30 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
 
         // Nước đi (đã thực hiện trên game) có đúng yêu cầu của bước không.
         // Bước goal 'mate' chấp nhận mọi nước chiếu bí, các bước khác phải khớp targetMove.
+        // Gọi SAU khi nước đi đã được thực hiện trên game (tới lượt đối phương).
         function isCorrectMove(step, attemptStr) {
+            if (step.accept && !step.accept.includes(attemptStr.slice(0, 4))) return false;
             if (step.goal === 'mate') return game.in_checkmate();
+            if (step.goal === 'safe') // đúng quân, và ô mới không bị quân nào của đối phương tấn công
+                return attemptStr.slice(0, 2) === step.targetMove.slice(0, 2) && !game.moves({ verbose: true }).some(m => m.to === attemptStr.slice(2, 4));
+            if (step.goal === 'protect') return isProtected(step.square);
+            if (step.goal === 'stop-mate') return !opponentHasMateInOne();
             return attemptStr.startsWith(step.targetMove);
+        }
+        // Quân (của bên vừa đi) ở ô sq có được bảo vệ: mọi cách đối phương ăn nó đều bị ăn lại được
+        function isProtected(sq) {
+            let piece = game.get(sq), mover = game.turn() === 'w' ? 'b' : 'w';
+            if (!piece || piece.color !== mover) return false;
+            for (let cap of game.moves({ verbose: true }).filter(m => m.to === sq)) {
+                game.move(cap);
+                let recapture = game.moves({ verbose: true }).some(m => m.to === sq);
+                game.undo();
+                if (!recapture) return false;
+            }
+            return true;
+        }
+        function opponentHasMateInOne() {
+            return game.moves({ verbose: true }).some(m => { game.move(m); let mate = game.in_checkmate(); game.undo(); return mate; });
         }
 
         // Lời giải thích riêng của bài khi đi sai: ưu tiên lời cho nước cụ thể, rồi theo loại lỗi
@@ -912,7 +1294,12 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         let hintUsedThisStep = false;
         let stepLocked = false;   // khóa bàn cờ sau khi đi đúng, trong lúc chờ chuyển bước/bài
 
-        function sqXY(sq) { return { x: (sq.charCodeAt(0) - 97) * 100 + 50, y: (8 - Number(sq[1])) * 100 + 50 }; }
+        // Toạ độ tâm ô trên lớp SVG, tính cả khi bàn cờ lật (quân Đen ở dưới)
+        function sqXY(sq) {
+            let f = sq.charCodeAt(0) - 97, r = Number(sq[1]);
+            if (board && board.orientation() === 'black') return { x: (7 - f) * 100 + 50, y: (r - 1) * 100 + 50 };
+            return { x: f * 100 + 50, y: (8 - r) * 100 + 50 };
+        }
         function svgEl(tag, attrs, parent) {
             let el = document.createElementNS(SVG_NS, tag);
             for (let k in attrs) el.setAttribute(k, attrs[k]);
@@ -1087,7 +1474,8 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         function switchTab(mode) {
             clearTimeout(autoNextTimeout);
             currentMode = mode;
-            matchActive = false; matchId++;
+            matchActive = false; matchId++; updateFocusMode();
+            opponentNow = tourneyConfig.opponent; playerColor = 'w'; setOrientation('w'); // mỗi tab bắt đầu với quân Trắng ở dưới
             clearOverlay(); updateFloatHint();
             $('.tab-btn').removeClass('active');$(`.tab-btn[onclick="switchTab('${mode}')"]`).addClass('active');
             showAnalysis(false);
@@ -1114,12 +1502,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             } else if (mode === 'tournament') {
                 document.getElementById('lessonNote').style.display = 'none';
                 tourneyConfig.active = false;
-                controls.innerHTML = `<h3>Giải Đấu</h3>
-                    <div class="form-grid">
-                        <label for="tRounds">Số vòng</label><input type="number" id="tRounds" value="3" min="1" max="10" inputmode="numeric">
-                        <label for="tPrize">Thưởng (Xu)</label><input type="number" id="tPrize" value="500" step="50" min="100" inputmode="numeric">
-                    </div>
-                    <button class="btn" style="background:#f44336;" onclick="startTournament()">🏁 Khai mạc</button>`;
+                renderTournamentSetup();
                 mascotSpeak("Thiết lập giải đấu của riêng con!");
                 game.reset(); board.position('start');
             }
@@ -1184,7 +1567,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             let lesson = ROADMAP[lIndex]; let step = lesson.steps[sIndex];
             game.load(step.fen); board.position(step.fen);
             
-            let badge = `<span class="step-badge">Ví dụ ${sIndex + 1} / ${lesson.steps.length}</span>`;
+            let badge = `<span class="step-badge"><span class="sb-long">Ví dụ </span>${sIndex + 1} / ${lesson.steps.length}</span>`;
             let actions = step.targetMove === 'invalid' ? '' : isHiddenStep(step)
                 ? `<div class="note-actions"><button class="btn btn-demo" onclick="playDemo()" title="Dùng gợi ý sẽ tính 1 lỗi">💡 Gợi ý</button></div>`
                 : `<div class="note-actions"><button class="btn btn-demo" onclick="playDemo()">▶ Xem mẫu</button></div>`;
@@ -1206,6 +1589,16 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             }
         }
 
+        // Hộp chọn quân phong cấp: hiện quân đúng màu của bên đang phong cấp
+        function openPromotion(from, to) {
+            pendingPromotionMove = { from, to };
+            let color = game.turn();
+            document.querySelectorAll('#promotionModal .promo-btn').forEach(btn => {
+                let p = btn.getAttribute('onclick').match(/'(\w)'/)[1].toUpperCase();
+                btn.style.backgroundImage = `url('${PIECE_IMAGES[color + p]}')`;
+            });
+            document.getElementById('promotionModal').style.display = 'flex';
+        }
         function confirmPromotion(pieceType) {
             document.getElementById('promotionModal').style.display = 'none';
             if (!pendingPromotionMove) return;
@@ -1246,9 +1639,13 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                     game.undo(); board.position(game.fen());
                 }
             } else {
-                mascotSpeak("🚙 Tốt lắm! Chờ máy tính đi..."); showAnalysis(false); clearOverlay();
+                showAnalysis(false); clearOverlay(); positionOverlay();
+                drawArrow(attemptStr.slice(0, 2), attemptStr.slice(2, 4), 'history', ovLayer('base')); // nước vừa đi
                 let id = matchId;
-                if (!checkGameOver()) { window.setTimeout(() => makeMachineMove(id), 600); }
+                if (!checkGameOver()) {
+                    if (aiControlsTurn()) { mascotSpeak("🚙 Tốt lắm! Chờ máy tính đi..."); window.setTimeout(() => makeMachineMove(id), 600); }
+                    else mascotSpeak(`🎯 Tới lượt quân ${COLOR_ICONS[game.turn()]} ${COLOR_NAMES[game.turn()]}!`); // đấu 2 người
+                }
             }
             removeHighlights(); selectedSquare = null;
         }
@@ -1311,21 +1708,20 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                     else mascotSpeak("👉 Nhấn '🏁 Khai mạc' để bắt đầu giải đấu nhé!");
                     return;
                 }
-                if (game.game_over() || game.turn() === 'b') return;
+                if (game.game_over() || aiThinking || aiControlsTurn()) return; // đang là lượt của máy
             }
 
             var square = $(this).attr('data-square');
             var piece = game.get(square);
 
-            if (piece && piece.color === 'w') { toggleSelect(square); return; }
+            if (piece && piece.color === game.turn()) { toggleSelect(square); return; }
             if (selectedSquare) {
                 let testMove = game.move({ from: selectedSquare, to: square, promotion: 'q' });
                 
                 if (testMove !== null) {
                     if (testMove.promotion) {
                         game.undo();
-                        pendingPromotionMove = { from: selectedSquare, to: square };
-                        document.getElementById('promotionModal').style.display = 'flex';
+                        openPromotion(selectedSquare, square);
                         return;
                     } else {
                         let attemptStr = selectedSquare + square;
@@ -1343,11 +1739,10 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             }
         });
 
-        // Máy (quân Đen) đi. Đấu AI: theo cấp đang chọn · Giải đấu: vòng r dùng cấp r + 1 (chỉ các cấp tự viết)
+        // Máy đi (cầm màu ngược với con). Đấu AI: theo cấp đang chọn · Giải đấu: vòng r dùng cấp r + 1 (chỉ các cấp tự viết)
         function makeMachineMove(id) {
-            if (!matchActive || id !== matchId) return; // trận đã kết thúc / đổi trận trong lúc chờ
-            let builtinCount = AI_LEVELS.filter(L => !L.engine).length;
-            let level = currentMode === 'ranked' ? selectedLevel : Math.min(tourneyConfig.currentRound + 1, builtinCount);
+            if (!matchActive || id !== matchId || !aiControlsTurn()) return; // trận đã kết thúc / đổi trận / AI tạm ngừng
+            let level = currentMode === 'ranked' ? selectedLevel : tournamentAILevel();
             let cfg = AI_LEVELS[level - 1];
             mascotSpeak("🤔 Máy đang suy nghĩ...");
             aiThinking = true;
@@ -1359,7 +1754,8 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 // AI tự viết: cấp 1-8, hoặc dự phòng khi Stockfish hỏng giữa trận
                 if (!m && matchActive && id === matchId) m = chooseAIMove(game, level);
                 aiThinking = false;
-                if (!m || !matchActive || id !== matchId) return;
+                // bỏ nước nếu trận đã đổi, hoặc AI vừa bị tạm ngừng trong lúc đang nghĩ
+                if (!m || !matchActive || id !== matchId || !aiControlsTurn()) return;
                 game.move(m); board.position(game.fen()); playSound('move');
                 clearOverlay(); positionOverlay();
                 drawArrow(m.from, m.to, 'history', ovLayer('base')); // cho con thấy máy vừa đi nước nào
@@ -1374,8 +1770,42 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         function updateFloatHint() {
             let on = currentMode === 'ranked' && matchActive && assistOn;
             document.getElementById('floatHint').hidden = !on;
+            document.getElementById('focusHint').hidden = !on; // nút 💡 trên thanh chế độ tập trung
             document.querySelector('.board-wrapper').classList.toggle('has-float-hint', on);
         }
+
+        // --- CHẾ ĐỘ TẬP TRUNG KHI THI ĐẤU ---
+        // Đang trong trận (Đấu AI / Giải Đấu): ẩn tiêu đề, tab, ví, bảng cấu hình; bàn cờ phóng to.
+        // Nút ⚙️ mở bảng điều khiển nổi, "▶ Tiếp tục ván cờ" (hoặc Esc / bấm nền mờ) đóng lại. Hết trận thì tự thoát.
+        function updateFocusMode() {
+            let on = matchActive && (currentMode === 'ranked' || currentMode === 'tournament');
+            let wasOn = document.body.classList.contains('focus-mode');
+            document.body.classList.toggle('focus-mode', on);
+            if (!on) {
+                closeOptions();
+                if (wasOn && document.fullscreenElement) document.exitFullscreen().catch(() => {});
+            }
+            if (on) {
+                document.getElementById('focusTitle').textContent = currentMode === 'ranked'
+                    ? `⚔️ ${levelLabel(selectedLevel)} · Con cầm ${COLOR_ICONS[playerColor]}`
+                    : `🏆 ${tourneyConfig.opponent === 'friend' ? 'Ván' : 'Vòng'} ${tourneyConfig.currentRound}/${tourneyConfig.rounds} · ${opponentNow === 'ai' ? '🤖 Máy' : '👥 Bạn'}`;
+                updateFloatHint();
+                if (!wasOn) window.scrollTo(0, 0);
+            }
+        }
+        function openOptions() {
+            if (!document.body.classList.contains('focus-mode')) return;
+            document.body.classList.add('options-open');
+            document.getElementById('optionsClose').focus();
+        }
+        function closeOptions() { document.body.classList.remove('options-open'); }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOptions(); });
+        // ⛶ Toàn màn hình thật của trình duyệt (ẩn nút nếu trình duyệt không hỗ trợ, vd. iPhone)
+        function toggleFullscreen() {
+            if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+            else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+        }
+        document.getElementById('focusFullscreen').hidden = !document.fullscreenEnabled;
         function levelLabel(n) { let L = AI_LEVELS[Math.min(n, AI_LEVELS.length) - 1]; return `${L.icon} Cấp ${n}: ${L.name}`; }
         function assistToggleHTML() {
             return `<label class="assist-toggle"><input type="checkbox" ${assistOn ? 'checked' : ''} onchange="toggleAssist(this.checked)"><span class="switch"></span>
@@ -1402,6 +1832,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             // Nút gạt + nút Đấu đặt trên thang cấp để không phải cuộn hết các cấp mới bấm được (nhất là trên điện thoại)
             document.getElementById('modeControls').innerHTML = `<h3>${conquered >= total ? '🏆 Nhà Vô Địch!' : '🏁 Chặng Đua AI'}</h3>
                 <div class="lv-progress"><div style="width:${conquered / total * 100}%"></div></div><small>Đã chinh phục ${conquered}/${total} cấp</small>
+                <div class="setup-row"><span class="setup-label">Con cầm quân</span>${colorPickerHTML(rankedColorPref, 'setRankedColor')}</div>
                 ${assistToggleHTML()}
                 <button class="btn btn-start" style="margin-bottom:6px" onclick="startRanked()">⚔️ Đấu ${levelLabel(selectedLevel)}</button>
                 ${sfNote}<div class="level-ladder">${cards}</div>`;
@@ -1411,7 +1842,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             // Nút Gợi ý đặt ngay dưới tiêu đề: gần bàn cờ nhất, không phải cuộn trên điện thoại
             document.getElementById('modeControls').innerHTML = `<h3 style="margin-bottom:10px">⚔️ Đang đấu ${levelLabel(selectedLevel)}</h3>
                 ${assistOn ? `<button class="btn btn-demo" onclick="requestHint()">💡 Gợi ý nước đi (-${HINT_COST} Xu)</button>` : ''}
-                ${assistToggleHTML()}<p class="lv-desc">${AI_LEVELS[selectedLevel - 1].desc}</p>
+                ${assistToggleHTML()}<p class="lv-desc">Con cầm quân ${COLOR_ICONS[playerColor]} ${COLOR_NAMES[playerColor]} · ${AI_LEVELS[selectedLevel - 1].desc}</p>
                 <div class="btn-row" style="margin-top:12px"><button class="btn" style="background:#9e9e9e;" onclick="resignRanked()">🏳️ Bỏ cuộc</button></div>`;
             updateFloatHint();
         }
@@ -1425,22 +1856,29 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             if (currentMode === 'ranked' && matchActive) renderRankedMatchUI(); else renderRankedUI();
             mascotSpeak(on ? `🧠 Đã bật hỗ trợ! Trong trận, nhấn 💡 để xem gợi ý (${HINT_COST} Xu/lần).` : "🧠 Đã tắt hỗ trợ. Tự lực chinh phục nào!");
         }
+        function setRankedColor(v) {
+            if (matchActive) return;
+            rankedColorPref = v; localStorage.setItem('rankedColor', v); renderRankedUI();
+        }
         function startRanked() {
             if (!levelAvailable(selectedLevel)) { renderRankedUI(); return; }
             matchId++; game.reset(); board.position('start'); showAnalysis(false); clearOverlay();
-            matchActive = true; renderRankedMatchUI();
-            mascotSpeak(`${levelLabel(selectedLevel)} xuất phát! Con cầm quân Trắng, đi trước nhé!`);
+            playerColor = resolveColor(rankedColorPref); setOrientation(playerColor);
+            matchActive = true; renderRankedMatchUI(); updateFocusMode();
+            let who = `Con cầm quân ${COLOR_ICONS[playerColor]} ${COLOR_NAMES[playerColor]}`;
+            mascotSpeak(`${levelLabel(selectedLevel)} xuất phát! ${who}, ${playerColor === 'w' ? 'đi trước nhé!' : 'máy đi trước.'}`);
+            if (aiControlsTurn()) { let id = matchId; setTimeout(() => makeMachineMove(id), 700); } // con cầm Đen: máy (Trắng) đi trước
         }
         function resignRanked() {
             if (!matchActive) return;
-            matchActive = false; matchId++; clearOverlay(); renderRankedUI();
+            matchActive = false; matchId++; clearOverlay(); renderRankedUI(); updateFocusMode();
             mascotSpeak("🏳️ Không sao cả! Luyện thêm ở Bản Đồ rồi quay lại thử thách nhé.");
         }
         // Gợi ý: Stockfish toàn lực (nếu đã tải) hoặc AI tự viết mạnh nhất tìm nước tốt cho quân Trắng,
         // vẽ mũi tên + quân mờ đi mẫu. Mỗi lần tốn HINT_COST Xu.
         function requestHint() {
             if (currentMode !== 'ranked' || !assistOn) return;
-            if (!matchActive || aiThinking || game.turn() !== 'w' || game.game_over()) { mascotSpeak("⏳ Chờ tới lượt con rồi hãy xin gợi ý nhé!"); return; }
+            if (!matchActive || aiThinking || game.turn() !== playerColor || game.game_over()) { mascotSpeak("⏳ Chờ tới lượt con rồi hãy xin gợi ý nhé!"); return; }
             if (coins < HINT_COST) { mascotSpeak(`🪙 Cần ${HINT_COST} Xu để xem gợi ý. Học bài ở Bản Đồ để kiếm thêm Xu nhé!`); return; }
             addCoins(-HINT_COST);
             mascotSpeak("🤔 Đang tìm nước hay cho con...");
@@ -1454,7 +1892,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 clearOverlay(); positionOverlay();
                 drawArrow(m.from, m.to, 'hint', ovLayer('base'));
                 drawMark(m.to, 'target', ovLayer('base'));
-                animateGhost(m.from, m.to, 'w' + m.piece.toUpperCase());
+                animateGhost(m.from, m.to, m.color + m.piece.toUpperCase());
                 mascotSpeak(`💡 Gợi ý (-${HINT_COST} Xu): đi ${PIECE_NAMES[m.piece]} ${m.from} → ${m.to}${m.captured ? `, ăn ${PIECE_NAMES[m.captured]}` : ''}!`);
             }, 30);
         }
@@ -1469,35 +1907,159 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             } else { addCoins(5); msg = `🎉 Thắng lại ${L.icon} Cấp ${n}! +5 Xu`; }
             renderRankedUI(); mascotSpeak(msg);
         }
+        // --- GIẢI ĐẤU: với máy hoặc 2 người cùng máy ---
+        function renderTournamentSetup() {
+            let friend = tourneyConfig.opponent === 'friend';
+            document.getElementById('modeControls').innerHTML = `<h3>🏆 Giải Đấu</h3>
+                <div class="setup-row"><span class="setup-label">Đối thủ</span><div class="seg-pick" role="group" aria-label="Chọn đối thủ">
+                    <button class="${friend ? '' : 'active'}" aria-pressed="${!friend}" onclick="setTourneyOpponent('ai')">🤖 Máy</button>
+                    <button class="${friend ? 'active' : ''}" aria-pressed="${friend}" onclick="setTourneyOpponent('friend')">👥 Bạn cùng chơi</button></div></div>
+                <div class="setup-row"><span class="setup-label">${friend ? 'Người chơi 1 cầm quân' : 'Con cầm quân'}</span>${colorPickerHTML(tourneyConfig.colorPref, 'setTourneyColor')}</div>
+                <div class="form-grid">
+                    <label for="tRounds">${friend ? 'Số ván' : 'Số vòng'}</label><input type="number" id="tRounds" value="${tourneyConfig.rounds}" min="1" max="10" inputmode="numeric">
+                    ${friend ? '' : `<label for="tPrize">Thưởng (Xu)</label><input type="number" id="tPrize" value="${tourneyConfig.prize}" step="50" min="100" inputmode="numeric">`}
+                </div>
+                ${friend ? `<p class="lv-note">👥 Hai bạn thay phiên đi trên cùng một máy, mỗi ván đổi màu quân. Đấu 2 người không có thưởng Xu.</p>` : ''}
+                <p class="lv-note">🔄 Trong giải có thể đổi 🤖 Máy ↔ 👥 Bạn cùng chơi bất cứ lúc nào, kể cả đang giữa ván.${friend ? '' : ' Vòng có bạn cùng chơi thành ván giao hữu (không thưởng).'}</p>
+                <button class="btn" style="background:#f44336;" onclick="startTournament()">🏁 Khai mạc</button>`;
+            tourneyPanel = null;
+        }
+        // Giữ số vòng / thưởng đang nhập khi vẽ lại form
+        function readTournamentInputs() {
+            let r = document.getElementById('tRounds'), p = document.getElementById('tPrize');
+            if (r) tourneyConfig.rounds = Math.min(Math.max(parseInt(r.value) || 1, 1), 10);
+            if (p) tourneyConfig.prize = Math.max(parseInt(p.value) || 100, 100);
+        }
+        function setTourneyOpponent(v) { readTournamentInputs(); tourneyConfig.opponent = v; renderTournamentSetup(); }
+        function setTourneyColor(v) { readTournamentInputs(); tourneyConfig.colorPref = v; renderTournamentSetup(); }
         function startTournament() {
-            tourneyConfig.rounds = parseInt(document.getElementById('tRounds').value); tourneyConfig.prize = parseInt(document.getElementById('tPrize').value);
-            tourneyConfig.currentRound = 1; tourneyConfig.active = true; nextTournamentRound();
+            readTournamentInputs();
+            tourneyConfig.currentRound = 1; tourneyConfig.active = true; tourneyConfig.score = [0, 0];
+            tourneyConfig.p1Color = resolveColor(tourneyConfig.colorPref);
+            opponentNow = tourneyConfig.opponent;
+            nextTournamentRound();
         }
         function nextTournamentRound() {
             matchId++; game.reset(); board.position('start'); showAnalysis(false); clearOverlay();
-            matchActive = true; mascotSpeak(`🏁 Vòng ${tourneyConfig.currentRound} bắt đầu! Con đi trước nhé!`);
-            document.getElementById('modeControls').innerHTML = `<h3>🏆 Vòng ${tourneyConfig.currentRound}/${tourneyConfig.rounds}</h3>`;
+            let friendSeries = tourneyConfig.opponent === 'friend';
+            // Giải với máy: vòng bắt đầu khi bạn cùng chơi đang cầm quân đối thủ -> ván giao hữu ngay từ đầu
+            tourneyConfig.friendlyRound = friendSeries || opponentNow === 'friend';
+            // Giải 2 người: Người chơi 1 cầm màu đã chọn ở ván lẻ, đổi màu ở ván chẵn · Với máy: chọn "Ngẫu nhiên" thì bốc lại mỗi vòng
+            playerColor = friendSeries ? (tourneyConfig.currentRound % 2 ? tourneyConfig.p1Color : otherColor(tourneyConfig.p1Color)) : resolveColor(tourneyConfig.colorPref);
+            setOrientation(playerColor);
+            matchActive = true; renderTournamentMatchUI(); updateFocusMode();
+            let me = friendSeries ? 'Người chơi 1' : 'Con';
+            mascotSpeak(`🏁 ${friendSeries ? 'Ván' : 'Vòng'} ${tourneyConfig.currentRound}: ${me} cầm ${COLOR_ICONS[playerColor]} ${COLOR_NAMES[playerColor]}, đối thủ là ${opponentNow === 'ai' ? '🤖 Máy' : '👥 bạn cùng chơi'}. Quân Trắng đi trước!`);
+            if (aiControlsTurn()) { let id = matchId; setTimeout(() => makeMachineMove(id), 700); }
         }
-        // Thua hoặc hòa trong giải đấu: cho đấu lại vòng hiện tại hoặc bỏ giải
+        function tournamentAILevel() { return Math.min(tourneyConfig.currentRound + 1, AI_LEVELS.filter(L => !L.engine).length); }
+
+        // Bộ chọn ai cầm quân phía đối thủ: dùng được trong ván (đánh tiếp ván đang dở) và giữa các ván (áp dụng cho ván sau)
+        function opponentPickerHTML() {
+            let other = otherColor(playerColor), friend = opponentNow === 'friend';
+            let who = tourneyConfig.opponent === 'friend' ? 'Người chơi 2' : 'Đối thủ';
+            return `<div class="setup-row"><span class="setup-label">${who} ${COLOR_ICONS[other]} ${COLOR_NAMES[other]} do ai đánh?</span>
+                <div class="seg-pick" role="group" aria-label="Chọn ai cầm quân đối thủ">
+                    <button class="${friend ? '' : 'active'}" aria-pressed="${!friend}" onclick="setOpponentNow('ai')">🤖 Máy</button>
+                    <button class="${friend ? 'active' : ''}" aria-pressed="${friend}" onclick="setOpponentNow('friend')">👥 Bạn cùng chơi</button></div></div>`;
+        }
+        function tournamentScoreboardHTML() {
+            let t = tourneyConfig, p2 = opponentNow === 'ai' ? '🤖 Máy (thay Người chơi 2)' : 'Người chơi 2 👤';
+            return `<div class="scoreboard"><span>👤 Người chơi 1 ${COLOR_ICONS[playerColor]}</span><b>${t.score[0]} – ${t.score[1]}</b><span>${COLOR_ICONS[otherColor(playerColor)]} ${p2}</span></div>`;
+        }
+        let tourneyPanel = null; // hàm vẽ lại khung giải đấu đang hiện (để bộ chọn đối thủ vẽ lại đúng màn hình)
+        function renderTournamentMatchUI() {
+            let t = tourneyConfig, friendSeries = t.opponent === 'friend';
+            let info = friendSeries ? tournamentScoreboardHTML()
+                : `<p class="lv-desc">Con cầm ${COLOR_ICONS[playerColor]} ${COLOR_NAMES[playerColor]} · Máy: ${levelLabel(tournamentAILevel())}</p>`;
+            let note = !friendSeries && t.friendlyRound ? `<p class="lv-note">🤝 Ván giao hữu: có bạn cùng chơi nên vòng này không tính thưởng.</p>` : '';
+            document.getElementById('modeControls').innerHTML = `<h3>🏆 ${friendSeries ? 'Ván' : 'Vòng'} ${t.currentRound}/${t.rounds}</h3>${info}${opponentPickerHTML()}${note}
+                <div class="btn-row" style="margin-top:10px"><button class="btn" style="background:#9e9e9e;" onclick="switchTab('tournament')">🚪 Bỏ giải</button></div>`;
+            tourneyPanel = renderTournamentMatchUI;
+        }
+        // Đổi người cầm quân đối thủ. Giữa ván: đánh tiếp ngay ván đang dở (máy đi luôn nếu đang tới lượt máy).
+        function setOpponentNow(v) {
+            if (currentMode !== 'tournament' || !tourneyConfig.active || v === opponentNow) return;
+            opponentNow = v;
+            let other = otherColor(playerColor), side = `${COLOR_ICONS[other]} ${COLOR_NAMES[other]}`;
+            if (matchActive) {
+                if (v === 'friend') {
+                    let becameFriendly = tourneyConfig.opponent === 'ai' && !tourneyConfig.friendlyRound;
+                    tourneyConfig.friendlyRound = true;
+                    mascotSpeak(`👥 Bạn cùng chơi cầm quân ${side} từ nước này!${becameFriendly ? ' Vòng này thành ván giao hữu.' : ''}`);
+                } else {
+                    mascotSpeak(`🤖 Máy (${levelLabel(tournamentAILevel())}) đánh tiếp quân ${side}!`);
+                    if (!aiThinking && aiControlsTurn()) { let id = matchId; setTimeout(() => makeMachineMove(id), 400); }
+                }
+            } else {
+                mascotSpeak(v === 'ai' ? `🤖 Ván tới: Máy cầm quân đối thủ.` : `👥 Ván tới: bạn cùng chơi cầm quân đối thủ.`);
+            }
+            if (tourneyPanel) tourneyPanel();
+            updateFocusMode(); // cập nhật 🤖/👥 trên thanh chế độ tập trung
+        }
+        // Kết thúc ván giao hữu / ván của giải 2 người (winner: 'w' | 'b' | null = hòa)
+        function finishFriendlyGame(winner) {
+            let t = tourneyConfig;
+            if (t.opponent === 'friend') {
+                if (!winner) { t.score[0] += 0.5; t.score[1] += 0.5; }
+                else t.score[winner === playerColor ? 0 : 1]++;
+                let p2 = opponentNow === 'ai' ? 'Máy thay Người chơi 2' : 'Người chơi 2';
+                let result = winner ? `🏆 Quân ${COLOR_ICONS[winner]} ${COLOR_NAMES[winner]} thắng (${winner === playerColor ? 'Người chơi 1' : p2})!` : '🤝 Hòa cờ!';
+                mascotSpeak(t.currentRound >= t.rounds ? `${result} Kết thúc giải: ${friendChampionText()}` : result);
+                renderFriendResult();
+            } else {
+                mascotSpeak(`${winner ? `🤝 Ván giao hữu: quân ${COLOR_ICONS[winner]} ${COLOR_NAMES[winner]} thắng!` : '🤝 Ván giao hữu hòa!'} Ván có bạn cùng chơi không tính vòng, đấu lại với máy nhé!`);
+                showTournamentRetry();
+            }
+        }
+        function friendChampionText() {
+            let s = tourneyConfig.score;
+            return s[0] === s[1] ? '🤝 Hai bạn hòa nhau!' : `🥇 ${s[0] > s[1] ? 'Người chơi 1' : 'Người chơi 2'} vô địch!`;
+        }
+        function renderFriendResult() {
+            let t = tourneyConfig, last = t.currentRound >= t.rounds;
+            document.getElementById('modeControls').innerHTML = `<h3>🏆 ${last ? 'Kết quả chung cuộc' : `Hết ván ${t.currentRound}/${t.rounds}`}</h3>
+                <div class="scoreboard"><span>👤 Người chơi 1</span><b>${t.score[0]} – ${t.score[1]}</b><span>Người chơi 2 👤</span></div>
+                ${last ? `<p class="lv-note">${friendChampionText()}</p>` : opponentPickerHTML()}
+                <div class="btn-row" style="margin-top:10px">
+                    ${last ? `<button class="btn" style="background:#f44336;" onclick="switchTab('tournament')">🔁 Giải mới</button>`
+                           : `<button class="btn" style="background:#4caf50;" onclick="tourneyConfig.currentRound++; nextTournamentRound()">▶️ Ván tiếp theo (đổi màu)</button>
+                              <button class="btn" style="background:#9e9e9e;" onclick="switchTab('tournament')">🚪 Bỏ giải</button>`}
+                </div>`;
+            tourneyPanel = renderFriendResult;
+        }
+        // Thua / hòa / ván giao hữu trong giải với máy: cho đấu lại vòng hiện tại (chọn được đối thủ cho ván đấu lại) hoặc bỏ giải
         function showTournamentRetry() {
             if (currentMode !== 'tournament' || !tourneyConfig.active) return;
             document.getElementById('modeControls').innerHTML = `<h3>🏆 Vòng ${tourneyConfig.currentRound}/${tourneyConfig.rounds}</h3>
+                ${opponentPickerHTML()}
                 <div class="btn-row">
                     <button class="btn" style="background:#4caf50;" onclick="nextTournamentRound()">🔁 Đấu lại vòng này</button>
                     <button class="btn" style="background:#9e9e9e;" onclick="switchTab('tournament')">🚪 Bỏ giải</button>
                 </div>`;
+            tourneyPanel = showTournamentRetry;
         }
         function checkGameOver() {
             if (game.game_over()) {
-                matchActive = false;
+                matchActive = false; updateFocusMode(); // hết trận: thoát chế độ tập trung để xem kết quả
+                let winner = game.in_checkmate() ? otherColor(game.turn()) : null; // bên vừa chiếu bí
+                if (currentMode === 'tournament' && tourneyConfig.friendlyRound) { finishFriendlyGame(winner); return true; }
                 if (game.in_checkmate()) {
-                    if (game.turn() === 'b') { 
+                    if (winner === playerColor) {
                         if(currentMode === 'ranked') winRanked();
                         else if (currentMode === 'tournament') {
-                            if(tourneyConfig.currentRound < tourneyConfig.rounds) { tourneyConfig.currentRound++; setTimeout(nextTournamentRound, 2000); } 
-                            else { addCoins(tourneyConfig.prize); setTimeout(() => switchTab('tournament'), 2000); }
+                            let id = matchId;
+                            if(tourneyConfig.currentRound < tourneyConfig.rounds) {
+                                mascotSpeak(`🏆 Thắng vòng ${tourneyConfig.currentRound}! Vòng tiếp theo bắt đầu ngay...`);
+                                tourneyConfig.currentRound++;
+                                setTimeout(() => { if (id === matchId) nextTournamentRound(); }, 2000);
+                            } else {
+                                addCoins(tourneyConfig.prize);
+                                mascotSpeak(`🥇 VÔ ĐỊCH GIẢI ĐẤU! Con thắng cả ${tourneyConfig.rounds} vòng. +${tourneyConfig.prize} Xu`);
+                                setTimeout(() => { if (id === matchId) { switchTab('tournament'); mascotSpeak(`🥇 Vô địch! +${tourneyConfig.prize} Xu. Tổ chức giải mới nào!`); } }, 2500);
+                            }
                         }
-                    } else { 
+                    } else {
                         mascotSpeak("💥 Xe con bị kẹt mất rồi.");
                         let reason = localStorage.getItem('lastCaptureByAI');
                         if(reason) showAnalysis(`Nguyên nhân thua: ${reason}`); else showAnalysis("Vua của con không được che chắn.");
