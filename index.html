@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Viện Cờ Vua Ô Tô</title>
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #e0f7fa;
+            text-align: center;
+            margin: 0; padding: 20px; color: #333;
+        }
+        h1 { color: #ff5722; font-size: 2.2em; margin-bottom: 10px; }
+        
+        /* Tabs */
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .tab-btn {
+            padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer;
+            border: 2px solid #0288d1; background: #fff; color: #0288d1; border-radius: 10px;
+        }
+        .tab-btn.active { background: #0288d1; color: #fff; }
+
+        .container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        
+        .dashboard {
+            background: #fff; padding: 15px; border-radius: 15px; border: 3px solid #ff9800;
+            width: 100%; max-width: 450px;
+        }
+        .dashboard h2 { margin: 5px 0; color: #4caf50; }
+        .btn { padding: 10px 20px; font-size: 16px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; color: white; }
+        .btn-claim { background: #ff9800; }
+        
+        .mascot-box { background: #fff9c4; padding: 15px; border-radius: 15px; border: 3px dashed #fbc02d; font-size: 1.1em; max-width: 450px; font-weight: bold; }
+        .analysis-box { background: #ffcdd2; color: #c62828; padding: 10px; border-radius: 10px; display: none; max-width: 450px; font-weight: bold; border: 2px solid #c62828;}
+
+        .board-wrapper { padding: 10px; background: #333; border-radius: 10px; border: 5px solid #ffeb3b; width: 400px; }
+        
+        .mode-controls { background: #fff; padding: 15px; border-radius: 10px; width: 100%; max-width: 450px; margin-top: 10px; }
+        .level-badge { display: inline-block; background: #9c27b0; color: white; padding: 5px 10px; border-radius: 20px; font-size: 14px;}
+
+        .highlight-select { background: rgba(255, 235, 59, 0.8) !important; }
+        .highlight-move { background: radial-gradient(circle, #4caf50 25%, transparent 25%) !important; border-radius: 50%; }
+        
+        /* Tournament Setup */
+        .tournament-setup input { padding: 5px; width: 50px; font-size: 16px; font-weight: bold; text-align: center; margin: 0 5px;}
+    </style>
+</head>
+<body>
+
+    <h1>🏎️ Học Viện Cờ Vua Ô Tô</h1>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('roadmap')">🗺️ Lộ Trình Học</button>
+        <button class="tab-btn" onclick="switchTab('ranked')">⭐ Đua Thăng Cấp</button>
+        <button class="tab-btn" onclick="switchTab('tournament')">🏆 Giải Đấu</button>
+    </div>
+
+    <div class="container">
+        <!-- Ví Xu -->
+        <div class="dashboard">
+            <h2>🪙 Ví: <span id="coinBalance">0</span> Xu</h2>
+            <button class="btn btn-claim" onclick="claimSavings()">💰 Đổi 1000 Xu = 10k VNĐ</button>
+        </div>
+
+        <!-- Mascot & Phân Tích -->
+        <div class="mascot-box" id="mascotText">🤖 Khởi động máy! Chọn chế độ chơi ở trên nhé!</div>
+        <div class="analysis-box" id="analysisText"></div>
+
+        <!-- Bàn Cờ -->
+        <div class="board-wrapper"><div id="board"></div></div>
+
+        <!-- Khu vực Control Panel động (thay đổi theo Tab) -->
+        <div class="mode-controls" id="modeControls">
+            <!-- Nội dung sẽ được render bằng JS -->
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+
+    <script>
+        // --- HỆ THỐNG LƯU TRỮ VÀ XU ---
+        let coins = parseInt(localStorage.getItem('kidCoins')) || 0;
+        let aiLevel = parseInt(localStorage.getItem('kidLevel')) || 1;
+        document.getElementById('coinBalance').innerText = coins;
+
+        function addCoins(amount) {
+            coins += amount;
+            localStorage.setItem('kidCoins', coins);
+            document.getElementById('coinBalance').innerText = coins;
+        }
+        function claimSavings() {
+            if (coins >= 1000) { addCoins(-1000); alert("🎉 Đổi thành công 10.000 VNĐ! Nhờ bố mẹ bỏ ống heo nhé!"); } 
+            else { alert(`Cần thêm ${1000 - coins} Xu nữa!`); }
+        }
+        function mascotSpeak(text) { document.getElementById('mascotText').innerText = text; }
+        function showAnalysis(text) { 
+            let box = document.getElementById('analysisText');
+            if(text) { box.style.display = 'block'; box.innerText = "🔍 Phân tích: " + text; } 
+            else { box.style.display = 'none'; }
+        }
+
+        // --- CÁC BIẾN STATE CỦA GAME ---
+        var board = null, game = new Chess(), selectedSquare = null;
+        let currentMode = 'roadmap'; // roadmap, ranked, tournament
+        
+        // Data Lộ Trình (Puzzles)
+        const ROADMAP = [
+            { title: "Bài 1: Nước đi đầu tiên", fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e2e4", desc: "Hãy khởi động bằng cách đẩy Tốt xe (ở giữa) lên 2 bước (e4)!" },
+            { title: "Bài 2: Ăn quân đối phương", fen: "8/8/8/3p4/4P3/8/8/8 w - - 0 1", targetMove: "e4d5", desc: "Tốt ăn chéo! Hãy dùng Tốt trắng ăn Tốt đen nhé." },
+            { title: "Bài 3: Xe quét đường", fen: "8/8/8/8/8/2R3r1/8/8 w - - 0 1", targetMove: "c3g3", desc: "Xe chạy đường thẳng. Dùng Xe trắng đâm hỏng Xe đen nào!" }
+        ];
+        let currentPuzzle = 0;
+
+        // Data Giải Đấu
+        let tourneyConfig = { rounds: 3, prize: 500, currentRound: 1, active: false };
+
+        // --- LOGIC GIAO DIỆN TABS ---
+        function switchTab(mode) {
+            currentMode = mode;
+            $('.tab-btn').removeClass('active');$(`.tab-btn[onclick="switchTab('${mode}')"]`).addClass('active');
+            showAnalysis(false);
+            
+            let controls = document.getElementById('modeControls');
+            if(mode === 'roadmap') {
+                controls.innerHTML = `<h3>Bản Đồ Học Tập</h3>
+                    ${ROADMAP.map((p, i) => `<button class="btn" style="background:#03a9f4; margin:5px" onclick="loadPuzzle(${i})">${p.title}</button>`).join('')}`;
+                loadPuzzle(0);
+            } else if (mode === 'ranked') {
+                controls.innerHTML = `<h3><span class="level-badge">Cấp độ hiện tại: Level ${aiLevel}</span></h3>
+                    <button class="btn" style="background:#4caf50;" onclick="startRanked()">⚔️ Bắt đầu trận hạng</button>`;
+                mascotSpeak(`Sẵn sàng đua ở Level ${aiLevel} chưa? Thắng sẽ lên cấp!`);
+                game.reset(); board.position('start');
+            } else if (mode === 'tournament') {
+                tourneyConfig.active = false;
+                controls.innerHTML = `<h3>Tạo Giải Đua Riêng</h3>
+                    <div class="tournament-setup">
+                        Số vòng đấu: <input type="number" id="tRounds" value="3" min="1" max="10"> <br><br>
+                        Thưởng Vô Địch: <input type="number" id="tPrize" value="500" step="50" min="100"> Xu
+                    </div><br>
+                    <button class="btn" style="background:#f44336;" onclick="startTournament()">🏁 Khai mạc giải</button>`;
+                mascotSpeak("Thiết lập giải đấu của riêng con. Càng nhiều vòng đấu, càng khó!");
+                game.reset(); board.position('start');
+            }
+        }
+
+        // --- CÁC HÀM KHỞI TẠO GAME ---
+        function loadPuzzle(index) {
+            currentPuzzle = index;
+            let p = ROADMAP[index];
+            game.load(p.fen); board.position(game.fen());
+            mascotSpeak(`🧩 ${p.title}: ${p.desc}`);
+            showAnalysis(false);
+        }
+
+        function startRanked() {
+            game.reset(); board.position('start'); showAnalysis(false);
+            mascotSpeak(`Trận đấu Level ${aiLevel} bắt đầu! Cẩn thận xe đối thủ nhé!`);
+        }
+
+        function startTournament() {
+            tourneyConfig.rounds = parseInt(document.getElementById('tRounds').value);
+            tourneyConfig.prize = parseInt(document.getElementById('tPrize').value);
+            tourneyConfig.currentRound = 1;
+            tourneyConfig.active = true;
+            nextTournamentRound();
+        }
+
+        function nextTournamentRound() {
+            game.reset(); board.position('start'); showAnalysis(false);
+            mascotSpeak(`🏆 VÒNG ${tourneyConfig.currentRound} / ${tourneyConfig.rounds} TRẬN BẮT ĐẦU!`);
+            document.getElementById('modeControls').innerHTML = `<h3>🏆 Giải Đấu: Vòng ${tourneyConfig.currentRound}/${tourneyConfig.rounds}</h3><p>Thưởng: ${tourneyConfig.prize} Xu</p>`;
+        }
+
+        // --- BÀN CỜ CLICK-TO-MOVE ---
+        function removeHighlights() { $('#board .square-55d63').removeClass('highlight-select highlight-move'); }
+        function highlightValidMoves(square) {
+            removeHighlights(); $('#board .square-' + square).addClass('highlight-select');
+            var moves = game.moves({ square: square, verbose: true });
+            for (var i = 0; i < moves.length; i++) { $('#board .square-' + moves[i].to).addClass('highlight-move'); }
+        }
+
+        $('#board').on('click', '.square-55d63', function () {
+            if (game.game_over() || game.turn() === 'b') return;
+            var square = $(this).attr('data-square');
+            var piece = game.get(square);
+
+            if (piece && piece.color === 'w') {
+                selectedSquare = square; highlightValidMoves(square);
+                return;
+            }
+            if (selectedSquare) {
+                var attempt = selectedSquare + square; // e.g. "e2e4"
+                
+                // KIỂM TRA LUẬT CHO CHẾ ĐỘ ROADMAP (PUZZLE)
+                if(currentMode === 'roadmap') {
+                    if(attempt === ROADMAP[currentPuzzle].targetMove) {
+                        game.move({from: selectedSquare, to: square});
+                        board.position(game.fen());
+                        mascotSpeak("🎉 Chính xác! Nhận 10 Xu!"); addCoins(10);
+                        removeHighlights(); selectedSquare = null;
+                        return;
+                    } else {
+                        mascotSpeak("🛑 Kít! Nước này chưa đúng với bài học. Đọc lại hướng dẫn nhé.");
+                        removeHighlights(); selectedSquare = null;
+                        return;
+                    }
+                }
+
+                // CHẾ ĐỘ RANKED & TOURNAMENT
+                var move = game.move({ from: selectedSquare, to: square, promotion: 'q' });
+                if (move === null) {
+                    mascotSpeak("🛑 Sai luật cờ rồi con ơi!");
+                } else {
+                    board.position(game.fen()); removeHighlights(); selectedSquare = null;
+                    mascotSpeak("🚙 Tốt lắm! Chờ AI đi...");
+                    showAnalysis(false);
+                    if (!checkGameOver()) { window.setTimeout(makeMachineMove, 600); }
+                }
+            }
+        });
+
+        // --- AI (MÁY TÍNH ĐI) ---
+        function makeMachineMove() {
+            var moves = game.moves({ verbose: true });
+            if (moves.length === 0) return;
+            var captureMoves = moves.filter(m => m.captured);
+            var chosenMove;
+            
+            // Độ khó AI dựa vào Level hoặc Vòng đấu giải
+            let difficulty = (currentMode === 'ranked') ? (aiLevel * 0.15) : (tourneyConfig.currentRound * 0.2);
+            if(difficulty > 0.9) difficulty = 0.9; 
+
+            if (captureMoves.length > 0 && Math.random() < difficulty) {
+                chosenMove = captureMoves[Math.floor(Math.random() * captureMoves.length)];
+            } else {
+                chosenMove = moves[Math.floor(Math.random() * moves.length)];
+            }
+
+            game.move(chosenMove.san);
+            board.position(game.fen());
+            
+            // LƯU LẠI MOVE CỦA MÁY ĐỂ PHÂN TÍCH NẾU BÉ THUA LÀ DO NƯỚC NÀY
+            if(chosenMove.captured) {
+                localStorage.setItem('lastCaptureByAI', `Máy vừa ăn quân ${chosenMove.captured} của con ở ô ${chosenMove.to}.`);
+            } else {
+                localStorage.setItem('lastCaptureByAI', '');
+            }
+
+            mascotSpeak("🤖 Tới lượt con!");
+            checkGameOver();
+        }
+
+        // --- KẾT THÚC GAME & PHÂN TÍCH LỖI ---
+        function checkGameOver() {
+            if (game.game_over()) {
+                if (game.in_checkmate()) {
+                    if (game.turn() === 'b') { // BÉ THẮNG
+                        if(currentMode === 'ranked') {
+                            aiLevel++; localStorage.setItem('kidLevel', aiLevel);
+                            mascotSpeak(`🏆 QUÁN QUÂN! Con đã lên Level ${aiLevel}! (+30 Xu)`);
+                            addCoins(30); switchTab('ranked');
+                        } else if (currentMode === 'tournament') {
+                            if(tourneyConfig.currentRound < tourneyConfig.rounds) {
+                                tourneyConfig.currentRound++;
+                                mascotSpeak("Thắng vòng này rồi! Chuẩn bị vòng tiếp theo nào!");
+                                setTimeout(nextTournamentRound, 3000);
+                            } else {
+                                mascotSpeak(`🎉 VÔ ĐỊCH GIẢI ĐẤU! Bỏ túi ${tourneyConfig.prize} Xu!`);
+                                addCoins(tourneyConfig.prize);
+                                setTimeout(() => switchTab('tournament'), 4000);
+                            }
+                        }
+                    } else { // MÁY THẮNG
+                        mascotSpeak("💥 Xe con bị kẹt mất rồi (Chiếu bí). Đừng buồn, xem phân tích bên dưới nhé!");
+                        
+                        // HỆ THỐNG PHÂN TÍCH LỖI CƠ BẢN
+                        let reason = localStorage.getItem('lastCaptureByAI');
+                        if(reason) {
+                            showAnalysis(`Nguyên nhân thua: ${reason} Cách khắc phục: Trước khi di chuyển, hãy nhìn xem quân của mình có đang nằm trong tầm ngắm (đường thẳng/chéo) của đối phương không nhé!`);
+                        } else {
+                            showAnalysis("Con đã không phòng thủ khu vực quanh Vua. Hãy nhớ luôn tạo lớp khiên bảo vệ Vua (Nhập thành) ở các ván sau!");
+                        }
+
+                        if(currentMode === 'tournament') {
+                            tourneyConfig.active = false;
+                            setTimeout(() => switchTab('tournament'), 5000);
+                        }
+                    }
+                } else { // HÒA
+                    mascotSpeak("🤝 Hòa cờ! (+5 Xu)"); addCoins(5);
+                    if(currentMode === 'tournament') { tourneyConfig.active = false; switchTab('tournament'); }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        // Init Bàn Cờ
+        var config = { draggable: false, position: 'start', pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png' };
+        board = Chessboard('board', config);
+        
+        // Load mặc định
+        switchTab('roadmap');
+    </script>
+</body>
+</html>
