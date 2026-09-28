@@ -32,7 +32,7 @@
 
         .board-wrapper { padding: 10px; background: #333; border-radius: 10px; border: 5px solid #ffeb3b; width: 400px; position: relative; max-width: 95vw;}
         
-        /* BẢN ĐỒ ĐỒ HỌA (WINDING ROAD) */
+        /* BẢN ĐỒ ĐỒ HỌA */
         .mode-controls { background: #fff; padding: 20px; border-radius: 10px; width: 100%; max-width: 450px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden;}
         .map-container { position: relative; padding: 20px 0; display: flex; flex-direction: column; align-items: center; gap: 30px;}
         
@@ -93,7 +93,7 @@
         </div>
 
         <div class="lesson-note" id="lessonNote"></div>
-        <div class="mascot-box" id="mascotText">🤖 Khởi động! Sẵn sàng thám hiểm Bản Đồ Cờ Vua chưa?</div>
+        <div class="mascot-box" id="mascotText">🤖 Khởi động! Nhấn nút 'SẴN SÀNG' ở Bản đồ bên dưới để bắt đầu khóa học nhé!</div>
         <div class="analysis-box" id="analysisText"></div>
 
         <div class="board-wrapper">
@@ -142,7 +142,21 @@
         let coins = parseInt(localStorage.getItem('kidCoins')) || 0;
         let aiLevel = parseInt(localStorage.getItem('kidLevel')) || 1;
         let lessonStars = JSON.parse(localStorage.getItem('lessonStars')) || {}; 
+        let completedPuzzles = Object.keys(lessonStars).map(Number);
+        
+        // Trạng thái xác định khóa học đã được BẤM BẮT ĐẦU chưa
+        let isLessonActive = false;
         let currentLessonErrors = 0; 
+        
+        // Xác định trạm học tiếp theo (Bài chưa hoàn thành đầu tiên)
+        let getNextLessonIndex = () => {
+            for(let i=0; i<ROADMAP.length; i++) {
+                if(!lessonStars[i]) return i;
+            }
+            return 0; // Nếu học xong hết thì chọn bài 1
+        };
+        let currentLessonIndex = getNextLessonIndex();
+        let currentStepIndex = 0;
 
         document.getElementById('coinBalance').innerText = coins;
 
@@ -164,104 +178,79 @@
 
         // --- DỮ LIỆU ---
         const ROADMAP = [
-            { 
-                category: "1. Động cơ cơ bản",
-                title: "Trạm 1: Khởi động Tốt", 
-                steps: [
-                    { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e2e4", note: "👉 Nhấp vào Tốt Trắng ở e2 và đẩy thẳng lên 2 bước tới e4.", mascot: "Đẩy Tốt lên 2 bước!" },
-                    { fen: "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "e4d5", note: "👉 Tốt ăn chéo d5. Thử ngay!", mascot: "Tốt ăn chéo!" }
-                ]
-            },
-            { 
-                category: "1. Động cơ cơ bản",
-                title: "Trạm 2: Xe Tải Gom Rác", 
-                steps: [
-                    { fen: "7k/8/2p3p1/8/8/2R5/6p1/K7 w - - 0 1", targetMove: "c3c6", note: "<b>Minigame:</b> Lái Xe tải (c3) đi theo <b>đường thẳng</b> gom sạch Tốt địch.<br>👉 Bước 1: Tiến thẳng lên đâm Tốt c6.", mascot: "Lên số! Ăn Tốt c6 trước!" },
-                    { fen: "7k/8/2R3p1/8/8/8/6p1/K7 w - - 0 1", targetMove: "c6g6", note: "👉 Bước 2: Bẻ lái sang ngang ăn Tốt g6.", mascot: "Bẻ lái sang phải, ăn g6!" },
-                    { fen: "7k/8/6R1/8/8/8/6p1/K7 w - - 0 1", targetMove: "g6g2", note: "👉 Bước 3: Lùi xe thẳng xuống ăn nốt Tốt g2!", mascot: "Lùi xe đâm nát g2! Về đích!" }
-                ]
-            },
-            { 
-                category: "1. Động cơ cơ bản",
-                title: "Trạm 3: Tượng trượt chéo", 
-                steps: [
-                    { fen: "7k/8/8/8/2B5/8/8/K7 w - - 0 1", targetMove: "c4f7", note: "Quân Tượng di chuyển theo <b>đường chéo</b> (chữ X).<br>👉 Trượt Tượng (c4) chéo lên ô f7.", mascot: "Tượng đi chéo, lướt lên f7 nào!" },
-                    { fen: "7k/5p2/8/8/2B5/8/8/K7 w - - 0 1", targetMove: "c4f7", note: "👉 Tượng c4 cũng ăn quân theo đường chéo. Bắt Tốt f7 ngay!", mascot: "Trượt chéo lên bắt Tốt đen!" }
-                ]
-            },
-            { 
-                category: "1. Động cơ cơ bản",
-                title: "Trạm 4: Siêu Xe Hậu", 
-                steps: [
-                    { fen: "7k/7p/8/8/8/8/8/Q3K3 w - - 0 1", targetMove: "a1a8", note: "Hậu là xe mạnh nhất, đi thẳng và chéo thoải mái.<br>👉 Di chuyển Hậu (a1) thẳng tắp lên a8.", mascot: "Hậu đi thẳng kịch trần ô a8!" },
-                    { fen: "Q6k/7p/8/3r4/8/8/8/4K3 w - - 0 1", targetMove: "a8d5", note: "👉 Ở ô a8, Hậu trắng nhìn thấy Xe đen ở d5 theo đường chéo. Bay tới ăn nó!", mascot: "Siêu xe Hậu trắng vút theo đường chéo!" }
-                ]
-            },
-            { 
-                category: "1. Động cơ cơ bản",
-                title: "Trạm 5: Mã nhảy địa hình", 
-                steps: [
-                    { fen: "7k/7p/8/8/8/2N5/8/K7 w - - 0 1", targetMove: "c3d5", note: "Mã là quân duy nhất có thể <b>nhảy qua đầu</b> quân khác! Nó đi theo hình chữ L (2 ô thẳng, 1 ô ngang).<br>👉 Phi Mã (c3) theo chữ L lên ô d5.", mascot: "Nhảy chữ L lên d5!" },
-                    { fen: "7k/7p/8/3p4/8/2N5/8/K7 w - - 0 1", targetMove: "c3d5", note: "👉 Phi Mã lên d5 để bắt quân Tốt đen.", mascot: "Bắt quân bằng tuyệt chiêu chữ L!" }
-                ]
-            },
-            { 
-                category: "2. Kỹ năng Sinh Tồn",
-                title: "Trạm 6: Nhập thành (Castling)", 
-                steps: [
-                    { fen: "4k3/8/8/8/8/8/8/4K2R w K - 0 1", targetMove: "e1g1", note: "Vua đứng giữa rất nguy hiểm. Nhập thành giúp giấu Vua vào góc và đẩy Xe ra ngoài.<br>👉 Nhấp vào Vua (e1), rồi chọn ô g1. Xe h1 sẽ tự động nhảy qua che cho Vua.", mascot: "Giấu Vua an toàn! Nhấn Vua e1 chọn g1." }
-                ]
-            },
-            { 
-                category: "2. Kỹ năng Sinh Tồn",
-                title: "Trạm 7: Phong Cấp (Promotion)", 
-                steps: [
-                    { fen: "7k/4P2p/8/8/8/8/8/6K1 w - - 0 1", targetMove: "e7e8", note: "Tốt đi đến vạch đích của đối phương sẽ được quyền biến hình!<br>👉 Đẩy Tốt trắng lên e8 và <b>chọn Xe mới của con.</b>", mascot: "Tiến lên vạch đích e8!" }
-                ]
-            },
-            { 
-                category: "3. Tuyệt Kỹ Tấn Công",
-                title: "Trạm 8: Đòn Chĩa Đôi", 
-                steps: [
-                    { fen: "4q1k1/7p/8/8/4N3/8/8/6K1 w - - 0 1", targetMove: "e4f6", note: "Dùng 1 quân tấn công 2 mục tiêu cùng lúc.<br>👉 Nhảy Mã trắng (e4) lên f6. Tại đây, Mã vừa đe dọa Vua, vừa đe dọa ăn Hậu đen!", mascot: "Nhảy Mã lên f6 để dọa cả Vua và Hậu!" }
-                ]
-            },
-            { 
-                category: "3. Tuyệt Kỹ Tấn Công",
-                title: "Trạm 9: Đòn Giằng (Pin)", 
-                steps: [
-                    { fen: "4k3/4q2p/8/8/8/8/8/R5K1 w - - 0 1", targetMove: "a1e1", note: "Trói chân địch! Khiến 1 quân không dám di chuyển vì sợ Vua bị bắt.<br>👉 Kéo Xe trắng từ a1 sang e1. Hậu đen sẽ bị ghim chặt không thể né!", mascot: "Kéo Xe sang e1 để trói Hậu đen!" }
-                ]
-            },
-            { 
-                category: "3. Tuyệt Kỹ Tấn Công",
-                title: "Trạm 10: Chiếu Bí 1 Nước", 
-                steps: [
-                    { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4", targetMove: "f3f7", note: "👉 Hậu f3 và Tượng c4 cùng nhắm vào Tốt f7. Dùng Hậu (f3) ăn Tốt f7 để chiếu bí.", mascot: "Lao Hậu thẳng vào ăn Tốt f7!" },
-                    { fen: "r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4", targetMove: "invalid", note: "<b>Tại sao Vua Đen không thể ăn Hậu Trắng?</b><br>Vì Hậu f7 đang được Tượng c4 bảo vệ. Nếu Vua đen ăn Hậu, Vua sẽ bị Tượng c4 bắt (sai luật tự sát). Hết đường chạy -> Chiếu Bí (Checkmate).", mascot: "Đen thua rồi! Hậu trắng rất an toàn!" }
-                ]
-            }
+            { category: "1. Động cơ cơ bản", title: "Trạm 1: Khởi động Tốt", steps: [
+                { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e2e4", note: "👉 Nhấp vào Tốt Trắng ở e2 và đẩy thẳng lên 2 bước tới e4.", mascot: "Đẩy Tốt lên 2 bước!" },
+                { fen: "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "e4d5", note: "👉 Tốt ăn chéo d5. Thử ngay!", mascot: "Tốt ăn chéo!" }
+            ]},
+            { category: "1. Động cơ cơ bản", title: "Trạm 2: Xe Tải Gom Rác", steps: [
+                { fen: "7k/8/2p3p1/8/8/2R5/6p1/K7 w - - 0 1", targetMove: "c3c6", note: "<b>Minigame:</b> Lái Xe tải (c3) đi <b>thẳng</b> gom sạch Tốt địch.<br>👉 Lên số ăn c6.", mascot: "Lên số! Ăn Tốt c6 trước!" },
+                { fen: "7k/8/2R3p1/8/8/8/6p1/K7 w - - 0 1", targetMove: "c6g6", note: "👉 Bẻ lái sang ngang ăn Tốt g6.", mascot: "Bẻ lái sang phải, ăn g6!" },
+                { fen: "7k/8/6R1/8/8/8/6p1/K7 w - - 0 1", targetMove: "g6g2", note: "👉 Lùi xe thẳng xuống ăn nốt Tốt g2!", mascot: "Lùi xe đâm nát g2! Về đích!" }
+            ]},
+            { category: "1. Động cơ cơ bản", title: "Trạm 3: Tượng trượt chéo", steps: [
+                { fen: "7k/8/8/8/2B5/8/8/K7 w - - 0 1", targetMove: "c4f7", note: "Quân Tượng di chuyển theo <b>đường chéo</b> (chữ X).<br>👉 Trượt Tượng (c4) chéo lên ô f7.", mascot: "Tượng đi chéo, lướt lên f7 nào!" },
+                { fen: "7k/5p2/8/8/2B5/8/8/K7 w - - 0 1", targetMove: "c4f7", note: "👉 Tượng c4 cũng ăn quân theo đường chéo. Bắt Tốt f7 ngay!", mascot: "Trượt chéo lên bắt Tốt đen!" }
+            ]},
+            { category: "1. Động cơ cơ bản", title: "Trạm 4: Siêu Xe Hậu", steps: [
+                { fen: "7k/7p/8/8/8/8/8/Q3K3 w - - 0 1", targetMove: "a1a8", note: "Hậu là xe mạnh nhất, đi thẳng và chéo thoải mái.<br>👉 Di chuyển Hậu (a1) thẳng tắp lên a8.", mascot: "Hậu đi thẳng kịch trần ô a8!" },
+                { fen: "Q6k/7p/8/3r4/8/8/8/4K3 w - - 0 1", targetMove: "a8d5", note: "👉 Ở ô a8, Hậu trắng nhìn thấy Xe đen ở d5 theo đường chéo. Bay tới ăn nó!", mascot: "Siêu xe Hậu trắng vút theo đường chéo!" }
+            ]},
+            { category: "1. Động cơ cơ bản", title: "Trạm 5: Mã nhảy địa hình", steps: [
+                { fen: "7k/7p/8/8/8/2N5/8/K7 w - - 0 1", targetMove: "c3d5", note: "Mã là quân duy nhất có thể <b>nhảy qua đầu</b> quân khác! Nó đi theo hình chữ L.<br>👉 Phi Mã (c3) lên ô d5.", mascot: "Nhảy chữ L lên d5!" },
+                { fen: "7k/7p/8/3p4/8/2N5/8/K7 w - - 0 1", targetMove: "c3d5", note: "👉 Phi Mã lên d5 để bắt quân Tốt đen.", mascot: "Bắt quân bằng tuyệt chiêu chữ L!" }
+            ]},
+            { category: "2. Kỹ năng Sinh Tồn", title: "Trạm 6: Nhập thành (Castling)", steps: [
+                { fen: "4k3/8/8/8/8/8/8/4K2R w K - 0 1", targetMove: "e1g1", note: "Nhập thành giúp giấu Vua vào góc và đẩy Xe ra ngoài.<br>👉 Nhấp vào Vua (e1), chọn ô g1.", mascot: "Giấu Vua an toàn! Nhấn Vua e1 chọn g1." }
+            ]},
+            { category: "2. Kỹ năng Sinh Tồn", title: "Trạm 7: Phong Cấp (Promotion)", steps: [
+                { fen: "7k/4P2p/8/8/8/8/8/6K1 w - - 0 1", targetMove: "e7e8", note: "Tốt đi đến vạch đích của đối phương sẽ được quyền biến hình!<br>👉 Đẩy Tốt trắng lên e8 và <b>chọn Xe mới của con.</b>", mascot: "Tiến lên vạch đích e8!" }
+            ]},
+            { category: "3. Tuyệt Kỹ Tấn Công", title: "Trạm 8: Đòn Chĩa Đôi", steps: [
+                { fen: "4q1k1/7p/8/8/4N3/8/8/6K1 w - - 0 1", targetMove: "e4f6", note: "Dùng 1 quân tấn công 2 mục tiêu cùng lúc.<br>👉 Nhảy Mã trắng (e4) lên f6.", mascot: "Nhảy Mã lên f6 để dọa cả Vua và Hậu!" }
+            ]},
+            { category: "3. Tuyệt Kỹ Tấn Công", title: "Trạm 9: Đòn Giằng (Pin)", steps: [
+                { fen: "4k3/4q2p/8/8/8/8/8/R5K1 w - - 0 1", targetMove: "a1e1", note: "Khiến 1 quân không dám di chuyển vì sợ Vua bị bắt.<br>👉 Kéo Xe trắng từ a1 sang e1.", mascot: "Kéo Xe sang e1 để trói Hậu đen!" }
+            ]},
+            { category: "3. Tuyệt Kỹ Tấn Công", title: "Trạm 10: Chiếu Bí 1 Nước", steps: [
+                { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4", targetMove: "f3f7", note: "👉 Hậu f3 và Tượng c4 cùng nhắm vào Tốt f7. Dùng Hậu (f3) ăn Tốt f7 để chiếu bí.", mascot: "Lao Hậu thẳng vào ăn Tốt f7!" },
+                { fen: "r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4", targetMove: "invalid", note: "<b>Tại sao Vua Đen không thể ăn Hậu Trắng?</b><br>Vì Hậu f7 đang được Tượng c4 bảo vệ. Nếu Vua đen ăn Hậu, Vua sẽ bị Tượng c4 bắt (sai luật tự sát). Hết đường chạy -> Chiếu Bí (Checkmate).", mascot: "Đen thua rồi! Hậu trắng rất an toàn!" }
+            ]}
         ];
 
-        // --- RENDER GIAO DIỆN BẢN ĐỒ (FIX AUTO-SCROLL MOBILE) ---
+        // --- STATE & CONFIG ---
+        var board = null, game = new Chess(), selectedSquare = null;
+        let tourneyConfig = { rounds: 3, prize: 500, currentRound: 1, active: false };
+        let autoNextTimeout = null;
+        let pendingPromotionMove = null;
+
+        // --- RENDER GIAO DIỆN BẢN ĐỒ ---
         function switchTab(mode) {
             clearTimeout(autoNextTimeout);
             currentMode = mode;
             $('.tab-btn').removeClass('active');$(`.tab-btn[onclick="switchTab('${mode}')"]`).addClass('active');
             showAnalysis(false);
-            document.getElementById('lessonNote').style.display = (mode === 'roadmap') ? 'block' : 'none';
             document.getElementById('promotionModal').style.display = 'none';
             
             let controls = document.getElementById('modeControls');
             if(mode === 'roadmap') {
-                // Chỉ cuộn khi người dùng CHỦ ĐỘNG click sang tab lộ trình
                 renderRoadmapUI(true); 
-                loadStep(currentLessonIndex, currentStepIndex); 
+                
+                if (isLessonActive) {
+                    document.getElementById('lessonNote').style.display = 'block';
+                    loadStep(currentLessonIndex, currentStepIndex); 
+                } else {
+                    // TRẠNG THÁI CHỜ
+                    board.position('start');
+                    mascotSpeak("🤖 Khởi động! Nhấn nút 'SẴN SÀNG BẮT ĐẦU' ở Bản đồ bên dưới để thám hiểm nhé!");
+                    document.getElementById('lessonNote').style.display = 'none';
+                }
             } else if (mode === 'ranked') {
+                document.getElementById('lessonNote').style.display = 'none';
                 controls.innerHTML = `<h3>Level AI: ${aiLevel}</h3><button class="btn" style="background:#4caf50;" onclick="startRanked()">⚔️ Đấu Hạng</button>`;
                 mascotSpeak(`Sẵn sàng đua thực chiến ở Level ${aiLevel} chưa?`);
                 game.reset(); board.position('start');
             } else if (mode === 'tournament') {
+                document.getElementById('lessonNote').style.display = 'none';
                 tourneyConfig.active = false;
                 controls.innerHTML = `<h3>Giải Đấu</h3>Số vòng: <input type="number" id="tRounds" value="3" min="1" max="10"> <br><br>Thưởng: <input type="number" id="tPrize" value="500" step="50" min="100"> Xu<br><br><button class="btn" style="background:#f44336;" onclick="startTournament()">🏁 Khai mạc</button>`;
                 mascotSpeak("Thiết lập giải đấu của riêng con!");
@@ -269,10 +258,15 @@
             }
         }
 
-        // Thêm tham số scrollToActive = false để kiểm soát việc cuộn
         function renderRoadmapUI(scrollToActive = false) {
             let controls = document.getElementById('modeControls');
-            let html = `<h3 style="margin-top:0;">🗺️ Bản Đồ Thám Hiểm</h3><div class="map-container">`;
+            
+            // Nút Khởi động to đùng trên đỉnh Map
+            let isFirstPlay = completedPuzzles.length === 0;
+            let startBtnText = isFirstPlay ? "🏁 SẴN SÀNG BẮT ĐẦU!" : `🚀 TIẾP TỤC: ${ROADMAP[currentLessonIndex].title}`;
+            let mainBtnHTML = `<button class="btn active-lesson" style="background:#ff5722; width: 90%; font-size: 16px; margin-bottom: 25px; border: 3px solid #bf360c; text-transform: uppercase;" onclick="startLesson(${currentLessonIndex})">${startBtnText}</button>`;
+
+            let html = `<h3 style="margin-top:0;">🗺️ Bản Đồ Thám Hiểm</h3>${mainBtnHTML}<div class="map-container">`;
             
             let currentCat = '';
             let zigZagMargins = ['0 100px 0 0', '0 0 0 0', '0 0 0 100px', '0 0 0 0']; 
@@ -301,7 +295,6 @@
             html += `</div>`;
             controls.innerHTML = html;
 
-            // CHỈ tự động scroll nếu scrollToActive = true (Tránh nhảy giao diện trên mobile khi đang học)
             if(scrollToActive) {
                 setTimeout(() => {
                     let activeNode = document.querySelector('.active-lesson');
@@ -312,9 +305,14 @@
 
         // --- GAMEPLAY ROADMAP ---
         function startLesson(lessonIndex) {
+            isLessonActive = true;
             currentLessonIndex = lessonIndex; currentStepIndex = 0; 
             currentLessonErrors = 0; 
+            document.getElementById('lessonNote').style.display = 'block';
             loadStep(lessonIndex, 0);
+            
+            // Scroll to top to see board
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function loadStep(lIndex, sIndex) {
@@ -326,15 +324,12 @@
             document.getElementById('lessonNote').innerHTML = `<h4><span>📖 Hướng dẫn</span> ${badge}</h4>${step.note}`;
             mascotSpeak(step.mascot); showAnalysis(false); removeHighlights(); selectedSquare = null;
             
-            // Re-render UI nhưng KHÔNG BẬT cuộn
             if(currentMode === 'roadmap') renderRoadmapUI(false); 
 
-            // Xử lý step tĩnh
             if(step.targetMove === "invalid") {
                 let earnedStars = 3;
                 if (currentLessonErrors === 1) earnedStars = 2;
                 if (currentLessonErrors >= 2) earnedStars = 1;
-
                 let previousStars = lessonStars[lIndex] || 0;
                 
                 if (earnedStars > previousStars) {
@@ -342,6 +337,7 @@
                     addCoins(xuThuong);
                     lessonStars[lIndex] = earnedStars;
                     localStorage.setItem('lessonStars', JSON.stringify(lessonStars));
+                    if(!completedPuzzles.includes(lIndex)) completedPuzzles.push(lIndex);
                 }
                 
                 mascotSpeak("🎉 Bài học hoàn tất! Đang chuyển bài tiếp theo...");
@@ -377,7 +373,6 @@
                         let earnedStars = 3;
                         if (currentLessonErrors === 1) earnedStars = 2;
                         if (currentLessonErrors >= 2) earnedStars = 1;
-
                         let previousStars = lessonStars[currentLessonIndex] || 0;
                         
                         if (earnedStars > previousStars) {
@@ -385,12 +380,12 @@
                             addCoins(xuThuong);
                             lessonStars[currentLessonIndex] = earnedStars;
                             localStorage.setItem('lessonStars', JSON.stringify(lessonStars));
+                            if(!completedPuzzles.includes(currentLessonIndex)) completedPuzzles.push(currentLessonIndex);
                             mascotSpeak(`🎉 Hoàn hảo! Con đạt ${earnedStars} ⭐ và nhận thêm ${xuThuong} Xu!`);
                         } else {
                             mascotSpeak(`🎉 Giải xong! Con giữ nguyên mức ${previousStars} ⭐. Thử chơi không sai bước nào để lấy 3 sao nhé!`);
                         }
                         
-                        // Re-render UI KHÔNG BẬT cuộn
                         renderRoadmapUI(false); 
                         if (currentLessonIndex + 1 < ROADMAP.length) {
                             autoNextTimeout = setTimeout(() => startLesson(currentLessonIndex + 1), 3500);
@@ -417,7 +412,7 @@
         }
 
         $('#board').on('click', '.square-55d63', function () {
-            if (currentMode === 'roadmap' && (game.turn() === 'b' || ROADMAP[currentLessonIndex].steps[currentStepIndex].targetMove === "invalid")) return;
+            if (currentMode === 'roadmap' && (!isLessonActive || game.turn() === 'b' || ROADMAP[currentLessonIndex].steps[currentStepIndex].targetMove === "invalid")) return;
             if (currentMode !== 'roadmap' && (game.game_over() || game.turn() === 'b')) return;
 
             var square = $(this).attr('data-square');
