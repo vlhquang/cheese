@@ -9,98 +9,337 @@
 .clearfix-7da63{clear:both}.board-b72b1{border:2px solid #404040;box-sizing:content-box}.square-55d63{float:left;position:relative;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.white-1e1d7{background-color:#f0d9b5;color:#b58863}.black-3c85d{background-color:#b58863;color:#f0d9b5}.highlight1-32417,.highlight2-9c5d2{box-shadow:inset 0 0 3px 3px #ff0}.notation-322f9{cursor:default;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;position:absolute}.alpha-d2270{bottom:1px;right:3px}.numeric-fc462{top:2px;left:2px}
     </style>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
 
-        :root { --page-pad: 20px; --gap: 15px; --panel-max: 520px; }
+        /* =========================================================================
+           GIAO DIỆN v3 — "bàn cờ là trung tâm"
+           Máy tính / màn ngang: [bàn cờ lớn nhất có thể] [huấn luyện viên + bảng bên (tự cuộn)]
+           Điện thoại dọc: thanh trên · huấn luyện viên · bàn cờ sát mép · bảng nội dung · tab dưới đáy
+           ========================================================================= */
+        :root {
+            --bg: #eef4f8; --surface: #ffffff; --surface-2: #f5f8fb; --line: #dde6ee;
+            --text: #1f2d3a; --muted: #607587;
+            --primary: #1976d2; --primary-dark: #0d47a1; --primary-soft: #e3f0fc;
+            --accent: #ef6c00; --accent-soft: #fff3e0;          /* Xu, phần thưởng */
+            --ok: #2e7d32; --ok-soft: #e8f5e9; --err: #c62828; --err-soft: #fdecea; --violet: #6d4fc2;
+            --radius: 14px; --radius-sm: 10px; --shadow: 0 1px 3px rgba(20, 40, 60, .08), 0 6px 18px rgba(20, 40, 60, .06);
+            --top-h: 60px; --nav-h: 62px; --pad: 16px; --gap: 16px; --panel-w: 380px;
+        }
         *, *::before, *::after { box-sizing: border-box; }
-
-        body { font-family: 'Nunito', sans-serif; background-color: #e0f7fa; text-align: center; margin: 0; padding: var(--page-pad); color: #333; -webkit-tap-highlight-color: transparent; }
+        [hidden] { display: none !important; } /* thuộc tính hidden luôn thắng các quy tắc display của giao diện */
+        html { -webkit-text-size-adjust: 100%; }
+        body { font-family: 'Nunito', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; font-size: 16px; -webkit-tap-highlight-color: transparent; }
         button, .promo-btn, #board { touch-action: manipulation; }
-        /* THANH ĐẦU TRANG: [tiêu đề ....... ví] / [tab] — ví gọn luôn thấy ở mọi tab, nhường chỗ cho bàn cờ */
-        .app-header { max-width: 1280px; margin: 0 auto 16px; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title wallet" "tabs tabs"; align-items: center; gap: 10px 12px; }
-        .app-title { grid-area: title; color: #ff5722; font-size: clamp(1.2rem, 4vw, 2rem); line-height: 1.2; margin: 0; text-align: left; }
-        .app-title .t-short { display: none; }
-        .app-header .tabs { grid-area: tabs; }
-        .wallet { grid-area: wallet; display: flex; align-items: center; gap: 10px; background: #fff; border: 2px solid #ff9800; border-radius: 18px; padding: 4px 5px 4px 12px; box-shadow: 0 2px 6px rgba(0, 0, 0, .08); text-align: left; }
-        .wallet-info { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
-        .wallet-coins { font-size: 16px; white-space: nowrap; }
-        .wallet-coins b { color: #2e7d32; }
-        .wallet-sub { font-size: 12px; color: #607d8b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .wallet-sub #walletMoney b { color: #e65100; }
-        .wallet-meter { display: block; width: 100%; height: 4px; margin-top: 2px; border-radius: 2px; background: #e0e0e0; overflow: hidden; }
-        .wallet-meter span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #66bb6a, #ffa726); transition: width .4s; }
-        .wallet-claim { border: none; border-radius: 18px; padding: 6px 12px; font-family: inherit; font-size: 14px; font-weight: bold; white-space: nowrap; cursor: pointer; background: #eceff1; color: #78909c; }
-        .wallet-claim.ready { background: #ff9800; color: #fff; box-shadow: 0 3px 0 #e65100; animation: pulse 1.5s infinite; }
-        @media (prefers-reduced-motion: reduce) { .wallet-claim.ready { animation: none; } }
+        button { font-family: inherit; }
+        :focus-visible { outline: 3px solid #90caf9; outline-offset: 2px; }
+        h2, h3 { margin: 0; }
 
-        .tabs { display: flex; justify-content: center; gap: 10px; margin: 0 auto; width: 100%; max-width: 640px; }
-        .tab-btn { flex: 1 1 0; min-width: 0; padding: 10px 12px; font-family: inherit; font-size: 16px; font-weight: bold; cursor: pointer; border: 2px solid #0288d1; background: #fff; color: #0288d1; border-radius: 10px; transition: 0.2s; }
-        .tab-btn.active { background: #0288d1; color: #fff; box-shadow: 0 4px 0 #01579b; transform: translateY(-2px);}
+        /* ---------- NÚT ---------- */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: none; border-radius: var(--radius-sm); padding: 10px 18px;
+            font-size: 16px; font-weight: 800; cursor: pointer; color: #fff; background: var(--primary); transition: filter .15s, transform .1s; }
+        .btn:hover { filter: brightness(1.06); }
+        .btn:active { transform: translateY(1px); }
+        .btn:disabled { opacity: .45; cursor: not-allowed; }
+        .btn-primary { background: var(--primary); }
+        .btn-ok { background: var(--ok); }
+        .btn-danger { background: var(--err); }
+        .btn-muted, .ex-cancel { background: #8a9aa8; }
+        .btn-claim { background: var(--accent); }
+        .btn-demo { background: var(--violet); padding: 6px 12px; font-size: 14px; }
+        .btn-start { width: 100%; background: var(--accent); font-size: 17px; padding: 12px 16px; }
+        .btn-block { width: 100%; }
+        .btn-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
+        .link-btn { border: none; background: none; color: var(--primary); font-size: 14px; font-weight: 700; text-decoration: underline; cursor: pointer; padding: 4px; }
 
-        /* BỐ CỤC: điện thoại 1 cột (bàn cờ nằm giữa hướng dẫn và bản đồ); màn rộng 2 cột */
-        .container { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: var(--gap); }
-        .side-col { display: contents; }
-        /* Ưu tiên bàn cờ: chỉ có hướng dẫn bài nằm trên; lời linh vật, phân tích, bảng điều khiển nằm dưới bàn cờ */
-        .lesson-note { order: 2; }
-        .board-col { order: 3; }
-        .mascot-box { order: 4; }
-        .analysis-box { order: 5; }
-        .mode-controls { order: 6; }
-        .lesson-note, .mascot-box, .analysis-box, .mode-controls { width: 100%; max-width: var(--panel-max); }
-        .board-col { width: 100%; display: flex; justify-content: center; }
-        .btn { padding: 10px 20px; font-family: inherit; font-size: 16px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; color: white; transition: 0.2s; }
-        .btn:active { transform: translateY(3px); }
-        .btn-claim { background: #ff9800; box-shadow: 0 4px 0 #e65100; }
-        .btn-start { background: #ff5722; width: 100%; margin-bottom: 25px; border: 3px solid #bf360c; text-transform: uppercase; }
+        /* ---------- THANH TRÊN CÙNG ---------- */
+        .topbar { position: sticky; top: 0; z-index: 100; height: var(--top-h); display: flex; align-items: center; gap: 16px; padding: 0 var(--pad);
+            background: var(--surface); box-shadow: 0 1px 0 var(--line), 0 2px 10px rgba(20, 40, 60, .05); }
+        .brand { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 20px; font-weight: 900; color: var(--accent); white-space: nowrap; }
+        .brand-icon { font-size: 24px; }
+        .tabs { display: flex; gap: 4px; padding: 4px; background: var(--surface-2); border-radius: 12px; margin: 0 auto; }
+        .tab-btn { display: flex; align-items: center; gap: 6px; border: none; background: none; border-radius: 9px; padding: 8px 14px; font-size: 15px; font-weight: 800; color: var(--muted); cursor: pointer; white-space: nowrap; }
+        .tab-btn:hover { color: var(--primary); }
+        .tab-btn.active { background: var(--surface); color: var(--primary); box-shadow: 0 1px 4px rgba(20, 40, 60, .12); }
 
-        .mascot-box { background: #fff9c4; padding: 15px; border-radius: 15px; border: 3px dashed #fbc02d; font-size: 1.1em; font-weight: bold; }
-        .analysis-box { background: #ffcdd2; color: #c62828; padding: 10px; border-radius: 10px; display: none; font-weight: bold; border: 2px solid #c62828;}
+        /* Ví: số Xu · đổi được bao nhiêu · cần bao nhiêu Xu nữa · nút Đổi */
+        .wallet { display: flex; align-items: center; gap: 10px; background: var(--accent-soft); border: 1px solid #ffd7a8; border-radius: 12px; padding: 5px 5px 5px 12px; position: relative; }
+        .wallet-info { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
+        .wallet-coins { font-size: 17px; font-weight: 800; white-space: nowrap; }
+        .wallet-coins b { color: var(--ok); }
+        .wallet-sub { font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .wallet-sub #walletMoney b { color: var(--accent); }
+        .wallet-meter { display: block; width: 100%; height: 4px; margin-top: 3px; border-radius: 2px; background: #f3dcc0; overflow: hidden; }
+        .wallet-meter span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .4s; }
+        .wallet-claim { border: none; border-radius: 9px; padding: 8px 12px; font-size: 14px; font-weight: 800; white-space: nowrap; cursor: pointer; background: #fff; color: #9a7b5c; }
+        .wallet-claim.ready { background: var(--accent); color: #fff; animation: pulse 1.6s infinite; }
 
-        .lesson-note { background: #e3f2fd; color: #0277bd; padding: 15px; border-radius: 10px; border: 2px solid #81d4fa; text-align: left; display: none; font-size: 15px; line-height: 1.6;}
-        .lesson-note h4 { margin: 0 0 8px 0; color: #01579b; font-size: 18px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: space-between; align-items: center;}
-        .step-badge { background: #ff9800; color: white; padding: 2px 8px; border-radius: 10px; font-size: 14px; white-space: nowrap; }
+        /* ---------- KHUNG CHÍNH ---------- */
+        .app-main { display: flex; flex-direction: column; gap: 10px; padding: 10px 10px calc(var(--nav-h) + 14px); max-width: 700px; margin: 0 auto; }
+        .coach { order: 1; }
+        .board-col { order: 2; display: flex; justify-content: center; }
+        .panel { order: 3; display: flex; flex-direction: column; gap: 12px; }
+        .board-wrapper { position: relative; width: 100%; border: 3px solid #36475a; border-radius: 10px; background: #36475a; box-shadow: var(--shadow); }
+        .mode-controls, .match-info { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
+        .mode-controls:empty { display: none; }
 
-        /* Bàn cờ co giãn theo khung; chessboard.js được gọi resize() khi khung đổi kích thước */
-        .board-wrapper { padding: 8px; background: #333; border-radius: 10px; border: 5px solid #ffeb3b; width: 100%; max-width: var(--panel-max); position: relative; }
+        /* ---------- HỘP HUẤN LUYỆN VIÊN (hướng dẫn + lời linh vật + phân tích) ---------- */
+        .coach { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; }
+        .lesson-note { display: none; }
+        .coach, .lesson-note { scroll-margin-top: calc(var(--top-h) + 10px); } /* cuộn tới hướng dẫn không bị thanh trên che */
+        .lesson-note h4 { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 2px; font-size: 13px; color: var(--muted); font-weight: 800; }
+        .lesson-note h4 > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .step-badge { flex: none; background: var(--primary-soft); color: var(--primary); border-radius: 8px; padding: 1px 8px; font-size: 12px; }
+        .note-main { font-size: 17px; font-weight: 800; line-height: 1.35; color: var(--text); }
+        .note-main b { color: var(--primary-dark); }
+        .note-actions { margin-top: 6px; }
+        .mascot-box { position: relative; padding: 8px 12px 8px 40px; border-radius: var(--radius-sm); background: var(--surface-2); font-weight: 700; font-size: 15px; line-height: 1.35; min-height: 36px; }
+        .mascot-box::before { content: '🤖'; position: absolute; left: 10px; top: 7px; font-size: 20px; }
+        .mascot-box[data-tone="ok"] { background: var(--ok-soft); color: var(--ok); }
+        .mascot-box[data-tone="err"] { background: var(--err-soft); color: var(--err); }
+        .analysis-box { display: none; padding: 8px 12px; border-radius: var(--radius-sm); background: var(--err-soft); color: var(--err); font-weight: 700; font-size: 14px; }
 
-        /* BẢN ĐỒ ĐỒ HỌA */
-        .mode-controls { background: #fff; padding: clamp(12px, 4vw, 20px); border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow-x: hidden; }
-        .mode-controls h3 { margin-top: 0; }
-        .map-container { position: relative; padding: 20px 0; display: flex; flex-direction: column; align-items: center; gap: 30px;}
+        /* ---------- BẢNG BÊN: tiêu đề mục, ghi chú, tùy chọn ---------- */
+        .panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+        .panel-head h2 { font-size: 19px; font-weight: 900; }
+        .panel-head .muted, .muted { color: var(--muted); font-size: 14px; font-weight: 700; }
+        .mode-controls h3 { font-size: 18px; margin-bottom: 10px; }
+        .lv-note { margin: 10px 0 0; padding: 8px 12px; border-radius: var(--radius-sm); background: var(--surface-2); color: var(--muted); font-size: 14px; line-height: 1.4; }
+        .lv-desc { color: var(--muted); margin: 6px 0; font-size: 14px; }
+        .setup-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+        .setup-label { font-size: 14px; font-weight: 800; color: var(--muted); }
+        .seg-pick { display: inline-flex; background: var(--surface-2); border-radius: 10px; padding: 3px; gap: 2px; }
+        .seg-pick button { border: none; background: none; border-radius: 8px; padding: 7px 10px; font-size: 14px; font-weight: 800; color: var(--muted); cursor: pointer; white-space: nowrap; }
+        .seg-pick button.active { background: var(--surface); color: var(--primary); box-shadow: 0 1px 3px rgba(20, 40, 60, .15); }
+        .form-grid { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: center; margin: 10px 0; }
+        .form-grid label { font-size: 14px; font-weight: 800; color: var(--muted); }
+        .form-grid input { width: 110px; font-family: inherit; font-size: 16px; font-weight: 700; padding: 7px 10px; border: 1px solid var(--line); border-radius: 9px; text-align: center; }
+        .panel-actions { position: sticky; bottom: -16px; margin: 14px -16px -16px; padding: 12px 16px 16px; background: linear-gradient(transparent, var(--surface) 30%); }
+        .app-footer { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.6; padding: 4px 8px; }
+        .app-footer a { color: var(--primary); }
 
-        .map-container::before {
-            content: ''; position: absolute; top: 0; left: 50%; width: 12px; height: 100%;
-            background: repeating-linear-gradient(0deg, #9e9e9e, #9e9e9e 15px, #e0e0e0 15px, #e0e0e0 30px);
-            transform: translateX(-50%); z-index: 1; border-radius: 6px;
+        /* Nút gạt (hỗ trợ thi đấu, quân quay mặt vào nhau) */
+        .assist-toggle { display: flex; align-items: center; gap: 10px; margin: 10px 0; cursor: pointer; font-size: 14px; font-weight: 700; }
+        .assist-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+        .assist-toggle .switch { flex: none; position: relative; width: 42px; height: 24px; border-radius: 12px; background: #c3ced8; transition: .2s; }
+        .assist-toggle .switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .3); transition: .2s; }
+        .assist-toggle input:checked + .switch { background: var(--violet); }
+        .assist-toggle input:checked + .switch::after { transform: translateX(18px); }
+        .assist-toggle input:focus-visible + .switch { outline: 3px solid #90caf9; outline-offset: 2px; }
+        .assist-toggle small { color: var(--muted); font-weight: 600; }
+
+        /* ---------- BẢN ĐỒ HỌC: chương thu gọn + danh sách bài ---------- */
+        .chapters { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+        .chapter { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+        .chapter > summary { list-style: none; display: flex; align-items: center; gap: 8px; padding: 10px 12px; cursor: pointer; font-weight: 800; background: var(--surface-2); }
+        .chapter > summary::-webkit-details-marker { display: none; }
+        .chapter > summary::before { content: '▸'; color: var(--muted); transition: transform .15s; }
+        .chapter[open] > summary::before { transform: rotate(90deg); }
+        .ch-name { flex: 1; min-width: 0; font-size: 15px; }
+        .ch-prog { font-size: 13px; color: var(--muted); white-space: nowrap; }
+        .chapter.complete .ch-prog { color: var(--ok); }
+        .lesson-list { list-style: none; margin: 0; padding: 6px; display: flex; flex-direction: column; gap: 2px; }
+        .lesson-row { width: 100%; display: flex; align-items: center; gap: 10px; border: none; background: none; border-radius: 9px; padding: 8px; font-size: 15px; font-weight: 700; color: var(--text); text-align: left; cursor: pointer; }
+        .lesson-row:hover { background: var(--surface-2); }
+        .lr-num { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 900; background: var(--surface-2); color: var(--muted); }
+        .lesson-row.done .lr-num { background: var(--ok-soft); color: var(--ok); }
+        .lesson-row.current { background: var(--primary-soft); }
+        .lesson-row.current .lr-num { background: var(--primary); color: #fff; }
+        .lr-title { flex: 1; min-width: 0; }
+        .lr-stars { flex: none; font-size: 12px; letter-spacing: 1px; }
+        .map-progress { height: 8px; border-radius: 4px; background: var(--surface-2); overflow: hidden; margin: 2px 0 12px; }
+        .map-progress > div, .lv-progress > div { height: 100%; background: linear-gradient(90deg, #43a047, #ffa726); transition: width .4s; }
+
+        /* ---------- ĐẤU AI: lưới 16 cấp + thẻ chi tiết ---------- */
+        .lv-progress { height: 8px; border-radius: 4px; background: var(--surface-2); overflow: hidden; margin: 2px 0 12px; }
+        .level-ladder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .level-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px 6px; border: 2px solid transparent; border-radius: 12px;
+            background: var(--surface-2); cursor: pointer; font-weight: 800; color: var(--text); }
+        .level-card .lv-icon { font-size: 24px; line-height: 1; }
+        .level-card .lv-info b { font-size: 12px; }
+        .level-card .lv-status { position: absolute; top: 2px; right: 4px; font-size: 11px; }
+        .level-card.done { background: var(--ok-soft); }
+        .level-card.current { background: var(--accent-soft); }
+        .level-card.locked, .level-card.offline { opacity: .45; filter: grayscale(1); cursor: not-allowed; }
+        .level-card.selected { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(25, 118, 210, .18); }
+        .level-detail { display: flex; align-items: center; gap: 12px; margin: 12px 0 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); }
+        .level-detail .ld-icon { font-size: 34px; }
+        .level-detail b { display: block; font-size: 16px; }
+        .level-detail span { color: var(--muted); font-size: 14px; }
+        .level-detail .ld-reward { margin-left: auto; font-weight: 900; color: var(--accent); white-space: nowrap; }
+
+        /* ---------- GIẢI ĐẤU ---------- */
+        .scoreboard { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 6px 0; font-weight: 800; }
+        .scoreboard b { font-size: 26px; color: var(--accent); }
+        .prize-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 10px; margin: 10px 0; padding: 10px 12px; border-radius: 12px; background: var(--accent-soft); font-weight: 700; }
+        .prize-row b { color: var(--accent); }
+        .prize-lock { font-size: 13px; color: #8d6e63; }
+        .prize-row.unlocked { flex-direction: column; align-items: stretch; background: var(--ok-soft); border: 2px dashed #81c784; }
+        .prize-row.unlocked input { font-family: inherit; font-size: 18px; font-weight: 800; padding: 6px 10px; border: 1px solid #81c784; border-radius: 9px; text-align: center; }
+
+        /* ---------- THÔNG TIN TRẬN (khi đang thi đấu) ---------- */
+        .match-info[hidden] { display: none; }
+        .mi-player { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); border: 2px solid transparent; }
+        .mi-player + .mi-player { margin-top: 8px; }
+        .mi-player.turn { border-color: var(--primary); background: var(--primary-soft); }
+        .mi-color { font-size: 20px; }
+        .mi-name { flex: 1; min-width: 0; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .mi-capt { font-size: 18px; letter-spacing: -2px; white-space: nowrap; }
+        .mi-adv { font-size: 12px; font-weight: 900; color: var(--ok); margin-left: 4px; letter-spacing: 0; }
+        .mi-moves { margin-top: 12px; max-height: 220px; overflow-y: auto; border-radius: 12px; background: var(--surface-2); padding: 8px 10px; font-size: 14px; }
+        .mi-moves ol { margin: 0; padding-left: 26px; columns: 2; column-gap: 14px; }
+        .mi-moves li { break-inside: avoid; color: var(--muted); }
+        .mi-moves li span { display: inline-block; min-width: 46px; color: var(--text); font-weight: 700; }
+        .mi-empty { color: var(--muted); font-size: 14px; }
+
+        /* ---------- BIỂU TƯỢNG NÉT ĐƠN + DANH SÁCH TÙY CHỌN ---------- */
+        .ico { width: 20px; height: 20px; flex: none; display: block; }
+        [data-icon] { display: inline-flex; }
+        .fb-icon { display: inline-flex; align-items: center; gap: 6px; }
+        .fs-exit { display: none; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 10px;
+            padding: 7px 11px; font-size: 14px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+        body.is-fullscreen .fs-exit { display: inline-flex; }
+        .opt-list { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+        .opt-row { display: flex; align-items: center; gap: 12px; width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px;
+            background: var(--surface); color: var(--text); text-align: left; font-size: 15px; cursor: pointer; flex-wrap: wrap; }
+        button.opt-row:hover, label.opt-row:hover { background: var(--surface-2); }
+        .opt-row > .ico { color: var(--primary); }
+        .opt-text { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+        .opt-text b { font-weight: 800; }
+        .opt-text b.setup-label { color: var(--text); font-size: 15px; }
+        .opt-text small { color: var(--muted); font-weight: 600; font-size: 13px; }
+        .opt-row.accent { border-color: #cfc3f1; }
+        .opt-row.accent > .ico { color: var(--violet); }
+        .opt-row.danger { color: var(--err); border-color: #f5c6c2; }
+        .opt-row.danger > .ico { color: var(--err); }
+        .opt-row.opt-static { cursor: default; }
+        .opt-row.opt-static .seg-pick { margin-left: 32px; }
+        .opt-row input[type=checkbox] { position: absolute; opacity: 0; width: 0; height: 0; }
+        .opt-row .switch { flex: none; position: relative; width: 42px; height: 24px; border-radius: 12px; background: #c3ced8; transition: .2s; }
+        .opt-row .switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .3); transition: .2s; }
+        .opt-row input:checked + .switch { background: var(--violet); }
+        .opt-row input:checked + .switch::after { transform: translateX(18px); }
+        .opt-row input:focus-visible + .switch { outline: 3px solid #90caf9; outline-offset: 2px; }
+        .options-close { align-items: center; gap: 6px; }
+        body.focus-mode.options-open .options-close { display: inline-flex; }
+
+        /* ---------- CHẾ ĐỘ TẬP TRUNG KHI THI ĐẤU ---------- */
+        .focus-bar, .options-backdrop, .options-close { display: none; }
+        body.focus-mode .app-header, body.focus-mode .lesson-note, body.focus-mode .app-footer, body.focus-mode .float-hint { display: none !important; }
+        body.focus-mode .mode-controls { display: none; }
+        body.focus-mode .focus-bar { position: sticky; top: 0; z-index: 100; height: var(--top-h); display: flex; align-items: center; gap: 8px; padding: 0 var(--pad);
+            background: var(--surface); box-shadow: 0 1px 0 var(--line); }
+        body.focus-mode .app-main { padding-bottom: 14px; }
+        .focus-title { flex: 1; min-width: 0; font-weight: 900; font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .focus-btn { border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 10px; padding: 7px 11px; font-size: 15px; font-weight: 800; cursor: pointer; white-space: nowrap; position: relative; }
+        .focus-btn.focus-options { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .focus-btn.focus-hint { color: var(--violet); border-color: #cfc3f1; }
+        .focus-btn.focus-coins { background: var(--accent-soft); border-color: #ffd7a8; }
+        .focus-btn.focus-coins b { color: var(--ok); }
+        body.focus-mode.options-open .options-backdrop { display: block; position: fixed; inset: 0; background: rgba(15, 30, 45, .5); z-index: 190; }
+        body.focus-mode.options-open .options-close { display: block; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 210;
+            border: none; border-radius: 22px; padding: 10px 22px; background: var(--ok); color: #fff; font-size: 16px; font-weight: 800; box-shadow: var(--shadow); cursor: pointer; }
+        body.focus-mode.options-open .mode-controls { display: block !important; position: fixed; top: 64px; left: 50%; transform: translateX(-50%); z-index: 200;
+            width: min(460px, calc(100vw - 16px)); max-height: calc(100vh - 76px); overflow-y: auto; box-shadow: 0 16px 40px rgba(0, 0, 0, .3); }
+
+        /* ---------- ĐIỆN THOẠI DỌC ---------- */
+        @media (max-width: 899px) and (orientation: portrait), (max-width: 639px) {
+            :root { --top-h: 52px; }
+            .topbar { gap: 10px; padding: 0 10px; }
+            .brand-name { display: none; }
+            .wallet { flex: 1; min-width: 0; justify-content: space-between; }
+            /* tab xuống thanh điều hướng dưới đáy: dễ bấm bằng ngón cái */
+            .tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 120; height: var(--nav-h); margin: 0; padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+                border-radius: 0; background: var(--surface); box-shadow: 0 -1px 0 var(--line), 0 -4px 14px rgba(20, 40, 60, .06); justify-content: space-around; }
+            .tab-btn { flex: 1; flex-direction: column; gap: 0; padding: 4px; font-size: 12px; }
+            .tab-ico { font-size: 22px; line-height: 1.1; }
+            .tab-btn.active { box-shadow: none; background: var(--primary-soft); }
+            .board-wrapper { width: min(100%, calc(100vh - var(--top-h) - var(--nav-h) - 130px)); width: min(100%, calc(100svh - var(--top-h) - var(--nav-h) - 130px)); }
+            body.focus-mode .board-wrapper { width: min(100%, calc(100svh - var(--top-h) - 110px)); }
+            body.focus-mode .coach .mascot-box { font-size: 14px; }
+            .fb-icon { flex-direction: column; gap: 1px; padding: 3px 8px; font-size: 11px; }
+            .fb-icon .ico { width: 19px; height: 19px; }
+            .focus-bar { gap: 5px !important; padding: 0 8px !important; }
+            .fs-exit-label { display: none; }
+        }
+        @media (max-width: 380px) {
+            .wallet-sub .wl-lbl { display: none; }
+            .note-main { font-size: 16px; }
+            .focus-title { font-size: 14px; }
+        }
+        @media (max-width: 480px) {
+            .seg-pick button { padding: 7px 8px; font-size: 13px; }
         }
 
-        .map-node-wrapper { display: flex; flex-direction: column; align-items: center; z-index: 2; position: relative; transition: 0.3s; width: min(240px, 72%); }
-        .map-node-wrapper.zig-left { margin-right: min(100px, 28%); }
-        .map-node-wrapper.zig-right { margin-left: min(100px, 28%); }
-
-        .map-node {
-            background: #03a9f4; color: white; font-family: inherit; font-weight: bold; padding: 12px 16px; border-radius: 25px;
-            border: 4px solid #fff; box-shadow: 0 6px 0 #0288d1, 0 8px 10px rgba(0,0,0,0.3);
-            cursor: pointer; width: 100%; font-size: 15px; position: relative;
+        /* ---------- MÁY TÍNH / MÀN NGANG: bàn cờ lớn nhất có thể, bảng bên tự cuộn, trang không cần cuộn ---------- */
+        @media (min-width: 900px), (min-width: 640px) and (orientation: landscape) {
+            :root { --board: min(calc(100vh - var(--top-h) - 2 * var(--pad)), calc(100vw - var(--panel-w) - var(--gap) - 2 * var(--pad)), 900px); }
+            .app-main { display: grid; max-width: none; height: calc(100vh - var(--top-h)); padding: var(--pad); gap: 12px var(--gap);
+                grid-template-columns: var(--board) var(--panel-w); grid-template-rows: auto minmax(0, 1fr); grid-template-areas: "board coach" "board panel"; justify-content: center; }
+            .coach { grid-area: coach; }
+            .board-col { grid-area: board; align-self: start; }
+            .board-wrapper { width: var(--board); }
+            .panel { grid-area: panel; min-height: 0; overflow-y: auto; padding: 2px 4px 2px 2px; }
+            body.focus-mode .app-main { padding-bottom: var(--pad); }
+            /* đang thi đấu: bảng bên chỉ còn thông tin trận -> hẹp lại để bàn cờ lớn hơn */
+            body.focus-mode { --panel-w: 300px; --board: min(calc(100vh - var(--top-h) - 2 * var(--pad)), calc(100vw - var(--panel-w) - var(--gap) - 2 * var(--pad)), 900px); }
         }
-        .map-node.completed { background: #4caf50; box-shadow: 0 6px 0 #388e3c, 0 8px 10px rgba(0,0,0,0.3); }
-        .map-node.active-lesson { background: #ff9800; border-color: #ffe082; box-shadow: 0 6px 0 #f57c00, 0 8px 10px rgba(0,0,0,0.3); animation: pulse 1.5s infinite; }
-
-        .map-stars { background: #fff; padding: 3px 10px; border-radius: 15px; margin-top: -10px; z-index: 3; border: 2px solid #ccc; font-size: 14px; letter-spacing: 2px;}
-        .category-sign { background: #ffeb3b; color: #f57f17; font-weight: 900; padding: 5px 15px; border-radius: 10px; z-index: 2; border: 3px solid #f57f17; margin: 15px 0 5px 0; text-transform: uppercase; font-size: 12px; width: 80%;}
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        @media (max-height: 520px) and (orientation: landscape) {
+            :root { --top-h: 48px; --pad: 8px; --panel-w: 300px; }
+            .brand-name, .wallet-meter { display: none; }
+            .tab-btn { padding: 6px 10px; font-size: 14px; }
+            .tab-txt { display: none; }
+            .tab-ico { font-size: 20px; }
+            .note-main { font-size: 15px; }
         }
 
-        /* Form thiết lập giải đấu (font 16px để iOS không tự zoom khi bấm vào ô nhập) */
-        .form-grid { display: grid; grid-template-columns: auto minmax(0, 140px); gap: 10px 12px; justify-content: center; align-items: center; margin-bottom: 16px; text-align: left; }
-        .form-grid input { width: 100%; font-family: inherit; font-size: 16px; padding: 8px 10px; border: 2px solid #b0bec5; border-radius: 8px; }
-        .btn-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        /* ---------- THÔNG BÁO NỔI ---------- */
+        .toast { position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 400; width: min(420px, calc(100vw - 24px)); text-align: center;
+            background: var(--surface); border: 2px solid #81c784; border-radius: 16px; padding: 12px 16px; box-shadow: 0 12px 34px rgba(0, 0, 0, .25); animation: toastIn .35s ease-out; }
+        .toast.hide { animation: toastOut .3s ease-in forwards; }
+        .toast-title { font-weight: 900; color: var(--ok); font-size: 17px; }
+        .toast-stars { font-size: 24px; letter-spacing: 2px; margin: 2px 0; }
+        .toast-coins { font-size: 18px; font-weight: 900; color: var(--accent); }
+        .toast-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+        @keyframes toastIn { from { opacity: 0; transform: translate(-50%, -20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        @keyframes toastOut { to { opacity: 0; transform: translate(-50%, -20px); } }
 
-        /* HÌNH ĐỘNG TRÊN BÀN CỜ: lớp SVG phủ đúng vùng 64 ô, không chặn thao tác bấm */
+        /* Chip ví nổi (khi ví trên thanh trên cùng bị cuộn khuất) + "+30" bay lên khi nhận Xu */
+        .wallet-mini { position: fixed; top: 10px; right: 10px; z-index: 150; border: 1px solid #ffd7a8; background: var(--accent-soft); border-radius: 12px; padding: 6px 12px;
+            font-size: 15px; font-weight: 800; box-shadow: var(--shadow); cursor: pointer; }
+        .wallet-mini b { color: var(--ok); }
+        body.focus-mode .wallet-mini { display: none; }
+        .coin-gain { position: absolute; right: 8px; top: -4px; font-weight: 900; color: var(--accent); font-size: 18px; pointer-events: none; text-shadow: 0 1px 0 #fff; animation: coinGain 1.4s ease-out forwards; }
+        @keyframes coinGain { from { opacity: 1; transform: translateY(0) scale(1.2); } to { opacity: 0; transform: translateY(-28px) scale(1); } }
+        .wallet-bump { animation: walletBump .5s ease-out; }
+        @keyframes walletBump { 40% { transform: scale(1.1); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        /* ---------- HỘP THOẠI (đổi Xu, mã PIN) ---------- */
+        .ex-dialog { width: min(420px, calc(100vw - 24px)); border: none; border-radius: 18px; padding: 20px; text-align: center; color: var(--text); box-shadow: 0 20px 50px rgba(0, 0, 0, .3); }
+        .ex-dialog::backdrop { background: rgba(15, 30, 45, .55); }
+        .ex-dialog h3 { margin: 0 0 14px; font-size: 20px; }
+        .ex-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+        .ex-stats div { background: var(--surface-2); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; }
+        .ex-stats span { font-size: 13px; color: var(--muted); font-weight: 700; }
+        .ex-stats b { font-size: 22px; color: var(--ok); }
+        .ex-stats div:last-child b { color: var(--accent); }
+        .ex-label { display: block; font-weight: 800; margin-bottom: 6px; }
+        .ex-stepper { display: flex; align-items: center; justify-content: center; gap: 14px; }
+        .ex-stepper button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--accent); font-size: 24px; font-weight: 900; cursor: pointer; }
+        .ex-stepper button:disabled { opacity: .35; cursor: default; }
+        .ex-stepper output { min-width: 130px; font-size: 28px; font-weight: 900; color: var(--accent); }
+        .ex-dialog input[type=range] { width: 100%; margin: 12px 0 8px; accent-color: var(--accent); }
+        .ex-quick { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+        .ex-quick button { border: 1px solid #ffd7a8; background: var(--accent-soft); border-radius: 10px; padding: 5px 10px; font-weight: 800; color: var(--accent); cursor: pointer; }
+        .ex-after { margin: 12px 0 0; font-size: 15px; color: var(--muted); }
+        .ex-notenough { margin: 4px 0 0; color: var(--muted); }
+        .ex-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+        .pin-msg { margin: 0 0 10px; color: var(--muted); }
+        .pin-input { display: block; width: 170px; margin: 6px auto; padding: 10px; font-family: inherit; font-size: 24px; letter-spacing: 8px; text-align: center; border: 1px solid var(--line); border-radius: 12px; }
+        .pin-input::placeholder { letter-spacing: normal; font-size: 16px; }
+        .pin-error { min-height: 1.2em; margin: 4px 0 0; color: var(--err); font-weight: 800; }
+
+        /* ---------- HÌNH ĐỘNG TRÊN BÀN CỜ (lớp SVG phủ 64 ô, không chặn thao tác bấm) ---------- */
         #boardOverlay { position: absolute; left: 0; top: 0; width: 0; height: 0; pointer-events: none; z-index: 50; overflow: visible; }
         #boardOverlay .ov-pop { transform-box: fill-box; transform-origin: center; animation: ovPop .35s ease-out backwards; }
         #boardOverlay .ov-pulse { transform-box: fill-box; transform-origin: center; animation: ovPulse 1.2s ease-in-out infinite; }
@@ -110,207 +349,40 @@
         @keyframes ovPulse { 0%, 100% { transform: scale(.88); opacity: 1; } 50% { transform: scale(1.04); opacity: .45; } }
         @keyframes ovFlow { to { stroke-dashoffset: -42; } }
         @keyframes ovBurst { from { transform: scale(.3); opacity: .9; } to { transform: scale(1.7); opacity: 0; } }
-        @media (prefers-reduced-motion: reduce) { #boardOverlay * { animation: none !important; } }
 
-        .note-main { font-size: 17px; line-height: 1.5; }
-        .note-actions { margin-top: 10px; display: flex; gap: 8px; }
-        .btn-demo { background: #7e57c2; box-shadow: 0 4px 0 #4527a0; padding: 8px 14px; font-size: 15px; }
+        /* Nút gợi ý nổi cũ (giờ nằm trên thanh chế độ tập trung) */
+        .float-hint { display: none !important; }
 
-        /* THANG CẤP ĐỘ ĐẤU AI */
-        .lv-progress { height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden; margin: 4px 0 2px; }
-        .lv-progress > div { height: 100%; background: linear-gradient(90deg, #66bb6a, #ffa726); transition: width .4s; }
-        .level-ladder { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 4px; }
-        .level-card { display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px 12px; border-radius: 12px; border: 3px solid #e0e0e0; background: #fafafa; font-family: inherit; font-size: 15px; text-align: left; color: #333; cursor: pointer; transition: .2s; }
-        .level-card .lv-icon { font-size: 28px; line-height: 1; }
-        .level-card .lv-info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-        .level-card .lv-info small { color: #757575; font-weight: normal; }
-        .level-card .lv-status { font-weight: 900; white-space: nowrap; }
-        .level-card.done { background: #e8f5e9; border-color: #a5d6a7; }
-        .level-card.current { background: #fff3e0; border-color: #ffb74d; }
-        .level-card.locked { opacity: .5; filter: grayscale(1); cursor: not-allowed; }
-        .level-card.selected { border-color: #0288d1; box-shadow: 0 0 0 3px rgba(2, 136, 209, .25); }
-        .lv-desc { color: #616161; margin: 0 0 6px; }
-        .app-footer { max-width: 900px; margin: 24px auto 4px; font-size: 12px; color: #607d8b; line-height: 1.6; }
-        .app-footer a { color: #0277bd; }
-        .lv-note { margin: 4px 0 0; padding: 8px 10px; border-radius: 10px; background: #eceff1; color: #455a64; font-size: 14px; }
-        .level-card.offline { opacity: .6; cursor: not-allowed; }
+        .highlight-select { background: rgba(255, 213, 79, 0.85) !important; }
+        .highlight-move { background: radial-gradient(circle, rgba(46, 125, 50, .75) 22%, transparent 24%) !important; }
 
-        /* Nút chọn kiểu "phân đoạn": màu quân (⚪/⚫/🎲), đối thủ (🤖/👥) */
-        .setup-row { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 10px 0; }
-        .setup-label { font-size: 14px; color: #546e7a; }
-        .seg-pick { display: inline-flex; flex-wrap: wrap; justify-content: center; border: 2px solid #0288d1; border-radius: 12px; overflow: hidden; }
-        .seg-pick button { border: none; background: #fff; color: #0288d1; font-family: inherit; font-size: 15px; font-weight: bold; padding: 8px 12px; cursor: pointer; }
-        .seg-pick button + button { border-left: 2px solid #0288d1; }
-        .seg-pick button.active { background: #0288d1; color: #fff; }
-        .scoreboard { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 6px 0; font-size: 15px; }
-        .scoreboard b { font-size: 26px; color: #ff5722; }
+        /* 2 người ngồi đối diện: quân của bên phía trên quay ngược 180° */
+        body.face-top-b img[data-piece^="b"], body.face-top-w img[data-piece^="w"] { transform: rotate(180deg); }
 
-        /* Nút gạt "Hỗ trợ thi đấu" */
-        .assist-toggle { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0 14px; cursor: pointer; text-align: left; }
-        .assist-toggle > span:last-child { min-width: 0; }
-        .assist-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
-        .assist-toggle .switch { flex: none; position: relative; width: 46px; height: 26px; border-radius: 13px; background: #bdbdbd; transition: .2s; }
-        .assist-toggle .switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .3); transition: .2s; }
-        .assist-toggle input:checked + .switch { background: #7e57c2; }
-        .assist-toggle input:checked + .switch::after { transform: translateX(20px); }
-        .assist-toggle input:focus-visible + .switch { outline: 3px solid #90caf9; outline-offset: 2px; }
+        /* Hộp chọn quân phong cấp */
+        #promotionModal { display: none; position: absolute; inset: 0; background: rgba(15, 30, 45, .65); z-index: 100; justify-content: center; align-items: center; border-radius: 7px; }
+        .promotion-box { background: var(--surface); padding: clamp(10px, 3vw, 16px); border-radius: 16px; text-align: center; max-width: 94%; box-shadow: var(--shadow); }
+        .promotion-box h3 { font-size: clamp(0.95rem, 4vw, 1.15rem); margin-bottom: 10px; }
+        .promo-pieces { display: flex; gap: clamp(4px, 2vw, 10px); justify-content: center; }
+        .promo-btn { width: clamp(40px, 13vw, 60px); height: clamp(40px, 13vw, 60px); background: var(--surface-2) center / 80% no-repeat; border: 2px solid var(--line); border-radius: 12px; cursor: pointer; transition: .15s; }
+        @media (hover: hover) { .promo-btn:hover { border-color: var(--primary); transform: scale(1.08); } }
 
-        /* Nút gợi ý nổi ở góc bàn cờ: chỉ hiện trên màn dọc thấp, nơi nút Gợi ý bên dưới bàn cờ bị khuất */
-        /* HỘP THOẠI ĐỔI XU */
-        .ex-dialog { width: min(420px, calc(100vw - 24px)); border: 3px solid #ff9800; border-radius: 18px; padding: 18px; text-align: center; font-family: inherit; color: #333; }
-        .ex-dialog::backdrop { background: rgba(0, 0, 0, .55); }
-        .ex-dialog h3 { margin: 0 0 12px; color: #e65100; }
-        .ex-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-        .ex-stats div { background: #fff8e1; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; }
-        .ex-stats span { font-size: 13px; color: #6d4c41; }
-        .ex-stats b { font-size: 22px; color: #2e7d32; }
-        .ex-stats div:last-child b { color: #e65100; }
-        .ex-label { display: block; font-weight: bold; margin-bottom: 6px; }
-        .ex-stepper { display: flex; align-items: center; justify-content: center; gap: 14px; }
-        .ex-stepper button { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #ff9800; background: #fff; color: #e65100; font-size: 24px; font-weight: bold; cursor: pointer; }
-        .ex-stepper button:disabled { opacity: .35; cursor: default; }
-        .ex-stepper output { min-width: 130px; font-size: 28px; font-weight: 900; color: #e65100; }
-        .ex-dialog input[type=range] { width: 100%; margin: 12px 0 8px; accent-color: #ff9800; }
-        .ex-quick { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
-        .ex-quick button { border: 2px solid #ffcc80; background: #fff; border-radius: 14px; padding: 5px 10px; font-family: inherit; font-weight: bold; color: #e65100; cursor: pointer; }
-        .ex-after { margin: 12px 0 0; font-size: 15px; color: #455a64; }
-        .ex-notenough { margin: 4px 0 0; color: #455a64; }
-        .ex-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
-        .ex-cancel { background: #9e9e9e; }
-        .btn:disabled { opacity: .45; cursor: not-allowed; }
-
-        /* CHẾ ĐỘ TẬP TRUNG KHI THI ĐẤU: ẩn tiêu đề/tab/ví/bảng cấu hình, bàn cờ chiếm gần hết màn hình */
-        .focus-bar, .options-backdrop, .options-close { display: none; }
-        body.focus-mode { --page-pad: 8px; }
-        body.focus-mode .app-header, body.focus-mode .lesson-note, body.focus-mode .app-footer, body.focus-mode .mode-controls, body.focus-mode .float-hint { display: none !important; }
-        body.focus-mode .focus-bar { display: flex; align-items: center; gap: 6px; max-width: 900px; margin: 0 auto 8px; }
-        .focus-title { flex: 1; min-width: 0; text-align: left; font-weight: 900; color: #01579b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .focus-btn { border: 2px solid #0288d1; background: #fff; color: #0288d1; border-radius: 12px; padding: 6px 10px; font-family: inherit; font-size: 15px; font-weight: bold; cursor: pointer; white-space: nowrap; }
-        .focus-btn.focus-options { background: #0288d1; color: #fff; }
-        .focus-btn.focus-hint { border-color: #7e57c2; color: #7e57c2; }
-        body.focus-mode .container { display: flex; flex-direction: column; align-items: center; max-width: none; gap: 8px; }
-        body.focus-mode .side-col { display: contents; }
-        body.focus-mode .board-col { position: static; width: auto; }
-        body.focus-mode .board-wrapper { width: min(calc(100vw - 16px), calc(100vh - 124px)); width: min(calc(100vw - 16px), calc(100svh - 124px)); max-width: none; margin-top: 0; }
-        body.focus-mode .mascot-box, body.focus-mode .analysis-box { width: min(calc(100vw - 16px), 720px); padding: 6px 12px; font-size: 15px; }
-        @media (orientation: landscape) {
-            /* xoay ngang: lời linh vật nằm cạnh bàn cờ để bàn cờ cao hết cỡ */
-            body.focus-mode .container { flex-direction: row; justify-content: center; align-items: flex-start; }
-            body.focus-mode .board-wrapper { width: min(calc(100vw - 260px), calc(100vh - 64px)); width: min(calc(100vw - 260px), calc(100svh - 64px)); }
-            body.focus-mode .mascot-box, body.focus-mode .analysis-box { width: 230px; }
-        }
-        /* Bảng tùy chọn nổi (nút ⚙️): hiện bảng điều khiển của trận trên nền mờ, bàn cờ vẫn giữ nguyên phía sau */
-        body.focus-mode.options-open .options-backdrop { display: block; position: fixed; inset: 0; background: rgba(0, 0, 0, .5); z-index: 190; }
-        body.focus-mode.options-open .options-close { display: block; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 210;
-            border: none; border-radius: 22px; padding: 10px 22px; background: #4caf50; color: #fff; font-family: inherit; font-size: 16px; font-weight: bold; box-shadow: 0 4px 0 #2e7d32; cursor: pointer; }
-        body.focus-mode.options-open .mode-controls { display: block !important; position: fixed; top: 64px; left: 50%; transform: translateX(-50%); z-index: 200;
-            width: min(520px, calc(100vw - 16px)); max-height: calc(100vh - 76px); overflow-y: auto; box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
-
-        .float-hint { display: none; position: absolute; top: -50px; right: -4px; z-index: 60; width: 46px; height: 46px; border-radius: 50%;
-            border: 3px solid #fff; background: #7e57c2; box-shadow: 0 4px 0 #4527a0, 0 6px 12px rgba(0, 0, 0, .35);
-            font-size: 24px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; padding: 0; }
-        .float-hint span { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); background: #ff9800; color: #fff;
-            font-family: inherit; font-size: 11px; font-weight: 900; padding: 1px 6px; border-radius: 8px; border: 2px solid #fff; }
-        .float-hint:active { transform: translateY(3px); box-shadow: 0 1px 0 #4527a0; }
-        @media (max-height: 700px) and (orientation: portrait) {
-            .float-hint:not([hidden]) { display: flex; }
-            .board-wrapper.has-float-hint { margin-top: 36px; } /* chừa chỗ phía trên để nút không che ô h8 */
-        }
-
-        .highlight-select { background: rgba(255, 235, 59, 0.8) !important; }
-        .highlight-move { background: radial-gradient(circle, #4caf50 25%, transparent 25%) !important; border-radius: 50%; }
-
-        #promotionModal {
-            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); z-index: 100; justify-content: center; align-items: center; border-radius: 5px;
-        }
-        .promotion-box { background: white; padding: clamp(8px, 3vw, 15px); border-radius: 15px; text-align: center; border: 4px solid #ff9800; max-width: 94%; }
-        .promotion-box h3 { font-size: clamp(0.95rem, 4vw, 1.2rem); }
-        .promo-pieces { display: flex; gap: clamp(4px, 2vw, 10px); justify-content: center;}
-        .promo-btn { width: clamp(40px, 13vw, 60px); height: clamp(40px, 13vw, 60px); background: #f5f5f5; border: 2px solid #ccc; border-radius: 10px; cursor: pointer; transition: 0.2s; background-size: 80%; background-position: center; background-repeat: no-repeat; }
-
-        /* Hiệu ứng hover chỉ cho chuột, tránh bị "dính" trên màn hình cảm ứng */
-        @media (hover: hover) {
-            .map-node-wrapper:hover { transform: scale(1.05); }
-            .promo-btn:hover { background-color: #e3f2fd; border-color: #2196f3; transform: scale(1.1); }
-        }
-
-        /* Điện thoại nhỏ */
-        @media (max-width: 480px) {
-            :root { --page-pad: 10px; --gap: 10px; }
-            .tabs { gap: 6px; margin-bottom: 14px; }
-            .tab-btn { flex: 1 1 auto; white-space: nowrap; padding: 8px 6px; font-size: 13px; }
-            .btn { padding: 9px 14px; font-size: 15px; }
-            .mascot-box { padding: 10px 12px; font-size: 1rem; }
-            .lesson-note { padding: 12px; font-size: 14px; }
-            .lesson-note h4 { font-size: 16px; }
-            .board-wrapper { padding: 4px; border-width: 3px; }
-            .map-container { gap: 24px; }
-            .map-node { font-size: 14px; padding: 10px 12px; }
-            .category-sign { font-size: 11px; width: 90%; }
-        }
-
-        /* Điện thoại dọc: tiêu đề ngắn để ví nằm cùng hàng; màn rất hẹp thì bỏ thanh tiến độ của ví */
-        @media (max-width: 480px) {
-            .app-header { gap: 8px; margin-bottom: 10px; }
-            /* tiêu đề chỉ còn biểu tượng, ví trải rộng để đủ chỗ cho 2 dòng thông tin */
-            .app-header { grid-template-columns: auto minmax(0, 1fr); }
-            .app-title { font-size: 1.6rem; }
-            .app-title .t-long { display: none; }
-            .app-title .t-short { display: inline; }
-            .wallet { gap: 6px; padding: 3px 4px 3px 10px; justify-content: space-between; }
-            .wallet-coins { font-size: 15px; }
-            .wallet-sub { font-size: 11.5px; }
-            .wallet-claim { padding: 6px 10px; font-size: 13px; }
-        }
-        @media (max-width: 360px) { .wl-lbl { display: none; } }
-
-        /* Điện thoại dọc: thu gọn khung hướng dẫn bài để bàn cờ lên cao, thấy trọn ngay khi mở bài */
-        @media (max-width: 480px) and (orientation: portrait) {
-            .lesson-note { padding: 8px 10px; }
-            .lesson-note h4 { font-size: 14px; margin-bottom: 4px; flex-wrap: nowrap; }
-            .lesson-note h4 > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-            .step-badge { font-size: 12px; padding: 1px 7px; }
-            .step-badge .sb-long { display: none; }
-            .note-main { font-size: 15px; line-height: 1.4; }
-            .note-actions { margin-top: 6px; }
-            .btn-demo { padding: 5px 12px; font-size: 14px; box-shadow: 0 3px 0 #4527a0; }
-        }
-
-        /* Máy tính bảng dọc: vẫn 1 cột nhưng cho bàn cờ rộng hơn */
-        @media (min-width: 640px) and (orientation: portrait) {
-            :root { --panel-max: 640px; }
-        }
-
-        /* Màn rộng (máy tính bảng, laptop) và điện thoại xoay ngang: 2 cột, bàn cờ cố định bên trái */
-        @media (min-width: 900px), (min-width: 640px) and (orientation: landscape) {
-            /* 165px = tiêu đề + thanh tab + lề, để bàn cờ luôn nằm trọn trong màn hình ngay khi mở trang */
-            :root { --board-size: min(720px, 55vw, calc(100vh - 165px)); }
-            .container { max-width: 1280px; display: grid; grid-template-columns: var(--board-size) minmax(280px, 1fr); align-items: start; gap: 20px; }
-            .board-col { grid-column: 1; grid-row: 1; position: sticky; top: 12px; }
-            .board-wrapper { max-width: none; }
-            .side-col { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; gap: var(--gap); min-width: 0; }
-            .lesson-note, .mascot-box, .analysis-box, .mode-controls { max-width: none; }
-            .mode-controls { max-height: 70vh; overflow-y: auto; }
-        }
-
-        /* Màn thấp (điện thoại xoay ngang): ẩn tiêu đề, bàn cờ = chiều cao màn hình trừ thanh tab để thấy trọn bàn cờ */
-        @media (max-height: 500px) and (orientation: landscape) {
-            :root { --page-pad: 8px; --board-size: min(560px, 50vw, calc(100vh - 84px)); } /* 84px = hàng tab + ví + lề */
-            /* ẩn tiêu đề, ví lên cùng hàng với tab: không tốn thêm chiều cao */
-            .app-header { grid-template-areas: "tabs wallet"; margin-bottom: 8px; }
-            .app-title { display: none; }
-            .app-header .tab-btn { padding: 6px 4px; font-size: 13px; white-space: nowrap; }
-            .tab-btn { padding: 6px 8px; font-size: 14px; }
-            .mode-controls { max-height: none; }
+        @media (prefers-reduced-motion: reduce) {
+            #boardOverlay *, .toast, .toast.hide, .coin-gain, .wallet-bump, .wallet-claim.ready { animation: none !important; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Thanh đầu trang: tiêu đề + ví gọn (hiện ở mọi tab) + các tab -->
-    <header class="app-header">
-        <h1 class="app-title"><span class="t-long">🏎️ Học Viện Cờ Vua Ô Tô - Pro</span><span class="t-short" title="Học Viện Cờ Vua Ô Tô">🏎️</span></h1>
+    <!-- THANH TRÊN CÙNG: logo · tab · ví (điện thoại: tab chuyển xuống thanh điều hướng dưới đáy) -->
+    <header class="topbar app-header">
+        <h1 class="brand app-title" title="Học Viện Cờ Vua Ô Tô"><span class="brand-icon">🏎️</span><span class="brand-name">Cờ Vua Ô Tô</span></h1>
+        <nav class="tabs" aria-label="Chế độ">
+            <button class="tab-btn active" onclick="switchTab('roadmap')"><span class="tab-ico">🗺️</span><span class="tab-txt">Bản Đồ Học</span></button>
+            <button class="tab-btn" onclick="switchTab('ranked')"><span class="tab-ico">⭐</span><span class="tab-txt">Đấu AI</span></button>
+            <button class="tab-btn" onclick="switchTab('tournament')"><span class="tab-ico">🏆</span><span class="tab-txt">Giải Đấu</span></button>
+        </nav>
+        <button class="fs-exit" id="fsExit" onclick="exitFullscreen()" aria-label="Thoát toàn màn hình" title="Thoát toàn màn hình (Esc)"><span data-icon="shrink"></span><span class="fs-exit-label">Thoát toàn màn hình</span></button>
         <div class="wallet" id="wallet" title="1000 Xu = 10.000 VNĐ">
             <div class="wallet-info">
                 <span class="wallet-coins">🪙 <b id="coinBalance">0</b> Xu</span>
@@ -319,22 +391,24 @@
             </div>
             <button class="wallet-claim" id="walletClaim" onclick="claimSavings()">💰 Đổi</button>
         </div>
-        <nav class="tabs">
-            <button class="tab-btn active" onclick="switchTab('roadmap')">🗺️ Bản Đồ Học</button>
-            <button class="tab-btn" onclick="switchTab('ranked')">⭐ Đấu AI</button>
-            <button class="tab-btn" onclick="switchTab('tournament')">🏆 Giải Đấu</button>
-        </nav>
     </header>
 
     <!-- Chế độ tập trung khi đang thi đấu: chỉ còn thanh này + bàn cờ + lời linh vật; tùy chọn mở bằng nút ⚙️ -->
+    <!-- Thông báo nổi (vd. hoàn thành bài học + Xu vào ví) -->
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <!-- Chip ví nổi: hiện khi ví trên thanh đầu trang bị cuộn khuất, để số Xu luôn nhìn thấy -->
+    <button id="walletMini" class="wallet-mini" hidden onclick="openExchange()" aria-label="Ví Xu, bấm để đổi Xu">🪙 <b id="walletMiniCoins">0</b></button>
+
     <div class="focus-bar" id="focusBar">
         <span class="focus-title" id="focusTitle"></span>
-        <button class="focus-btn focus-hint" id="focusHint" hidden onclick="requestHint()" aria-label="Gợi ý nước đi, tốn 5 Xu">💡 <small>-5</small></button>
-        <button class="focus-btn" id="focusFullscreen" onclick="toggleFullscreen()" aria-label="Bật/tắt toàn màn hình" title="Toàn màn hình">⛶</button>
-        <button class="focus-btn focus-options" onclick="openOptions()" aria-haspopup="dialog">⚙️ Tùy chọn</button>
+        <button class="focus-btn focus-coins" id="focusCoins" onclick="openExchange()" aria-label="Ví Xu, bấm để đổi Xu">🪙 <b id="focusCoinsVal">0</b></button>
+        <!-- Biểu tượng nét đơn cùng kiểu + nhãn ngắn: nhìn là hiểu chức năng -->
+        <button class="focus-btn fb-icon focus-hint" id="focusHint" hidden onclick="requestHint()" aria-label="Gợi ý nước đi, tốn 5 Xu" title="Gợi ý nước đi (5 Xu)"><span data-icon="hint"></span><span class="fb-label">Gợi ý</span></button>
+        <button class="focus-btn fb-icon" id="focusFullscreen" onclick="toggleFullscreen()" aria-label="Phóng to toàn màn hình" title="Phóng to toàn màn hình (thoát: Esc)"><span data-icon="expand"></span><span class="fb-label">Phóng to</span></button>
+        <button class="focus-btn fb-icon focus-options" onclick="openOptions()" aria-haspopup="dialog" aria-label="Tùy chọn" title="Tùy chọn"><span data-icon="settings"></span><span class="fb-label">Tùy chọn</span></button>
     </div>
     <div class="options-backdrop" id="optionsBackdrop" onclick="closeOptions()"></div>
-    <button class="options-close" id="optionsClose" onclick="closeOptions()">▶ Tiếp tục ván cờ</button>
+    <button class="options-close" id="optionsClose" onclick="closeOptions()"><span data-icon="play"></span> Tiếp tục ván cờ</button>
 
     <!-- Hộp thoại đổi Xu: xem số Xu, số tiền đổi được, tự chọn số tiền muốn đổi để chừa Xu thi đấu tiếp -->
     <dialog id="exchangeDialog" class="ex-dialog" aria-labelledby="exTitle">
@@ -365,14 +439,27 @@
         </div>
     </dialog>
 
-    <div class="container">
-        <div class="side-col">
+    <!-- Hộp thoại mã PIN phụ huynh: tạo / nhập / đặt lại (qua câu hỏi phép nhân) -->
+    <dialog id="pinDialog" class="ex-dialog" aria-labelledby="pinTitle">
+        <h3 id="pinTitle">🔒 Phụ huynh</h3>
+        <p class="pin-msg" id="pinMsg"></p>
+        <input class="pin-input" id="pin1" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="Mã PIN" onkeydown="if (event.key === 'Enter') pinSubmit()">
+        <input class="pin-input" id="pin2" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="Nhập lại mã PIN" placeholder="Nhập lại" onkeydown="if (event.key === 'Enter') pinSubmit()">
+        <p class="pin-error" id="pinError" role="alert"></p>
+        <button type="button" class="link-btn" id="pinForgot" onclick="openPinDialog('reset')">Quên mã PIN?</button>
+        <div class="ex-actions">
+            <button type="button" class="btn ex-cancel" onclick="closePinDialog()">Hủy</button>
+            <button type="button" class="btn btn-primary" onclick="pinSubmit()">Xác nhận</button>
+        </div>
+    </dialog>
+
+    <main class="container app-main">
+        <!-- HỘP HUẤN LUYỆN VIÊN: gộp hướng dẫn bài + lời linh vật + phân tích -->
+        <section class="coach" id="coach" aria-live="polite">
             <div class="lesson-note" id="lessonNote"></div>
             <div class="mascot-box" id="mascotText">🤖 Khởi động! Nhấn nút 'SẴN SÀNG' ở Bản đồ để thám hiểm nhé!</div>
             <div class="analysis-box" id="analysisText"></div>
-
-            <div class="mode-controls" id="modeControls"></div>
-        </div>
+        </section>
 
         <div class="board-col">
         <div class="board-wrapper">
@@ -391,7 +478,7 @@
             <button id="floatHint" class="float-hint" hidden onclick="requestHint()" aria-label="Gợi ý nước đi, tốn 5 Xu">💡<span>-5</span></button>
             <div id="promotionModal">
                 <div class="promotion-box">
-                    <h3 style="margin: 0 0 10px 0; color: #d84315;">Chọn xe biến hình!</h3>
+                    <h3>Chọn quân phong cấp!</h3>
                     <div class="promo-pieces">
                         <div class="promo-btn" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAOq0lEQVR42u2cCYxVRRaGX7M0dLPv0BB2B2SPMIA4gICypYkLwijbIFHCYgCFgCwdO0RZBllGh5mIMgkozAjijEgYZHFYJSiIqDigMGyy7/vWvJr7FVUvpy/3vXcb6deP+E5y0rfvrVN16r+1nDrn3BcIJChBCUpQghKUoAQlKEHxQ4UdbunwSMMtzb1fJRV0OF8Oytd1eJXDysUrzbNfDTV3eI7DKxxe7vAUhytEkSnh8G4BWtCw/Z9nxX4N4P3B4YuuEXTL4fMG2HA0wwLXq1ev4IEDBxTMtQByepS2Kzr8d4ePOXzK4XUO/+5+Aq+eBa1gwYLBUqVKqRIlSqh8+fJZAM5EGIkHKVOvXj21b98+ZYlr7hn5/RHabu96aXL0Ds/hUpJntASF8+fPH5w6dao6d+6cOnTokHr22WctiIzEqWFkT9Pptm3bqgsXLoQAPH/+vGrTpo0F5HQY2ToOX6DtAgUKBB966CH1yCOPqNTUVAliq/sBwKsom56errKyskIg/Pzzz3okmo4sCzMatvG8bNmyauPGjSHZDRs2qDJlyljZrWHa/RMAA97IkSPV8ePH1enTp9WSJUtUoUKFLIjL7wcAtbJ9+/ZV165dU8FgMDSKmM6mI/82u7PX2qlHGoANGTJEswHPgtDPQ66AAUeVLFlSnTx5MgT+1atXVc+ePW27N/MCkFIOpzs83uGBDlcxCocjFm391r/55ht15coVdfPmTTVlyhS9Jhog/hpBfnGEXXhRGJl7AWAB07eBpq/ppu+/iPrYhd3F0xwuHkammy1XuHDh4DPPPKMee+wxvSaa++eMYRyOmNpvOHxCtHfC3Iu0CWSbwocPH9bT+KOPPlLJycnRpjB9edOjnwcNBndFzzl83TUS5Gj4Y5iRSCcnRRhFfX22v0zILPNR/jfGTNKbSKNGjVSLFi1USkpKtE2kgBkQKkxfrxssckRlHN5glWH6nT17Vn311Vcs8FKhyhFGUUeH/yvKfm9MnCQf7WPmbBGyW3wY4VC7CC9uWJgRXMWWKVeuXJA+0lf6TN/Nsw0GE9/0W4ePItypUye9ltjNYMuWLXJBfz5KPWNFBzBsS/tsv4lr6Tho7vmhyq7TzPdRzJcBFvAvv/wyW187duxo6zhqMPFNbcxapcaOHRuqFD5z5oxcI8ZFqSfDZdD28tl+F7Pgy8W/i0/ZSq5T0Ogo5cfZsvTN9hN69dVXlVi32+QEwAYO/w/h+vXrqxs3boR2tUmTJklAOuUQwF0+2x/qsaAP9Sk71tVmho+XpctPnjw51M/r16/L0w9Y1M8JgKxTn9iKAZG3wXQWu+lRH1MywwOIllFkkh1+h7JJSUlB2Mi9Y55Fowuu9qIBWNosL3rNo4/0lT6Ll/CJz7U7G9V2+JAHALZiPzuTF4AfR5Ep6vBmyrKTwkZus3kWifp6nIEzfOj5nEtGMhjUultTpoE52+5z+KzDWWJr7+cXQOfNMnJtxxghaVEM9yvIDR48WLNp84oPw3a7BwB+AOwnTLYs09d9pu/1A/eAGjrc1Jo2Ylct7wfA0qVLq+bNm9vpf9OsU+GosW3jgw8+0CzabBxl4wPkYNGiRVWRIkX8AljeTmFhsjQ1fb7n9EYOp6MGECfCW2+9pYoVK2bl1kRwjNoNJLh3714Fi+kVaSN5l3LOERL/oXQ+RAPwY1ef3sjNc/FTHr627tEAZER8/fXX2r0kfIKtw8h8aEctZgXMtZH7MIxMTYd3UqZChQpq2bJl8mVFArC7x5r5VG4CWNWjweMRTgkhAHFPLV++XMpmOpzfQ0Yb8O3atVOXLl3SzLXY+b2ol9Xn5ZdfVlu3btVtRgGwgtHdPSCqxsRd5TouvRsNwM8//1zbV2lpaVaeRbqIx6Fe1z18+HBti8FcizbdTgyidUutPnhi1q5d6wfAdz2Oe8FYuLf0TlenTh28Lbbhyw538APgjBkzJBju00VX25G5c+eGjFquRUe7umSq2/p69Oihy9NWFAA7GJ11H+iLKbs9FgC+Zw7eas6cObJj6z02hjsAZIQYkwb+j6v8ZNuplStXhgDkWrysyR5uLK3Htm3b/ABYzOiqZegDfTH/vxcLAAfbN37ixAnVu3dvCeLIaADipe7Xr5+UqS7Kb+JejRo11HfffRcCkGvumfKbRPlCDt/gfsuWLdXly5f9ADjSgofu9EHMiMGxALCZVYB4A07LatWqBcWhv1EkACHkRJRurjg+nuReq1at1KlTp0LlueaeKX9SHKtGWV1mz54dcgJEALCRdVKgM7qji3iZzWIBYFn7xsaNG6cVnj9/vlTi22gAEutt3Lix9DanmlMPDlHtxXYT90wb54WRu9+AoXbs2BEqGwHAby3g6AzRBzECy8YCQHbBvTSIvwzC1OjcubPtoDxpeAIIDRo0yCp9zfgVezh81RmZKiMjI5sLDeIezwK3o349zWaiTx5284gC4FijWxBd0dnl89sbIUxxTynVBnAwcC198cUX0ng94HA1hye4AbSAEKpMSUmx5QkkzXL4FpvF4sWL7xiB3DMbyS0TTvibCV7puIes2wXgBKMLOmkd0dWSMNKXm77lOhGOnGmHPVE3S6+99pqcDn82xrLnCITEND7i8GGuixcvrn788cc7ynKPZ8I/p6dv9erV7yjrAjDT6KL/R0dL6C70nRnwDrXmCg2ya4kMgEMNGjSwayEjZaMXgHakGPsuW/wCkyIcCXMjVJ7sB1mnB4AbjS5aN1kfuou1e1AghpRuG541a1a2Tv7www/ugE4w3AiEkpOTs7mf7LoqAfGIUYSYk0qEERiUgKObJHQXz9NjCWALe44kA0Eu+KRzjB8/Plsnw41Aj11QR8PCEc9k2WHDhnmWc41AzeiEbnJjQndxnm8RSwBrWe/Hgw8+eAcoBLWFJ1l3ZvPmzZ6d5fQgOzp9+nS1adMmDcKaNWvUqlWr1OrVq/Wmw3SVZXFOHD16VBvnkoiuiQ1NNWnSRB07duyOnR3dTZmdv8TrfLemzFoax+8mwbM0c+ZMUjm0gkxTYg14VerWrasqV66s1zNkScWQoLAz4wyFU1NTQ8z/4jin7I6KPDspdZUvX17VqlVLsy3DsZH8GgugJOEzXBsrE0bSYntuJfQ5ZswY1aFDB5mBFZdcpUoV1adPH/XSSy9pE0iYUTGnWRECMdmYEUhmFsrj+WBKPfzww+rRRx/VG0O3bt3U008/rZOAOJ/2799fvfDCC9mYezyjDGWRQZY6qIs6qZs2aMuOfh/MDv1mXgA4yh7kLVeqVEmfWXGpExp8++23tQG8YsUKvYZt375d7d69Wx08eFB7ZUiidK9fOSFkqYO6qJO6aYO2aHPRokVaB3RBJ3RDRxeABJNG5AWAnR2+hBJdunTRrndySi5evKhTygjGe62N0SiSzN3Why7ohG7oSOIlOhsAL/lIEMgVKmqjWSTluI9q8UhWN3Z3dBbRxSKBPKJQCoazs4ZOJTkB8ZcAfjftrF+/nmks1+4hgTymzIBID5NupXgjdHOl52UG4oCSZby4Zs2aoY3hyJEj+rxJcBwj+JVXXtHW/5NPPqnat2+vmjZtqnfOihUr6sRyy9hnXizLIINss2bNdF3USd1kp9IWbdI2OtgNR3i14YkBf7k2MSHCk/+w50qRTJ6N8edhXmB/WYMZYxjbEYMYOcsYx5LlM8oigyx1UBd1UrfxGd7BRic7+vgQJ+6+Gakh4qzB2rVr61GBDTdhwgR9cMcLvHTpUn0042hHEvpPP/2kRwlue7uL4+xkxJCcDnPNPZ6x22O2IIMsdVAXdVL3vHnzdFu0SdtPPPGEQhcB3nFXHCauqL8F8PHHH/f0lMSaAJ8kdwFg/0Cc00I7bQja5DWhg5jKCwL3AdmcY3068EO3bt3SriamK0YvbLMSLNv7lKEsMn6IAJYA8Pn7AcC/WK8KxyzWLb6V27Vrl85ZWbdunXZDEU5csGCBDs6TrTBx4kTtGxw1apTerfH1EXiCueYezyhDWWSQpQ7qok7qpg3aok3aRgcRe5l9PwB42LqaOPDjwsI3SOwCUyQHh/wcM04L2qAt4i20jQ7CN3g43sH7p1fHSDkjc6B79+5qxIgRatq0aer9999Xn376qbbVyDzgY0SyBGB2WS+2zymLDLLUQV3USd20QVv4BsMAPT9ewcs0rqEghi6mxJ49e/J8E0EHnLsmfBk03pfe8QYev2Wwz0bVOG9KYtFnLcIrzKJOpwjwcLRizcKOw42PG4p1jPQ0nBOW+Z/7PGfUUZ4virABqQd7kHpx7/NVKBuNm7ARhUf7X/EG4O/tFMF1jzGLlxpDlpSMrl27Kj6i5tjF5wMPPPCATsfgOMbIIGaC254OskaSlM6JIikpSf/lf+7znHKU52SBfNWqVXV91MvRkA+zcVUxlQcMGKBGjx6tfYKfffaZdOGT8V8uXsDLluBoO+61/nAEY4Fv2LChTvclxYK0DDo6cOBAvduSTMluS8dJ5+Av/3Of5y+++KJ+MXwBz4tp3bq13qQ4g4ssA88NRujFN3y14wXA5hIgXO6ZmZlq4cKFeroxXWX2QiwIe3H//v06hQOv9Ouvv67jICIwH/NAeiSabkffzp07c833dy/IpIfYI93qWOXCRKOpFkCb5JNXIPqpW6Tz7gjEyW/Q1Bcx3SBRMfxzfGGEKcMnB3zi4BWXzS2iLdrERsSEQRd0Qjfx7R32YKF4ABC/2pgop4SgDHSnpaXpLyExeNm17UYydOjQ0CZCJI1MKphru5FQhrLIIEsd1EWdIvdaRQm58ilX23gyY5JMbIHfvOJnSfYEbv9qUFYcBNOzjC57jG78BlefQJxSSuD2h4R82s9X4mSR9jQ7Hr+EwU87zQvc/nx0lbHHdpjOcU49YTp73oQbrxm+ZO6dMmUOG5kdpo5Vps55po3xpk2bydrK6JQWLxvH3U71gmbdSTEdKWoWcvJS+OGxkoZLGS5t2P5vn5cwMsVMHammzkKBnP9aXIISlKAEJShBCUpQghKUY/o/skDmUJrSBzoAAAAASUVORK5CYII=');" onclick="confirmPromotion('q')"></div>
                         <div class="promo-btn" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAEEElEQVR42u1bv0sjQRhdIwloklNMLIRg4T9hKWJxZ21x1RVidea0ukoQFbEWD6OndoLFIRbW0ShaimBt4R+gIqIW+QH5bt7ejE6WJP7CnZnje/DIkt1v3pvn7sZN5vM8BoPBYDAYDAaDwWAwGAyGm0gJjgp+b8BxwZ531CuOymMboUdqvbXeGDYFS01YETx/R73OzSbjnEutt9YbQUKwIEhgNBqlWCzmv4ItLS14vyr3v7pebav98thEg7F8LWi+sd5sgO3t7bS0tEQrKyuUy+X87f7+ft28Ol4xLi+743r1ILbxHvbJMY5lTTwwlgrQ10RNg3p7A0ylUhTE5OSkHmBeHqsTgdw2qlfAPjnGrawJjpNXOtBsUm9vgF1dXVSpVB5Nl0olmpiYUMarWpD1WO3o6GgYIPa9ZAy8QhPaCvAEb84FCOTzecpkMv4+nAWNiIBmZ2f9mmq1+livtrEPxzQbAxrQgqYOZwPUg3gp6tW8dxynA3zN5Jsd+9pxXAow3uxDxBYEPkTiNgXYIXj0zM3dJh5Jz1bht/4p2NfXR0NDQzQ4OGiU8AAvgf8Cftn6LPxHGe3t7aWTkxMqFot0d3dH9/f3oRKa0IYHeNHCg8dPtn6hEBHcUiF2dnbSxcWFsXsetOFBC29LerQaEe1M9CdwdnZGNzc3dHV1FQqhBU0ZHmlnnvXhKSQFt/X7Tjwep0QiEQqhFbjnbUtPTiGhnk3T6TQtLi5SoVCg/f39DyU0oAVN7dk74TmKGUwCZ8XBwUFo9z5oQVMGOOPyt9TTKkCcGWEBWlqA0xwgB8gBcoAcIAfIAXKAHCAHyAFygBwgB8gBcoAcIAfIAXKATgVo8Btp9wPEwsa9vb3QAoSWtpjS6QCn5CSora2NkslkKISW9/Rz5pTLAT4u2x0bG6O5uTl/jd9HEhrQ0kI8djW8b4JlwerAwAA9PDyEdglDC5rev9+Fy9KLU0gLnqpL9/DwMPRlHdDUzsJT6ckJZLynVQnU3d1NCwsLH37pBglNaGv3wm3pzXpcek/LKp5bEB4GdR+XLgRIlgRXd/W+KwHS8PAw7ezs0O7urlHCA7x4tY0+9geYzWapXC4bXxcND/DiZIB6o4spwIOTAdZrtTKFQKuZVfji1fbmjnp1mv1Msk6zo96TPC7nYASfBa+92j7cojKqt5uapmy3VSwGPF/LuYSOH9IARSKRmv7e1tZWK6n3D8OzDLQk5xI6shCHkZGREVpfX/cvmeXlZZqfn/cf6m0iPMEbPMIrPMsQS3IuZgLEX3RtbY1cAzzLLnazAeJy2NjYcC5AeIZ34wF67vTHNaKxAL/+B+EpfjURIHovfgquCuYc5aqcg7E+ErROxQSjjjLmOdT+xWAwGAwGg8GwB38BOndQ3xYeBEYAAAAASUVORK5CYII=');" onclick="confirmPromotion('r')"></div>
@@ -402,13 +489,18 @@
             </div>
         </div>
         </div>
-    </div>
 
-    <footer class="app-footer">
-        Mã nguồn mở theo giấy phép <a href="LICENSE">GPLv3</a> ·
-        Cấp 9–16 dùng máy cờ <a href="https://github.com/nmrugg/stockfish.js" target="_blank" rel="noopener">Stockfish.js</a>
-        (<a href="https://github.com/official-stockfish/Stockfish" target="_blank" rel="noopener">Stockfish</a>, GPLv3)
-    </footer>
+        <!-- BẢNG BÊN: thông tin trận (khi đang thi đấu) + nội dung của tab -->
+        <aside class="panel" id="panel">
+            <div class="match-info" id="matchInfo" hidden></div>
+            <div class="mode-controls" id="modeControls"></div>
+            <footer class="app-footer">
+                Mã nguồn mở theo giấy phép <a href="LICENSE">GPLv3</a> ·
+                Cấp 9–16 dùng máy cờ <a href="https://github.com/nmrugg/stockfish.js" target="_blank" rel="noopener">Stockfish.js</a>
+                (<a href="https://github.com/official-stockfish/Stockfish" target="_blank" rel="noopener">Stockfish</a>, GPLv3)
+            </footer>
+        </aside>
+    </main>
 
     <script>
 /*! jQuery v3.6.0 | (c) OpenJS Foundation and other contributors | jquery.org/license */
@@ -1113,6 +1205,8 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         function updateWallet() {
             let s = walletState(), fmt = n => n.toLocaleString('vi-VN');
             document.getElementById('coinBalance').innerText = fmt(coins);
+            document.getElementById('walletMiniCoins').innerText = fmt(coins);  // chip ví nổi
+            document.getElementById('focusCoinsVal').innerText = fmt(coins);    // thanh chế độ tập trung
             // .wl-lbl: chữ phụ, được ẩn trên màn rất hẹp để dòng thông tin không bị cắt
             document.getElementById('walletMoney').innerHTML = `<span class="wl-lbl">Đổi được </span><b>${formatVND(s.money)}</b>`;
             document.getElementById('walletNeed').innerHTML = `cần ${fmt(s.need)} Xu<span class="wl-lbl"> nữa</span>`;
@@ -1127,8 +1221,27 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         function addCoins(amount) {
             coins += amount; localStorage.setItem('kidCoins', coins);
             updateWallet();
-            if (amount > 0) playSound('coin');
+            if (amount > 0) { playSound('coin'); flashCoinGain(amount); }
         }
+        // Con số "+30" bay lên và ví nảy nhẹ ở mọi chỗ đang hiện số Xu
+        function flashCoinGain(amount) {
+            ['wallet', 'walletMini', 'focusCoins'].forEach(id => {
+                let el = document.getElementById(id);
+                if (!el || el.offsetParent === null && getComputedStyle(el).position !== 'fixed') return;
+                let g = document.createElement('span');
+                g.className = 'coin-gain'; g.textContent = `+${amount}`;
+                el.appendChild(g); setTimeout(() => g.remove(), 1500);
+                el.classList.remove('wallet-bump'); void el.offsetWidth; el.classList.add('wallet-bump');
+            });
+        }
+        // Ví trên thanh đầu trang bị cuộn khuất -> hiện chip ví nổi ở góc trên phải (số Xu luôn nhìn thấy).
+        // Đo vị trí ví khi cuộn / đổi cỡ màn hình (phép đo rất nhẹ, trình duyệt vốn chỉ báo cuộn ~mỗi khung hình).
+        function updateWalletMini() {
+            let r = document.getElementById('wallet').getBoundingClientRect();
+            document.getElementById('walletMini').hidden = r.height > 0 && r.bottom > 0 && r.top < window.innerHeight;
+        }
+        window.addEventListener('scroll', updateWalletMini, { passive: true });
+        window.addEventListener('resize', updateWalletMini);
         // --- HỘP THOẠI ĐỔI XU ---
         // Hiện số Xu, số tiền đổi được tối đa; bé tự chọn đổi bao nhiêu (bội số 10.000đ) để chừa Xu thi đấu tiếp.
         function claimSavings() { openExchange(); }
@@ -1180,7 +1293,12 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             closeExchange();
             mascotSpeak(`🎉 Đổi thành công ${formatVND(units * TIEN_MOI_MUC)}! Nhờ bố mẹ trao thưởng nhé. Ví còn ${fmt(coins)} Xu.`);
         }
-        function mascotSpeak(text) { document.getElementById('mascotText').innerText = text; }
+        // Lời huấn luyện viên (hình 🤖 đã có sẵn ở đầu hộp). Tự đổi màu: đỏ khi sai, xanh khi đúng / chiến thắng.
+        function mascotSpeak(text) {
+            let el = document.getElementById('mascotText');
+            el.innerText = text.replace(/^🤖\s*/u, '');
+            el.dataset.tone = /^(🛑|😱|💥)/u.test(text) ? 'err' : /^(🎉|🏆|🥇|✅)/u.test(text) ? 'ok' : '';
+        }
         function showAnalysis(text) { 
             let box = document.getElementById('analysisText');
             if(text) { box.style.display = 'block'; box.innerText = "🔍 " + text; } 
@@ -1211,6 +1329,25 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         function setOrientation(color) {
             board.orientation(color === 'b' ? 'black' : 'white');
             positionOverlay();
+            updateFaceToFace();
+        }
+        // Quân 2 bên quay mặt vào nhau: chỉ khi 2 người cùng chơi trên một máy (Giải Đấu, bạn cùng chơi cầm quân đối thủ)
+        let faceToFace = localStorage.getItem('faceToFace') !== '0';
+        function faceToFaceActive() {
+            return faceToFace && currentMode === 'tournament' && tourneyConfig.active && opponentNow === 'friend';
+        }
+        function updateFaceToFace() {
+            let top = board.orientation() === 'black' ? 'w' : 'b'; // màu quân đang ở phía trên bàn cờ
+            document.body.classList.toggle('face-top-w', faceToFaceActive() && top === 'w');
+            document.body.classList.toggle('face-top-b', faceToFaceActive() && top === 'b');
+        }
+        function faceToFaceToggleHTML() {
+            return `<label class="assist-toggle"><input type="checkbox" ${faceToFace ? 'checked' : ''} onchange="setFaceToFace(this.checked)"><span class="switch"></span>
+                <span>↕️ Quân 2 bên quay mặt vào nhau <small>(2 bạn ngồi đối diện)</small></span></label>`;
+        }
+        function setFaceToFace(on) {
+            faceToFace = on; localStorage.setItem('faceToFace', on ? '1' : '0');
+            updateFaceToFace();
         }
         // Nút chọn màu quân: ⚪ Trắng · ⚫ Đen · 🎲 Ngẫu nhiên (fn: tên hàm được gọi với giá trị đã chọn)
         function colorPickerHTML(pref, fn) {
@@ -1234,7 +1371,26 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 saveLessonStars();
                 if(!completedPuzzles.includes(lIndex)) completedPuzzles.push(lIndex);
             }
-            return { earnedStars, previousStars, xuThuong };
+            let result = { earnedStars, previousStars, xuThuong };
+            showLessonDoneToast(lIndex, result);
+            return result;
+        }
+
+        // Thông báo hoàn thành bài: số sao đạt được + số Xu vừa vào ví (và số Xu trong ví)
+        function showLessonDoneToast(lIndex, r) {
+            let stars = '⭐'.repeat(r.earnedStars) + '⚫'.repeat(3 - r.earnedStars);
+            let coinsLine = r.xuThuong > 0
+                ? `<div class="toast-coins">+${r.xuThuong} Xu vào ví 🪙</div><div class="toast-sub">Ví hiện có ${coins.toLocaleString('vi-VN')} Xu</div>`
+                : `<div class="toast-sub">${r.previousStars >= 3 ? 'Đã đạt 3⭐ từ trước, không có Xu mới' : `Giữ mức ${r.previousStars}⭐ · chơi không sai bước nào để nhận thêm Xu`}</div>`;
+            let next = lIndex + 1 < ROADMAP.length ? `<div class="toast-sub">Chuyển sang bài tiếp theo...</div>` : `<div class="toast-sub">🏆 Con đã học hết lộ trình!</div>`;
+            showToast(`<div class="toast-title">🎉 Hoàn thành ${lessonLabel(lIndex)}!</div><div class="toast-stars">${stars}</div>${coinsLine}${next}`, 3200);
+        }
+        let toastTimer = null;
+        function showToast(html, ms = 3000) {
+            let t = document.getElementById('toast');
+            clearTimeout(toastTimer);
+            t.innerHTML = html; t.classList.remove('hide'); t.hidden = false;
+            toastTimer = setTimeout(() => { t.classList.add('hide'); toastTimer = setTimeout(() => { t.hidden = true; }, 300); }, ms);
         }
 
         function lessonResultText(result) {
@@ -1489,8 +1645,10 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                     document.getElementById('lessonNote').style.display = 'block';
                     loadStep(currentLessonIndex, currentStepIndex); 
                 } else {
-                    board.position('start');
-                    mascotSpeak("🤖 Khởi động! Nhấn nút 'SẴN SÀNG BẮT ĐẦU' ở Bản đồ để thám hiểm nhé!");
+                    // chưa vào bài: bàn cờ xem trước thế cờ của bài tiếp theo (bấm quân chưa có tác dụng)
+                    let preview = ROADMAP[currentLessonIndex].steps[0];
+                    game.load(preview.fen); board.position(preview.fen);
+                    mascotSpeak(`👋 Bài tiếp theo: ${lessonLabel(currentLessonIndex)}. Nhấn nút cam để bắt đầu nhé!`);
                     document.getElementById('lessonNote').style.display = 'none';
                 }
             } else if (mode === 'ranked') {
@@ -1502,53 +1660,63 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             } else if (mode === 'tournament') {
                 document.getElementById('lessonNote').style.display = 'none';
                 tourneyConfig.active = false;
+                parentUnlocked = false; tourneyConfig.prizeDraft = undefined; // rời màn thiết lập là khóa lại
                 renderTournamentSetup();
                 mascotSpeak("Thiết lập giải đấu của riêng con!");
                 game.reset(); board.position('start');
             }
         }
 
+        // BẢN ĐỒ HỌC dạng gọn: nút "Tiếp tục" + các chương thu gọn (mở sẵn chương đang học), mỗi bài một dòng có số sao.
+        let openChapters = new Set();   // các chương đang mở (giữ nguyên khi vẽ lại)
+        let lastOpenedChapter = null;
         function renderRoadmapUI(scrollToActive = false) {
             let controls = document.getElementById('modeControls');
-            
-            let isFirstPlay = completedPuzzles.length === 0;
-            let startBtnText = isFirstPlay ? "🏁 SẴN SÀNG BẮT ĐẦU!" : `🚀 TIẾP TỤC: ${lessonLabel(currentLessonIndex)}`;
-            let mainBtnHTML = `<button class="btn btn-start" onclick="startLesson(${currentLessonIndex})">${startBtnText}</button>`;
-
-            let html = `<h3>🗺️ Bản Đồ Thám Hiểm</h3>${mainBtnHTML}<div class="map-container">`;
-
-            let currentCat = '';
-            let zigZagClasses = ['zig-left', '', 'zig-right', ''];
-            
+            let chapters = [];
             ROADMAP.forEach((lesson, i) => {
-                if(lesson.category !== currentCat) {
-                    html += `<div class="category-sign">${lesson.category}</div>`;
-                    currentCat = lesson.category;
-                }
-                
-                let stars = lessonStars[i] || 0;
-                let isActive = (i === currentLessonIndex);
-                let isCompleted = stars > 0;
-                
-                let btnClass = isActive ? "map-node active-lesson" : (isCompleted ? "map-node completed" : "map-node");
-                let icon = isActive ? "🚗" : (isCompleted ? "✅" : "🔒");
-                html += `<div class="map-node-wrapper ${zigZagClasses[i % 4]}">
-                            <button class="${btnClass}" onclick="startLesson(${i})">
-                                ${icon} ${lessonLabel(i)}
-                            </button>
-                            <div class="map-stars">${getStarsHTML(stars)}</div>
-                         </div>`;
+                let ch = chapters[chapters.length - 1];
+                if (!ch || ch.name !== lesson.category) chapters.push(ch = { name: lesson.category, items: [] });
+                ch.items.push(i);
             });
-            html += `</div>`;
-            controls.innerHTML = html;
+            let curChapter = ROADMAP[currentLessonIndex].category;
+            if (lastOpenedChapter !== curChapter) { openChapters.add(curChapter); lastOpenedChapter = curChapter; } // tự mở chương của bài hiện tại
+            let totalStars = ROADMAP.reduce((s, l, i) => s + (lessonStars[i] || 0), 0);
+            let doneCount = ROADMAP.filter((l, i) => lessonStars[i]).length;
+            let isFirstPlay = completedPuzzles.length === 0;
+            let startText = isFirstPlay ? '🏁 Bắt đầu học' : `▶ ${isLessonActive ? 'Học lại' : 'Tiếp tục'}: ${lessonLabel(currentLessonIndex)}`;
 
-            // Chỉ cuộn bên trong khung bản đồ (khi khung có thanh cuộn), không kéo cả trang
-            if(scrollToActive) {
+            let html = `<div class="panel-head"><h2>🗺️ Lộ trình học</h2><span class="muted">✅ ${doneCount}/${ROADMAP.length} bài · ⭐ ${totalStars}</span></div>
+                <div class="map-progress"><div style="width:${doneCount / ROADMAP.length * 100}%"></div></div>
+                <button class="btn btn-start" onclick="startLesson(${currentLessonIndex})">${startText}</button>
+                <div class="chapters">`;
+            chapters.forEach((ch, ci) => {
+                let got = ch.items.reduce((s, i) => s + (lessonStars[i] || 0), 0), max = ch.items.length * 3;
+                html += `<details class="chapter${got === max ? ' complete' : ''}" data-ch="${ci}" ${openChapters.has(ch.name) ? 'open' : ''}>
+                    <summary><span class="ch-name">${ch.name}</span><span class="ch-prog">⭐ ${got}/${max}</span></summary><ol class="lesson-list">`;
+                ch.items.forEach(i => {
+                    let stars = lessonStars[i] || 0, state = i === currentLessonIndex ? 'current' : stars ? 'done' : 'todo';
+                    html += `<li><button class="lesson-row ${state}" onclick="startLesson(${i})" aria-label="${lessonLabel(i)}, ${stars} sao">
+                        <span class="lr-num">${state === 'done' ? '✓' : i + 1}</span><span class="lr-title">${ROADMAP[i].title}</span>
+                        <span class="lr-stars">${stars ? '⭐'.repeat(stars) : ''}</span></button></li>`;
+                });
+                html += `</ol></details>`;
+            });
+            controls.innerHTML = html + `</div>`;
+            // ghi nhớ chương bé tự mở/đóng
+            controls.querySelectorAll('.chapter').forEach(d => d.addEventListener('toggle', () => {
+                let name = chapters[d.dataset.ch].name;
+                if (d.open) openChapters.add(name); else openChapters.delete(name);
+            }));
+
+            // Chỉ cuộn bên trong bảng bên (khi bảng có thanh cuộn riêng, trên máy tính), không kéo cả trang
+            if (scrollToActive) {
                 setTimeout(() => {
-                    let activeNode = controls.querySelector('.map-node.active-lesson');
-                    if(!activeNode || controls.scrollHeight <= controls.clientHeight) return;
-                    let offset = activeNode.getBoundingClientRect().top - controls.getBoundingClientRect().top;
-                    controls.scrollTo({ top: controls.scrollTop + offset - controls.clientHeight / 2, behavior: "smooth" });
+                    let panel = document.getElementById('panel'), row = controls.querySelector('.lesson-row.current');
+                    if (!row || panel.scrollHeight <= panel.clientHeight || getComputedStyle(panel).overflowY === 'visible') return;
+                    let r = row.getBoundingClientRect(), p = panel.getBoundingClientRect();
+                    if (r.top >= p.top + 60 && r.bottom <= p.bottom - 10) return; // bài hiện tại đã nằm trong tầm nhìn
+                    let offset = r.top - p.top;
+                    panel.scrollTo({ top: panel.scrollTop + offset - panel.clientHeight / 2, behavior: 'smooth' });
                 }, 100);
             }
         }
@@ -1641,6 +1809,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             } else {
                 showAnalysis(false); clearOverlay(); positionOverlay();
                 drawArrow(attemptStr.slice(0, 2), attemptStr.slice(2, 4), 'history', ovLayer('base')); // nước vừa đi
+                updateMatchInfo();
                 let id = matchId;
                 if (!checkGameOver()) {
                     if (aiControlsTurn()) { mascotSpeak("🚙 Tốt lắm! Chờ máy tính đi..."); window.setTimeout(() => makeMachineMove(id), 600); }
@@ -1756,7 +1925,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 aiThinking = false;
                 // bỏ nước nếu trận đã đổi, hoặc AI vừa bị tạm ngừng trong lúc đang nghĩ
                 if (!m || !matchActive || id !== matchId || !aiControlsTurn()) return;
-                game.move(m); board.position(game.fen()); playSound('move');
+                game.move(m); board.position(game.fen()); playSound('move'); updateMatchInfo();
                 clearOverlay(); positionOverlay();
                 drawArrow(m.from, m.to, 'history', ovLayer('base')); // cho con thấy máy vừa đi nước nào
                 localStorage.setItem('lastCaptureByAI', m.captured ? `Máy vừa ăn ${PIECE_NAMES[m.captured]} của con ở ô ${m.to}.` : '');
@@ -1783,7 +1952,6 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             document.body.classList.toggle('focus-mode', on);
             if (!on) {
                 closeOptions();
-                if (wasOn && document.fullscreenElement) document.exitFullscreen().catch(() => {});
             }
             if (on) {
                 document.getElementById('focusTitle').textContent = currentMode === 'ranked'
@@ -1792,6 +1960,38 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 updateFloatHint();
                 if (!wasOn) window.scrollTo(0, 0);
             }
+            document.getElementById('matchInfo').hidden = !on;
+            if (on) updateMatchInfo();
+        }
+
+        // --- THÔNG TIN TRẬN (bảng bên khi đang thi đấu): 2 người chơi · quân đã ăn · danh sách nước đi ---
+        const CAPTURE_GLYPHS = { w: { p: '♙', n: '♘', b: '♗', r: '♖', q: '♕' }, b: { p: '♟', n: '♞', b: '♝', r: '♜', q: '♛' } };
+        function matchPlayerNames() {
+            let me = 'Con', opp;
+            if (currentMode === 'ranked') opp = levelLabel(selectedLevel);
+            else if (tourneyConfig.opponent === 'friend') { me = 'Người chơi 1'; opp = opponentNow === 'ai' ? '🤖 Máy (thay Người chơi 2)' : 'Người chơi 2'; }
+            else opp = opponentNow === 'ai' ? levelLabel(tournamentAILevel()) : '👥 Bạn cùng chơi';
+            return { me: `👤 ${me}`, opp };
+        }
+        function updateMatchInfo() {
+            let box = document.getElementById('matchInfo');
+            if (box.hidden) return;
+            let hist = game.history({ verbose: true }), taken = { w: [], b: [] }; // taken.w = quân Trắng đã ăn được (quân Đen)
+            hist.forEach(m => { if (m.captured) taken[m.color].push(m.captured); });
+            let value = c => taken[c].reduce((s, p) => s + ({ p: 1, n: 3, b: 3, r: 5, q: 9 })[p], 0);
+            let order = 'qrbnp', names = matchPlayerNames(), turn = game.turn();
+            let row = (color, name) => {
+                let caps = taken[color].slice().sort((a, b) => order.indexOf(a) - order.indexOf(b)).map(p => CAPTURE_GLYPHS[otherColor(color)][p]).join('');
+                let adv = value(color) - value(otherColor(color));
+                return `<div class="mi-player${turn === color && !game.game_over() ? ' turn' : ''}"><span class="mi-color">${COLOR_ICONS[color]}</span>
+                    <span class="mi-name">${name}</span><span class="mi-capt">${caps}${adv > 0 ? `<span class="mi-adv">+${adv}</span>` : ''}</span></div>`;
+            };
+            let moves = '';
+            for (let i = 0; i < hist.length; i += 2) moves += `<li><span>${hist[i].san}</span>${hist[i + 1] ? `<span>${hist[i + 1].san}</span>` : ''}</li>`;
+            let opp = otherColor(playerColor);
+            box.innerHTML = row(opp, names.opp) + row(playerColor, names.me) + // đối thủ ở trên, mình ở dưới, giống bàn cờ
+                `<div class="mi-moves">${moves ? `<ol>${moves}</ol>` : '<span class="mi-empty">Chưa có nước đi nào. Quân Trắng đi trước.</span>'}</div>`;
+            let list = box.querySelector('.mi-moves'); list.scrollTop = list.scrollHeight;
         }
         function openOptions() {
             if (!document.body.classList.contains('focus-mode')) return;
@@ -1800,12 +2000,66 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         }
         function closeOptions() { document.body.classList.remove('options-open'); }
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOptions(); });
-        // ⛶ Toàn màn hình thật của trình duyệt (ẩn nút nếu trình duyệt không hỗ trợ, vd. iPhone)
-        function toggleFullscreen() {
-            if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
-            else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+        // --- BỘ BIỂU TƯỢNG NÉT ĐƠN (cùng một kiểu, tô theo màu chữ) ---
+        const ICON_PATHS = {
+            hint: '<path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V17h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/>',
+            expand: '<path d="M8 3H3v5M21 8V3h-5M16 21h5v-5M3 16v5h5"/>',
+            shrink: '<path d="M3 8h5V3M16 3v5h5M21 16h-5v5M8 21v-5H3"/>',
+            settings: '<path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/>',
+            flag: '<path d="M5 22V4"/><path d="M5 4h12l-2.5 4L17 12H5"/>',
+            exit: '<path d="M10 17l-5-5 5-5M5 12h11"/><path d="M14 4h5v16h-5"/>',
+            users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14a6.5 6.5 0 0 1 3.5 6"/>',
+            swap: '<path d="M7 20V4M3 8l4-4 4 4M17 4v16M21 16l-4 4-4-4"/>',
+            assist: '<path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M19 15l.8 1.9 1.9.8-1.9.8L19 20.4l-.8-1.9-1.9-.8 1.9-.8z"/>',
+            play: '<path d="M7 4l13 8-13 8z"/>'
+        };
+        function icon(name) {
+            return `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON_PATHS[name] || ''}</svg>`;
         }
-        document.getElementById('focusFullscreen').hidden = !document.fullscreenEnabled;
+        function renderStaticIcons() { document.querySelectorAll('[data-icon]').forEach(el => { el.innerHTML = icon(el.dataset.icon); }); }
+
+        // --- TOÀN MÀN HÌNH: tự bật khi bắt đầu ván; thoát bằng Esc hoặc nút "Thu nhỏ" / "Thoát toàn màn hình" ---
+        function fsSupported() { return !!(document.fullscreenEnabled || document.webkitFullscreenEnabled); } // kiểm tra mỗi lần (quyền có thể đổi)
+        function isFullscreen() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+        function enterFullscreen() {
+            let el = document.documentElement, fn = el.requestFullscreen || el.webkitRequestFullscreen;
+            if (!fsSupported() || !fn || isFullscreen()) return;
+            try { let r = fn.call(el); if (r && r.catch) r.catch(() => {}); } catch (e) {} // trình duyệt có thể từ chối nếu không do bấm nút
+        }
+        function exitFullscreen() {
+            let fn = document.exitFullscreen || document.webkitExitFullscreen;
+            if (!fn || !isFullscreen()) return;
+            try { let r = fn.call(document); if (r && r.catch) r.catch(() => {}); } catch (e) {}
+        }
+        function toggleFullscreen() { if (isFullscreen()) exitFullscreen(); else enterFullscreen(); }
+        // Đổi nút theo trạng thái: Phóng to <-> Thu nhỏ; hiện nút "Thoát toàn màn hình" trên thanh trên cùng
+        function updateFullscreenUI() {
+            let fs = isFullscreen(), btn = document.getElementById('focusFullscreen');
+            document.body.classList.toggle('is-fullscreen', fs);
+            btn.hidden = !fsSupported();
+            btn.querySelector('[data-icon]').dataset.icon = fs ? 'shrink' : 'expand';
+            btn.querySelector('.fb-label').textContent = fs ? 'Thu nhỏ' : 'Phóng to';
+            btn.setAttribute('aria-label', fs ? 'Thoát toàn màn hình' : 'Phóng to toàn màn hình');
+            btn.title = fs ? 'Thoát toàn màn hình (Esc)' : 'Phóng to toàn màn hình';
+            renderStaticIcons();
+            if (document.body.classList.contains('options-open') && matchActive) refreshMatchOptions(); // cập nhật dòng "Toàn màn hình" trong bảng tùy chọn
+        }
+        document.addEventListener('fullscreenchange', updateFullscreenUI);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenUI);
+
+        // --- BẢNG TÙY CHỌN KHI ĐANG THI ĐẤU: danh sách gọn, mỗi dòng = biểu tượng + tên + chú thích ---
+        function optRow(ic, title, sub, onclick, cls = '') {
+            return `<button class="opt-row ${cls}" onclick="${onclick}">${icon(ic)}<span class="opt-text"><b>${title}</b>${sub ? `<small>${sub}</small>` : ''}</span></button>`;
+        }
+        function optToggle(ic, title, sub, checked, onchange) {
+            return `<label class="opt-row">${icon(ic)}<span class="opt-text"><b>${title}</b>${sub ? `<small>${sub}</small>` : ''}</span>
+                <input type="checkbox" ${checked ? 'checked' : ''} onchange="${onchange}"><span class="switch"></span></label>`;
+        }
+        function optFullscreenRow() {
+            if (!fsSupported()) return '';
+            return isFullscreen() ? optRow('shrink', 'Thu nhỏ màn hình', 'Hoặc nhấn phím Esc', 'toggleFullscreen()') : optRow('expand', 'Phóng to toàn màn hình', 'Bàn cờ chiếm cả màn hình', 'toggleFullscreen()');
+        }
+        function refreshMatchOptions() { if (currentMode === 'ranked') renderRankedMatchUI(); else if (currentMode === 'tournament') renderTournamentMatchUI(); }
         function levelLabel(n) { let L = AI_LEVELS[Math.min(n, AI_LEVELS.length) - 1]; return `${L.icon} Cấp ${n}: ${L.name}`; }
         function assistToggleHTML() {
             return `<label class="assist-toggle"><input type="checkbox" ${assistOn ? 'checked' : ''} onchange="toggleAssist(this.checked)"><span class="switch"></span>
@@ -1819,31 +2073,39 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 for (let n = Math.min(aiLevel, total); n >= 1; n--) if (levelAvailable(n)) { selectedLevel = n; break; }
                 levelAutoFallback = true;
             }
+            // Lưới 16 ô cấp độ (4 cột): biểu tượng + "Cấp n" + trạng thái ✅ 🪙 🔒 ⏳ 📶; chi tiết cấp đang chọn hiện bên dưới
             let cards = AI_LEVELS.map((L, i) => {
                 let n = i + 1, state = n <= conquered ? 'done' : n === aiLevel ? 'current' : 'locked';
                 let offline = state !== 'locked' && !levelAvailable(n);
-                let status = offline ? (sfStatus === 'unavailable' ? '📶' : '⏳') : state === 'done' ? '✅' : state === 'current' ? `🪙+${L.reward}` : '🔒';
-                return `<button class="level-card ${state}${offline ? ' offline' : ''}${n === selectedLevel ? ' selected' : ''}" ${state === 'locked' || offline ? 'disabled' : ''} onclick="selectLevel(${n})">
-                    <span class="lv-icon">${L.icon}</span><span class="lv-info"><b>Cấp ${n}: ${L.name}</b><small>${L.desc}</small></span><span class="lv-status">${status}</span></button>`;
+                let status = offline ? (sfStatus === 'unavailable' ? '📶' : '⏳') : state === 'done' ? '✅' : state === 'current' ? '🪙' : '🔒';
+                return `<button class="level-card ${state}${offline ? ' offline' : ''}${n === selectedLevel ? ' selected' : ''}" ${state === 'locked' || offline ? 'disabled' : ''}
+                    onclick="selectLevel(${n})" aria-label="Cấp ${n}: ${L.name}" title="Cấp ${n}: ${L.name} · ${L.desc}">
+                    <span class="lv-icon">${L.icon}</span><span class="lv-info"><b>Cấp ${n}</b></span><span class="lv-status">${status}</span></button>`;
             }).join('');
+            let S = AI_LEVELS[selectedLevel - 1];
+            let reward = selectedLevel === aiLevel ? `🪙 +${S.reward}` : selectedLevel < aiLevel ? '✅ +5' : '';
             let sfNote = sfStatus === 'unavailable'
                 ? `<p class="lv-note">📶 Cấp ${AI_LEVELS.findIndex(L => L.engine) + 1}–${total} dùng máy cờ Stockfish, chỉ chạy khi mở trang qua web (vd. GitHub Pages).</p>`
                 : sfStatus === 'loading' ? `<p class="lv-note">⏳ Đang tải máy cờ Stockfish cho các cấp cao...</p>` : '';
-            // Nút gạt + nút Đấu đặt trên thang cấp để không phải cuộn hết các cấp mới bấm được (nhất là trên điện thoại)
-            document.getElementById('modeControls').innerHTML = `<h3>${conquered >= total ? '🏆 Nhà Vô Địch!' : '🏁 Chặng Đua AI'}</h3>
-                <div class="lv-progress"><div style="width:${conquered / total * 100}%"></div></div><small>Đã chinh phục ${conquered}/${total} cấp</small>
+            document.getElementById('modeControls').innerHTML = `<div class="panel-head"><h2>${conquered >= total ? '🏆 Nhà Vô Địch!' : '⭐ Đấu với máy'}</h2><span class="muted">Chinh phục ${conquered}/${total}</span></div>
+                <div class="lv-progress"><div style="width:${conquered / total * 100}%"></div></div>
+                <div class="level-ladder">${cards}</div>
+                <div class="level-detail"><span class="ld-icon">${S.icon}</span><div><b>Cấp ${selectedLevel}: ${S.name}</b><span>${S.desc}</span></div><span class="ld-reward">${reward}</span></div>
+                ${sfNote}
                 <div class="setup-row"><span class="setup-label">Con cầm quân</span>${colorPickerHTML(rankedColorPref, 'setRankedColor')}</div>
                 ${assistToggleHTML()}
-                <button class="btn btn-start" style="margin-bottom:6px" onclick="startRanked()">⚔️ Đấu ${levelLabel(selectedLevel)}</button>
-                ${sfNote}<div class="level-ladder">${cards}</div>`;
+                <div class="panel-actions"><button class="btn btn-start" onclick="startRanked()">⚔️ Đấu ${levelLabel(selectedLevel)}</button></div>`;
             updateFloatHint();
         }
         function renderRankedMatchUI() {
-            // Nút Gợi ý đặt ngay dưới tiêu đề: gần bàn cờ nhất, không phải cuộn trên điện thoại
-            document.getElementById('modeControls').innerHTML = `<h3 style="margin-bottom:10px">⚔️ Đang đấu ${levelLabel(selectedLevel)}</h3>
-                ${assistOn ? `<button class="btn btn-demo" onclick="requestHint()">💡 Gợi ý nước đi (-${HINT_COST} Xu)</button>` : ''}
-                ${assistToggleHTML()}<p class="lv-desc">Con cầm quân ${COLOR_ICONS[playerColor]} ${COLOR_NAMES[playerColor]} · ${AI_LEVELS[selectedLevel - 1].desc}</p>
-                <div class="btn-row" style="margin-top:12px"><button class="btn" style="background:#9e9e9e;" onclick="resignRanked()">🏳️ Bỏ cuộc</button></div>`;
+            document.getElementById('modeControls').innerHTML = `<div class="panel-head"><h2>Tùy chọn trận</h2><span class="muted">${levelLabel(selectedLevel)}</span></div>
+                <div class="opt-list">
+                    ${assistOn ? optRow('hint', 'Gợi ý nước đi', `Tốn ${HINT_COST} Xu mỗi lần`, 'requestHint()', 'accent') : ''}
+                    ${optToggle('assist', 'Hỗ trợ thi đấu', 'Bật để xin gợi ý khi cần', assistOn, 'toggleAssist(this.checked)')}
+                    ${optFullscreenRow()}
+                    ${optRow('flag', 'Bỏ cuộc', 'Kết thúc ván này', 'resignRanked()', 'danger')}
+                </div>
+                <p class="lv-desc">Con cầm quân ${COLOR_ICONS[playerColor]} ${COLOR_NAMES[playerColor]} · ${AI_LEVELS[selectedLevel - 1].desc}</p>`;
             updateFloatHint();
         }
         function selectLevel(n) {
@@ -1862,6 +2124,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         }
         function startRanked() {
             if (!levelAvailable(selectedLevel)) { renderRankedUI(); return; }
+            enterFullscreen(); // bắt đầu ván: phóng to toàn màn hình (thoát bằng Esc hoặc nút Thu nhỏ)
             matchId++; game.reset(); board.position('start'); showAnalysis(false); clearOverlay();
             playerColor = resolveColor(rankedColorPref); setOrientation(playerColor);
             matchActive = true; renderRankedMatchUI(); updateFocusMode();
@@ -1910,36 +2173,133 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         // --- GIẢI ĐẤU: với máy hoặc 2 người cùng máy ---
         function renderTournamentSetup() {
             let friend = tourneyConfig.opponent === 'friend';
-            document.getElementById('modeControls').innerHTML = `<h3>🏆 Giải Đấu</h3>
+            document.getElementById('modeControls').innerHTML = `<div class="panel-head"><h2>🏆 Giải Đấu</h2><span class="muted">${friend ? '2 người' : 'Đấu với máy'}</span></div>
                 <div class="setup-row"><span class="setup-label">Đối thủ</span><div class="seg-pick" role="group" aria-label="Chọn đối thủ">
                     <button class="${friend ? '' : 'active'}" aria-pressed="${!friend}" onclick="setTourneyOpponent('ai')">🤖 Máy</button>
                     <button class="${friend ? 'active' : ''}" aria-pressed="${friend}" onclick="setTourneyOpponent('friend')">👥 Bạn cùng chơi</button></div></div>
                 <div class="setup-row"><span class="setup-label">${friend ? 'Người chơi 1 cầm quân' : 'Con cầm quân'}</span>${colorPickerHTML(tourneyConfig.colorPref, 'setTourneyColor')}</div>
                 <div class="form-grid">
                     <label for="tRounds">${friend ? 'Số ván' : 'Số vòng'}</label><input type="number" id="tRounds" value="${tourneyConfig.rounds}" min="1" max="10" inputmode="numeric">
-                    ${friend ? '' : `<label for="tPrize">Thưởng (Xu)</label><input type="number" id="tPrize" value="${tourneyConfig.prize}" step="50" min="100" inputmode="numeric">`}
                 </div>
-                ${friend ? `<p class="lv-note">👥 Hai bạn thay phiên đi trên cùng một máy, mỗi ván đổi màu quân. Đấu 2 người không có thưởng Xu.</p>` : ''}
-                <p class="lv-note">🔄 Trong giải có thể đổi 🤖 Máy ↔ 👥 Bạn cùng chơi bất cứ lúc nào, kể cả đang giữa ván.${friend ? '' : ' Vòng có bạn cùng chơi thành ván giao hữu (không thưởng).'}</p>
-                <button class="btn" style="background:#f44336;" onclick="startTournament()">🏁 Khai mạc</button>`;
+                ${friend ? '' : prizeRowHTML()}
+                ${friend ? faceToFaceToggleHTML() : ''}
+                <p class="lv-note">${friend ? '👥 Hai bạn thay phiên trên cùng một máy, mỗi ván đổi màu quân, không có thưởng Xu. ' : ''}🔄 Có thể đổi 🤖 Máy ↔ 👥 Bạn bất cứ lúc nào, kể cả giữa ván${friend ? '' : ' (vòng có bạn chơi thay thành ván giao hữu, không thưởng)'}.</p>
+                <div class="panel-actions"><button class="btn btn-start" onclick="startTournament()">🏁 Khai mạc</button></div>`;
             tourneyPanel = null;
+        }
+
+        // --- PHỤ HUYNH: ĐẶT TIỀN THƯỞNG GIẢI ĐẤU, KHÓA BẰNG MÃ PIN ---
+        // Bé chỉ xem được tiền thưởng; muốn chỉnh phải nhập mã PIN phụ huynh (lần đầu thì tạo mã).
+        // Đây là khóa nhẹ trên máy (dữ liệu nằm trong trình duyệt), đủ để bé không tự nâng thưởng rồi đổi ra tiền.
+        const DEFAULT_TOURNEY_PRIZE = 100;
+        let parentUnlocked = false;
+        function parentPrize() {
+            let v = parseInt(localStorage.getItem('tourneyPrize'));
+            return Number.isFinite(v) && v >= 0 ? v : DEFAULT_TOURNEY_PRIZE;
+        }
+        function pinHash(pin) { // FNV-1a: không lưu mã PIN dạng chữ thường trong localStorage
+            let h = 0x811c9dc5;
+            for (let ch of 'cheese-pin:' + pin) { h ^= ch.charCodeAt(0); h = Math.imul(h, 0x01000193) >>> 0; }
+            return h.toString(16);
+        }
+        function hasParentPin() { return !!localStorage.getItem('parentPinHash'); }
+        function prizeRowHTML() {
+            let fmt = n => Number(n).toLocaleString('vi-VN');
+            if (!parentUnlocked) return `<div class="prize-row"><span>🏅 Thưởng khi vô địch: <b>${fmt(parentPrize())} Xu</b></span>
+                <span class="prize-lock">🔒 Phụ huynh đặt</span><button type="button" class="link-btn" onclick="parentUnlock()">👨‍👩‍👧 Phụ huynh chỉnh</button></div>`;
+            let value = tourneyConfig.prizeDraft !== undefined ? tourneyConfig.prizeDraft : parentPrize();
+            return `<div class="prize-row unlocked"><label for="tPrize">🔓 Thưởng khi vô địch cả giải (Xu)</label>
+                <input type="number" id="tPrize" value="${value}" min="0" max="1000000" step="50" inputmode="numeric">
+                <div class="btn-row"><button type="button" class="btn btn-ok" onclick="parentSavePrize()">💾 Lưu & khóa</button>
+                    <button type="button" class="btn btn-muted" onclick="parentChangePin()">🔑 Đổi mã PIN</button></div></div>`;
+        }
+        function parentUnlock() {
+            openPinDialog(hasParentPin() ? 'verify' : 'create', () => {
+                parentUnlocked = true; readTournamentInputs(); renderTournamentSetup();
+                let input = document.getElementById('tPrize'); if (input) input.focus();
+            });
+        }
+        function parentSavePrize() {
+            let v = parseInt(document.getElementById('tPrize').value);
+            v = Math.min(Math.max(Number.isFinite(v) ? v : 0, 0), 1000000);
+            localStorage.setItem('tourneyPrize', v);
+            readTournamentInputs(); parentUnlocked = false; tourneyConfig.prizeDraft = undefined;
+            renderTournamentSetup();
+            mascotSpeak(`🔒 Phụ huynh đã đặt thưởng vô địch: ${v.toLocaleString('vi-VN')} Xu.`);
+        }
+        function parentChangePin() {
+            readTournamentInputs();
+            openPinDialog('create', () => mascotSpeak('🔑 Đã đổi mã PIN phụ huynh.'));
+        }
+
+        // Hộp thoại PIN: 'create' (nhập 2 lần) · 'verify' · 'reset' (trả lời phép nhân để xóa PIN rồi tạo mã mới)
+        let pinMode = null, pinOnOk = null, pinGateAnswer = null;
+        function openPinDialog(mode, onOk) {
+            pinMode = mode; if (onOk) pinOnOk = onOk;
+            let $ = id => document.getElementById(id), p1 = $('pin1'), p2 = $('pin2');
+            p1.value = p2.value = ''; $('pinError').textContent = '';
+            p1.type = mode === 'reset' ? 'text' : 'password';
+            p1.placeholder = mode === 'reset' ? 'Kết quả' : '••••';
+            p2.hidden = mode !== 'create';
+            $('pinForgot').hidden = mode !== 'verify';
+            if (mode === 'create') {
+                $('pinTitle').textContent = '🔑 Tạo mã PIN phụ huynh';
+                $('pinMsg').textContent = 'Nhập 4 chữ số rồi nhập lại để xác nhận. Chỉ phụ huynh biết mã này.';
+            } else if (mode === 'verify') {
+                $('pinTitle').textContent = '🔒 Nhập mã PIN phụ huynh';
+                $('pinMsg').textContent = 'Phụ huynh nhập mã PIN để chỉnh tiền thưởng giải đấu.';
+            } else {
+                let a = 12 + Math.floor(Math.random() * 18), b = 11 + Math.floor(Math.random() * 9);
+                pinGateAnswer = a * b;
+                $('pinTitle').textContent = '🧮 Xác nhận phụ huynh';
+                $('pinMsg').textContent = `Để đặt lại mã PIN, hãy nhập kết quả phép tính: ${a} × ${b} = ?`;
+            }
+            let dlg = $('pinDialog');
+            if (!dlg.open) { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }
+            p1.focus();
+        }
+        function closePinDialog() {
+            let dlg = document.getElementById('pinDialog');
+            if (dlg.close) dlg.close(); else dlg.removeAttribute('open');
+            pinMode = null;
+        }
+        function pinSubmit() {
+            let $ = id => document.getElementById(id), v1 = $('pin1').value.trim(), err = $('pinError');
+            if (pinMode === 'create') {
+                if (!/^\d{4}$/.test(v1)) { err.textContent = 'Mã PIN gồm đúng 4 chữ số.'; return; }
+                if (v1 !== $('pin2').value.trim()) { err.textContent = 'Hai lần nhập chưa giống nhau.'; return; }
+                localStorage.setItem('parentPinHash', pinHash(v1));
+            } else if (pinMode === 'verify') {
+                if (pinHash(v1) !== localStorage.getItem('parentPinHash')) { err.textContent = 'Sai mã PIN.'; $('pin1').value = ''; return; }
+            } else if (pinMode === 'reset') {
+                if (parseInt(v1) !== pinGateAnswer) { err.textContent = 'Chưa đúng, thử lại nhé.'; return; }
+                localStorage.removeItem('parentPinHash');
+                openPinDialog('create'); // giữ nguyên việc cần làm sau khi mở khóa
+                return;
+            }
+            let ok = pinOnOk; pinOnOk = null;
+            closePinDialog();
+            if (ok) ok();
         }
         // Giữ số vòng / thưởng đang nhập khi vẽ lại form
         function readTournamentInputs() {
             let r = document.getElementById('tRounds'), p = document.getElementById('tPrize');
             if (r) tourneyConfig.rounds = Math.min(Math.max(parseInt(r.value) || 1, 1), 10);
-            if (p) tourneyConfig.prize = Math.max(parseInt(p.value) || 100, 100);
+            if (p) tourneyConfig.prizeDraft = p.value; // phụ huynh đang chỉnh dở: giữ số đang nhập khi vẽ lại form
         }
         function setTourneyOpponent(v) { readTournamentInputs(); tourneyConfig.opponent = v; renderTournamentSetup(); }
         function setTourneyColor(v) { readTournamentInputs(); tourneyConfig.colorPref = v; renderTournamentSetup(); }
         function startTournament() {
             readTournamentInputs();
+            parentUnlocked = false; tourneyConfig.prizeDraft = undefined;
+            tourneyConfig.prize = parentPrize(); // thưởng do phụ huynh đặt (khóa bằng PIN)
             tourneyConfig.currentRound = 1; tourneyConfig.active = true; tourneyConfig.score = [0, 0];
             tourneyConfig.p1Color = resolveColor(tourneyConfig.colorPref);
             opponentNow = tourneyConfig.opponent;
             nextTournamentRound();
         }
         function nextTournamentRound() {
+            enterFullscreen(); // vào ván (Khai mạc / Đấu lại / Ván tiếp theo): phóng to toàn màn hình
             matchId++; game.reset(); board.position('start'); showAnalysis(false); clearOverlay();
             let friendSeries = tourneyConfig.opponent === 'friend';
             // Giải với máy: vòng bắt đầu khi bạn cùng chơi đang cầm quân đối thủ -> ván giao hữu ngay từ đầu
@@ -1969,12 +2329,21 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         }
         let tourneyPanel = null; // hàm vẽ lại khung giải đấu đang hiện (để bộ chọn đối thủ vẽ lại đúng màn hình)
         function renderTournamentMatchUI() {
-            let t = tourneyConfig, friendSeries = t.opponent === 'friend';
+            let t = tourneyConfig, friendSeries = t.opponent === 'friend', other = otherColor(playerColor), friend = opponentNow === 'friend';
             let info = friendSeries ? tournamentScoreboardHTML()
                 : `<p class="lv-desc">Con cầm ${COLOR_ICONS[playerColor]} ${COLOR_NAMES[playerColor]} · Máy: ${levelLabel(tournamentAILevel())}</p>`;
             let note = !friendSeries && t.friendlyRound ? `<p class="lv-note">🤝 Ván giao hữu: có bạn cùng chơi nên vòng này không tính thưởng.</p>` : '';
-            document.getElementById('modeControls').innerHTML = `<h3>🏆 ${friendSeries ? 'Ván' : 'Vòng'} ${t.currentRound}/${t.rounds}</h3>${info}${opponentPickerHTML()}${note}
-                <div class="btn-row" style="margin-top:10px"><button class="btn" style="background:#9e9e9e;" onclick="switchTab('tournament')">🚪 Bỏ giải</button></div>`;
+            document.getElementById('modeControls').innerHTML = `<div class="panel-head"><h2>Tùy chọn trận</h2><span class="muted">${friendSeries ? 'Ván' : 'Vòng'} ${t.currentRound}/${t.rounds}</span></div>
+                ${info}
+                <div class="opt-list">
+                    <div class="opt-row opt-static">${icon('users')}<span class="opt-text"><b class="setup-label">Quân ${COLOR_ICONS[other]} ${COLOR_NAMES[other]} do ai đánh?</b><small>Đổi được bất cứ lúc nào</small></span>
+                        <div class="seg-pick" role="group" aria-label="Chọn ai cầm quân đối thủ">
+                            <button class="${friend ? '' : 'active'}" aria-pressed="${!friend}" onclick="setOpponentNow('ai')">🤖 Máy</button>
+                            <button class="${friend ? 'active' : ''}" aria-pressed="${friend}" onclick="setOpponentNow('friend')">👥 Bạn</button></div></div>
+                    ${friend ? optToggle('swap', 'Quân 2 bên quay mặt vào nhau', '2 bạn ngồi đối diện', faceToFace, 'setFaceToFace(this.checked)') : ''}
+                    ${optFullscreenRow()}
+                    ${optRow('exit', 'Bỏ giải', 'Kết thúc giải đấu', "switchTab('tournament')", 'danger')}
+                </div>${note}`;
             tourneyPanel = renderTournamentMatchUI;
         }
         // Đổi người cầm quân đối thủ. Giữa ván: đánh tiếp ngay ván đang dở (máy đi luôn nếu đang tới lượt máy).
@@ -1995,7 +2364,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 mascotSpeak(v === 'ai' ? `🤖 Ván tới: Máy cầm quân đối thủ.` : `👥 Ván tới: bạn cùng chơi cầm quân đối thủ.`);
             }
             if (tourneyPanel) tourneyPanel();
-            updateFocusMode(); // cập nhật 🤖/👥 trên thanh chế độ tập trung
+            updateFocusMode(); updateFaceToFace(); // cập nhật 🤖/👥 trên thanh chế độ tập trung
         }
         // Kết thúc ván giao hữu / ván của giải 2 người (winner: 'w' | 'b' | null = hòa)
         function finishFriendlyGame(winner) {
@@ -2021,10 +2390,10 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             document.getElementById('modeControls').innerHTML = `<h3>🏆 ${last ? 'Kết quả chung cuộc' : `Hết ván ${t.currentRound}/${t.rounds}`}</h3>
                 <div class="scoreboard"><span>👤 Người chơi 1</span><b>${t.score[0]} – ${t.score[1]}</b><span>Người chơi 2 👤</span></div>
                 ${last ? `<p class="lv-note">${friendChampionText()}</p>` : opponentPickerHTML()}
-                <div class="btn-row" style="margin-top:10px">
-                    ${last ? `<button class="btn" style="background:#f44336;" onclick="switchTab('tournament')">🔁 Giải mới</button>`
-                           : `<button class="btn" style="background:#4caf50;" onclick="tourneyConfig.currentRound++; nextTournamentRound()">▶️ Ván tiếp theo (đổi màu)</button>
-                              <button class="btn" style="background:#9e9e9e;" onclick="switchTab('tournament')">🚪 Bỏ giải</button>`}
+                <div class="btn-row">
+                    ${last ? `<button class="btn btn-primary" onclick="switchTab('tournament')">🔁 Giải mới</button>`
+                           : `<button class="btn btn-ok" onclick="tourneyConfig.currentRound++; nextTournamentRound()">▶️ Ván tiếp theo (đổi màu)</button>
+                              <button class="btn btn-muted" onclick="switchTab('tournament')">🚪 Bỏ giải</button>`}
                 </div>`;
             tourneyPanel = renderFriendResult;
         }
@@ -2034,8 +2403,8 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             document.getElementById('modeControls').innerHTML = `<h3>🏆 Vòng ${tourneyConfig.currentRound}/${tourneyConfig.rounds}</h3>
                 ${opponentPickerHTML()}
                 <div class="btn-row">
-                    <button class="btn" style="background:#4caf50;" onclick="nextTournamentRound()">🔁 Đấu lại vòng này</button>
-                    <button class="btn" style="background:#9e9e9e;" onclick="switchTab('tournament')">🚪 Bỏ giải</button>
+                    <button class="btn btn-ok" onclick="nextTournamentRound()">🔁 Đấu lại vòng này</button>
+                    <button class="btn btn-muted" onclick="switchTab('tournament')">🚪 Bỏ giải</button>
                 </div>`;
             tourneyPanel = showTournamentRetry;
         }
@@ -2091,6 +2460,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             bP: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAC0ElEQVR42u2cPWgUQRSAP82PRjQSBUHTWamgIIiiEkWtAgo2goggKWxEQ4SoCGJiIYrVlYKiKAEbG8EUFlbaBBQ7f2JjoyCRIMZfojcWc0uWMTHJ3k7yZuZ98Jrj2Fu+ezv3Zt7jQFEURVEURVEURVEURVGUgiwGzgJDwAjwCXgDXAPaVc/ULAC6gHHA1KJaC5OLPqBJdf0rr98RZ5zIv/YAWK7aJuiaRt5kIm9qJk6seeMzlJeP78Be1QfnCsjL3lvRLLS/tqZgvACWpS5wZJbZl49vQJsKVIF18bKOR/g10Jq6wMsFxOVLmebUBbYWzL5fQKcWMXCpjkf4durbt0qBGtDdIw8CjSkK7K0j89y18H5qBfX2gtu3/0nsS0ng25Lk5eMdsDEFeYc8yMuudR5YGLvApyWKcwU+B5bGLG8F8Lnk7HMj6mP/fcBXTwKzax6MWeBR4IfH7DPA6ZgFHgd+ehZ4MWaBh7FH8T4FnoxZ4Fbgiydx2Rq4K2aBDcBHj9n3mwQOWO95LKQfAi2xC9zgQWAWx1LZC9/1IPEZsCoVgW3A+xLljdX22EnRie2qlSHwSmryVgMDJQocBDpSkbffOVAo60B1DOiOXV4PU8/9lSHRYAcxG2KU1wv88VhE57+UO8CSmOSdqu0SfNV/k2XjDWBRLGuemSN5bvRg26fB0o7/E+jp1sRNocprwvZr5yPz8p85TKDzMwfm4PB0NpOsQdECPJ7H7HNjFFgfksAOQfKy+7geksAnwgQa4BWwNgR56wRJc+NICAIrArMvu5eBEIrrD4IzcBThPZPN2K5bVaC87J62SRbYjZ1dNoIFXpUs8JbgxzeLIanymoFHAQisShW4BtsZky7P1FoKIuu/4QAy0AA7JQrcIryEEV9Q78D+QUQIAk9IFLgbf5NXZccZiQL3YFuLIQi8IFFgI3aIfGUAEf0El6IoiqIoiuKfv3U5xct5ETXIAAAAAElFTkSuQmCC'
         };
         var config = { draggable: false, position: 'start', pieceTheme: piece => PIECE_IMAGES[piece] };
+        renderStaticIcons(); updateFullscreenUI();
         board = Chessboard('board', config); switchTab('roadmap');
 
         // Vẽ lại bàn cờ khi khung đổi kích thước (xoay màn hình, đổi cỡ cửa sổ, chuyển bố cục 1↔2 cột)
