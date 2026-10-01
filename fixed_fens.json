@@ -1,0 +1,337 @@
+[
+  {
+    "lesson": "rook-block",
+    "step": 2,
+    "fixedFen": "n6R/5k2/8/8/P7/8/4K3/8 w - - 0 3"
+  },
+  {
+    "lesson": "rook-block",
+    "step": 3,
+    "fixedFen": "R3k3/8/8/8/1P6/8/4K3/8 w - - 0 4"
+  },
+  {
+    "lesson": "bishop",
+    "step": 1,
+    "fixedFen": "7k/5B2/8/8/8/8/1p6/7K w - - 0 2"
+  },
+  {
+    "lesson": "bishop",
+    "step": 2,
+    "fixedFen": "7k/8/8/8/8/1B6/1p6/7K w - - 0 3"
+  },
+  {
+    "lesson": "bishop",
+    "step": 3,
+    "fixedFen": "7k/8/8/8/8/8/B7/K5n1 w - - 0 4"
+  },
+  {
+    "lesson": "bishop",
+    "step": 4,
+    "fixedFen": "7k/8/8/3B4/8/8/8/K5n1 w - - 0 5"
+  },
+  {
+    "lesson": "knight",
+    "step": 2,
+    "fixedFen": "7k/7p/5N2/8/8/8/8/K7 w - - 0 3"
+  },
+  {
+    "lesson": "castle",
+    "step": 3,
+    "fixedFen": "4k3/8/8/8/8/8/4R3/6K1 w - - 0 4"
+  },
+  {
+    "lesson": "castle",
+    "step": 4,
+    "fixedFen": "4k3/8/8/8/8/4R3/8/6K1 w - - 0 5"
+  },
+  {
+    "lesson": "castle-long",
+    "step": 3,
+    "fixedFen": "4k3/8/8/8/8/8/4R3/2K5 w - - 0 4"
+  },
+  {
+    "lesson": "castle-long",
+    "step": 4,
+    "fixedFen": "4k3/8/8/8/8/4R3/8/2K5 w - - 0 5"
+  },
+  {
+    "lesson": "queen-fork",
+    "step": 2,
+    "fixedFen": "r5k1/6pp/8/3Q4/8/8/5PPP/6K1 w - - 0 2"
+  },
+  {
+    "lesson": "queen-fork",
+    "step": 3,
+    "fixedFen": "Q5k1/6pp/8/8/8/8/5PPP/6K1 w - - 0 3"
+  },
+  {
+    "lesson": "queen-fork",
+    "step": 4,
+    "fixedFen": "6k1/6pp/8/Q7/8/8/5PPP/6K1 w - - 0 4"
+  },
+  {
+    "lesson": "pawn-fork",
+    "step": 4,
+    "fixedFen": "1n1k4/4P3/8/8/8/8/8/4K3 w - - 0 4"
+  },
+  {
+    "lesson": "free-piece",
+    "step": 3,
+    "fixedFen": "8/8/4k3/8/1b6/2R5/8/5K2 w - - 0 1"
+  },
+  {
+    "lesson": "remove-defender",
+    "step": 2,
+    "fixedFen": "8/1p2k3/p1n5/3R4/8/8/1Q6/6K1 w - - 0 1"
+  },
+  {
+    "lesson": "remove-defender",
+    "step": 4,
+    "fixedFen": "8/3q2k1/5n2/4B3/8/8/8/6K1 w - - 0 1"
+  },
+  {
+    "lesson": "block",
+    "step": 1,
+    "fixedFen": "6k1/5ppp/4N3/8/8/8/4KPPP/r7 w - - 0 1"
+  },
+  {
+    "lesson": "block",
+    "step": 4,
+    "fixedFen": "6k1/5ppp/8/8/8/8/Q3KPPP/r7 w - - 0 1"
+  },
+  {
+    "lesson": "capture",
+    "step": 1,
+    "fixedFen": "6k1/5ppp/8/4R3/8/8/K4PPP/4q3 w - - 0 1"
+  },
+  {
+    "lesson": "capture",
+    "step": 2,
+    "fixedFen": "6k1/5ppp/8/4R3/8/8/K4PPP/4q3 w - - 0 1"
+  },
+  {
+    "lesson": "capture",
+    "step": 4,
+    "fixedFen": "6k1/5ppp/8/8/8/8/K3PPPP/4q3 w - - 0 1"
+  },
+  {
+    "lesson": "backrank",
+    "step": 3,
+    "fixedFen": "6k1/5ppp/8/8/8/8/K7/7R w - - 0 1"
+  },
+  {
+    "lesson": "smothered",
+    "step": 2,
+    "fixedFen": "6rk/6pp/5Q2/8/8/8/8/6K1 w - - 0 1"
+  },
+  {
+    "lesson": "stalemate",
+    "step": 1,
+    "fixedFen": "7k/5K2/5Q2/8/8/8/8/8 w - - 0 1"
+  },
+  {
+    "lesson": "stalemate",
+    "step": 2,
+    "fixedFen": "7k/5K2/8/8/4Q3/8/8/8 w - - 0 1"
+  },
+  {
+    "lesson": "stalemate",
+    "step": 3,
+    "fixedFen": "7k/5K2/8/8/3Q4/8/8/8 w - - 0 1"
+  },
+  {
+    "lesson": "combo_remove_defender",
+    "step": 2,
+    "fixedFen": "4k3/8/8/8/8/8/8/3K4 w - - 0 2"
+  },
+  {
+    "lesson": "combo_remove_defender",
+    "step": 3,
+    "fixedFen": "4k3/8/8/8/8/8/3K4/8 b - - 1 2"
+  },
+  {
+    "lesson": "combo_clearance",
+    "step": 0,
+    "fixedFen": "7k/8/8/8/8/8/8/K7 w - - 0 1"
+  },
+  {
+    "lesson": "combo_clearance",
+    "step": 1,
+    "fixedFen": "k7/8/8/8/8/8/8/1K6 b - - 1 1"
+  },
+  {
+    "lesson": "combo_overloading",
+    "step": 0,
+    "fixedFen": "7k/8/8/8/8/8/8/K7 w - - 0 1"
+  },
+  {
+    "lesson": "combo_overloading",
+    "step": 1,
+    "fixedFen": "k7/8/8/8/8/8/1K6/8 b - - 1 1"
+  },
+  {
+    "lesson": "combo_xray",
+    "step": 0,
+    "fixedFen": "7k/8/8/8/8/8/8/K7 w - - 0 1"
+  },
+  {
+    "lesson": "combo_xray",
+    "step": 1,
+    "fixedFen": "k7/8/8/8/8/8/1K6/8 b - - 1 1"
+  },
+  {
+    "lesson": "combo_zwischenzug",
+    "step": 0,
+    "fixedFen": "7k/8/8/8/8/8/8/K7 w - - 0 1"
+  },
+  {
+    "lesson": "combo_zwischenzug",
+    "step": 1,
+    "fixedFen": "k7/8/8/8/8/8/1K6/8 b - - 1 1"
+  },
+  {
+    "lesson": "combo_windmill",
+    "step": 0,
+    "fixedFen": "7k/8/8/8/8/8/8/K7 w - - 0 1"
+  },
+  {
+    "lesson": "combo_windmill",
+    "step": 1,
+    "fixedFen": "k7/8/8/8/8/8/1K6/8 b - - 1 1"
+  },
+  {
+    "lesson": "combo_zugzwang",
+    "step": 0,
+    "fixedFen": "7k/8/8/8/8/8/8/K7 w - - 0 1"
+  },
+  {
+    "lesson": "combo_zugzwang",
+    "step": 1,
+    "fixedFen": "k7/8/8/8/8/8/1K6/8 b - - 1 1"
+  },
+  {
+    "lesson": "back-rank-4",
+    "step": 1,
+    "fixedFen": "4R1k1/5pp1/8/8/3Q4/8/5PPP/6K1 b - - 0 1"
+  },
+  {
+    "lesson": "back-rank-4",
+    "step": 2,
+    "fixedFen": "4R1k1/5pp1/8/8/3Q4/8/5PPP/6K1 b - - 0 1"
+  },
+  {
+    "lesson": "back-rank-4",
+    "step": 3,
+    "fixedFen": "4R1k1/5pp1/8/8/3Q4/8/5PPP/6K1 b - - 0 1"
+  },
+  {
+    "lesson": "back-rank-4",
+    "step": 4,
+    "fixedFen": "4R1k1/5pp1/8/8/3Q4/8/5PPP/6K1 b - - 0 1"
+  },
+  {
+    "lesson": "adv-def-mate",
+    "step": 4,
+    "fixedFen": "6k1/5p1p/6p1/8/8/8/5PP1/1q4K1 w - - 0 1"
+  },
+  {
+    "lesson": "adv-def-blockade",
+    "step": 0,
+    "fixedFen": "k7/8/3p4/3N4/8/8/3K4/8 w - - 0 1"
+  },
+  {
+    "lesson": "adv-def-stalemate",
+    "step": 0,
+    "fixedFen": "8/8/8/8/8/3q4/5p1K/5k2 w - - 0 1"
+  },
+  {
+    "lesson": "adv-def-stalemate",
+    "step": 1,
+    "fixedFen": "7k/8/6K1/8/8/8/P7/8 b - - 0 1"
+  },
+  {
+    "lesson": "adv-def-counterattack",
+    "step": 1,
+    "fixedFen": "7k/pp3ppp/2p5/8/4P3/2P2P2/PP1r2PP/R5K1 b - - 0 1"
+  },
+  {
+    "lesson": "adv-def-counterattack",
+    "step": 2,
+    "fixedFen": "7k/pp3ppp/2p5/8/4P3/2P2P2/Pr4PP/2R3K1 b - - 0 1"
+  },
+  {
+    "lesson": "adv-def-counterattack",
+    "step": 3,
+    "fixedFen": "7k/pp3ppp/2p5/8/4P3/2P2P2/r5PP/1R4K1 b - - 0 1"
+  },
+  {
+    "lesson": "adv-def-counterattack",
+    "step": 4,
+    "fixedFen": "6k1/p4ppp/1pp5/8/4P3/2P2P2/r5PP/3R2K1 b - - 0 1"
+  },
+  {
+    "lesson": "endgame-vancura",
+    "step": 0,
+    "fixedFen": "8/8/8/8/1P6/8/6R1/3k3K w - - 0 1"
+  },
+  {
+    "lesson": "endgame-kpvskp",
+    "step": 4,
+    "fixedFen": "k7/8/8/p7/2K1P3/8/8/8 w - - 0 5"
+  },
+  {
+    "lesson": "endgame-knight-pawn",
+    "step": 0,
+    "fixedFen": "k7/8/8/8/8/8/4p3/2N1K3 w - - 0 1"
+  },
+  {
+    "lesson": "endgame-knight-pawn",
+    "step": 1,
+    "fixedFen": "k7/8/8/8/8/8/4N3/5K2 w - - 0 2"
+  },
+  {
+    "lesson": "endgame-knight-pawn",
+    "step": 2,
+    "fixedFen": "k7/8/8/8/8/2N5/4K3/8 w - - 0 3"
+  },
+  {
+    "lesson": "endgame-knight-pawn",
+    "step": 3,
+    "fixedFen": "k7/8/8/3N4/8/3K4/8/8 w - - 0 4"
+  },
+  {
+    "lesson": "endgame-knight-pawn",
+    "step": 4,
+    "fixedFen": "8/8/8/8/4kN2/8/8/K7 w - - 0 5"
+  },
+  {
+    "lesson": "boden_mate",
+    "step": 2,
+    "fixedFen": "2kr3r/p2n1ppp/2p1p3/8/1b1P4/2N4P/PPP2PP1/R4BK1 w - - 0 2"
+  },
+  {
+    "lesson": "anastasia_mate",
+    "step": 1,
+    "fixedFen": "r1b2rk1/pp2Nppp/8/3N4/8/8/PPP2PPP/R2R2K1 b - - 1 1"
+  },
+  {
+    "lesson": "anastasia_mate",
+    "step": 2,
+    "fixedFen": "r1b2r1k/pp2Nppp/8/3N3R/8/8/PPP2PPP/3R2K1 w - - 1 2"
+  },
+  {
+    "lesson": "anastasia_mate",
+    "step": 4,
+    "fixedFen": "r1b2r2/pp2Nppk/8/3N4/8/8/PPP2PPP/3Q2K1 w - - 0 3"
+  },
+  {
+    "lesson": "legal_mate",
+    "step": 4,
+    "fixedFen": "r2q1bnr/ppp1kBpp/2np4/4N3/b3P3/8/PPPP1PPP/RNB1K2R w KQ - 1 6"
+  },
+  {
+    "lesson": "smothered_mate",
+    "step": 4,
+    "fixedFen": "r1b2r1k/pp4pQ/7N/8/2B5/8/PPP3PP/R4RK1 w - - 4 3"
+  }
+]

@@ -8,7 +8,8 @@ const KING_RULE = "Vua chỉ đi 1 ô mỗi lần, và không được bước v
 const ROADMAP = [
     {
         "id": "pawn",
-        "category": "Chương 1: Quân Tốt",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 1: ♟ Quân Tốt",
         "title": "Sức mạnh quân Tốt",
         "steps": [
             {
@@ -21,31 +22,24 @@ const ROADMAP = [
                 "fen": "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
                 "targetMove": "e4d5",
                 "note": "♟ Tốt <b>ăn chéo</b>: bắt Tốt d5!",
-                "mascot": "Tốt ăn chéo bắt quân địch!"
-            },
-            {
-                "fen": "rnbqkbnr/ppp1pppp/8/3P4/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2",
-                "targetMove": "c7c6",
-                "note": "♟ Giờ thử đi Tốt 1 ô nhé!",
-                "mascot": "Đẩy Tốt lên 1 bước!"
+                "mascot": "Tốt ăn chéo bắt quân địch!",
+                "reply": "c7c6",
+                "replyNote": "👀 Giờ thử đi Tốt 1 ô nhé!"
             },
             {
                 "fen": "rnbqkbnr/pp2pppp/2p5/3P4/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 3",
                 "targetMove": "d5c6",
                 "note": "♟ Tốt trắng lại ăn chéo tiếp!",
-                "mascot": "Tiếp tục ăn chéo quân địch!"
-            },
-            {
-                "fen": "rnbqkbnr/pp2pppp/2P5/8/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 3",
-                "targetMove": "b7c6",
-                "note": "♟ Tốt đen ăn lại Tốt trắng!",
-                "mascot": "Ăn chéo trả đũa nào!"
+                "mascot": "Tiếp tục ăn chéo quân địch!",
+                "reply": "b7c6",
+                "replyNote": "👀 Tốt đen ăn lại Tốt trắng!"
             }
         ]
     },
     {
         "id": "pawn-block",
-        "category": "Chương 1: Quân Tốt",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 1: ♟ Quân Tốt",
         "title": "Tốt Bị Chặn Đường",
         "steps": [
             {
@@ -61,13 +55,9 @@ const ROADMAP = [
                             "blocked"
                         ]
                     ]
-                }
-            },
-            {
-                "fen": "4k3/8/8/3Pp3/8/8/8/4K3 b - - 0 1",
-                "targetMove": "e5e4",
-                "note": "♟ Đường trống rồi, Tốt đen tiến lên!",
-                "mascot": "Đường thông thoáng, tiến lên 1 bước!"
+                },
+                "reply": "e5e4",
+                "replyNote": "👀 Đường trống rồi, Tốt đen tiến lên!"
             },
             {
                 "fen": "4k3/8/8/3P4/4p3/8/8/4K3 w - - 0 2",
@@ -91,7 +81,8 @@ const ROADMAP = [
     },
     {
         "id": "pawn-march",
-        "category": "Chương 1: Quân Tốt",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 1: ♟ Quân Tốt",
         "title": "Tốt Hành Quân Về Đích",
         "steps": [
             {
@@ -127,1037 +118,2868 @@ const ROADMAP = [
         ]
     },
     {
-        "id": "rook",
-        "category": "Chương 2: Quân Xe",
-        "title": "Xe Tải Gom Rác (Đường Thẳng)",
-        "steps": [
-            {
-                "fen": "7k/8/2p3p1/8/8/2R5/8/K7 w - - 0 1",
-                "targetMove": "c3c6",
-                "note": "♜ Xe đi <b>thẳng</b>: lên ăn Tốt c6",
-                "mascot": "Lên số! Ăn Tốt c6 trước!"
-            },
-            {
-                "fen": "6k1/8/2R3p1/8/8/8/8/K7 w - - 0 2",
-                "targetMove": "c6g6",
-                "note": "♜ Rẽ <b>ngang</b>: ăn Tốt g6",
-                "mascot": "Bẻ lái sang phải, ăn g6!"
-            },
-            {
-                "fen": "6k1/8/6R1/8/8/8/6p1/K7 w - - 0 3",
-                "targetMove": "g6g2",
-                "note": "♜ Chạy thẳng xuống ăn Tốt g2",
-                "mascot": "Lùi xe về bắt Tốt g2!"
-            },
-            {
-                "fen": "6k1/8/8/8/8/8/p5R1/K7 w - - 0 4",
-                "targetMove": "g2a2",
-                "note": "♜ Rẽ ngang trái ăn Tốt a2",
-                "mascot": "Chạy ngang sang trái bắt Tốt a2!"
-            },
-            {
-                "fen": "6k1/8/8/8/8/p7/R7/K7 w - - 0 5",
-                "targetMove": "a2a3",
-                "note": "♜ Xe tiến lên một bước ăn Tốt a3",
-                "mascot": "Gom nốt rác cuối cùng!"
-            }
-        ]
-    },
-    {
-        "id": "rook-block",
-        "category": "Chương 2: Quân Xe",
-        "title": "Xe Không Nhảy Qua Quân",
-        "steps": [
-            {
-                "fen": "n3k3/8/8/8/P7/8/4K3/R6b w - - 0 1",
-                "targetMove": "a1h1",
-                "note": "♜ Xe <b>không nhảy</b> qua quân → ăn Tượng h1",
-                "mascot": "Đường dọc bị chặn, chạy đường ngang!",
-                "before": {
-                    "arrows": [
-                        [
-                            "a1",
-                            "a8",
-                            "blocked"
-                        ]
-                    ],
-                    "marks": [
-                        [
-                            "a4",
-                            "x"
-                        ]
-                    ]
-                }
-            },
-            {
-                "fen": "n3k3/8/8/8/P7/8/4K3/7R w - - 0 2",
-                "targetMove": "h1h8",
-                "note": "♜ Giờ đường thẳng đã thông, phi lên h8!",
-                "mascot": "Chạy thẳng tắp lên hàng cuối!"
-            },
-            {
-                "fen": "n3k2R/8/8/8/P7/8/4K3/8 w - - 0 3",
-                "targetMove": "h8a8",
-                "note": "♜ Rẽ ngang bắt Mã a8",
-                "mascot": "Vòng sang trái bắt Mã!"
-            },
-            {
-                "fen": "R3k3/8/8/8/P7/8/4K3/8 w - - 0 4",
-                "targetMove": "a8a4",
-                "note": "♜ Lùi xe về a4 bắt Tốt",
-                "mascot": "Lùi về a4 nào!"
-            },
-            {
-                "fen": "4k3/8/8/8/R7/8/4K3/8 w - - 0 5",
-                "targetMove": "a4e4",
-                "note": "♜ Chiếu Vua e8 từ e4",
-                "mascot": "Tới e4 để chiếu Vua!"
-            }
-        ]
-    },
-    {
-        "id": "rook-route",
-        "category": "Chương 2: Quân Xe",
-        "title": "Xe Đi Đường Vòng",
-        "steps": [
-            {
-                "fen": "7k/8/5p2/8/8/8/8/R5K1 w - - 0 1",
-                "targetMove": "a1f1",
-                "note": "♜ Rẽ góc vuông: sang <b>f1</b> trước",
-                "mascot": "Rẽ sang cột f trước!",
-                "before": {
-                    "arrows": [
-                        [
-                            "a1",
-                            "f6",
-                            "blocked"
-                        ]
-                    ]
-                }
-            },
-            {
-                "fen": "6k1/8/5p2/8/8/8/8/5RK1 w - - 2 2",
-                "targetMove": "f1f6",
-                "note": "♜ Giờ chạy thẳng lên <b>f6</b>",
-                "mascot": "Chạy thẳng lên ăn Tốt!"
-            },
-            {
-                "fen": "6k1/8/5R2/8/6p1/8/8/6K1 w - - 0 3",
-                "targetMove": "f6g6",
-                "note": "♜ Rẽ ngang ăn Tốt g6",
-                "mascot": "Vòng sang ăn g6!"
-            },
-            {
-                "fen": "6k1/8/6R1/8/8/8/1p6/6K1 w - - 0 4",
-                "targetMove": "g6b6",
-                "note": "♜ Vòng sang trái cột b",
-                "mascot": "Di chuyển qua cột b!"
-            },
-            {
-                "fen": "6k1/8/1R6/8/8/8/1p6/6K1 w - - 0 5",
-                "targetMove": "b6b2",
-                "note": "♜ Chạy thẳng xuống ăn Tốt b2",
-                "mascot": "Xuống bắt Tốt b2!"
-            }
-        ]
-    },
-    {
-        "id": "bishop",
-        "category": "Chương 3: Quân Tượng",
-        "title": "Tượng Trượt Chéo",
-        "steps": [
-            {
-                "fen": "7k/5p2/8/8/2B5/8/8/K7 w - - 0 1",
-                "targetMove": "c4f7",
-                "note": "♝ Tượng đi <b>chéo</b>: ăn Tốt f7",
-                "mascot": "Tượng lướt chéo lên f7 bắt Tốt!"
-            },
-            {
-                "fen": "7k/5B2/8/8/8/8/1p6/K7 w - - 0 2",
-                "targetMove": "f7b3",
-                "note": "♝ Tượng chéo về b3",
-                "mascot": "Lùi lại theo đường chéo!"
-            },
-            {
-                "fen": "7k/8/8/8/8/1B6/1p6/K7 w - - 0 3",
-                "targetMove": "b3a2",
-                "note": "♝ Ăn tiếp Tốt a2",
-                "mascot": "Trượt chéo xuống a2!"
-            },
-            {
-                "fen": "7k/8/8/8/8/8/B7/K5p1 w - - 0 4",
-                "targetMove": "a2d5",
-                "note": "♝ Tượng chạy chéo tới d5",
-                "mascot": "Di chuyển đến d5!"
-            },
-            {
-                "fen": "7k/8/8/3B4/8/8/8/K5p1 w - - 0 5",
-                "targetMove": "d5g2",
-                "note": "♝ Ăn Tốt g2 ở góc",
-                "mascot": "Gom Tốt g2!"
-            }
-        ]
-    },
-    {
-        "id": "bishop-color",
-        "category": "Chương 3: Quân Tượng",
-        "title": "Tượng Chỉ Đi Một Màu",
-        "steps": [
-            {
-                "fen": "k7/8/7p/8/8/3p4/8/K1B5 w - - 0 1",
-                "targetMove": "c1h6",
-                "hideTarget": true,
-                "note": "♝ Tượng ô đen chỉ đi <b>ô đen</b>",
-                "mascot": "Tượng ô đen chỉ ăn được quân ở ô đen!",
-                "before": {
-                    "marks": [
-                        [
-                            "d3",
-                            "x"
-                        ]
-                    ]
-                }
-            },
-            {
-                "fen": "k7/8/7B/8/8/8/4p3/K7 w - - 0 2",
-                "targetMove": "h6f8",
-                "note": "♝ Tượng lướt lên f8",
-                "mascot": "Di chuyển lên f8!"
-            },
-            {
-                "fen": "k4B2/8/8/8/8/8/4p3/K7 w - - 0 3",
-                "targetMove": "f8b4",
-                "note": "♝ Tượng chạy tới b4",
-                "mascot": "Vòng về b4 nào!"
-            },
-            {
-                "fen": "k7/8/8/8/1B6/8/4p3/K7 w - - 0 4",
-                "targetMove": "b4d2",
-                "note": "♝ Tượng tiến đến d2",
-                "mascot": "Xuống d2 chờ thời!"
-            },
-            {
-                "fen": "k7/8/8/8/8/8/3Bp3/K7 w - - 0 5",
-                "targetMove": "d2e1",
-                "note": "♝ Tượng chéo xuống e1",
-                "mascot": "Hạ cánh an toàn tại e1!"
-            }
-        ]
-    },
-    {
-        "id": "bishop-zigzag",
-        "category": "Chương 3: Quân Tượng",
-        "title": "Tượng Đi Zíc Zắc",
-        "steps": [
-            {
-                "fen": "7k/8/8/2p5/8/8/8/2B3K1 w - - 0 1",
-                "targetMove": "c1e3",
-                "note": "♝ Không đi thẳng được → <b>chéo 2 lần</b>: lên e3",
-                "mascot": "Chéo sang phải trước!",
-                "before": {
-                    "arrows": [
-                        [
-                            "c1",
-                            "c5",
-                            "blocked"
-                        ]
-                    ]
-                }
-            },
-            {
-                "fen": "6k1/8/8/2p5/8/4B3/8/6K1 w - - 2 2",
-                "targetMove": "e3c5",
-                "note": "♝ Chéo ngược lại: ăn Tốt c5",
-                "mascot": "Chéo sang trái, ăn Tốt!"
-            },
-            {
-                "fen": "6k1/8/8/2B5/8/8/4p3/6K1 w - - 0 3",
-                "targetMove": "c5b4",
-                "note": "♝ Lùi Tượng về b4",
-                "mascot": "Lùi một bước để tiến hai bước!"
-            },
-            {
-                "fen": "6k1/8/8/8/1B6/8/4p3/6K1 w - - 0 4",
-                "targetMove": "b4e1",
-                "note": "♝ Tượng lướt tới e1",
-                "mascot": "Chạy tới e1!"
-            },
-            {
-                "fen": "6k1/8/8/8/8/8/8/4B1K1 w - - 0 5",
-                "targetMove": "e1f2",
-                "note": "♝ Tượng tiến lên f2",
-                "mascot": "Chiếm lĩnh f2!"
-            }
-        ]
-    },
-    {
-        "id": "knight",
-        "category": "Chương 4: Quân Mã",
-        "title": "Mã Nhảy Chữ L",
-        "steps": [
-            {
-                "fen": "7k/7p/8/3p4/8/2N5/8/K7 w - - 0 1",
-                "targetMove": "c3d5",
-                "note": "♞ Mã nhảy <b>chữ L</b>: ăn Tốt d5",
-                "mascot": "Nhảy ngựa chữ L bắt Tốt!"
-            },
-            {
-                "fen": "7k/7p/8/3N4/8/8/8/K7 w - - 0 2",
-                "targetMove": "d5f6",
-                "note": "♞ Nhảy tiếp tới f6",
-                "mascot": "Một chữ L nữa tới f6!"
-            },
-            {
-                "fen": "7k/5N1p/8/8/8/8/8/K7 w - - 0 3",
-                "targetMove": "f6h7",
-                "note": "♞ Bắt nốt Tốt h7",
-                "mascot": "Gom Tốt h7 nào!"
-            },
-            {
-                "fen": "7k/7N/8/8/8/8/6p1/K7 w - - 0 4",
-                "targetMove": "h7f6",
-                "note": "♞ Lùi Mã về f6",
-                "mascot": "Lùi lại một nhịp!"
-            },
-            {
-                "fen": "7k/8/5N2/8/8/8/6p1/K7 w - - 0 5",
-                "targetMove": "f6e4",
-                "note": "♞ Nhảy về e4",
-                "mascot": "Về trung tâm e4!"
-            }
-        ]
-    },
-    {
-        "id": "knight-jump",
-        "category": "Chương 4: Quân Mã",
-        "title": "Mã Nhảy Qua Rào",
-        "steps": [
-            {
-                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-                "targetMove": "g1f3",
-                "note": "♞ Mã <b>nhảy qua</b> hàng Tốt: lên f3",
-                "mascot": "Hàng rào Tốt không cản được Mã!"
-            },
-            {
-                "fen": "rnbqkbnr/pppppppp/8/8/8/5N2/PPPPPPPP/RNBQKB1R b KQkq - 1 1",
-                "targetMove": "b8c6",
-                "note": "♞ Mã đen cũng nhảy ra c6",
-                "mascot": "Mã đen cũng xuất chiến!"
-            },
-            {
-                "fen": "r1bqkbnr/pppppppp/2n5/8/8/5N2/PPPPPPPP/RNBQKB1R w KQkq - 2 2",
-                "targetMove": "b1c3",
-                "note": "♞ Mã trắng b1 lên c3",
-                "mascot": "Thêm một chú ngựa nữa!"
-            },
-            {
-                "fen": "r1bqkbnr/pppppppp/2n5/8/8/2N2N2/PPPPPPPP/R1BQKB1R b KQkq - 3 2",
-                "targetMove": "g8f6",
-                "note": "♞ Mã đen ra f6",
-                "mascot": "Cả 4 Mã đều đã ra sân!"
-            },
-            {
-                "fen": "r1bqkb1r/pppppppp/2n2n2/8/8/2N2N2/PPPPPPPP/R1BQKB1R w KQkq - 4 3",
-                "targetMove": "f3e5",
-                "note": "♞ Mã trắng f3 nhảy tới e5",
-                "mascot": "Xung phong vào trung tâm!"
-            }
-        ]
-    },
-    {
-        "id": "knight-chain",
-        "category": "Chương 4: Quân Mã",
-        "title": "Mã Ăn Liên Hoàn",
-        "steps": [
-            {
-                "fen": "k7/7p/5p2/3p4/8/2N5/8/4K3 w - - 0 1",
-                "targetMove": "c3d5",
-                "note": "♞ Chữ L số 1: ăn d5",
-                "mascot": "Chữ L thứ nhất!"
-            },
-            {
-                "fen": "1k6/7p/5p2/3N4/8/8/8/4K3 w - - 1 2",
-                "targetMove": "d5f6",
-                "note": "♞ Chữ L số 2: ăn f6",
-                "mascot": "Chữ L thứ hai!"
-            },
-            {
-                "fen": "k7/7p/5N2/8/8/8/8/4K3 w - - 1 3",
-                "targetMove": "f6h7",
-                "note": "♞ Chữ L số 3: ăn h7",
-                "mascot": "Ăn sạch cả 3 Tốt!"
-            },
-            {
-                "fen": "k7/7N/8/8/6p1/8/8/4K3 w - - 0 4",
-                "targetMove": "h7f6",
-                "note": "♞ Lùi Mã về f6 chuẩn bị bắt g4",
-                "mascot": "Chuyển hướng mục tiêu!"
-            },
-            {
-                "fen": "k7/8/5N2/8/6p1/8/8/4K3 w - - 0 5",
-                "targetMove": "f6g4",
-                "note": "♞ Chữ L số 4: ăn g4",
-                "mascot": "Kết thúc chuỗi ăn liên hoàn!"
-            }
-        ]
-    },
-    {
-        "id": "queen",
-        "category": "Chương 5: Quân Hậu",
-        "title": "Siêu Xe Hậu",
-        "steps": [
-            {
-                "fen": "7k/7p/8/3r4/8/8/Q7/4K3 w - - 0 1",
-                "targetMove": "a2d5",
-                "note": "♛ Hậu đi <b>thẳng + chéo</b>: ăn Xe d5",
-                "mascot": "Hậu vút theo đường chéo ăn Xe!"
-            },
-            {
-                "fen": "7k/7p/8/3Q4/8/8/8/4K3 w - - 0 2",
-                "targetMove": "d5d8",
-                "note": "♛ Chạy thẳng lên d8 chiếu Vua",
-                "mascot": "Phi thẳng lên d8 chiếu!"
-            },
-            {
-                "fen": "3Q3k/7p/8/8/8/8/8/4K3 b - - 0 2",
-                "targetMove": "h8g7",
-                "note": "♛ Vua đen phải chạy",
-                "mascot": "Vua chạy thoát thân!"
-            },
-            {
-                "fen": "3Q4/6kp/8/8/8/8/8/4K3 w - - 0 3",
-                "targetMove": "d8e7",
-                "note": "♛ Hậu lướt sang e7 chiếu tiếp",
-                "mascot": "Hậu chiếu liên tục!"
-            },
-            {
-                "fen": "4Q3/6kp/8/8/8/8/8/4K3 b - - 0 3",
-                "targetMove": "g7h6",
-                "note": "♛ Vua lùi về h6 an toàn",
-                "mascot": "Vua lẩn trốn!"
-            }
-        ]
-    },
-    {
-        "id": "queen-lines",
-        "category": "Chương 5: Quân Hậu",
-        "title": "Hậu Đi Thẳng Và Chéo",
-        "steps": [
-            {
-                "fen": "7k/3r4/8/8/b7/8/8/3QK3 w - - 0 1",
-                "targetMove": "d1d7",
-                "note": "♛ Đi <b>thẳng</b> như Xe: ăn Xe d7",
-                "mascot": "Chạy thẳng như Xe!"
-            },
-            {
-                "fen": "6k1/3Q4/8/8/b7/8/8/4K3 w - - 1 2",
-                "targetMove": "d7a4",
-                "note": "♛ Đi <b>chéo</b> như Tượng: ăn Tượng a4",
-                "mascot": "Chạy chéo như Tượng!"
-            },
-            {
-                "fen": "6k1/8/8/8/Q7/8/6p1/4K3 w - - 0 3",
-                "targetMove": "a4g4",
-                "note": "♛ Đi ngang ăn Tốt g4 (nếu có) hoặc chiếu, ở đây ta chiếu ngang",
-                "mascot": "Lướt ngang như Xe!"
-            },
-            {
-                "fen": "6k1/8/8/8/6Q1/8/6p1/4K3 b - - 0 3",
-                "targetMove": "g8f8",
-                "note": "♛ Vua chạy f8",
-                "mascot": "Chạy đi!"
-            },
-            {
-                "fen": "5k2/8/8/8/6Q1/8/6p1/4K3 w - - 0 4",
-                "targetMove": "g4g2",
-                "note": "♛ Hậu lao xuống ăn Tốt g2",
-                "mascot": "Bắt Tốt g2 gọn gàng!"
-            }
-        ]
-    },
-    {
-        "id": "queen-safe",
-        "category": "Chương 5: Quân Hậu",
-        "title": "Hậu Tránh Bẫy",
-        "steps": [
-            {
-                "fen": "4k3/3p4/8/8/n7/8/8/3Q2K1 w - - 0 1",
-                "targetMove": "d1a4",
-                "hideTarget": true,
-                "note": "♛ Chỉ ăn quân <b>không ai bảo vệ</b>!",
-                "mascot": "Ăn quân không ai bảo vệ mới an toàn!",
-                "before": {
-                    "arrows": [
-                        [
-                            "e8",
-                            "d7",
-                            "attack"
-                        ]
-                    ],
-                    "marks": [
-                        [
-                            "d7",
-                            "guard"
-                        ]
-                    ]
-                }
-            },
-            {
-                "fen": "4k3/3p4/8/8/Q7/8/8/6K1 w - - 0 2",
-                "targetMove": "a4c6",
-                "note": "♛ Đưa Hậu lên c6 an toàn",
-                "mascot": "Chọn vị trí đắc địa c6!"
-            },
-            {
-                "fen": "4k3/3p4/2Q5/8/8/8/8/6K1 w - - 0 3",
-                "targetMove": "c6c4",
-                "note": "♛ Hậu lùi về c4",
-                "mascot": "Lùi một chút để quan sát!"
-            },
-            {
-                "fen": "4k3/3p4/8/8/2Q5/8/8/6K1 w - - 0 4",
-                "targetMove": "c4c5",
-                "note": "♛ Tiến Hậu lên c5",
-                "mascot": "Kiểm soát trung tâm c5!"
-            },
-            {
-                "fen": "4k3/3p4/8/2Q5/8/8/8/6K1 w - - 0 5",
-                "targetMove": "c5c7",
-                "note": "♛ Hậu tới c7 chiếu Vua",
-                "mascot": "Áp sát Vua địch!"
-            }
-        ]
-    },
-    {
-        "id": "king",
-        "category": "Chương 6: Quân Vua",
-        "title": "Vua Đi Từng Bước",
-        "steps": [
-            {
-                "fen": "4k3/8/8/8/8/3pK3/8/8 w - - 0 1",
-                "targetMove": "e3d3",
-                "note": "♚ Vua đi <b>1 ô</b> mọi hướng: ăn Tốt d3",
-                "mascot": "Vua bước 1 ô, ăn Tốt d3!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/3K4/3p4/8 w - - 0 1",
-                "targetMove": "d3d2",
-                "note": "♚ Vua lùi lại ăn Tốt d2",
-                "mascot": "Lùi một bước ăn Tốt!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/3K1p2/8 w - - 0 1",
-                "targetMove": "d2e2",
-                "note": "♚ Vua sang ngang e2",
-                "mascot": "Bước sang phải nào!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/4K1p1/8 w - - 0 1",
-                "targetMove": "e2f2",
-                "note": "♚ Vua tiến tới f2",
-                "mascot": "Đuổi theo Tốt!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/5Kp1/8 w - - 0 1",
-                "targetMove": "f2g2",
-                "note": "♚ Vua ăn Tốt g2",
-                "mascot": "Bắt được Tốt rồi!"
-            }
-        ]
-    },
-    {
-        "id": "king-safe",
-        "category": "Chương 6: Quân Vua",
-        "title": "Vua Không Vào Ô Nguy Hiểm",
-        "steps": [
-            {
-                "fen": "4k3/8/8/8/7n/3pKp2/8/8 w - - 0 1",
-                "targetMove": "e3d3",
-                "note": "♚ Vua <b>không vào ô nguy hiểm</b> ❌",
-                "mascot": "Ô nguy hiểm thì Vua không bước vào!",
-                "before": {
-                    "danger": true,
-                    "arrows": [
-                        [
-                            "h4",
-                            "f3",
-                            "attack"
-                        ]
-                    ]
-                }
-            },
-            {
-                "fen": "4k3/8/8/8/7n/3K1p2/8/8 w - - 0 1",
-                "targetMove": "d3c3",
-                "note": "♚ Tránh Mã h4, đi c3",
-                "mascot": "Tránh xa tầm ngắm của Mã!"
-            },
-            {
-                "fen": "4k3/8/8/8/7n/2K2p2/8/8 w - - 0 1",
-                "targetMove": "c3b3",
-                "note": "♚ Lùi ra xa hơn ở b3",
-                "mascot": "An toàn là trên hết!"
-            },
-            {
-                "fen": "4k3/8/8/8/7n/1K3p2/8/8 w - - 0 1",
-                "targetMove": "b3a3",
-                "note": "♚ Tiếp tục lùi về a3",
-                "mascot": "Lùi thêm chút nữa!"
-            },
-            {
-                "fen": "4k3/8/8/8/7n/K4p2/8/8 w - - 0 1",
-                "targetMove": "a3a2",
-                "note": "♚ Đến a2",
-                "mascot": "Giờ thì hoàn toàn an toàn!"
-            }
-        ]
-    },
-    {
-        "id": "king-walk",
-        "category": "Chương 6: Quân Vua",
-        "title": "Vua Đi Dạo Từng Bước",
-        "steps": [
-            {
-                "fen": "k7/8/8/8/4p3/8/8/4K3 w - - 0 1",
-                "targetMove": "e1e2",
-                "note": "♚ Từng bước một: lên e2",
-                "mascot": "Bước thứ nhất!"
-            },
-            {
-                "fen": "1k6/8/8/8/4p3/8/4K3/8 w - - 2 2",
-                "targetMove": "e2e3",
-                "note": "♚ Lên e3",
-                "mascot": "Bước thứ hai!"
-            },
-            {
-                "fen": "k7/8/8/8/4p3/4K3/8/8 w - - 4 3",
-                "targetMove": "e3d4",
-                "note": "♚ Lên d4",
-                "mascot": "Sắp tới nơi rồi!"
-            },
-            {
-                "fen": "1k6/8/8/8/3Kp3/8/8/8 w - - 6 4",
-                "targetMove": "d4e4",
-                "note": "♚ Ăn Tốt e4!",
-                "mascot": "Tới nơi rồi, ăn Tốt!"
-            },
-            {
-                "fen": "k7/8/8/8/4K3/8/8/8 w - - 8 5",
-                "targetMove": "e4d5",
-                "note": "♚ Bước tiếp lên d5",
-                "mascot": "Vua tiếp tục hành quân!"
-            }
-        ]
-    },
-    {
-        "id": "value",
-        "category": "Chương 7: Tổng Hợp Các Quân",
-        "title": "Quân Nào Đáng Giá Hơn?",
-        "steps": [
-            {
-                "fen": "7k/3q4/8/8/8/8/8/1n1R2K1 w - - 0 1",
-                "targetMove": "d1d7",
-                "hideTarget": true,
-                "note": "💰 Ăn quân <b>giá trị nhất</b>: Hậu d7!",
-                "mascot": "Hậu 9 điểm giá trị nhất!"
-            },
-            {
-                "fen": "7k/8/8/8/8/8/8/1n1R2K1 w - - 0 1",
-                "targetMove": "d1b1",
-                "hideTarget": true,
-                "note": "💰 Tiếp theo ăn Mã b1",
-                "mascot": "Mã 3 điểm!"
-            },
-            {
-                "fen": "7k/8/2b5/8/8/8/8/1R4K1 w - - 0 1",
-                "targetMove": "b1c1",
-                "hideTarget": true,
-                "note": "💰 Đuổi Tượng c6",
-                "mascot": "Đuổi theo Tượng!"
-            },
-            {
-                "fen": "7k/8/8/2b5/8/8/8/2R3K1 w - - 0 1",
-                "targetMove": "c1c5",
-                "hideTarget": true,
-                "note": "💰 Ăn Tượng c5!",
-                "mascot": "Tượng cũng 3 điểm!"
-            },
-            {
-                "fen": "7k/8/8/2R5/8/8/8/6K1 w - - 0 1",
-                "targetMove": "c5c8",
-                "hideTarget": true,
-                "note": "💰 Lên c8 chiếu Vua",
-                "mascot": "Chiếu Vua kết thúc bài!"
-            }
-        ]
-    },
-    {
-        "id": "which-piece",
-        "category": "Chương 7: Tổng Hợp Các Quân",
-        "title": "Quân Nào Ăn Được Hậu?",
-        "steps": [
-            {
-                "fen": "7k/8/8/3q4/5N2/8/8/R1B3K1 w - - 0 1",
-                "targetMove": "f4d5",
-                "hideTarget": true,
-                "note": "🤔 Quân nào <b>với tới</b> Hậu d5? Mã f4!",
-                "mascot": "Chỉ Mã mới nhảy tới được!"
-            },
-            {
-                "fen": "7k/8/8/3N4/8/8/8/R1B3K1 w - - 0 1",
-                "targetMove": "d5c7",
-                "hideTarget": true,
-                "note": "🤔 Mã đi tiếp c7",
-                "mascot": "Mã nhảy tiếp!"
-            },
-            {
-                "fen": "7k/2N5/8/8/8/8/8/R1B3K1 w - - 0 1",
-                "targetMove": "c7a6",
-                "hideTarget": true,
-                "note": "🤔 Mã xuống a6",
-                "mascot": "Nhảy sang a6!"
-            },
-            {
-                "fen": "7k/8/N7/8/8/8/8/R1B3K1 w - - 0 1",
-                "targetMove": "a6b4",
-                "hideTarget": true,
-                "note": "🤔 Mã về b4",
-                "mascot": "Chữ L lùi về b4!"
-            },
-            {
-                "fen": "7k/8/8/8/1N6/8/8/R1B3K1 w - - 0 1",
-                "targetMove": "b4c2",
-                "hideTarget": true,
-                "note": "🤔 Mã về c2",
-                "mascot": "Nhảy thêm bước nữa!"
-            }
-        ]
-    },
-    {
-        "id": "castle",
-        "category": "Chương 8: Nước Đi Đặc Biệt",
-        "title": "Nhập Thành Bảo Vệ Vua",
-        "steps": [
-            {
-                "fen": "4k3/8/8/8/8/8/8/4K2R w K - 0 1",
-                "targetMove": "e1g1",
-                "note": "🏰 Nhập thành: bấm Vua → chọn <b>g1</b>",
-                "mascot": "Nhập thành cánh Vua!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/8/5RK1 w - - 0 2",
-                "targetMove": "f1e1",
-                "note": "🏰 Đưa Xe ra trung tâm e1",
-                "mascot": "Xe ra giữa kiểm soát!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/8/4R1K1 w - - 0 3",
-                "targetMove": "e1e2",
-                "note": "🏰 Xe lên e2",
-                "mascot": "Tiến lên 1 bước!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/8/4R1K1 w - - 0 4",
-                "targetMove": "e2e3",
-                "note": "🏰 Xe lên e3",
-                "mascot": "Dần lên cao!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/8/4R1K1 w - - 0 5",
-                "targetMove": "e3e4",
-                "note": "🏰 Xe lên e4",
-                "mascot": "Kiểm soát trung tâm!"
-            }
-        ]
-    },
-    {
-        "id": "castle-long",
-        "category": "Chương 8: Nước Đi Đặc Biệt",
-        "title": "Nhập Thành Cánh Hậu",
-        "steps": [
-            {
-                "fen": "4k3/8/8/8/8/8/8/R3K3 w Q - 0 1",
-                "targetMove": "e1c1",
-                "note": "🏰 Nhập thành <b>cánh Hậu</b>: Vua e1 → c1",
-                "mascot": "Vua đi 2 ô sang trái, Xe tự nhảy qua!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/8/2KR4 w - - 0 2",
-                "targetMove": "d1e1",
-                "note": "🏰 Xe qua e1",
-                "mascot": "Kiểm soát cột e!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/8/2K1R3 w - - 0 3",
-                "targetMove": "e1e2",
-                "note": "🏰 Xe lên e2",
-                "mascot": "Tiến lên nào!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/8/2K1R3 w - - 0 4",
-                "targetMove": "e2e3",
-                "note": "🏰 Xe lên e3",
-                "mascot": "Kiểm soát thêm!"
-            },
-            {
-                "fen": "4k3/8/8/8/8/8/8/2K1R3 w - - 0 5",
-                "targetMove": "e3e4",
-                "note": "🏰 Xe lên e4",
-                "mascot": "Tuyệt vời!"
-            }
-        ]
-    },
-    {
-        "id": "promote",
-        "category": "Chương 8: Nước Đi Đặc Biệt",
-        "title": "Phong Cấp Biến Hình",
-        "steps": [
-            {
-                "fen": "7k/4P2p/8/8/8/8/8/6K1 w - - 0 1",
-                "targetMove": "e7e8q",
-                "note": "👑 Tốt về hàng cuối → <b>biến hình Hậu</b>!",
-                "mascot": "Thăng cấp thành Hậu!"
-            },
-            {
-                "fen": "4Q2k/7p/8/8/8/8/8/6K1 w - - 0 2",
-                "targetMove": "e8e5",
-                "note": "👑 Hậu lùi về e5",
-                "mascot": "Hậu mới xuất hiện!"
-            },
-            {
-                "fen": "7k/7p/8/4Q3/8/8/8/6K1 w - - 0 3",
-                "targetMove": "e5e4",
-                "note": "👑 Hậu xuống e4",
-                "mascot": "Di chuyển nhẹ nhàng!"
-            },
-            {
-                "fen": "7k/7p/8/8/4Q3/8/8/6K1 w - - 0 4",
-                "targetMove": "e4e3",
-                "note": "👑 Hậu xuống e3",
-                "mascot": "Từng bước lui về!"
-            },
-            {
-                "fen": "7k/7p/8/8/8/4Q3/8/6K1 w - - 0 5",
-                "targetMove": "e3e2",
-                "note": "👑 Hậu lùi tiếp e2",
-                "mascot": "Về gần Vua!"
-            }
-        ]
-    },
-    {
         "id": "enpassant",
-        "category": "Chương 8: Nước Đi Đặc Biệt",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 1: ♟ Quân Tốt",
         "title": "Bắt Tốt Qua Đường",
         "steps": [
             {
                 "fen": "4k3/8/8/3pP3/8/8/8/4K3 w - d6 0 2",
                 "targetMove": "e5d6",
                 "note": "⚡ Tốt đen vừa đi 2 ô → ăn <b>qua đường</b> sang d6!",
-                "mascot": "Bắt Tốt qua đường!",
-                "before": {
-                    "arrows": [
-                        [
-                            "d7",
-                            "d5",
-                            "history"
-                        ]
-                    ]
-                }
+                "mascot": "Bắt Tốt qua đường!"
             },
             {
-                "fen": "4k3/8/3P4/8/8/8/8/4K3 w - - 0 3",
-                "targetMove": "d6d7",
-                "note": "⚡ Tiến lên d7",
-                "mascot": "Tiến sát đích!"
+                "fen": "4k3/8/8/5Pp1/8/8/8/4K3 w - g6 0 2",
+                "targetMove": "f5g6",
+                "note": "⚡ Tốt g7 vừa nhảy 2 ô qua mặt → ăn qua đường sang <b>g6</b>",
+                "mascot": "Không cho lách qua!"
             },
             {
-                "fen": "4k3/3P4/8/8/8/8/8/4K3 w - - 0 4",
-                "targetMove": "d7d8q",
-                "note": "⚡ Phong cấp",
-                "mascot": "Biến thành Hậu!"
-            },
-            {
-                "fen": "3Qk3/8/8/8/8/8/8/4K3 w - - 0 5",
-                "targetMove": "d8d5",
-                "note": "⚡ Hậu xuống d5",
-                "mascot": "Lùi lại an toàn!"
-            },
-            {
-                "fen": "4k3/8/8/3Q4/8/8/8/4K3 w - - 0 6",
-                "targetMove": "d5d4",
-                "note": "⚡ Hậu xuống d4",
-                "mascot": "Quá tuyệt!"
+                "fen": "rnbqkbnr/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3",
+                "targetMove": "e5f6",
+                "note": "⚡ Ván cờ thật: Tốt f7 vừa lên f5 → ăn qua đường sang <b>f6</b>",
+                "mascot": "Chỉ được ăn ngay nước kế tiếp!"
             }
         ]
     },
     {
-        "id": "fork",
-        "category": "Chương 9: Đòn Tấn Công",
-        "title": "Đòn Chĩa Đôi (Fork)",
+        "id": "promote",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 1: ♟ Quân Tốt",
+        "title": "Phong Cấp Biến Hình",
         "steps": [
             {
-                "fen": "4q1k1/7p/8/8/4N3/8/8/6K1 w - - 0 1",
-                "targetMove": "e4f6",
-                "hideTarget": true,
-                "note": "♞ Tìm ô Mã dọa <b>cả Vua lẫn Hậu</b>!",
-                "mascot": "Nhảy Mã f6 dọa 1 mũi tên trúng 2 đích!",
-                "after": {
-                    "arrows": [
-                        [
-                            "f6",
-                            "g8",
-                            "attack"
-                        ],
-                        [
-                            "f6",
-                            "e8",
-                            "attack"
-                        ]
-                    ]
-                }
+                "fen": "7k/4P2p/8/p7/8/8/8/6K1 w - - 0 1",
+                "targetMove": "e7e8",
+                "note": "👑 Tốt về hàng cuối → <b>biến hình Hậu</b>!",
+                "mascot": "Tốt nhỏ thành Hậu!",
+                "reply": "h8g7",
+                "replyNote": "👀 Vua đen tránh sang g7."
             },
             {
-                "fen": "4q1k1/7p/5N2/8/8/8/8/6K1 b - - 0 1",
-                "targetMove": "g8f7",
-                "note": "♞ Đen chạy Vua",
-                "mascot": "Vua Đen bỏ chạy!"
+                "fen": "4Q3/6kp/8/p7/8/8/8/6K1 w - - 1 2",
+                "targetMove": "e8e5",
+                "note": "👑 Hậu mới chiếu Vua từ <b>e5</b>",
+                "mascot": "Hậu mạnh nhất bàn cờ!",
+                "reply": "g7g6",
+                "replyNote": "👀 Vua đen chạy g6."
             },
             {
-                "fen": "4q3/5k1p/5N2/8/8/8/8/6K1 w - - 0 2",
-                "targetMove": "f6e8",
-                "note": "♞ Mã ăn Hậu",
-                "mascot": "Ăn Hậu thôi!"
-            },
-            {
-                "fen": "4N3/5k1p/8/8/8/8/8/6K1 w - - 0 3",
-                "targetMove": "e8d6",
-                "note": "♞ Mã về d6",
-                "mascot": "Rút về an toàn!"
-            },
-            {
-                "fen": "8/5k1p/3N4/8/8/8/8/6K1 w - - 0 4",
-                "targetMove": "d6c4",
-                "note": "♞ Mã lùi c4",
-                "mascot": "Chữ L lùi về!"
-            }
-        ]
-    },
-    {
-        "id": "queen-fork",
-        "category": "Chương 9: Đòn Tấn Công",
-        "title": "Hậu Chĩa Đôi",
-        "steps": [
-            {
-                "fen": "r5k1/6pp/8/8/8/8/5PPP/3Q2K1 w - - 0 1",
-                "targetMove": "d1d5",
-                "hideTarget": true,
-                "note": "♛ Tìm ô Hậu vừa <b>chiếu Vua</b> vừa <b>dọa Xe</b>!",
-                "mascot": "Một nước đi, hai mục tiêu!",
-                "after": {
-                    "arrows": [
-                        [
-                            "d5",
-                            "g8",
-                            "attack"
-                        ],
-                        [
-                            "d5",
-                            "a8",
-                            "attack"
-                        ]
-                    ]
-                }
-            },
-            {
-                "fen": "r5k1/6pp/8/3Q4/8/8/5PPP/6K1 b - - 0 1",
-                "targetMove": "g8f8",
-                "note": "♛ Vua chạy",
-                "mascot": "Vua đen lẩn trốn!"
-            },
-            {
-                "fen": "r4k1/6pp/8/3Q4/8/8/5PPP/6K1 w - - 0 2",
-                "targetMove": "d5a8",
-                "note": "♛ Ăn Xe!",
-                "mascot": "Thu lợi Xe a8!"
-            },
-            {
-                "fen": "Q4k1/6pp/8/8/8/8/5PPP/6K1 w - - 0 3",
-                "targetMove": "a8a5",
-                "note": "♛ Rút về a5",
-                "mascot": "An toàn!"
-            },
-            {
-                "fen": "5k1/6pp/8/Q7/8/8/5PPP/6K1 w - - 0 4",
-                "targetMove": "a5a4",
-                "note": "♛ Rút về a4",
-                "mascot": "Kiểm soát tiếp!"
+                "fen": "8/7p/6k1/p3Q3/8/8/8/6K1 w - - 3 3",
+                "targetMove": "e5a5",
+                "note": "👑 Hậu ăn Tốt a5 chặn Đen phong cấp",
+                "mascot": "Không cho Tốt đen về đích!"
             }
         ]
     },
     {
         "id": "pawn-fork",
-        "category": "Chương 9: Đòn Tấn Công",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 1: ♟ Quân Tốt",
         "title": "Tốt Chĩa Đôi",
         "steps": [
             {
                 "fen": "4k3/8/2n1n3/8/3P4/8/8/4K3 w - - 0 1",
                 "targetMove": "d4d5",
-                "hideTarget": true,
                 "note": "♟ Tốt nhỏ cũng <b>chĩa đôi</b> được hai Mã!",
                 "mascot": "Tốt 1 điểm dọa 2 Mã 6 điểm!",
-                "after": {
+                "reply": "c6b8",
+                "replyNote": "👀 Mã c6 bỏ chạy, Mã e6 đành chịu mất."
+            },
+            {
+                "fen": "1n2k3/8/4n3/3P4/8/8/8/4K3 w - - 1 2",
+                "targetMove": "d5e6",
+                "note": "♟ Ăn Mã e6",
+                "mascot": "Lấy 3 điểm!"
+            },
+            {
+                "fen": "4k3/8/8/2n1n3/8/3P4/8/4K3 w - - 0 1",
+                "targetMove": "d3d4",
+                "note": "♟ Thêm lần nữa: đẩy Tốt dọa <b>cả hai Mã</b>",
+                "mascot": "Mã không ăn được Tốt d4!",
+                "reply": "c5e6",
+                "replyNote": "👀 Mã c5 chạy về e6."
+            },
+            {
+                "fen": "4k3/8/4n3/4n3/3P4/8/8/4K3 w - - 1 2",
+                "targetMove": "d4e5",
+                "note": "♟ Ăn Mã e5",
+                "mascot": "Tốt nhỏ, công lớn!"
+            }
+        ]
+    },
+    {
+        "id": "pawn-race",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 1: ♟ Quân Tốt",
+        "title": "Tốt Chạy Về Đích",
+        "steps": [
+            {
+                "fen": "8/8/8/P7/5k2/8/8/7K w - - 0 1",
+                "targetMove": "a5a6",
+                "note": "🏁 Vua đen ở quá xa: cứ đẩy Tốt!",
+                "mascot": "Chạy đua!",
+                "reply": "f4e5",
+                "replyNote": "👀 Vua đen đuổi theo."
+            },
+            {
+                "fen": "8/8/P7/4k3/8/8/8/7K w - - 1 2",
+                "targetMove": "a6a7",
+                "note": "⬆️ Lên a7",
+                "mascot": "Sắp tới đích!",
+                "reply": "e5d6",
+                "replyNote": "👀 Vua đen vẫn không kịp."
+            },
+            {
+                "fen": "8/P7/3k4/8/8/8/8/7K w - - 1 3",
+                "targetMove": "a7a8",
+                "note": "👑 Về đích, phong Hậu!",
+                "mascot": "Thắng cuộc đua!"
+            }
+        ]
+    },
+    {
+        "id": "passed_pawn",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 1: ♟ Quân Tốt",
+        "title": "Passed Pawn (Tốt Thông)",
+        "steps": [
+            {
+                "fen": "8/5p2/4pk2/3p4/P7/8/1P6/1K6 w - - 0 1",
+                "targetMove": "a4a5",
+                "note": "Bạn có Tốt thông ở cột a. Hãy đẩy nó lên!",
+                "mascot": "Tuyệt vời!",
+                "reply": "f6e7",
+                "replyNote": "👀 Vua Đen cố gắng can thiệp. Tiếp tục tiến bước."
+            },
+            {
+                "fen": "8/4kp2/4p3/P2p4/8/8/1P6/1K6 w - - 1 2",
+                "targetMove": "a5a6",
+                "note": "Không gì cản nổi! Tốt thông càng tiến càng nguy hiểm.",
+                "mascot": "Tuyệt vời!",
+                "reply": "e7d7",
+                "replyNote": "👀 Đen đang tuyệt vọng chạy theo. Cứ đi tiếp."
+            },
+            {
+                "fen": "8/3k1p2/P3p3/3p4/8/8/1P6/1K6 w - - 1 3",
+                "targetMove": "a6a7",
+                "note": "Sắp phong cấp rồi! Tốt thông mang lại chiến thắng.",
+                "mascot": "Tuyệt vời!"
+            }
+        ]
+    },
+    {
+        "id": "luft",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 1: ♟ Quân Tốt",
+        "title": "Mở Cửa Sổ Cho Vua",
+        "steps": [
+            {
+                "fen": "4r1k1/5ppp/8/8/8/8/1B3PPP/6K1 w - - 0 1",
+                "targetMove": "h2h3",
+                "goal": "stop-mate",
+                "note": "🪟 Xe đen dọa chiếu bí hàng cuối. Mở <b>cửa sổ</b> cho Vua!",
+                "mascot": "Vua cần lối thoát!"
+            },
+            {
+                "fen": "3q2k1/5ppp/8/8/8/8/1B3PPP/6K1 w - - 0 1",
+                "targetMove": "g2g3",
+                "goal": "stop-mate",
+                "note": "🪟 Hậu đen dọa Qd1#. Mở ô thoát cho Vua!",
+                "mascot": "Cửa sổ cứu Vua!"
+            }
+        ]
+    },
+    {
+        "id": "safe-pawn-guard",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 1: ♟ Quân Tốt",
+        "title": "Đừng Để Tốt Ăn Hậu",
+        "steps": [
+            {
+                "fen": "6k1/5ppp/4p3/3n4/2P5/8/5PPP/3Q2K1 w - - 0 1",
+                "targetMove": "d1d5",
+                "reply": "e6d5",
+                "replyNote": "😱 Ôi! Tốt e6 ăn mất Hậu. Đổi Hậu 9 điểm lấy Mã 3 điểm là lỗ to!",
+                "note": "🤔 Mã d5 đứng giữa bàn. Thử cho <b>Hậu</b> ăn Mã xem sao!",
+                "mascot": "Hậu lao vào ăn Mã!"
+            },
+            {
+                "fen": "6k1/5ppp/4p3/3n4/2P5/8/5PPP/3Q2K1 w - - 0 1",
+                "targetMove": "c4d5",
+                "note": "✅ Ô d5 có Tốt e6 canh. Hãy ăn Mã bằng <b>quân nhỏ</b>: Tốt c4!",
+                "mascot": "Tốt 1 điểm đổi Mã 3 điểm: lời!",
+                "before": {
                     "arrows": [
                         [
+                            "e6",
                             "d5",
-                            "c6",
+                            "attack"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "d5",
+                            "guard"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "rook",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 2: ♜ Quân Xe",
+        "title": "Xe Tải Gom Rác (Đường Thẳng)",
+        "steps": [
+            {
+                "fen": "k7/8/2p3p1/8/p5p1/2R5/8/6K1 w - - 0 1",
+                "targetMove": "c3c6",
+                "note": "♜ Xe đi <b>thẳng</b> lên: ăn Tốt c6",
+                "mascot": "Chạy thẳng lên gom rác!",
+                "reply": "a8a7",
+                "replyNote": "👀 Vua đen lùi về a7."
+            },
+            {
+                "fen": "8/k7/2R3p1/8/p5p1/8/8/6K1 w - - 1 2",
+                "targetMove": "c6g6",
+                "note": "♜ Rẽ <b>ngang</b> sang phải: ăn Tốt g6",
+                "mascot": "Lướt ngang thật nhanh!",
+                "reply": "a7b7",
+                "replyNote": "👀 Vua đen bước lên b7."
+            },
+            {
+                "fen": "8/1k6/6R1/8/p5p1/8/8/6K1 w - - 1 3",
+                "targetMove": "g6g4",
+                "note": "♜ Chạy <b>thẳng xuống</b>: ăn Tốt g4",
+                "mascot": "Xe đi lùi cũng được!",
+                "reply": "b7c6",
+                "replyNote": "👀 Vua đen tới c6."
+            },
+            {
+                "fen": "8/8/2k5/8/p5R1/8/8/6K1 w - - 1 4",
+                "targetMove": "g4a4",
+                "note": "♜ Rẽ ngang sang trái: ăn nốt Tốt a4",
+                "mascot": "Sạch bong cả bàn cờ!"
+            }
+        ]
+    },
+    {
+        "id": "rook-block",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 2: ♜ Quân Xe",
+        "title": "Xe Không Nhảy Qua Quân",
+        "steps": [
+            {
+                "fen": "n3k3/8/8/8/P7/8/4K3/R6b w - - 0 1",
+                "targetMove": "a1h1",
+                "note": "♜ Tốt a4 chắn cột a, Xe <b>không nhảy</b> qua được → đi ngang ăn Tượng h1",
+                "mascot": "Đường ngang thông thoáng!"
+            },
+            {
+                "fen": "1b5k/8/8/8/1n6/8/8/1R4K1 w - - 0 1",
+                "targetMove": "b1b4",
+                "note": "♜ Xe chỉ ăn được <b>quân đầu tiên</b> trên đường đi: Mã b4",
+                "mascot": "Mã chắn trước Tượng!"
+            },
+            {
+                "fen": "6k1/8/2n5/8/8/8/2P5/2R3K1 w - - 0 1",
+                "targetMove": "c1f1",
+                "note": "♜ Tốt c2 chắn đường lên. Đưa Xe sang <b>cột trống</b> f1",
+                "mascot": "Tìm đường khác để lên!"
+            }
+        ]
+    },
+    {
+        "id": "rook-route",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 2: ♜ Quân Xe",
+        "title": "Xe Đi Đường Vòng",
+        "steps": [
+            {
+                "fen": "7k/8/5p2/8/1p6/8/8/R5K1 w - - 0 1",
+                "targetMove": "a1f1",
+                "note": "♜ Xe không đi chéo! Rẽ góc vuông: sang <b>f1</b> trước",
+                "mascot": "Đi hình chữ L vuông góc!",
+                "reply": "h8h7",
+                "replyNote": "👀 Vua đen sang h7."
+            },
+            {
+                "fen": "8/7k/5p2/8/1p6/8/8/5RK1 w - - 2 2",
+                "targetMove": "f1f6",
+                "note": "♜ Giờ chạy thẳng lên ăn Tốt <b>f6</b>",
+                "mascot": "Thẳng tiến!",
+                "reply": "h7g8",
+                "replyNote": "👀 Vua đen về g8."
+            },
+            {
+                "fen": "6k1/8/5R2/8/1p6/8/8/6K1 w - - 1 3",
+                "targetMove": "f6b6",
+                "note": "♜ Rẽ ngang sang <b>cột b</b>",
+                "mascot": "Vòng sang trái!",
+                "reply": "g8f7",
+                "replyNote": "👀 Vua đen tiến tới f7."
+            },
+            {
+                "fen": "8/5k2/1R6/8/1p6/8/8/6K1 w - - 3 4",
+                "targetMove": "b6b4",
+                "note": "♜ Chạy thẳng xuống ăn Tốt <b>b4</b>",
+                "mascot": "Về đích!"
+            }
+        ]
+    },
+    {
+        "id": "open-file-3",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 2: ♜ Quân Xe",
+        "title": "Kiểm soát cột mở",
+        "steps": [
+            {
+                "fen": "r4rk1/pp3ppp/2p5/8/8/2P5/PP3PPP/R4RK1 w - - 0 1",
+                "targetMove": "f1e1",
+                "note": "♜ Cột e đang trống: Xe chiếm <b>cột mở</b> trước!",
+                "mascot": "Xe thích cột trống!",
+                "reply": "f8d8",
+                "replyNote": "👀 Đen chiếm cột d."
+            },
+            {
+                "fen": "r2r2k1/pp3ppp/2p5/8/8/2P5/PP3PPP/R3R1K1 w - - 2 2",
+                "targetMove": "e1e7",
+                "note": "♜ Xe theo cột mở xâm nhập <b>hàng 7</b>",
+                "mascot": "Xe hàng 7 rất mạnh!",
+                "reply": "b7b6",
+                "replyNote": "👀 Đen giữ Tốt b7."
+            },
+            {
+                "fen": "r2r2k1/p3Rppp/1pp5/8/8/2P5/PP3PPP/R5K1 w - - 0 3",
+                "targetMove": "e7c7",
+                "note": "♜ Xe dọa Tốt c6",
+                "mascot": "Tấn công Tốt yếu!"
+            }
+        ]
+    },
+    {
+        "id": "open-file-4",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 2: ♜ Quân Xe",
+        "title": "Xe hàng 7 ăn Tốt",
+        "steps": [
+            {
+                "fen": "r5k1/pp3ppp/2p5/8/8/2P5/PP3PPP/4R1K1 w - - 0 1",
+                "targetMove": "e1e7",
+                "note": "♜ Xe lên <b>hàng 7</b>: dọa ăn các Tốt đen",
+                "mascot": "Xe hàng 7 như cá mập!",
+                "reply": "a7a5",
+                "replyNote": "👀 Đen đẩy Tốt a, bỏ quên b7."
+            },
+            {
+                "fen": "r5k1/1p2Rppp/2p5/p7/8/2P5/PP3PPP/6K1 w - a6 0 2",
+                "targetMove": "e7b7",
+                "note": "♜ Ăn Tốt b7!",
+                "mascot": "Lời một Tốt!"
+            }
+        ]
+    },
+    {
+        "id": "safe-rook-bait",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 2: ♜ Quân Xe",
+        "title": "Tránh Miếng Mồi Có Canh",
+        "steps": [
+            {
+                "fen": "6k1/5ppp/3p4/4p3/1n2R3/8/5PPP/6K1 w - - 0 1",
+                "targetMove": "e4e5",
+                "reply": "d6e5",
+                "replyNote": "😱 Tốt d6 ăn mất Xe! Mất Xe 5 điểm chỉ để lấy Tốt 1 điểm.",
+                "note": "🤔 Xe ăn được Tốt e5 hoặc Mã b4. Thử ăn <b>Tốt e5</b> trước!",
+                "mascot": "Xe ăn Tốt ngay trước mặt!"
+            },
+            {
+                "fen": "6k1/5ppp/3p4/4p3/1n2R3/8/5PPP/6K1 w - - 0 1",
+                "targetMove": "e4b4",
+                "note": "✅ Tốt e5 có Tốt d6 canh. Ăn quân <b>không ai canh</b>: Mã b4!",
+                "mascot": "Mã không ai bảo vệ, ăn an toàn!",
+                "before": {
+                    "arrows": [
+                        [
+                            "d6",
+                            "e5",
+                            "attack"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "e5",
+                            "guard"
+                        ],
+                        [
+                            "b4",
+                            "x"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "safe-knight-guard",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 2: ♜ Quân Xe",
+        "title": "Coi Chừng Mã Canh",
+        "steps": [
+            {
+                "fen": "6k1/5ppp/5n2/3p4/8/8/5PPP/b2R2K1 w - - 0 1",
+                "targetMove": "d1d5",
+                "reply": "f6d5",
+                "replyNote": "😱 Mã f6 ăn mất Xe! Xe 5 điểm đổi Tốt 1 điểm.",
+                "note": "🤔 Xe nhìn thấy Tốt d5 và Tượng a1. Thử ăn <b>Tốt d5</b>!",
+                "mascot": "Xe lao lên ăn Tốt!"
+            },
+            {
+                "fen": "6k1/5ppp/5n2/3p4/8/8/5PPP/b2R2K1 w - - 0 1",
+                "targetMove": "d1a1",
+                "note": "✅ Mã f6 canh ô d5. Ăn <b>Tượng a1</b> không ai canh!",
+                "mascot": "Tượng 3 điểm, lại an toàn!",
+                "before": {
+                    "arrows": [
+                        [
+                            "f6",
+                            "d5",
+                            "attack"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "d5",
+                            "guard"
+                        ],
+                        [
+                            "a1",
+                            "x"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "bishop",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 3: ♝ Quân Tượng",
+        "title": "Tượng Trượt Chéo",
+        "steps": [
+            {
+                "fen": "k7/5p2/8/8/2B5/1p6/8/6K1 w - - 0 1",
+                "targetMove": "c4f7",
+                "note": "♝ Tượng đi <b>chéo</b> lên: ăn Tốt f7",
+                "mascot": "Trượt chéo thật xa!",
+                "reply": "a8b7",
+                "replyNote": "👀 Vua đen bước ra b7."
+            },
+            {
+                "fen": "8/1k3B2/8/8/8/1p6/8/6K1 w - - 1 2",
+                "targetMove": "f7d5",
+                "note": "♝ Chéo ngược xuống <b>d5</b> chiếu Vua",
+                "mascot": "Đổi hướng chéo!",
+                "reply": "b7b6",
+                "replyNote": "👀 Vua đen tránh sang b6."
+            },
+            {
+                "fen": "8/8/1k6/3B4/8/1p6/8/6K1 w - - 3 3",
+                "targetMove": "d5b3",
+                "note": "♝ Tiếp tục chéo xuống ăn Tốt <b>b3</b>",
+                "mascot": "Gọn gàng!"
+            }
+        ]
+    },
+    {
+        "id": "bishop-color",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 3: ♝ Quân Tượng",
+        "title": "Tượng Chỉ Đi Một Màu",
+        "steps": [
+            {
+                "fen": "k7/8/7p/8/8/3p4/8/K1B5 w - - 0 1",
+                "targetMove": "c1h6",
+                "note": "♝ Tượng c1 đứng ô <b>đen</b> nên chỉ ăn được Tốt h6 (ô đen). Tốt d3 ở ô trắng!",
+                "mascot": "Tượng ô đen đi ô đen!"
+            },
+            {
+                "fen": "k7/8/8/8/4p3/8/5p2/K5B1 w - - 0 1",
+                "targetMove": "g1f2",
+                "note": "♝ Tốt f2 sắp phong cấp và đứng ô đen: Tượng ăn ngay!",
+                "mascot": "Chặn Tốt về đích!"
+            },
+            {
+                "fen": "k7/8/8/1pp5/8/8/8/K4B2 w - - 0 1",
+                "targetMove": "f1b5",
+                "note": "♝ Tượng f1 là Tượng <b>ô trắng</b>: ăn Tốt b5 (ô trắng)",
+                "mascot": "Tốt c5 ở ô đen, Tượng này không với tới!"
+            }
+        ]
+    },
+    {
+        "id": "bishop-zigzag",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 3: ♝ Quân Tượng",
+        "title": "Tượng Đi Zíc Zắc",
+        "steps": [
+            {
+                "fen": "7k/8/8/2p5/8/8/8/2B3K1 w - - 0 1",
+                "targetMove": "c1e3",
+                "note": "♝ Không đi thẳng được → chéo 2 lần: lên <b>e3</b> trước",
+                "mascot": "Đi zíc zắc!"
+            },
+            {
+                "fen": "6k1/8/8/2p5/8/4B3/8/6K1 w - - 2 2",
+                "targetMove": "e3c5",
+                "note": "♝ Chéo ngược lại: ăn Tốt c5",
+                "mascot": "Bắt được rồi!"
+            },
+            {
+                "fen": "6k1/8/8/2B5/8/8/4p3/6K1 w - - 0 3",
+                "targetMove": "c5b4",
+                "note": "♝ Tốt e2 sắp phong cấp! Tượng về <b>b4</b> canh ô e1",
+                "mascot": "Canh ô đích!",
+                "reply": "e2e1",
+                "replyNote": "👀 Tốt đen phong Hậu... nhưng Tượng đang canh e1!"
+            },
+            {
+                "fen": "6k1/8/8/8/1B6/8/8/4q1K1 w - - 0 4",
+                "targetMove": "b4e1",
+                "note": "♝ Ăn ngay Hậu mới!",
+                "mascot": "Hậu vừa sinh ra đã bị ăn!"
+            }
+        ]
+    },
+    {
+        "id": "uncastled-4",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 3: ♝ Quân Tượng",
+        "title": "Ngăn chặn nhập thành",
+        "steps": [
+            {
+                "fen": "r1bqk2r/ppp2ppp/2n5/b2n4/2BP4/5N2/P4PPP/RNBQ1RK1 w kq - 0 10",
+                "targetMove": "c1a3",
+                "note": "🚫 Tượng <b>a3</b> khống chế ô f8: Vua đen không nhập thành được!",
+                "mascot": "Giữ Vua đen ở giữa bàn!",
+                "before": {
+                    "arrows": [
+                        [
+                            "a3",
+                            "f8",
+                            "attack"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "f8",
+                            "x"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "safe-bishop-bait",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 3: ♝ Quân Tượng",
+        "title": "Tượng Tránh Bẫy",
+        "steps": [
+            {
+                "fen": "6k1/5ppp/4p3/3n4/2B5/8/r4PPP/6K1 w - - 0 1",
+                "targetMove": "c4d5",
+                "reply": "e6d5",
+                "replyNote": "😱 Tốt e6 ăn lại Tượng. Đổi Tượng lấy Mã thì Xe a2 vẫn còn đó!",
+                "note": "🤔 Tượng ăn được Mã d5 hoặc Xe a2. Thử ăn <b>Mã d5</b>!",
+                "mascot": "Tượng ăn Mã!"
+            },
+            {
+                "fen": "6k1/5ppp/4p3/3n4/2B5/8/r4PPP/6K1 w - - 0 1",
+                "targetMove": "c4a2",
+                "note": "✅ Mã d5 có Tốt canh. Xe a2 <b>không ai canh</b>, lại đáng giá hơn!",
+                "mascot": "Xe 5 điểm, ăn miễn phí!",
+                "before": {
+                    "arrows": [
+                        [
+                            "e6",
+                            "d5",
+                            "attack"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "d5",
+                            "guard"
+                        ],
+                        [
+                            "a2",
+                            "x"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "knight",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 4: ♞ Quân Mã",
+        "title": "Mã Nhảy Chữ L",
+        "steps": [
+            {
+                "fen": "k7/7p/8/3p4/8/2N5/8/K7 w - - 0 1",
+                "targetMove": "c3d5",
+                "note": "♞ Mã nhảy <b>chữ L</b>: ăn Tốt d5",
+                "mascot": "Nhảy ngựa chữ L bắt Tốt!",
+                "reply": "a8b7",
+                "replyNote": "👀 Vua đen bước ra b7."
+            },
+            {
+                "fen": "8/1k5p/8/3N4/8/8/8/K7 w - - 1 2",
+                "targetMove": "d5f6",
+                "note": "♞ Một chữ L nữa tới <b>f6</b>",
+                "mascot": "Hai ô thẳng, một ô ngang!",
+                "reply": "b7c7",
+                "replyNote": "👀 Vua đen tới c7."
+            },
+            {
+                "fen": "8/2k4p/5N2/8/8/8/8/K7 w - - 3 3",
+                "targetMove": "f6h7",
+                "note": "♞ Bắt nốt Tốt h7. Vua đen ở xa, không ăn lại được!",
+                "mascot": "Gom Tốt h7 an toàn!"
+            }
+        ]
+    },
+    {
+        "id": "knight-jump",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 4: ♞ Quân Mã",
+        "title": "Mã Nhảy Qua Rào",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                "targetMove": "g1f3",
+                "note": "♞ Mã <b>nhảy qua</b> hàng Tốt: lên f3",
+                "mascot": "Hàng rào Tốt không cản được Mã!",
+                "reply": "b8c6",
+                "replyNote": "👀 Mã đen cũng nhảy ra c6."
+            },
+            {
+                "fen": "r1bqkbnr/pppppppp/2n5/8/8/5N2/PPPPPPPP/RNBQKB1R w KQkq - 2 2",
+                "targetMove": "b1c3",
+                "note": "♞ Mã b1 nhảy qua lên <b>c3</b>",
+                "mascot": "Thêm một chú ngựa nữa!",
+                "reply": "g8f6",
+                "replyNote": "👀 Mã đen ra f6."
+            },
+            {
+                "fen": "r1bqkb1r/pppppppp/2n2n2/8/8/2N2N2/PPPPPPPP/R1BQKB1R w KQkq - 4 3",
+                "targetMove": "e2e4",
+                "note": "♟ Mã c3 đang canh ô e4. Đẩy Tốt <b>e4</b> vào trung tâm",
+                "mascot": "Mã canh giữ, Tốt yên tâm tiến!",
+                "reply": "e7e5",
+                "replyNote": "👀 Đen cũng đẩy Tốt e5."
+            }
+        ]
+    },
+    {
+        "id": "knight-chain",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 4: ♞ Quân Mã",
+        "title": "Mã Ăn Liên Hoàn",
+        "steps": [
+            {
+                "fen": "k7/7p/5p2/3p4/6p1/2N5/8/4K3 w - - 0 1",
+                "targetMove": "c3d5",
+                "note": "♞ Chữ L số 1: ăn <b>d5</b>",
+                "mascot": "Bắt đầu chuỗi ăn!",
+                "reply": "a8b7",
+                "replyNote": "👀 Vua đen bước ra."
+            },
+            {
+                "fen": "8/1k5p/5p2/3N4/6p1/8/8/4K3 w - - 1 2",
+                "targetMove": "d5f6",
+                "note": "♞ Chữ L số 2: ăn <b>f6</b>",
+                "mascot": "Tiếp tục!",
+                "reply": "b7b8",
+                "replyNote": "👀 Vua đen lùi lại."
+            },
+            {
+                "fen": "1k6/7p/5N2/8/6p1/8/8/4K3 w - - 1 3",
+                "targetMove": "f6h7",
+                "note": "♞ Chữ L số 3: ăn <b>h7</b>",
+                "mascot": "Ba Tốt rồi!",
+                "reply": "b8c7",
+                "replyNote": "👀 Vua đen tiến lên."
+            },
+            {
+                "fen": "8/2k4N/8/8/6p1/8/8/4K3 w - - 1 4",
+                "targetMove": "h7f6",
+                "note": "♞ Từ góc h7 không với tới g4. Nhảy về <b>f6</b> trước",
+                "mascot": "Mã cần 2 bước!",
+                "reply": "c7d6",
+                "replyNote": "👀 Vua đen lại gần."
+            },
+            {
+                "fen": "8/8/3k1N2/8/6p1/8/8/4K3 w - - 3 5",
+                "targetMove": "f6g4",
+                "note": "♞ Chữ L số 4: ăn <b>g4</b>",
+                "mascot": "Ăn sạch!"
+            }
+        ]
+    },
+    {
+        "id": "fork",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 4: ♞ Quân Mã",
+        "title": "Đòn Chĩa Đôi (Fork)",
+        "steps": [
+            {
+                "fen": "4q1k1/7p/8/8/4N3/8/8/6K1 w - - 0 1",
+                "targetMove": "e4f6",
+                "note": "♞ Tìm ô Mã dọa <b>cả Vua lẫn Hậu</b>!",
+                "mascot": "Một nước, hai mục tiêu!",
+                "reply": "g8g7",
+                "replyNote": "👀 Vua đen phải chạy, bỏ lại Hậu!"
+            },
+            {
+                "fen": "4q3/6kp/5N2/8/8/8/8/6K1 w - - 2 2",
+                "targetMove": "f6e8",
+                "note": "♞ Mã ăn Hậu, còn chiếu tiếp!",
+                "mascot": "Ăn Hậu 9 điểm!"
+            },
+            {
+                "fen": "4k3/8/8/1r6/4N3/8/8/6K1 w - - 0 1",
+                "targetMove": "e4d6",
+                "note": "♞ Thêm một đòn: Mã chĩa đôi <b>Vua và Xe</b>",
+                "mascot": "Ngựa lại chĩa đôi!",
+                "reply": "e8d7",
+                "replyNote": "👀 Vua đen phải tránh chiếu."
+            },
+            {
+                "fen": "8/3k4/3N4/1r6/8/8/8/6K1 w - - 2 2",
+                "targetMove": "d6b5",
+                "note": "♞ Ăn Xe b5, Mã thoát khỏi Vua đen",
+                "mascot": "Gọn gàng!"
+            }
+        ]
+    },
+    {
+        "id": "safe-knight-bait",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 4: ♞ Quân Mã",
+        "title": "Mã Tránh Tốt Canh",
+        "steps": [
+            {
+                "fen": "6k1/5ppp/3p4/4p3/1p6/3N4/5PPP/6K1 w - - 0 1",
+                "targetMove": "d3e5",
+                "reply": "d6e5",
+                "replyNote": "😱 Tốt d6 ăn mất Mã! Mã 3 điểm đổi Tốt 1 điểm.",
+                "note": "🤔 Mã ăn được Tốt e5 hoặc Tốt b4. Thử ăn <b>e5</b>!",
+                "mascot": "Mã nhảy vào trung tâm!"
+            },
+            {
+                "fen": "6k1/5ppp/3p4/4p3/1p6/3N4/5PPP/6K1 w - - 0 1",
+                "targetMove": "d3b4",
+                "note": "✅ Tốt e5 có Tốt d6 canh. Ăn Tốt <b>b4</b> không ai canh!",
+                "mascot": "Cùng 1 điểm nhưng không mất Mã!",
+                "before": {
+                    "arrows": [
+                        [
+                            "d6",
+                            "e5",
+                            "attack"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "e5",
+                            "guard"
+                        ],
+                        [
+                            "b4",
+                            "x"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "smothered-2",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 4: ♞ Quân Mã",
+        "title": "Đưa Mã vào vị trí",
+        "steps": [
+            {
+                "fen": "6rk/6pp/8/4N3/8/8/5PPP/6K1 w - - 0 1",
+                "targetMove": "e5f7",
+                "goal": "mate",
+                "note": "♞ Vua bị quân nhà vây kín: Mã nhảy tới <b>f7</b>",
+                "mascot": "Ngạt thở!"
+            }
+        ]
+    },
+    {
+        "id": "endgame-knight-pawn",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 4: ♞ Quân Mã",
+        "title": "Mã chống Tốt",
+        "steps": [
+            {
+                "fen": "k7/8/8/8/8/8/4p3/2N1K3 w - - 0 1",
+                "targetMove": "c1e2",
+                "note": "♞ Tốt đen sắp phong cấp! Mã ăn ngay <b>e2</b>",
+                "mascot": "Chặn đứng Tốt!"
+            }
+        ]
+    },
+    {
+        "id": "queen",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 5: ♛ Quân Hậu",
+        "title": "Siêu Xe Hậu",
+        "steps": [
+            {
+                "fen": "7k/7p/8/p2r4/8/1Q6/8/b3K3 w - - 0 1",
+                "targetMove": "b3d5",
+                "note": "♛ Hậu đi <b>chéo</b> như Tượng: ăn Xe d5",
+                "mascot": "Siêu xe chạy chéo!",
+                "reply": "h8g7",
+                "replyNote": "👀 Vua đen ra g7."
+            },
+            {
+                "fen": "8/6kp/8/p2Q4/8/8/8/b3K3 w - - 1 2",
+                "targetMove": "d5a5",
+                "note": "♛ Hậu đi <b>ngang</b> như Xe: ăn Tốt a5",
+                "mascot": "Lướt ngang!",
+                "reply": "g7h6",
+                "replyNote": "👀 Vua đen sang h6."
+            },
+            {
+                "fen": "8/7p/7k/Q7/8/8/8/b3K3 w - - 1 3",
+                "targetMove": "a5a1",
+                "note": "♛ Hậu đi <b>thẳng</b> xuống: ăn Tượng a1",
+                "mascot": "Hậu đi được mọi hướng!"
+            }
+        ]
+    },
+    {
+        "id": "queen-lines",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 5: ♛ Quân Hậu",
+        "title": "Hậu Đi Thẳng Và Chéo",
+        "steps": [
+            {
+                "fen": "7k/n2r4/8/2p5/8/8/8/3QK3 w - - 0 1",
+                "targetMove": "d1d7",
+                "note": "♛ Đi <b>thẳng</b> như Xe: ăn Xe d7",
+                "mascot": "Chạy thẳng như Xe!",
+                "reply": "h8g8",
+                "replyNote": "👀 Vua đen lên g8."
+            },
+            {
+                "fen": "6k1/n2Q4/8/2p5/8/8/8/4K3 w - - 1 2",
+                "targetMove": "d7a7",
+                "note": "♛ Đi <b>ngang</b>: ăn Mã a7",
+                "mascot": "Lướt ngang như Xe!",
+                "reply": "g8f8",
+                "replyNote": "👀 Vua đen sang f8."
+            },
+            {
+                "fen": "5k2/Q7/8/2p5/8/8/8/4K3 w - - 1 3",
+                "targetMove": "a7c5",
+                "note": "♛ Đi <b>chéo</b> như Tượng: ăn Tốt c5",
+                "mascot": "Chạy chéo như Tượng!"
+            }
+        ]
+    },
+    {
+        "id": "queen-safe",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 5: ♛ Quân Hậu",
+        "title": "Hậu Tránh Bẫy",
+        "steps": [
+            {
+                "fen": "4k3/3p4/8/8/n7/8/8/3Q2K1 w - - 0 1",
+                "targetMove": "d1a4",
+                "note": "♛ Mã a4 <b>không ai bảo vệ</b>: ăn ngay!",
+                "mascot": "Ăn quân không ai bảo vệ mới an toàn!"
+            },
+            {
+                "fen": "4k3/8/8/1p6/n5b1/8/8/3Q2K1 w - - 0 1",
+                "targetMove": "d1g4",
+                "note": "♛ Mã a4 có Tốt b5 canh. Ăn quân <b>không ai canh</b>!",
+                "mascot": "Né miếng mồi có bẫy!",
+                "before": {
+                    "arrows": [
+                        [
+                            "b5",
+                            "a4",
+                            "attack"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "a4",
+                            "guard"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "4k3/8/8/8/8/4p3/3Q4/6K1 w - - 0 1",
+                "targetMove": "d2e3",
+                "goal": "safe",
+                "note": "♛ Tốt e3 dọa Hậu! Đưa Hậu tới <b>ô an toàn</b> (ăn luôn Tốt càng tốt)",
+                "mascot": "Hậu quý lắm, đừng để Tốt ăn!"
+            }
+        ]
+    },
+    {
+        "id": "queen-fork",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 5: ♛ Quân Hậu",
+        "title": "Hậu Chĩa Đôi",
+        "steps": [
+            {
+                "fen": "r5k1/6pp/8/8/8/8/5PPP/3Q2K1 w - - 0 1",
+                "targetMove": "d1d5",
+                "note": "♛ Tìm ô Hậu vừa <b>chiếu Vua</b> vừa <b>dọa Xe</b>!",
+                "mascot": "Hậu chĩa đôi!",
+                "reply": "g8h8",
+                "replyNote": "👀 Vua đen trốn vào góc."
+            },
+            {
+                "fen": "r6k/6pp/8/3Q4/8/8/5PPP/6K1 w - - 2 2",
+                "targetMove": "d5a8",
+                "goal": "mate",
+                "note": "♛ Ăn Xe a8: chiếu bí luôn!",
+                "mascot": "Một mũi tên trúng hai đích!"
+            }
+        ]
+    },
+    {
+        "id": "safe-king-guard",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 5: ♛ Quân Hậu",
+        "title": "Ô Có Vua Canh",
+        "steps": [
+            {
+                "fen": "r3k3/3ppppp/8/7Q/8/7P/5PP1/6K1 w - - 0 1",
+                "targetMove": "h5f7",
+                "reply": "e8f7",
+                "replyNote": "😱 Vua đen ăn mất Hậu! Ô f7 đứng sát Vua đen nên được Vua canh.",
+                "note": "🤔 Hậu nhắm được Tốt f7 và Tốt h7. Thử ăn <b>f7</b> chiếu Vua!",
+                "mascot": "Hậu ăn f7 chiếu Vua!"
+            },
+            {
+                "fen": "r3k3/3ppppp/8/7Q/8/7P/5PP1/6K1 w - - 0 1",
+                "targetMove": "h5h7",
+                "note": "✅ f7 có Vua canh. Ăn Tốt <b>h7</b>, ô này không ai canh!",
+                "mascot": "Ăn quân ở ô an toàn mới giữ được Hậu!",
+                "before": {
+                    "marks": [
+                        [
+                            "f7",
+                            "guard"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "fools-mate",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 5: ♛ Quân Hậu",
+        "title": "Chiếu Bí Ngốc Nghếch",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/ppppp2p/5p2/6p1/3PP3/8/PPP2PPP/RNBQKBNR w KQkq g6 0 3",
+                "targetMove": "d1h5",
+                "goal": "mate",
+                "note": "🤡 Đen đẩy Tốt f và g quá sớm, mở toang đường chéo: <b>Hậu h5</b>!",
+                "mascot": "Chiếu bí nhanh nhất!"
+            },
+            {
+                "fen": "rnbqkbnr/ppppp2p/8/5pp1/4P3/2N5/PPPP1PPP/R1BQKBNR w KQkq g6 0 3",
+                "targetMove": "d1h5",
+                "goal": "mate",
+                "note": "🤡 Lại thêm một lần: Vua đen hở đường chéo e8–h5!",
+                "mascot": "Ghi nhớ: đừng đẩy Tốt f, g sớm!"
+            }
+        ]
+    },
+    {
+        "id": "king",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 6: ♚ Quân Vua",
+        "title": "Vua Đi Từng Bước",
+        "steps": [
+            {
+                "fen": "4k3/8/8/8/8/3pK3/8/8 w - - 0 1",
+                "targetMove": "e3d3",
+                "note": "♚ Vua đi <b>1 ô</b> sang ngang: ăn Tốt d3",
+                "mascot": "Từng bước một!"
+            },
+            {
+                "fen": "4k3/8/8/8/8/3K4/3p4/8 w - - 0 1",
+                "targetMove": "d3d2",
+                "note": "♚ Vua lùi 1 ô: ăn Tốt d2 trước khi nó phong cấp",
+                "mascot": "Vua đi lùi cũng được!"
+            },
+            {
+                "fen": "4k3/8/8/8/8/5K2/6p1/8 w - - 0 1",
+                "targetMove": "f3g2",
+                "note": "♚ Vua đi <b>chéo</b> 1 ô: ăn Tốt g2",
+                "mascot": "Đi chéo 1 ô!"
+            }
+        ]
+    },
+    {
+        "id": "king-safe",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 6: ♚ Quân Vua",
+        "title": "Vua Không Vào Ô Nguy Hiểm",
+        "steps": [
+            {
+                "fen": "4k3/8/8/8/7n/3pKp2/8/8 w - - 0 1",
+                "targetMove": "e3d3",
+                "note": "♚ Ô f3 có Mã h4 canh. Vua chỉ ăn Tốt <b>d3</b> an toàn",
+                "mascot": "Không bước vào ô nguy hiểm!",
+                "before": {
+                    "arrows": [
+                        [
+                            "h4",
+                            "f3",
+                            "attack"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "f3",
+                            "x"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "4k3/8/8/8/8/8/3r4/4K3 w - - 0 1",
+                "targetMove": "e1d2",
+                "note": "♚ Xe d2 <b>không ai bảo vệ</b>: Vua ăn được!",
+                "mascot": "Vua cũng biết ăn quân!"
+            },
+            {
+                "fen": "4k3/8/8/8/1b6/8/3r4/4K3 w - - 0 1",
+                "targetMove": "e1f1",
+                "goal": "safe",
+                "note": "♚ Lần này Xe có <b>Tượng b4</b> bảo vệ: không được ăn! Tìm ô an toàn",
+                "mascot": "Ô f1 an toàn!",
+                "before": {
+                    "arrows": [
+                        [
+                            "b4",
+                            "d2",
+                            "protect"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "king-walk",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 6: ♚ Quân Vua",
+        "title": "Vua Đi Dạo Từng Bước",
+        "steps": [
+            {
+                "fen": "k7/8/8/8/4p3/8/8/4K3 w - - 0 1",
+                "targetMove": "e1e2",
+                "note": "♚ Từng bước một: lên <b>e2</b>",
+                "mascot": "Vua đi dạo!",
+                "reply": "a8b7",
+                "replyNote": "👀 Vua đen cũng đi."
+            },
+            {
+                "fen": "8/1k6/8/8/4p3/8/4K3/8 w - - 2 2",
+                "targetMove": "e2e3",
+                "note": "♚ Lên <b>e3</b>",
+                "mascot": "Thêm một bước!",
+                "reply": "b7c6",
+                "replyNote": "👀 Vua đen tiến lại gần."
+            },
+            {
+                "fen": "8/8/2k5/8/4p3/4K3/8/8 w - - 4 3",
+                "targetMove": "e3e4",
+                "note": "♚ Ăn Tốt <b>e4</b>!",
+                "mascot": "Vua bắt được Tốt!"
+            }
+        ]
+    },
+    {
+        "id": "escape",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 6: ♚ Quân Vua",
+        "title": "Né Đòn Chiếu Của Vua",
+        "steps": [
+            {
+                "fen": "6k1/8/8/8/8/8/6PP/r5K1 w - - 0 1",
+                "targetMove": "g1f2",
+                "note": "🏃 Vua bị chiếu! Chạy tới ô <b>an toàn</b> f2",
+                "mascot": "Cửa thoát ở f2!"
+            },
+            {
+                "fen": "4r1k1/8/8/8/8/8/8/4K3 w - - 0 1",
+                "targetMove": "e1d2",
+                "goal": "safe",
+                "note": "🏃 Xe chiếu dọc cột e. Chạy <b>ra khỏi cột e</b>!",
+                "mascot": "Né sang bên cạnh!"
+            },
+            {
+                "fen": "4r1k1/8/8/8/1b6/8/8/4K3 w - - 0 1",
+                "targetMove": "e1f2",
+                "goal": "safe",
+                "note": "🏃 Coi chừng: ô d2 có <b>Tượng b4</b> canh!",
+                "mascot": "Nhìn kỹ cả Tượng nữa!",
+                "before": {
+                    "arrows": [
+                        [
+                            "b4",
+                            "d2",
+                            "attack"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "d2",
+                            "x"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "king-catch",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 6: ♚ Quân Vua",
+        "title": "Vua Đuổi Bắt Tốt",
+        "steps": [
+            {
+                "fen": "8/8/8/8/p2K4/8/8/7k w - - 0 1",
+                "targetMove": "d4c4",
+                "note": "♚ Vua đuổi theo: sang <b>c4</b>",
+                "mascot": "Đuổi kịp không?",
+                "reply": "a4a3",
+                "replyNote": "👀 Tốt đen chạy xuống."
+            },
+            {
+                "fen": "8/8/8/8/2K5/p7/8/7k w - - 0 2",
+                "targetMove": "c4b3",
+                "note": "♚ Đứng sát Tốt: <b>b3</b>",
+                "mascot": "Áp sát!",
+                "reply": "a3a2",
+                "replyNote": "👀 Tốt đen sắp phong cấp!"
+            },
+            {
+                "fen": "8/8/8/8/8/1K6/p7/7k w - - 0 3",
+                "targetMove": "b3a2",
+                "note": "♚ Ăn Tốt!",
+                "mascot": "Bắt được!"
+            }
+        ]
+    },
+    {
+        "id": "value",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Quân Nào Đáng Giá Hơn?",
+        "steps": [
+            {
+                "fen": "7k/3q4/8/8/8/8/8/1n1R2K1 w - - 0 1",
+                "targetMove": "d1d7",
+                "note": "💰 Ăn quân <b>giá trị nhất</b>: Hậu d7 (9 điểm)!",
+                "mascot": "Hậu 9 điểm, Mã chỉ 3!"
+            },
+            {
+                "fen": "6k1/2r1p3/8/3N4/8/8/8/6K1 w - - 0 1",
+                "targetMove": "d5c7",
+                "note": "💰 Mã ăn được Xe c7 hoặc Tốt e7. Chọn quân <b>đắt hơn</b>!",
+                "mascot": "Xe 5 điểm > Tốt 1 điểm!"
+            },
+            {
+                "fen": "6k1/6p1/1n6/8/3B4/8/8/6K1 w - - 0 1",
+                "targetMove": "d4b6",
+                "note": "💰 Tốt g7 có Vua canh. Ăn <b>Mã b6</b> không ai bảo vệ!",
+                "mascot": "Vừa đắt vừa an toàn!"
+            }
+        ]
+    },
+    {
+        "id": "which-piece",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Quân Nào Ăn Được Hậu?",
+        "steps": [
+            {
+                "fen": "7k/8/8/3q4/5N2/8/8/R1B3K1 w - - 0 1",
+                "targetMove": "f4d5",
+                "note": "🤔 Quân nào <b>với tới</b> Hậu d5? Mã f4!",
+                "mascot": "Mã nhảy chữ L tới d5!"
+            },
+            {
+                "fen": "6k1/5pp1/7p/8/8/8/1q6/R1B3K1 w - - 0 1",
+                "targetMove": "c1b2",
+                "note": "🤔 Hậu b2 dọa cả Xe lẫn Tượng. Quân nào ăn được Hậu?",
+                "mascot": "Tượng đi chéo một ô!"
+            },
+            {
+                "fen": "6k1/5pp1/7p/q7/8/8/8/R1B3K1 w - - 0 1",
+                "targetMove": "a1a5",
+                "note": "🤔 Hậu chạy lên a5. Giờ quân nào với tới?",
+                "mascot": "Xe chạy thẳng cột a!"
+            }
+        ]
+    },
+    {
+        "id": "free-piece",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Ăn Quân Bị Bỏ Rơi",
+        "steps": [
+            {
+                "fen": "4k3/8/3p4/4p3/7b/5N2/8/3K4 w - - 0 1",
+                "targetMove": "f3h4",
+                "note": "🎁 Tốt e5 có Tốt d6 canh. Chọn quân <b>không ai bảo vệ</b>!",
+                "mascot": "Tượng h4 bị bỏ rơi!"
+            },
+            {
+                "fen": "6k1/pp3ppp/8/4r3/8/8/PB3PPP/6K1 w - - 0 1",
+                "targetMove": "b2e5",
+                "note": "🎁 Xe e5 <b>không ai bảo vệ</b>: Tượng ăn miễn phí!",
+                "mascot": "Ăn quân miễn phí!"
+            },
+            {
+                "fen": "r5k1/5ppp/8/8/2n5/1Q6/5PPP/6K1 w - - 0 1",
+                "targetMove": "b3c4",
+                "note": "🎁 Mã c4 đứng một mình, không ai canh!",
+                "mascot": "Nhặt quà!"
+            }
+        ]
+    },
+    {
+        "id": "defend-piece",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Dùng Tốt Bảo Vệ Quân",
+        "steps": [
+            {
+                "fen": "3rk3/8/8/8/3N4/8/2P1P3/6K1 w - - 0 1",
+                "targetMove": "c2c3",
+                "goal": "protect",
+                "square": "d4",
+                "note": "🛡 Xe dọa Mã d4. Dùng <b>Tốt</b> bảo vệ Mã",
+                "mascot": "Tốt làm vệ sĩ!"
+            },
+            {
+                "fen": "3rk3/8/8/8/3B4/8/2P1P3/6K1 w - - 0 1",
+                "targetMove": "e2e3",
+                "goal": "protect",
+                "square": "d4",
+                "note": "🛡 Tốt bảo vệ Tượng d4",
+                "mascot": "Ăn Tượng thì mất Xe!"
+            },
+            {
+                "fen": "3rk3/8/8/8/3Q4/8/2P1P3/6K1 w - - 0 1",
+                "targetMove": "d4a4",
+                "goal": "safe",
+                "note": "🛡 Hậu 9 điểm, Xe 5 điểm: bảo vệ <b>không đủ</b>, Hậu phải chạy!",
+                "mascot": "Đổi Hậu lấy Xe là lỗ!"
+            }
+        ]
+    },
+    {
+        "id": "run-away",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Chạy Quân Bị Dọa",
+        "steps": [
+            {
+                "fen": "4k3/8/7b/3p4/4N3/8/8/4K3 w - - 0 1",
+                "targetMove": "e4c3",
+                "goal": "safe",
+                "note": "🏃 Tốt d5 dọa Mã. Mã chạy tới ô <b>an toàn</b>",
+                "mascot": "Coi chừng cả Tượng h6!"
+            },
+            {
+                "fen": "4k3/8/8/3p4/2R5/8/8/4K3 w - - 0 1",
+                "targetMove": "c4c1",
+                "goal": "safe",
+                "note": "🏃 Tốt d5 dọa Xe. Xe chạy!",
+                "mascot": "Xe chạy thẳng!"
+            },
+            {
+                "fen": "4k3/8/8/3p4/4B3/8/8/4K3 w - - 0 1",
+                "targetMove": "e4d5",
+                "goal": "safe",
+                "note": "🏃 Tượng bị dọa. Chạy, hoặc <b>ăn luôn</b> kẻ dọa!",
+                "mascot": "Tốt d5 không ai canh!"
+            },
+            {
+                "fen": "6k1/8/8/3p4/4Q3/8/8/4K3 w - - 0 1",
+                "targetMove": "e4d5",
+                "goal": "safe",
+                "note": "🏃 Hậu bị Tốt dọa. Hậu quý nhất, phải chạy ngay!",
+                "mascot": "Ăn Tốt còn chiếu Vua!"
+            }
+        ]
+    },
+    {
+        "id": "block",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Dùng Quân Che Chắn",
+        "steps": [
+            {
+                "fen": "6k1/5ppp/8/1B6/8/8/5PPP/r5K1 w - - 0 1",
+                "targetMove": "b5f1",
+                "note": "🛡 Dùng Tượng <b>chắn</b> đường chiếu ở f1 (Vua bảo vệ Tượng)",
+                "mascot": "Lá chắn Tượng!"
+            },
+            {
+                "fen": "6k1/5ppp/8/8/8/4N3/5PPP/r5K1 w - - 0 1",
+                "targetMove": "e3f1",
+                "note": "🛡 Mã nhảy về <b>f1</b> che chắn",
+                "mascot": "Lá chắn Mã!"
+            },
+            {
+                "fen": "6k1/5ppp/8/8/8/5R2/6PP/r5K1 w - - 0 1",
+                "targetMove": "f3f1",
+                "note": "🛡 Xe chắn ở ô có <b>Vua bảo vệ</b>: f1",
+                "mascot": "Chắn đúng chỗ!"
+            }
+        ]
+    },
+    {
+        "id": "capture",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Tiêu Diệt Kẻ Tấn Công",
+        "steps": [
+            {
+                "fen": "6k1/5ppp/8/4R3/8/8/5PPP/4q1K1 w - - 0 1",
+                "targetMove": "e5e1",
+                "note": "⚔️ <b>Ăn luôn</b> quân đang chiếu Vua!",
+                "mascot": "Xe ăn Hậu!"
+            },
+            {
+                "fen": "6k1/5ppp/8/8/8/5N2/5PPP/4q1K1 w - - 0 1",
+                "targetMove": "f3e1",
+                "note": "⚔️ Mã nhảy về ăn Hậu e1!",
+                "mascot": "Mã ăn Hậu!"
+            },
+            {
+                "fen": "6k1/5ppp/8/8/1B6/8/5PPP/4q1K1 w - - 0 1",
+                "targetMove": "b4e1",
+                "note": "⚔️ Tượng đi chéo ăn Hậu e1!",
+                "mascot": "Tượng ăn Hậu!"
+            },
+            {
+                "fen": "6k1/5ppp/8/8/8/8/5PPP/5qK1 w - - 0 1",
+                "targetMove": "g1f1",
+                "note": "⚔️ Hậu f1 không ai bảo vệ: <b>Vua tự ăn</b>!",
+                "mascot": "Vua ăn Hậu!"
+            }
+        ]
+    },
+    {
+        "id": "skewer",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Đòn Xiên Que (Skewer)",
+        "steps": [
+            {
+                "fen": "8/8/8/8/3k3q/8/R7/1K6 w - - 0 1",
+                "targetMove": "a2a4",
+                "note": "🍢 Chiếu Vua để lộ <b>Hậu phía sau</b>",
+                "mascot": "Xiên que!",
+                "reply": "d4e5",
+                "replyNote": "👀 Vua đen phải tránh chiếu, để lộ Hậu."
+            },
+            {
+                "fen": "8/8/8/4k3/R6q/8/8/1K6 w - - 2 2",
+                "targetMove": "a4h4",
+                "note": "🍢 Ăn Hậu h4!",
+                "mascot": "Que xiên trúng Hậu!"
+            },
+            {
+                "fen": "1r6/8/8/4k3/8/8/8/K3B3 w - - 0 1",
+                "targetMove": "e1g3",
+                "note": "🍢 Tượng chiếu chéo: Vua đứng trước, <b>Xe b8</b> phía sau",
+                "mascot": "Tượng cũng xiên được!",
+                "reply": "e5d5",
+                "replyNote": "👀 Vua đen chạy, Xe b8 lộ ra."
+            },
+            {
+                "fen": "1r6/8/8/3k4/8/6B1/8/K7 w - - 2 2",
+                "targetMove": "g3b8",
+                "note": "🍢 Ăn Xe b8",
+                "mascot": "Tuyệt vời!"
+            }
+        ]
+    },
+    {
+        "id": "pin",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Đòn Giằng (Pin)",
+        "steps": [
+            {
+                "fen": "4k3/4q2p/8/8/8/8/8/R4K2 w - - 0 1",
+                "targetMove": "a1e1",
+                "note": "📌 Ghim Hậu vào Vua: Xe sang <b>cột e</b> (Vua f1 bảo vệ Xe)",
+                "mascot": "Kéo Xe sang e1 trói chặt Hậu đen!",
+                "reply": "h7h6",
+                "replyNote": "👀 Hậu đen bị ghim, không chạy được!"
+            },
+            {
+                "fen": "4k3/4q3/7p/8/8/8/8/4RK2 w - - 0 2",
+                "targetMove": "e1e7",
+                "note": "📌 Ăn Hậu! Đổi Xe 5 lấy Hậu 9",
+                "mascot": "Trao đổi có lợi!",
+                "reply": "e8e7",
+                "replyNote": "👀 Vua đen ăn lại Xe."
+            },
+            {
+                "fen": "4k3/8/2n5/1B6/3P4/8/8/4K3 w - - 0 1",
+                "targetMove": "d4d5",
+                "note": "📌 Mã c6 bị Tượng <b>ghim</b> vào Vua. Đẩy Tốt dọa Mã!",
+                "mascot": "Quân bị ghim không chạy được!",
+                "reply": "e8e7",
+                "replyNote": "👀 Mã bị ghim nên không chạy kịp."
+            },
+            {
+                "fen": "8/4k3/2n5/1B1P4/8/8/8/4K3 w - - 1 2",
+                "targetMove": "d5c6",
+                "note": "📌 Ăn Mã c6",
+                "mascot": "Ghim rồi ăn!"
+            }
+        ]
+    },
+    {
+        "id": "backrank",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Chiếu Bí Hàng Cuối",
+        "steps": [
+            {
+                "fen": "6k1/5ppp/8/8/8/8/8/R5K1 w - - 0 1",
+                "targetMove": "a1a8",
+                "goal": "mate",
+                "note": "🎯 Chiếu hàng cuối!",
+                "mascot": "Vua đen bị Tốt nhốt!"
+            },
+            {
+                "fen": "2r3k1/5ppp/8/8/8/8/5PPP/2R3K1 w - - 0 1",
+                "targetMove": "c1c8",
+                "goal": "mate",
+                "note": "🎯 Ăn Xe canh hàng cuối, chiếu bí luôn!",
+                "mascot": "Không còn ai đỡ!"
+            },
+            {
+                "fen": "6k1/5ppp/8/8/8/8/5PPP/4Q1K1 w - - 0 1",
+                "targetMove": "e1e8",
+                "goal": "mate",
+                "note": "🎯 Hậu cũng chiếu hàng cuối được!",
+                "mascot": "Hậu bay lên e8!"
+            }
+        ]
+    },
+    {
+        "id": "back-rank-1",
+        "level": "Cấp 1 · Từng quân",
+        "category": "Chương 7: 🎯 Ôn tập: chọn đúng quân",
+        "title": "Mối đe dọa cơ bản",
+        "steps": [
+            {
+                "fen": "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1",
+                "targetMove": "e1e8",
+                "goal": "mate",
+                "note": "🎯 Vua đen bị 3 Tốt nhốt: Xe chiếu hàng cuối!",
+                "mascot": "Hàng cuối bỏ trống!"
+            },
+            {
+                "fen": "6k1/5ppp/8/8/8/8/5PPP/3Q2K1 w - - 0 1",
+                "targetMove": "d1d8",
+                "goal": "mate",
+                "note": "🎯 Hậu cũng làm được!",
+                "mascot": "Hậu bay lên d8!"
+            }
+        ]
+    },
+    {
+        "id": "castle",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 8: ♜ Xe + ♚ Vua",
+        "title": "Nhập Thành Bảo Vệ Vua",
+        "steps": [
+            {
+                "fen": "4k3/8/8/8/8/8/5PPP/4K2R w K - 0 1",
+                "targetMove": "e1g1",
+                "note": "🏰 Nhập thành: bấm Vua → chọn <b>g1</b>",
+                "mascot": "Vua vào lâu đài!"
+            },
+            {
+                "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+                "targetMove": "e1g1",
+                "note": "🏰 Ván cờ thật: Mã và Tượng đã ra, <b>nhập thành</b> ngay!",
+                "mascot": "Vua an toàn, Xe ra trận!",
+                "reply": "g8f6",
+                "replyNote": "👀 Đen ra Mã f6."
+            },
+            {
+                "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQ1RK1 w kq - 6 5",
+                "targetMove": "d2d3",
+                "note": "♟ Tốt <b>d3</b> giữ chắc Tốt e4 và mở đường cho Tượng c1",
+                "mascot": "Thế trận vững chắc!"
+            }
+        ]
+    },
+    {
+        "id": "castle-long",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 8: ♜ Xe + ♚ Vua",
+        "title": "Nhập Thành Cánh Hậu",
+        "steps": [
+            {
+                "fen": "4k3/8/8/8/8/8/PPP5/R3K3 w Q - 0 1",
+                "targetMove": "e1c1",
+                "note": "🏰 Nhập thành <b>cánh Hậu</b>: Vua e1 → c1",
+                "mascot": "Vua sang trái, Xe nhảy qua!"
+            },
+            {
+                "fen": "rnbqk2r/ppp1bppp/4pn2/3p4/3P1B2/2N5/PPPQPPPP/R3KBNR w KQkq - 4 5",
+                "targetMove": "e1c1",
+                "note": "🏰 Ván cờ thật: Mã, Tượng, Hậu đã ra. Nhập thành cánh Hậu, Xe vào <b>cột d</b>",
+                "mascot": "Xe d1 sẵn sàng!"
+            }
+        ]
+    },
+    {
+        "id": "rook-mate",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 8: ♜ Xe + ♚ Vua",
+        "title": "Xe Và Vua Chiếu Bí",
+        "steps": [
+            {
+                "fen": "4k3/8/4K3/8/8/8/8/R7 w - - 0 1",
+                "targetMove": "a1a8",
+                "goal": "mate",
+                "note": "♜ Vua trắng chặn trước mặt, Xe <b>chiếu hàng cuối</b>!",
+                "mascot": "Vua đối mặt Vua!"
+            },
+            {
+                "fen": "4k3/8/4K3/8/8/8/8/7R w - - 0 1",
+                "targetMove": "h1h8",
+                "goal": "mate",
+                "note": "♜ Xe chiếu từ bên phải!",
+                "mascot": "Bên nào cũng được!"
+            },
+            {
+                "fen": "k7/8/1K6/8/8/8/8/7R w - - 0 1",
+                "targetMove": "h1h8",
+                "goal": "mate",
+                "note": "♜ Vua đen ở góc: chiếu hàng cuối!",
+                "mascot": "Dồn vào góc!"
+            }
+        ]
+    },
+    {
+        "id": "queenmate",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 9: ♛ Hậu + ♚ Vua",
+        "title": "Hậu Hôn Vua",
+        "steps": [
+            {
+                "fen": "7k/4Q3/6K1/8/8/8/8/8 w - - 0 1",
+                "targetMove": "e7g7",
+                "goal": "mate",
+                "note": "💋 Hậu áp sát Vua đen, Vua trắng bảo vệ Hậu",
+                "mascot": "Hậu hôn Vua!"
+            },
+            {
+                "fen": "7k/8/5K2/8/8/8/8/6Q1 w - - 0 1",
+                "targetMove": "g1g7",
+                "goal": "mate",
+                "note": "💋 Hậu lên g7, Vua f6 bảo vệ",
+                "mascot": "Áp sát!"
+            },
+            {
+                "fen": "4k3/8/4K3/8/7Q/8/8/8 w - - 0 1",
+                "targetMove": "h4e7",
+                "goal": "mate",
+                "note": "💋 Hậu áp sát Vua đen ở e7",
+                "mascot": "Vua không chạy được!"
+            }
+        ]
+    },
+    {
+        "id": "stalemate",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 9: ♛ Hậu + ♚ Vua",
+        "title": "Cẩn Thận Hòa Pat!",
+        "steps": [
+            {
+                "fen": "7k/5K2/8/8/8/8/8/6Q1 w - - 0 1",
+                "targetMove": "g1g7",
+                "goal": "mate",
+                "note": "⚠️ Phải <b>CHIẾU</b>! Nếu Vua đen hết nước mà không bị chiếu là <b>hòa</b>",
+                "mascot": "Chiếu bí, không phải Pat!"
+            },
+            {
+                "fen": "7k/8/6K1/8/8/8/8/5Q2 w - - 0 1",
+                "targetMove": "f1f8",
+                "goal": "mate",
+                "note": "⚠️ Cẩn thận! Qf7 là hòa Pat. Tìm nước <b>chiếu bí</b>",
+                "mascot": "Đừng để hòa!"
+            },
+            {
+                "fen": "7k/8/5K2/8/8/8/8/6Q1 w - - 0 1",
+                "targetMove": "g1g7",
+                "goal": "mate",
+                "note": "⚠️ Qg6 là hòa Pat! Chiếu bí bằng cách khác",
+                "mascot": "Vua f6 bảo vệ Hậu!"
+            }
+        ]
+    },
+    {
+        "id": "endgame-opposition",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 10: ♟ Tốt + ♚ Vua",
+        "title": "Đối Vua (Opposition)",
+        "steps": [
+            {
+                "fen": "4k3/8/4K3/4P3/8/8/8/8 w - - 0 1",
+                "targetMove": "e6d6",
+                "accept": [
+                    "e6d6",
+                    "e6f6"
+                ],
+                "note": "👑 Vua trắng giữ <b>hàng 6</b>, bước sang bên: Kd6 hoặc Kf6",
+                "mascot": "Đối Vua!",
+                "reply": "e8d8",
+                "replyNote": "👀 Vua đen giữ trước Tốt."
+            },
+            {
+                "fen": "3k4/8/3K4/4P3/8/8/8/8 w - - 0 1",
+                "targetMove": "e5e6",
+                "note": "♟ Vua canh ô d7, đẩy Tốt lên <b>e6</b>",
+                "mascot": "Tốt tiến!",
+                "reply": "d8e8",
+                "replyNote": "👀 Vua đen chặn trước Tốt."
+            },
+            {
+                "fen": "4k3/8/3KP3/8/8/8/8/8 w - - 1 2",
+                "targetMove": "e6e7",
+                "note": "♟ Tốt lên <b>e7</b>",
+                "mascot": "Gần đích!",
+                "reply": "e8f7",
+                "replyNote": "👀 Vua đen tránh sang f7."
+            },
+            {
+                "fen": "8/4Pk2/3K4/8/8/8/8/8 w - - 1 3",
+                "targetMove": "d6d7",
+                "note": "👑 Vua canh ô <b>e8</b>: Tốt sẽ phong cấp!",
+                "mascot": "Thắng chắc!"
+            }
+        ]
+    },
+    {
+        "id": "promote-mate",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 10: ♟ Tốt + ♚ Vua",
+        "title": "Phong Cấp Chiếu Bí",
+        "steps": [
+            {
+                "fen": "8/5KPk/7p/8/8/8/8/8 w - - 0 1",
+                "targetMove": "g7g8",
+                "goal": "mate",
+                "note": "👑 Phong cấp <b>Hậu</b> chiếu bí luôn!",
+                "mascot": "Vua f7 bảo vệ Hậu mới!"
+            },
+            {
+                "fen": "8/2q1P1k1/8/8/8/8/8/6K1 w - - 0 1",
+                "targetMove": "e7e8n",
+                "note": "👑 Phong <b>Mã</b> để chĩa đôi Vua và Hậu!",
+                "mascot": "Phong Mã cũng có lúc hay!",
+                "reply": "g7g6",
+                "replyNote": "👀 Vua đen phải chạy, bỏ lại Hậu."
+            },
+            {
+                "fen": "4N3/2q5/6k1/8/8/8/8/6K1 w - - 1 2",
+                "targetMove": "e8c7",
+                "note": "👑 Mã ăn Hậu!",
+                "mascot": "Tuyệt chiêu!"
+            }
+        ]
+    },
+    {
+        "id": "ladder",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 11: ♜ Xe + ♜ Xe",
+        "title": "Hai Xe Lăn Bánh",
+        "steps": [
+            {
+                "fen": "7k/8/8/8/8/8/1R6/R3K3 w - - 0 1",
+                "targetMove": "b2b7",
+                "note": "🪜 Xe thứ nhất <b>chặn hàng 7</b>",
+                "mascot": "Bậc thang thứ nhất!",
+                "reply": "h8g8",
+                "replyNote": "👀 Vua đen bị đẩy lên hàng cuối."
+            },
+            {
+                "fen": "6k1/1R6/8/8/8/8/8/R3K3 w - - 2 2",
+                "targetMove": "a1a8",
+                "goal": "mate",
+                "note": "🪜 Xe thứ hai chiếu hàng 8!",
+                "mascot": "Chiếu bí!"
+            },
+            {
+                "fen": "7k/8/8/8/8/8/2R5/1R2K3 w - - 0 1",
+                "targetMove": "c2c7",
+                "note": "🪜 Thử lại: Xe c chặn hàng 7",
+                "mascot": "Hai Xe thay nhau!",
+                "reply": "h8g8",
+                "replyNote": "👀 Vua đen hết đường lùi."
+            },
+            {
+                "fen": "6k1/2R5/8/8/8/8/8/1R2K3 w - - 2 2",
+                "targetMove": "b1b8",
+                "goal": "mate",
+                "note": "🪜 Xe b chiếu hàng 8",
+                "mascot": "Lăn bánh về đích!"
+            }
+        ]
+    },
+    {
+        "id": "back-rank-3",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 11: ♜ Xe + ♜ Xe",
+        "title": "Hai Xe chồng cột",
+        "steps": [
+            {
+                "fen": "4r1k1/5ppp/2q5/8/8/8/4RPPP/4R1K1 w - - 0 1",
+                "targetMove": "e2e8",
+                "note": "🎯 Hai Xe chồng cột e. Xe trước ăn Xe e8!",
+                "mascot": "Xe sau yểm trợ!",
+                "reply": "c6e8",
+                "replyNote": "👀 Hậu đen ăn lại."
+            },
+            {
+                "fen": "4q1k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 2",
+                "targetMove": "e1e8",
+                "goal": "mate",
+                "note": "🎯 Xe sau ăn Hậu: chiếu bí!",
+                "mascot": "Hàng cuối thất thủ!"
+            }
+        ]
+    },
+    {
+        "id": "open-file-5",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 11: ♜ Xe + ♜ Xe",
+        "title": "Nhân đôi sức ép",
+        "steps": [
+            {
+                "fen": "r2r2k1/pp1b1ppp/2p5/8/8/2P5/PP1R1PPP/3R2K1 w - - 0 1",
+                "targetMove": "d2d7",
+                "note": "♜♜ Hai Xe <b>chồng cột d</b> tấn công Tượng d7, Đen chỉ có 1 Xe bảo vệ",
+                "mascot": "2 đánh 1!",
+                "reply": "d8d7",
+                "replyNote": "👀 Xe đen ăn lại.",
+                "before": {
+                    "arrows": [
+                        [
+                            "d1",
+                            "d7",
                             "attack"
                         ],
                         [
-                            "d5",
-                            "e6",
+                            "d8",
+                            "d7",
+                            "protect"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "r5k1/pp1r1ppp/2p5/8/8/2P5/PP3PPP/3R2K1 w - - 0 2",
+                "targetMove": "d1d7",
+                "note": "♜ Xe thứ hai ăn lại: lời một Tượng!",
+                "mascot": "Nhân đôi sức ép!"
+            }
+        ]
+    },
+    {
+        "id": "discovered",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 12: ♞ Mã + ♜ Xe",
+        "title": "Đòn Phát Hiện",
+        "steps": [
+            {
+                "fen": "4k3/8/3q4/8/4N3/8/8/4R1K1 w - - 0 1",
+                "targetMove": "e4d6",
+                "note": "♞ Mã nhảy đi → <b>Xe lộ ra chiếu</b>! Ăn luôn Hậu",
+                "mascot": "Đòn phát hiện!",
+                "reply": "e8d7",
+                "replyNote": "👀 Vua đen chạy và dọa ăn Mã."
+            },
+            {
+                "fen": "8/3k4/3N4/8/8/8/8/4R1K1 w - - 1 2",
+                "targetMove": "e1d1",
+                "goal": "protect",
+                "square": "d6",
+                "note": "♜ Mã d6 đang bị Vua dọa. Xe sang <b>d1</b> bảo vệ Mã",
+                "mascot": "Giữ chắc chiến lợi phẩm!"
+            }
+        ]
+    },
+    {
+        "id": "double-check",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 12: ♞ Mã + ♜ Xe",
+        "title": "Chiếu Đôi Kết Liễu",
+        "steps": [
+            {
+                "fen": "3qkb2/3p1p2/8/8/4N3/8/8/4R1K1 w - - 0 1",
+                "targetMove": "e4d6",
+                "goal": "mate",
+                "note": "⚡ <b>Chiếu đôi</b>: Mã và Xe cùng chiếu, Vua hết đường!",
+                "mascot": "Mã nhảy đi, Xe phía sau cũng chiếu!"
+            },
+            {
+                "fen": "2rkr3/1p2p3/8/8/3N4/8/8/3R2K1 w - - 0 1",
+                "targetMove": "d4e6",
+                "goal": "mate",
+                "note": "⚡ <b>Chiếu đôi</b> bằng Mã và Xe!",
+                "mascot": "Mã e6 chiếu, Xe d1 cũng chiếu!"
+            },
+            {
+                "fen": "5rkr/5p1p/6N1/8/8/8/8/6RK w - - 0 1",
+                "targetMove": "g6e7",
+                "goal": "mate",
+                "note": "⚡ <b>Chiếu đôi</b> kết liễu nhanh chóng!",
+                "mascot": "Mã e7 chiếu, Xe g1 cũng chiếu!"
+            }
+        ]
+    },
+    {
+        "id": "arabian",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 12: ♞ Mã + ♜ Xe",
+        "title": "Mate Ả Rập",
+        "steps": [
+            {
+                "fen": "7k/1R6/5N2/8/8/8/8/6K1 w - - 0 1",
+                "targetMove": "b7h7",
+                "goal": "mate",
+                "note": "🐪 Mã f6 bảo vệ Xe h7 và canh g8: chiếu bí Ả Rập!",
+                "mascot": "Mã + Xe phối hợp!"
+            },
+            {
+                "fen": "7k/8/5N2/8/8/8/8/6RK w - - 0 1",
+                "targetMove": "g1g8",
+                "goal": "mate",
+                "note": "🐪 Xe lên <b>g8</b>, Mã bảo vệ và canh h7",
+                "mascot": "Lại một kiểu Ả Rập!"
+            }
+        ]
+    },
+    {
+        "id": "combo_attraction",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 12: ♞ Mã + ♜ Xe",
+        "title": "Thu hút (Attraction)",
+        "steps": [
+            {
+                "fen": "6k1/6pp/1q6/4N3/8/8/6PP/5R1K w - - 0 1",
+                "targetMove": "f1f8",
+                "note": "🧲 Thí Xe ở f8 để <b>kéo</b> Vua đen tới ô Mã chĩa đôi được",
+                "mascot": "Thu hút Vua vào bẫy!",
+                "reply": "g8f8",
+                "replyNote": "👀 Vua đen buộc phải ăn Xe và bị <b>kéo</b> tới f8.",
+                "before": {
+                    "arrows": [
+                        [
+                            "f1",
+                            "f8",
+                            "attack"
+                        ],
+                        [
+                            "e5",
+                            "d7",
+                            "path"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "5k2/6pp/1q6/4N3/8/8/6PP/7K w - - 0 2",
+                "targetMove": "e5d7",
+                "note": "♞ Mã chĩa đôi <b>Vua f8 và Hậu b6</b>",
+                "mascot": "Chĩa đôi!",
+                "reply": "f8e7",
+                "replyNote": "👀 Vua phải chạy, Hậu b6 bỏ lại."
+            },
+            {
+                "fen": "8/3Nk1pp/1q6/8/8/8/6PP/7K w - - 2 3",
+                "targetMove": "d7b6",
+                "note": "♞ Ăn Hậu! Đổi Xe 5 lấy Hậu 9",
+                "mascot": "Đòn thu hút thành công!"
+            }
+        ]
+    },
+    {
+        "id": "remove-defender",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 13: ♝ Tượng + ♜ Xe",
+        "title": "Tiêu Diệt Quân Bảo Vệ",
+        "steps": [
+            {
+                "fen": "6k1/1p3ppp/2n5/1B2b3/8/8/5PPP/4R1K1 w - - 0 1",
+                "targetMove": "b5c6",
+                "note": "🛡 Tượng e5 có Mã c6 bảo vệ. <b>Diệt</b> Mã bảo vệ trước!",
+                "mascot": "Phá người gác cổng!",
+                "reply": "b7c6",
+                "replyNote": "👀 Đen ăn lại Tượng. Giờ Tượng e5 mất người bảo vệ!",
+                "before": {
+                    "arrows": [
+                        [
+                            "c6",
+                            "e5",
+                            "protect"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "c6",
+                            "x"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "6k1/5ppp/2p5/4b3/8/8/5PPP/4R1K1 w - - 0 2",
+                "targetMove": "e1e5",
+                "note": "🎯 Giờ Xe ăn Tượng e5 an toàn!",
+                "mascot": "Không còn ai bảo vệ!"
+            }
+        ]
+    },
+    {
+        "id": "morphy_mate",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 13: ♝ Tượng + ♜ Xe",
+        "title": "Morphy's Mate (Mát Morphy)",
+        "steps": [
+            {
+                "fen": "5r1k/5p1p/5n2/8/3B4/8/5P1P/6RK w - - 0 1",
+                "targetMove": "d4f6",
+                "goal": "mate",
+                "note": "♝ Tượng ăn Mã chiếu theo <b>đường chéo dài</b>, Xe canh cột g",
+                "mascot": "Mát Morphy!"
+            }
+        ]
+    },
+    {
+        "id": "open-file-2",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 13: ♝ Tượng + ♜ Xe",
+        "title": "Đưa Xe sang cột h",
+        "steps": [
+            {
+                "fen": "r4rk1/ppq2pp1/8/8/8/3BR3/PP1Q1PPP/R5K1 w - - 0 1",
+                "targetMove": "e3h3",
+                "note": "♜ Cột h không có Tốt: Xe sang <b>h3</b>!",
+                "mascot": "Xe vòng sang cánh Vua!",
+                "reply": "f8d8",
+                "replyNote": "👀 Đen đưa Xe ra cột d.",
+                "before": {
+                    "arrows": [
+                        [
+                            "e3",
+                            "h3",
+                            "path"
+                        ],
+                        [
+                            "h3",
+                            "h8",
                             "attack"
                         ]
                     ]
                 }
             },
             {
-                "fen": "4k3/8/2n1n3/3P4/8/8/8/4K3 b - - 0 1",
-                "targetMove": "c6b8",
-                "note": "♟ Mã c6 bỏ chạy",
-                "mascot": "Mã phải chạy!"
-            },
-            {
-                "fen": "1n2k3/8/4n3/3P4/8/8/8/4K3 w - - 0 2",
-                "targetMove": "d5e6",
-                "note": "♟ Ăn Mã e6",
-                "mascot": "Lấy 3 điểm!"
-            },
-            {
-                "fen": "1n2k3/8/4P3/8/8/8/8/4K3 w - - 0 3",
-                "targetMove": "e6e7",
-                "note": "♟ Tiến e7",
-                "mascot": "Tốt tiếp tục tiến!"
-            },
-            {
-                "fen": "1n2k3/4P3/8/8/8/8/8/4K3 w - - 0 4",
-                "targetMove": "e7e8q",
-                "note": "♟ Phong cấp",
-                "mascot": "Biến Hậu!"
+                "fen": "r2r2k1/ppq2pp1/8/8/8/3B3R/PP1Q1PPP/R5K1 w - - 2 2",
+                "targetMove": "d3h7",
+                "note": "♝ Tượng chiếu ở <b>h7</b>, Xe h3 bảo vệ",
+                "mascot": "Xe và Tượng phối hợp!",
+                "reply": "g8f8",
+                "replyNote": "👀 Vua đen phải chạy sang f8."
             }
         ]
     },
     {
-        "id": "pin",
-        "category": "Chương 9: Đòn Tấn Công",
-        "title": "Đòn Giằng (Pin)",
+        "id": "uncastled-3",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 14: ♝ Tượng + ♞ Mã",
+        "title": "Ghim Mã f6",
         "steps": [
             {
-                "fen": "4k3/4q2p/8/8/8/8/8/R5K1 w - - 0 1",
-                "targetMove": "a1e1",
-                "note": "📌 Ghim Hậu vào Vua: Xe sang <b>cột e</b>",
-                "mascot": "Kéo Xe sang e1 trói chặt Hậu đen!",
-                "after": {
+                "fen": "r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQkq - 0 6",
+                "targetMove": "c1g5",
+                "note": "📌 Tượng <b>g5</b> ghim Mã f6 vào Hậu d8",
+                "mascot": "Ghim chặt!",
+                "reply": "h7h6",
+                "replyNote": "👀 Đen đuổi Tượng."
+            },
+            {
+                "fen": "r1bqk2r/ppp2pp1/2np1n1p/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R w KQkq - 0 7",
+                "targetMove": "g5f6",
+                "note": "♝ Đổi Tượng lấy Mã",
+                "mascot": "Đổi quân!",
+                "reply": "d8f6",
+                "replyNote": "👀 Hậu đen ăn lại."
+            },
+            {
+                "fen": "r1b1k2r/ppp2pp1/2np1q1p/2b1p3/2B1P3/2NP1N2/PPP2PPP/R2QK2R w KQkq - 0 8",
+                "targetMove": "c3d5",
+                "note": "♞ Mã lên <b>d5</b> dọa Hậu f6 và ô c7",
+                "mascot": "Mã chiếm trung tâm!"
+            }
+        ]
+    },
+    {
+        "id": "weak-f7-5",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 14: ♝ Tượng + ♞ Mã",
+        "title": "Mã chĩa đôi ở f7",
+        "steps": [
+            {
+                "fen": "r1bqkb1r/pppp1pp1/2n2n1p/4p1N1/2B1P3/8/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+                "targetMove": "g5f7",
+                "note": "♞ Đen lơ là: Mã ăn <b>f7</b> chĩa đôi Hậu d8 và Xe h8!",
+                "mascot": "Tấn công kép!",
+                "reply": "d8e7",
+                "replyNote": "👀 Hậu đen chạy, Xe h8 bỏ lại."
+            },
+            {
+                "fen": "r1b1kb1r/ppppqNp1/2n2n1p/4p3/2B1P3/8/PPPP1PPP/RNBQK2R w KQkq - 1 6",
+                "targetMove": "f7h8",
+                "note": "♞ Ăn Xe h8!",
+                "mascot": "Lời to!"
+            }
+        ]
+    },
+    {
+        "id": "safe-cheap-first",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 15: ♞ Mã + ♛ Hậu",
+        "title": "Ăn Bằng Quân Rẻ Hơn",
+        "steps": [
+            {
+                "fen": "3q2k1/1p3ppp/4p3/3r4/5N2/7P/1P3PP1/3Q2K1 w - - 0 1",
+                "targetMove": "d1d5",
+                "reply": "e6d5",
+                "replyNote": "😱 Tốt e6 ăn mất Hậu! Hậu 9 điểm chỉ đổi được Xe 5 điểm.",
+                "note": "🤔 Hậu và Mã cùng ăn được Xe d5. Thử cho <b>Hậu</b> ăn!",
+                "mascot": "Hậu ăn Xe!"
+            },
+            {
+                "fen": "3q2k1/1p3ppp/4p3/3r4/5N2/7P/1P3PP1/3Q2K1 w - - 0 1",
+                "targetMove": "f4d5",
+                "note": "✅ Xe d5 có Tốt canh. Cho quân <b>rẻ hơn</b> ăn: Mã f4 ăn Xe!",
+                "mascot": "Mã 3 điểm đổi Xe 5 điểm: lời!",
+                "before": {
                     "arrows": [
+                        [
+                            "e6",
+                            "d5",
+                            "attack"
+                        ],
+                        [
+                            "f4",
+                            "d5",
+                            "path"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "d5",
+                            "guard"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "smothered",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 15: ♞ Mã + ♛ Hậu",
+        "title": "Chiếu Bí Ngạt Thở",
+        "steps": [
+            {
+                "fen": "6rk/6pp/8/6N1/8/8/8/6K1 w - - 0 1",
+                "targetMove": "g5f7",
+                "goal": "mate",
+                "note": "😵 Vua bị <b>vây kín</b> bởi quân nhà: Mã chiếu bí!",
+                "mascot": "Ngạt thở!"
+            },
+            {
+                "fen": "r6k/6pp/7N/8/2Q5/8/5PPP/6K1 w - - 0 1",
+                "targetMove": "c4g8",
+                "note": "😵 Thí Hậu ở <b>g8</b> để Xe đen tự lấp lối thoát!",
+                "mascot": "Hy sinh lớn!",
+                "reply": "a8g8",
+                "replyNote": "👀 Vua không ăn được (Mã h6 canh g8), Xe đen buộc phải ăn Hậu."
+            },
+            {
+                "fen": "6rk/6pp/7N/8/8/8/5PPP/6K1 w - - 0 2",
+                "targetMove": "h6f7",
+                "goal": "mate",
+                "note": "😵 Giờ Mã chiếu bí ngạt thở!",
+                "mascot": "Đòn kinh điển của Philidor!"
+            }
+        ]
+    },
+    {
+        "id": "smothered-3",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 15: ♞ Mã + ♛ Hậu",
+        "title": "Thí Hậu",
+        "steps": [
+            {
+                "fen": "r6k/6pp/4Q2N/8/8/8/5PPP/6K1 w - - 0 1",
+                "targetMove": "e6g8",
+                "note": "♛ Thí Hậu ở <b>g8</b>!",
+                "mascot": "Bẫy ngạt thở!",
+                "reply": "a8g8",
+                "replyNote": "👀 Vua không ăn được (Mã canh g8). Xe phải ăn Hậu."
+            },
+            {
+                "fen": "6rk/6pp/7N/8/8/8/5PPP/6K1 w - - 0 2",
+                "targetMove": "h6f7",
+                "goal": "mate",
+                "note": "♞ Mã chiếu bí!",
+                "mascot": "Tuyệt chiêu!"
+            }
+        ]
+    },
+    {
+        "id": "smothered-1",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 15: ♞ Mã + ♛ Hậu",
+        "title": "Đòn Philidor",
+        "steps": [
+            {
+                "fen": "4r2k/pp4pp/8/6N1/2Q5/8/PP3PPP/6K1 w - - 0 1",
+                "targetMove": "g5f7",
+                "note": "♞ Mã chiếu ở <b>f7</b>",
+                "mascot": "Bắt đầu chuỗi chiếu!",
+                "reply": "h8g8",
+                "replyNote": "👀 Vua đen ra g8."
+            },
+            {
+                "fen": "4r1k1/pp3Npp/8/8/2Q5/8/PP3PPP/6K1 w - - 2 2",
+                "targetMove": "f7h6",
+                "note": "⚡ Mã h6: <b>chiếu đôi</b> cùng Hậu c4!",
+                "mascot": "Hai quân cùng chiếu!",
+                "reply": "g8h8",
+                "replyNote": "👀 Chiếu đôi! Vua chỉ còn đường về h8."
+            },
+            {
+                "fen": "4r2k/pp4pp/7N/8/2Q5/8/PP3PPP/6K1 w - - 4 3",
+                "targetMove": "c4g8",
+                "note": "♛ Thí Hậu ở <b>g8</b>!",
+                "mascot": "Hy sinh lớn!",
+                "reply": "e8g8",
+                "replyNote": "👀 Xe đen buộc phải ăn Hậu, tự lấp ô g8."
+            },
+            {
+                "fen": "6rk/pp4pp/7N/8/8/8/PP3PPP/6K1 w - - 0 4",
+                "targetMove": "h6f7",
+                "goal": "mate",
+                "note": "😵 Mã chiếu bí ngạt thở!",
+                "mascot": "Philidor!"
+            }
+        ]
+    },
+    {
+        "id": "smothered_mate",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 15: ♞ Mã + ♛ Hậu",
+        "title": "Smothered Mate (Mát Thắt Cổ)",
+        "steps": [
+            {
+                "fen": "4r2k/pp4pp/8/6N1/8/1Q6/PP3PPP/6K1 w - - 0 1",
+                "targetMove": "g5f7",
+                "note": "♞ Mã chiếu ở <b>f7</b>",
+                "mascot": "Bắt đầu chuỗi chiếu!",
+                "reply": "h8g8",
+                "replyNote": "👀 Vua đen ra g8."
+            },
+            {
+                "fen": "4r1k1/pp3Npp/8/8/8/1Q6/PP3PPP/6K1 w - - 2 2",
+                "targetMove": "f7h6",
+                "note": "⚡ Mã h6: <b>chiếu đôi</b> cùng Hậu b3!",
+                "mascot": "Hai quân cùng chiếu!",
+                "reply": "g8h8",
+                "replyNote": "👀 Chiếu đôi! Vua phải về h8."
+            },
+            {
+                "fen": "4r2k/pp4pp/7N/8/8/1Q6/PP3PPP/6K1 w - - 4 3",
+                "targetMove": "b3g8",
+                "note": "♛ Thí Hậu ở <b>g8</b>!",
+                "mascot": "Hy sinh!",
+                "reply": "e8g8",
+                "replyNote": "👀 Xe phải ăn Hậu, tự chặn ô g8."
+            },
+            {
+                "fen": "6rk/pp4pp/7N/8/8/8/PP3PPP/6K1 w - - 0 4",
+                "targetMove": "h6f7",
+                "goal": "mate",
+                "note": "😵 Chiếu bí thắt cổ!",
+                "mascot": "Kinh điển!"
+            }
+        ]
+    },
+    {
+        "id": "mate1",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 16: ♝ Tượng + ♛ Hậu",
+        "title": "Đòn Chiếu Bí 1 Nước",
+        "steps": [
+            {
+                "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4",
+                "targetMove": "f3f7",
+                "goal": "mate",
+                "note": "🎯 Điểm yếu là <b>f7</b>: Hậu ăn, Tượng c4 bảo vệ",
+                "mascot": "Chiếu bí!"
+            },
+            {
+                "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4",
+                "targetMove": "h5f7",
+                "goal": "mate",
+                "note": "🎯 Hậu h5 cũng nhắm f7!",
+                "mascot": "Hậu và Tượng phối hợp!"
+            },
+            {
+                "fen": "6k1/5ppp/8/8/8/8/5PPP/3R2K1 w - - 0 1",
+                "targetMove": "d1d8",
+                "goal": "mate",
+                "note": "🎯 Vua đen bị Tốt nhà mình chặn lối: chiếu <b>hàng cuối</b>!",
+                "mascot": "Kết thúc gọn!"
+            }
+        ]
+    },
+    {
+        "id": "qb-mate",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 16: ♝ Tượng + ♛ Hậu",
+        "title": "Hậu Và Tượng Kết Liễu",
+        "steps": [
+            {
+                "fen": "5rk1/5pp1/8/7Q/8/3B4/8/6K1 w - - 0 1",
+                "targetMove": "h5h7",
+                "goal": "mate",
+                "note": "♛♝ Hậu lao vào <b>h7</b>, Tượng d3 bảo vệ",
+                "mascot": "Phối hợp Hậu Tượng!"
+            },
+            {
+                "fen": "5rk1/5pp1/8/7Q/8/8/8/1B4K1 w - - 0 1",
+                "targetMove": "h5h7",
+                "goal": "mate",
+                "note": "♛♝ Tượng b1 nhắm thẳng h7 từ xa!",
+                "mascot": "Đường chéo dài!"
+            },
+            {
+                "fen": "5rk1/5p1p/6pQ/8/8/2B5/8/6K1 w - - 0 1",
+                "targetMove": "h6g7",
+                "goal": "mate",
+                "note": "♛♝ Tượng c3 canh <b>g7</b>: Hậu vào đó!",
+                "mascot": "Đường chéo lớn!"
+            }
+        ]
+    },
+    {
+        "id": "weak-f7-1",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 16: ♝ Tượng + ♛ Hậu",
+        "title": "Chiếu hết Scholar",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+                "targetMove": "d1h5",
+                "note": "Hậu h5 nhắm vào f7.",
+                "mascot": "Chiếu hết Scholar đang đến!",
+                "reply": "b8c6",
+                "replyNote": "👀 Đen bảo vệ e5."
+            },
+            {
+                "fen": "r1bqkbnr/pppp1ppp/2n5/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR w KQkq - 2 3",
+                "targetMove": "f1c4",
+                "note": "Tượng c4 phối hợp tấn công f7.",
+                "mascot": "Hai quân cùng nhắm f7!",
+                "reply": "g8f6",
+                "replyNote": "👀 Đen đuổi Hậu."
+            },
+            {
+                "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4",
+                "targetMove": "h5f7",
+                "note": "Chiếu hết!",
+                "mascot": "Trận đấu kết thúc chớp nhoáng!"
+            }
+        ]
+    },
+    {
+        "id": "weak-f7-2",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 16: ♝ Tượng + ♛ Hậu",
+        "title": "Hậu f3 và Tượng c4",
+        "steps": [
+            {
+                "fen": "rnbqk1nr/pppp1ppp/8/2b1p3/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 2 3",
+                "targetMove": "d1f3",
+                "note": "♛ Hậu f3 cùng Tượng c4 nhắm <b>f7</b>",
+                "mascot": "Hai quân một mục tiêu!",
+                "reply": "b8c6",
+                "replyNote": "😮 Đen ra Mã c6, quên mất ô f7!"
+            },
+            {
+                "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4",
+                "targetMove": "f3f7",
+                "goal": "mate",
+                "note": "♛ Ăn f7: chiếu bí!",
+                "mascot": "f7 chỉ có Vua bảo vệ!"
+            }
+        ]
+    },
+    {
+        "id": "combo_remove_defender",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 16: ♝ Tượng + ♛ Hậu",
+        "title": "Xóa bỏ phòng ngự (Removing Defender)",
+        "steps": [
+            {
+                "fen": "r2q1rk1/ppp2ppp/5n2/3p2B1/3P4/8/PPQ2PPP/1B3RK1 w - - 0 1",
+                "targetMove": "g5f6",
+                "note": "🛡 Mã f6 đang canh ô <b>h7</b>. Diệt Mã trước!",
+                "mascot": "Phá người gác cổng!",
+                "reply": "d8f6",
+                "replyNote": "👀 Đen ăn lại, Mã f6 không còn canh h7!",
+                "before": {
+                    "arrows": [
+                        [
+                            "f6",
+                            "h7",
+                            "protect"
+                        ],
+                        [
+                            "c2",
+                            "h7",
+                            "path"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "r4rk1/ppp2ppp/5q2/3p4/3P4/8/PPQ2PPP/1B3RK1 w - - 0 2",
+                "targetMove": "c2h7",
+                "goal": "mate",
+                "note": "♛ Hậu ăn h7, Tượng b1 bảo vệ: chiếu bí!",
+                "mascot": "Không còn ai đỡ!"
+            }
+        ]
+    },
+    {
+        "id": "back-rank-2",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 17: ♜ Xe + ♛ Hậu",
+        "title": "Dụ quân bảo vệ",
+        "steps": [
+            {
+                "fen": "3r2k1/5ppp/8/8/1Q6/8/5PPP/4R1K1 w - - 0 1",
+                "targetMove": "b4e7",
+                "note": "Hậu đe dọa chiếu hết hàng cuối.",
+                "mascot": "Hậu tạo áp lực lớn.",
+                "reply": "d8f8",
+                "replyNote": "👀 Xe lui về phòng thủ."
+            },
+            {
+                "fen": "5rk1/4Qppp/8/8/8/8/5PPP/4R1K1 w - - 2 2",
+                "targetMove": "e1d1",
+                "note": "Đưa thêm Xe tham gia.",
+                "mascot": "Tăng cường quân số!",
+                "reply": "h7h6",
+                "replyNote": "👀 Đen tạo lỗ thông hơi cho Vua."
+            },
+            {
+                "fen": "5rk1/4Qpp1/7p/8/8/8/5PPP/3R2K1 w - - 0 3",
+                "targetMove": "d1d8",
+                "note": "Trắng đổi Xe.",
+                "mascot": "Ép đổi quân!"
+            }
+        ]
+    },
+    {
+        "id": "combo_overloading",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 17: ♜ Xe + ♛ Hậu",
+        "title": "Quá tải (Overloading)",
+        "steps": [
+            {
+                "fen": "6k1/1p1q1ppp/8/8/3n4/8/1Q4PP/4R2K w - - 0 1",
+                "targetMove": "b2d4",
+                "note": "⚖️ Hậu d7 phải canh <b>hai việc</b>: Mã d4 và ô e8. Ăn Mã!",
+                "mascot": "Một người không gánh nổi hai việc!",
+                "reply": "d7d4",
+                "replyNote": "😱 Hậu đen ăn lại... nhưng bỏ trống ô e8!",
+                "before": {
+                    "arrows": [
+                        [
+                            "d7",
+                            "d4",
+                            "protect"
+                        ],
+                        [
+                            "d7",
+                            "e8",
+                            "protect"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "6k1/1p3ppp/8/8/3q4/8/6PP/4R2K w - - 0 2",
+                "targetMove": "e1e8",
+                "goal": "mate",
+                "note": "♜ Xe chiếu bí hàng cuối!",
+                "mascot": "Quá tải là thua!"
+            }
+        ]
+    },
+    {
+        "id": "combo_xray",
+        "level": "Cấp 2 · Phối hợp 2 quân",
+        "category": "Chương 17: ♜ Xe + ♛ Hậu",
+        "title": "Tấn công X-Ray",
+        "steps": [
+            {
+                "fen": "3r2k1/2q2ppp/8/8/8/8/3Q1PPP/3R2K1 w - - 0 1",
+                "targetMove": "d2d8",
+                "note": "🔦 Xe d1 đứng sau Hậu, nhìn <b>xuyên</b> tới d8. Hậu ăn Xe!",
+                "mascot": "Tia X xuyên qua!",
+                "reply": "c7d8",
+                "replyNote": "👀 Hậu đen ăn lại Hậu.",
+                "before": {
+                    "arrows": [
+                        [
+                            "d1",
+                            "d8",
+                            "path"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "3q2k1/5ppp/8/8/8/8/5PPP/3R2K1 w - - 0 2",
+                "targetMove": "d1d8",
+                "goal": "mate",
+                "note": "♜ Xe ăn lại, chiếu bí!",
+                "mascot": "Hai quân một cột!"
+            }
+        ]
+    },
+    {
+        "id": "greek-gift-1",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 18: ♝ Tượng + ♞ Mã + ♛ Hậu",
+        "title": "Thí Tượng ở h7",
+        "steps": [
+            {
+                "fen": "rnbq1rk1/pppn1ppp/4p3/3pP3/1b1P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 4 7",
+                "targetMove": "d3h7",
+                "note": "🎁 Tốt e5 đã đuổi Mã f6 đi, h7 không còn ai canh. <b>Thí Tượng</b> ở h7!",
+                "mascot": "Món quà Hy Lạp!",
+                "reply": "g8h7",
+                "replyNote": "👀 Đen nhận quà: Vua ăn Tượng.",
+                "before": {
+                    "arrows": [
+                        [
+                            "d3",
+                            "h7",
+                            "attack"
+                        ],
+                        [
+                            "f3",
+                            "g5",
+                            "path"
+                        ],
+                        [
+                            "d1",
+                            "h5",
+                            "path"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "rnbq1r2/pppn1ppk/4p3/3pP3/1b1P4/2N2N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+                "targetMove": "f3g5",
+                "note": "♞ Mã nhảy lên <b>g5</b> chiếu Vua",
+                "mascot": "Mã xông vào!",
+                "reply": "h7g8",
+                "replyNote": "👀 Vua đen lui về g8."
+            },
+            {
+                "fen": "rnbq1rk1/pppn1pp1/4p3/3pP1N1/1b1P4/2N5/PPP2PPP/R1BQK2R w KQ - 2 9",
+                "targetMove": "d1h5",
+                "note": "♛ Hậu lên <b>h5</b>: dọa Qh7 chiếu bí!",
+                "mascot": "Ba quân cùng tấn công!"
+            }
+        ]
+    },
+    {
+        "id": "greek-gift-4",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 18: ♝ Tượng + ♞ Mã + ♛ Hậu",
+        "title": "Khi Vua ra h6",
+        "steps": [
+            {
+                "fen": "rnbq1rk1/pppn1ppp/4p3/3pP3/1b1P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 4 7",
+                "targetMove": "d3h7",
+                "note": "🎁 Thí Tượng ở h7!",
+                "mascot": "Bắt đầu tấn công!",
+                "reply": "g8h7",
+                "replyNote": "👀 Vua ăn Tượng."
+            },
+            {
+                "fen": "rnbq1r2/pppn1ppk/4p3/3pP3/1b1P4/2N2N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+                "targetMove": "f3g5",
+                "note": "♞ Mã chiếu ở g5",
+                "mascot": "Coi chừng Tượng c1!",
+                "reply": "h7h6",
+                "replyNote": "👀 Vua đen tránh sang h6, đứng trên đường chéo của Tượng c1!"
+            },
+            {
+                "fen": "rnbq1r2/pppn1pp1/4p2k/3pP1N1/1b1P4/2N5/PPP2PPP/R1BQK2R w KQ - 2 9",
+                "targetMove": "g5e6",
+                "note": "♞ Mã ăn e6: <b>Tượng c1 chiếu</b> lộ ra, Mã còn dọa Hậu!",
+                "mascot": "Đòn phát hiện!",
+                "reply": "h6h7",
+                "replyNote": "👀 Vua đen phải tránh chiếu."
+            },
+            {
+                "fen": "rnbq1r2/pppn1ppk/4N3/3pP3/1b1P4/2N5/PPP2PPP/R1BQK2R w KQ - 1 10",
+                "targetMove": "e6d8",
+                "note": "♞ Ăn Hậu d8!",
+                "mascot": "Thu chiến lợi phẩm!"
+            }
+        ]
+    },
+    {
+        "id": "greek-gift-3",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 18: ♝ Tượng + ♞ Mã + ♛ Hậu",
+        "title": "Khi Vua ra g6",
+        "steps": [
+            {
+                "fen": "rnbq1rk1/pppn1ppp/4p3/3pP3/1b1P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 4 7",
+                "targetMove": "d3h7",
+                "note": "🎁 Thí Tượng ở h7!",
+                "mascot": "Bắt đầu tấn công!",
+                "reply": "g8h7",
+                "replyNote": "👀 Vua ăn Tượng."
+            },
+            {
+                "fen": "rnbq1r2/pppn1ppk/4p3/3pP3/1b1P4/2N2N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+                "targetMove": "f3g5",
+                "note": "♞ Mã chiếu ở g5",
+                "mascot": "Xem Vua đen chạy đâu!",
+                "reply": "h7g6",
+                "replyNote": "👀 Lần này Vua đen liều tiến lên g6."
+            },
+            {
+                "fen": "rnbq1r2/pppn1pp1/4p1k1/3pP1N1/1b1P4/2N5/PPP2PPP/R1BQK2R w KQ - 2 9",
+                "targetMove": "h2h4",
+                "note": "♟ Tốt <b>h4</b> lao lên, dọa h5 chiếu",
+                "mascot": "Tốt cũng đánh Vua!",
+                "reply": "f7f5",
+                "replyNote": "👀 Đen mở đường f7 cho Vua."
+            },
+            {
+                "fen": "rnbq1r2/pppn2p1/4p1k1/3pPpN1/1b1P3P/2N5/PPP2PP1/R1BQK2R w KQ f6 0 10",
+                "targetMove": "h4h5",
+                "note": "♟ Tốt chiếu <b>h5</b>",
+                "mascot": "Tốt chiếu Vua!",
+                "reply": "g6h6",
+                "replyNote": "👀 Vua đen lùi h6."
+            },
+            {
+                "fen": "rnbq1r2/pppn2p1/4p2k/3pPpNP/1b1P4/2N5/PPP2PP1/R1BQK2R w KQ - 1 11",
+                "targetMove": "g5f7",
+                "note": "♞ Mã chiếu và <b>chĩa đôi</b> Hậu d8!",
+                "mascot": "Chĩa đôi!",
+                "reply": "h6h7",
+                "replyNote": "👀 Vua phải chạy, bỏ Hậu."
+            },
+            {
+                "fen": "rnbq1r2/pppn1Npk/4p3/3pPp1P/1b1P4/2N5/PPP2PP1/R1BQK2R w KQ - 3 12",
+                "targetMove": "f7d8",
+                "note": "♞ Ăn Hậu!",
+                "mascot": "Thắng lớn!"
+            }
+        ]
+    },
+    {
+        "id": "greek-gift-2",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 18: ♝ Tượng + ♞ Mã + ♛ Hậu",
+        "title": "Hậu kết liễu Vua",
+        "steps": [
+            {
+                "fen": "rnbqr1k1/pppn1pp1/4p3/3pP1NQ/1b1P4/2N5/PPP2PPP/R1B1K2R w KQ - 4 10",
+                "targetMove": "h5f7",
+                "note": "♛ Đen mở đường f8 cho Vua. Hậu ăn <b>f7</b> chiếu!",
+                "mascot": "Không cho Vua trốn!",
+                "reply": "g8h8",
+                "replyNote": "👀 Vua đen chạy về góc."
+            },
+            {
+                "fen": "rnbqr2k/pppn1Qp1/4p3/3pP1N1/1b1P4/2N5/PPP2PPP/R1B1K2R w KQ - 1 11",
+                "targetMove": "f7h5",
+                "note": "♛ Hậu quay về <b>h5</b> chiếu",
+                "mascot": "Dồn ép tiếp!",
+                "reply": "h8g8",
+                "replyNote": "👀 Vua đen quay lại g8."
+            },
+            {
+                "fen": "rnbqr1k1/pppn2p1/4p3/3pP1NQ/1b1P4/2N5/PPP2PPP/R1B1K2R w KQ - 3 12",
+                "targetMove": "h5h7",
+                "note": "♛ Hậu vào <b>h7</b> (Mã g5 bảo vệ)",
+                "mascot": "Áp sát!",
+                "reply": "g8f8",
+                "replyNote": "👀 Vua đen chạy sang f8."
+            },
+            {
+                "fen": "rnbqrk2/pppn2pQ/4p3/3pP1N1/1b1P4/2N5/PPP2PPP/R1B1K2R w KQ - 5 13",
+                "targetMove": "h7h8",
+                "note": "♛ Hậu chiếu từ <b>h8</b>",
+                "mascot": "Vua đen chạy đâu cũng không thoát!",
+                "reply": "f8e7",
+                "replyNote": "👀 Vua đen chạy lên e7."
+            },
+            {
+                "fen": "rnbqr2Q/pppnk1p1/4p3/3pP1N1/1b1P4/2N5/PPP2PPP/R1B1K2R w KQ - 7 14",
+                "targetMove": "h8g7",
+                "goal": "mate",
+                "note": "♛ Chiếu bí ở <b>g7</b>!",
+                "mascot": "Kết liễu!"
+            }
+        ]
+    },
+    {
+        "id": "greek-gift-5",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 18: ♝ Tượng + ♞ Mã + ♛ Hậu",
+        "title": "Trọn đòn Greek Gift",
+        "steps": [
+            {
+                "fen": "rnbq1rk1/pppn1ppp/4p3/3pP3/1b1P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 4 7",
+                "targetMove": "d3h7",
+                "note": "🎁 Tốt e5 đã đuổi Mã f6 đi, h7 không còn ai canh. <b>Thí Tượng</b> ở h7!",
+                "mascot": "Món quà Hy Lạp!",
+                "reply": "g8h7",
+                "replyNote": "👀 Đen nhận quà: Vua ăn Tượng.",
+                "before": {
+                    "arrows": [
+                        [
+                            "d3",
+                            "h7",
+                            "attack"
+                        ],
+                        [
+                            "f3",
+                            "g5",
+                            "path"
+                        ],
+                        [
+                            "d1",
+                            "h5",
+                            "path"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "rnbq1r2/pppn1ppk/4p3/3pP3/1b1P4/2N2N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+                "targetMove": "f3g5",
+                "note": "♞ Mã nhảy lên <b>g5</b> chiếu Vua",
+                "mascot": "Mã xông vào!",
+                "reply": "h7g8",
+                "replyNote": "👀 Vua đen lui về g8."
+            },
+            {
+                "fen": "rnbq1rk1/pppn1pp1/4p3/3pP1N1/1b1P4/2N5/PPP2PPP/R1BQK2R w KQ - 2 9",
+                "targetMove": "d1h5",
+                "note": "♛ Hậu lên h5 dọa chiếu bí h7",
+                "mascot": "Dọa mat!",
+                "reply": "f8e8",
+                "replyNote": "👀 Đen mở ô f8 cho Vua."
+            },
+            {
+                "fen": "rnbqr1k1/pppn1pp1/4p3/3pP1NQ/1b1P4/2N5/PPP2PPP/R1B1K2R w KQ - 4 10",
+                "targetMove": "h5f7",
+                "note": "♛ Ăn f7 chiếu",
+                "mascot": "Phá tung lá chắn!",
+                "reply": "g8h8",
+                "replyNote": "👀 Vua chạy về góc."
+            },
+            {
+                "fen": "rnbqr2k/pppn1Qp1/4p3/3pP1N1/1b1P4/2N5/PPP2PPP/R1B1K2R w KQ - 1 11",
+                "targetMove": "f7h5",
+                "note": "♛ Chiếu từ h5",
+                "mascot": "Dồn Vua!",
+                "reply": "h8g8"
+            },
+            {
+                "fen": "rnbqr1k1/pppn2p1/4p3/3pP1NQ/1b1P4/2N5/PPP2PPP/R1B1K2R w KQ - 3 12",
+                "targetMove": "h5h7",
+                "note": "♛ Hậu vào h7",
+                "mascot": "Mã g5 bảo vệ!",
+                "reply": "g8f8"
+            },
+            {
+                "fen": "rnbqrk2/pppn2pQ/4p3/3pP1N1/1b1P4/2N5/PPP2PPP/R1B1K2R w KQ - 5 13",
+                "targetMove": "h7h8",
+                "note": "♛ Chiếu từ h8",
+                "mascot": "Sắp xong!",
+                "reply": "f8e7"
+            },
+            {
+                "fen": "rnbqr2Q/pppnk1p1/4p3/3pP1N1/1b1P4/2N5/PPP2PPP/R1B1K2R w KQ - 7 14",
+                "targetMove": "h8g7",
+                "goal": "mate",
+                "note": "♛ Chiếu bí!",
+                "mascot": "Hoàn hảo!"
+            }
+        ]
+    },
+    {
+        "id": "overload-1",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 18: ♝ Tượng + ♞ Mã + ♛ Hậu",
+        "title": "Quân bảo vệ quá tải",
+        "steps": [
+            {
+                "fen": "5rk1/pp3ppp/5n2/3b2N1/8/1B5Q/PP3PPP/6K1 w - - 0 1",
+                "targetMove": "b3d5",
+                "note": "⚖️ Nhìn <b>Mã f6</b>: nó đang gánh <b>2 việc</b> cùng lúc: canh <b>Tượng d5</b> và canh ô <b>h7</b>. Quân phải làm 2 việc là bị <b>quá tải</b>. Hãy ăn Tượng d5!",
+                "mascot": "Mũi tên xanh: Mã f6 canh 2 nơi. Mũi tên đỏ: ta đang dọa cả 2!",
+                "reply": "f6d5",
+                "replyNote": "😱 Mã f6 ăn lại Tượng... nhưng nó đã RỜI f6, ô h7 không còn ai canh!",
+                "before": {
+                    "arrows": [
+                        [
+                            "f6",
+                            "d5",
+                            "protect"
+                        ],
+                        [
+                            "f6",
+                            "h7",
+                            "protect"
+                        ],
+                        [
+                            "b3",
+                            "d5",
+                            "attack"
+                        ],
+                        [
+                            "h3",
+                            "h7",
+                            "attack"
+                        ]
+                    ],
+                    "marks": [
+                        [
+                            "f6",
+                            "glow"
+                        ],
+                        [
+                            "d5",
+                            "guard"
+                        ],
+                        [
+                            "h7",
+                            "guard"
+                        ]
+                    ]
+                },
+                "hideTarget": true
+            },
+            {
+                "fen": "5rk1/pp3ppp/8/3n2N1/8/7Q/PP3PPP/6K1 w - - 0 2",
+                "targetMove": "h3h7",
+                "goal": "mate",
+                "note": "♛ Mã đã bỏ việc canh h7: Hậu ăn h7, Mã g5 bảo vệ → <b>chiếu bí</b>!",
+                "mascot": "Một người không gánh nổi 2 việc!",
+                "before": {
+                    "arrows": [
+                        [
+                            "h3",
+                            "h7",
+                            "attack"
+                        ],
+                        [
+                            "g5",
+                            "h7",
+                            "protect"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "6k1/1p1q1ppp/8/8/3n4/8/1Q4PP/4R2K w - - 0 1",
+                "targetMove": "b2d4",
+                "note": "⚖️ Ví dụ 2: <b>Hậu d7</b> vừa canh <b>Mã d4</b>, vừa canh ô <b>e8</b> (chặn Xe chiếu hàng cuối). Ăn Mã d4!",
+                "mascot": "Tìm quân đang gánh 2 việc!",
+                "reply": "d7d4",
+                "replyNote": "😱 Hậu đen ăn lại... và bỏ trống ô e8!",
+                "before": {
+                    "arrows": [
+                        [
+                            "d7",
+                            "d4",
+                            "protect"
+                        ],
+                        [
+                            "d7",
+                            "e8",
+                            "protect"
+                        ],
+                        [
+                            "b2",
+                            "d4",
+                            "attack"
+                        ],
                         [
                             "e1",
                             "e8",
@@ -1166,2120 +2988,1077 @@ const ROADMAP = [
                     ],
                     "marks": [
                         [
-                            "e7",
-                            "x"
-                        ]
-                    ]
-                }
-            },
-            {
-                "fen": "4k3/4q2p/8/8/8/8/8/4R1K1 b - - 0 1",
-                "targetMove": "h7h6",
-                "note": "📌 Đen đi Tốt",
-                "mascot": "Hậu Đen không nhúc nhích được!"
-            },
-            {
-                "fen": "4k3/4q2p/7p/8/8/8/8/4R1K1 w - - 0 2",
-                "targetMove": "e1e7",
-                "note": "📌 Ăn Hậu",
-                "mascot": "Xe đổi Hậu!"
-            },
-            {
-                "fen": "4k3/4R2p/7p/8/8/8/8/6K1 b - - 0 2",
-                "targetMove": "e8e7",
-                "note": "📌 Vua ăn lại",
-                "mascot": "Trao đổi có lợi!"
-            },
-            {
-                "fen": "4k3/4R2p/7p/8/8/8/8/6K1 w - - 0 3",
-                "targetMove": "g1f2",
-                "note": "📌 Vua Trắng tiến lên",
-                "mascot": "Chuẩn bị tàn cuộc!"
-            }
-        ]
-    },
-    {
-        "id": "skewer",
-        "category": "Chương 9: Đòn Tấn Công",
-        "title": "Đòn Xiên Que (Skewer)",
-        "steps": [
-            {
-                "fen": "8/8/8/8/3k3q/8/R7/1K6 w - - 0 1",
-                "targetMove": "a2a4",
-                "note": "🍢 Chiếu Vua để lộ <b>Hậu phía sau</b>",
-                "mascot": "Chiếu Vua trước, Hậu ở sau sẽ lộ ra!",
-                "after": {
-                    "arrows": [
-                        [
-                            "a4",
-                            "d4",
-                            "attack"
+                            "d7",
+                            "glow"
                         ],
                         [
                             "d4",
-                            "h4",
-                            "blocked"
-                        ]
-                    ]
-                }
-            },
-            {
-                "fen": "8/8/8/3k4/R6q/8/8/1K6 b - - 0 2",
-                "targetMove": "d5c5",
-                "note": "🍢 Vua chạy",
-                "mascot": "Vua tránh ra!"
-            },
-            {
-                "fen": "8/8/8/2k5/R6q/8/8/1K6 w - - 0 3",
-                "targetMove": "a4h4",
-                "note": "🍢 Ăn Hậu h4!",
-                "mascot": "Đường thông rồi, ăn Hậu h4!"
-            },
-            {
-                "fen": "8/8/8/2k5/7R/8/8/1K6 w - - 0 4",
-                "targetMove": "h4g4",
-                "note": "🍢 Xe lùi g4",
-                "mascot": "Lùi về an toàn!"
-            },
-            {
-                "fen": "8/8/8/2k5/6R1/8/8/1K6 w - - 0 5",
-                "targetMove": "g4f4",
-                "note": "🍢 Xe qua f4",
-                "mascot": "Kiểm soát hàng 4!"
-            }
-        ]
-    },
-    {
-        "id": "discovered",
-        "category": "Chương 9: Đòn Tấn Công",
-        "title": "Đòn Phát Hiện",
-        "steps": [
-            {
-                "fen": "4k3/8/3q4/8/4N3/8/8/4R1K1 w - - 0 1",
-                "targetMove": "e4d6",
-                "note": "♞ Mã nhảy đi → <b>Xe lộ ra chiếu</b>! Ăn Hậu",
-                "mascot": "Mã nhảy ăn Hậu, Xe phía sau chiếu Vua!",
-                "before": {
-                    "arrows": [
+                            "guard"
+                        ],
                         [
-                            "e1",
                             "e8",
-                            "blocked"
+                            "guard"
                         ]
                     ]
                 },
-                "after": {
+                "hideTarget": true
+            },
+            {
+                "fen": "6k1/1p3ppp/8/8/3q4/8/6PP/4R2K w - - 0 2",
+                "targetMove": "e1e8",
+                "goal": "mate",
+                "note": "♜ Hậu đen đã rời d7: Xe chiếu bí hàng cuối!",
+                "mascot": "Quá tải là thua!"
+            }
+        ]
+    },
+    {
+        "id": "pawn-storm-4",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 19: ♝ Tượng + ♜ Xe + ♛ Hậu",
+        "title": "Đưa Xe vào tham chiến",
+        "steps": [
+            {
+                "fen": "r4rk1/1q3pp1/p7/1p6/8/3BR3/PP1Q1PPP/R5K1 w - - 0 1",
+                "targetMove": "e3g3",
+                "note": "♜ Xe e3 <b>sang ngang</b> tới g3, nhắm thẳng Vua đen!",
+                "mascot": "Xe tham gia tấn công!",
+                "reply": "b7c6",
+                "replyNote": "👀 Hậu đen chạy về phòng thủ.",
+                "before": {
                     "arrows": [
                         [
-                            "e1",
-                            "e8",
+                            "e3",
+                            "g3",
+                            "path"
+                        ],
+                        [
+                            "g3",
+                            "g7",
+                            "attack"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "r4rk1/5pp1/p1q5/1p6/8/3B2R1/PP1Q1PPP/R5K1 w - - 2 2",
+                "targetMove": "d2g5",
+                "note": "♛ Hậu lên <b>g5</b>, cùng Xe nhắm ô g7",
+                "mascot": "Hai quân một cột!",
+                "reply": "g7g6",
+                "replyNote": "👀 Đen chặn đường bằng Tốt g6."
+            },
+            {
+                "fen": "r4rk1/5p2/p1q3p1/1p4Q1/8/3B2R1/PP3PPP/R5K1 w - - 0 3",
+                "targetMove": "g5h6",
+                "note": "♛ Hậu luồn sang <b>h6</b>",
+                "mascot": "Áp sát Vua!",
+                "reply": "c6f6",
+                "replyNote": "👀 Hậu đen về f6 chống đỡ."
+            },
+            {
+                "fen": "r4rk1/5p2/p4qpQ/1p6/8/3B2R1/PP3PPP/R5K1 w - - 2 4",
+                "targetMove": "d3g6",
+                "note": "♝ Thí Tượng phá Tốt g6!",
+                "mascot": "Phá lá chắn!",
+                "reply": "f7g6",
+                "replyNote": "👀 Đen ăn Tượng, mở cột g."
+            },
+            {
+                "fen": "r4rk1/8/p4qpQ/1p6/8/6R1/PP3PPP/R5K1 w - - 0 5",
+                "targetMove": "g3g6",
+                "note": "♜ Xe ăn g6 chiếu: Xe đã vào cuộc!",
+                "mascot": "Xe kết thúc đòn!"
+            }
+        ]
+    },
+    {
+        "id": "opera_mate",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 19: ♝ Tượng + ♜ Xe + ♛ Hậu",
+        "title": "Opera Box Mate (Mát Opera)",
+        "steps": [
+            {
+                "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+                "targetMove": "b3b8",
+                "note": "🎭 Ván cờ Opera của Morphy: thí Hậu ở <b>b8</b>!",
+                "mascot": "Nước đi bất tử!",
+                "reply": "d7b8",
+                "replyNote": "👀 Mã đen buộc phải ăn Hậu, rời ô d7."
+            },
+            {
+                "fen": "1n2kb1r/p4ppp/4q3/4p1B1/4P3/8/PPP2PPP/2KR4 w k - 0 18",
+                "targetMove": "d1d8",
+                "goal": "mate",
+                "note": "♜ Xe chiếu bí, Tượng g5 canh ô e7!",
+                "mascot": "Xe và Tượng kết liễu!"
+            }
+        ]
+    },
+    {
+        "id": "anastasia_mate",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 20: ♞ Mã + ♜ Xe + ♛ Hậu",
+        "title": "Anastasia's Mate (Mát Anastasia)",
+        "steps": [
+            {
+                "fen": "r4rk1/pb3ppp/8/3N3Q/8/3R4/PPP2PPP/6K1 w - - 0 1",
+                "targetMove": "d5e7",
+                "note": "♞ Mã chiếu ở <b>e7</b>, canh luôn ô g8 và g6",
+                "mascot": "Khóa đường thoát!",
+                "reply": "g8h8",
+                "replyNote": "👀 Vua đen trốn vào góc."
+            },
+            {
+                "fen": "r4r1k/pb2Nppp/8/7Q/8/3R4/PPP2PPP/6K1 w - - 2 2",
+                "targetMove": "h5h7",
+                "note": "♛ Thí Hậu ở <b>h7</b> mở cột h!",
+                "mascot": "Hy sinh lớn!",
+                "reply": "h8h7",
+                "replyNote": "👀 Vua buộc phải ăn Hậu."
+            },
+            {
+                "fen": "r4r2/pb2Nppk/8/8/8/3R4/PPP2PPP/6K1 w - - 0 3",
+                "targetMove": "d3h3",
+                "goal": "mate",
+                "note": "♜ Xe sang cột h: chiếu bí Anastasia!",
+                "mascot": "Mã và Xe phối hợp!"
+            }
+        ]
+    },
+    {
+        "id": "boden_mate",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 21: ♛ Hậu + ♝ 2 Tượng",
+        "title": "Boden's Mate (Mát Boden)",
+        "steps": [
+            {
+                "fen": "2kr3r/pp1n1ppp/2p1p3/8/1b1P1B2/2N2Q1P/PPP1BPP1/R4RK1 w - - 0 1",
+                "targetMove": "f3c6",
+                "note": "✝️ Thí Hậu ở <b>c6</b> để phá lá chắn Tốt!",
+                "mascot": "Hy sinh táo bạo!",
+                "reply": "b7c6",
+                "replyNote": "👀 Tốt b7 buộc phải ăn Hậu, mở đường chéo a6.",
+                "before": {
+                    "arrows": [
+                        [
+                            "f4",
+                            "b8",
+                            "path"
+                        ],
+                        [
+                            "e2",
+                            "a6",
+                            "path"
+                        ]
+                    ]
+                }
+            },
+            {
+                "fen": "2kr3r/p2n1ppp/2p1p3/8/1b1P1B2/2N4P/PPP1BPP1/R4RK1 w - - 0 2",
+                "targetMove": "e2a6",
+                "goal": "mate",
+                "note": "✝️ Hai Tượng <b>bắt chéo</b>: chiếu bí Boden!",
+                "mascot": "Hai đường chéo giao nhau!"
+            }
+        ]
+    },
+    {
+        "id": "weak-f7-4",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 22: ♟ Tốt + ♞ Mã + ♝ Tượng",
+        "title": "Mã g5 nhắm f7",
+        "steps": [
+            {
+                "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+                "targetMove": "f3g5",
+                "note": "♞ Mã <b>g5</b> và Tượng c4 cùng tấn công f7",
+                "mascot": "Hai quân dồn vào f7!",
+                "reply": "d7d5",
+                "replyNote": "👀 Đen chặn đường chéo bằng d5."
+            },
+            {
+                "fen": "r1bqkb1r/ppp2ppp/2n2n2/3pp1N1/2B1P3/8/PPPP1PPP/RNBQK2R w KQkq d6 0 5",
+                "targetMove": "e4d5",
+                "note": "♟ Ăn Tốt d5, giữ đường chéo",
+                "mascot": "Không cho chặn!",
+                "reply": "c6a5",
+                "replyNote": "👀 Mã đen đuổi Tượng c4."
+            },
+            {
+                "fen": "r1bqkb1r/ppp2ppp/5n2/n2Pp1N1/2B5/8/PPPP1PPP/RNBQK2R w KQkq - 1 6",
+                "targetMove": "c4b5",
+                "note": "♝ Tượng chiếu và giữ Tốt d5",
+                "mascot": "Hơn một Tốt!"
+            }
+        ]
+    },
+    {
+        "id": "legal_mate",
+        "level": "Cấp 3 · Phối hợp 3 quân",
+        "category": "Chương 22: ♟ Tốt + ♞ Mã + ♝ Tượng",
+        "title": "Légal's Mate (Mát Légal)",
+        "steps": [
+            {
+                "fen": "r2qkbnr/ppp2ppp/2np4/4p2b/2B1P3/2N2N1P/PPPP1PP1/R1BQK2R w KQkq - 1 6",
+                "targetMove": "f3e5",
+                "note": "🪤 Mã ăn Tốt e5, <b>bỏ mặc Hậu</b> d1!",
+                "mascot": "Đặt bẫy Légal!",
+                "reply": "h5d1",
+                "replyNote": "😮 Đen tham ăn Hậu... và rơi vào bẫy!"
+            },
+            {
+                "fen": "r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N4P/PPPP1PP1/R1BbK2R w KQkq - 0 7",
+                "targetMove": "c4f7",
+                "note": "♝ Tượng chiếu ở <b>f7</b>",
+                "mascot": "Dồn Vua!",
+                "reply": "e8e7",
+                "replyNote": "👀 Vua đen chỉ còn ô e7."
+            },
+            {
+                "fen": "r2q1bnr/ppp1kBpp/2np4/4N3/4P3/2N4P/PPPP1PP1/R1BbK2R w KQ - 1 8",
+                "targetMove": "c3d5",
+                "goal": "mate",
+                "note": "♞ Mã d5: chiếu bí bằng 3 quân nhẹ!",
+                "mascot": "Mất Hậu mà vẫn thắng!"
+            }
+        ]
+    },
+    {
+        "id": "opening",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 23: 🚀 Khai cuộc",
+        "title": "Nguyên Tắc Khai Cuộc Ô Tô",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                "targetMove": "e2e4",
+                "note": "🚀 Khai cuộc: đẩy Tốt trung tâm lên <b>e4</b>",
+                "mascot": "Chiếm trung tâm!",
+                "reply": "e7e5",
+                "replyNote": "👀 Đen cũng chiếm trung tâm."
+            },
+            {
+                "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2",
+                "targetMove": "g1f3",
+                "note": "🚀 Ra Mã, dọa Tốt e5",
+                "mascot": "Mã ra quân!",
+                "reply": "b8c6",
+                "replyNote": "👀 Đen ra Mã bảo vệ e5."
+            },
+            {
+                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+                "targetMove": "f1c4",
+                "note": "🚀 Ra Tượng nhắm ô f7",
+                "mascot": "Chuẩn bị nhập thành!"
+            },
+            {
+                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                "targetMove": "d2d4",
+                "note": "🚀 Cách khác: chiếm trung tâm bằng <b>d4</b>",
+                "mascot": "Trung tâm là quan trọng!"
+            }
+        ]
+    },
+    {
+        "id": "develop",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 23: 🚀 Khai cuộc",
+        "title": "Ra Quân & Nhập Thành",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2",
+                "targetMove": "g1f3",
+                "note": "🐴 Ra Mã trước",
+                "mascot": "Ra quân nhẹ trước!",
+                "reply": "b8c6",
+                "replyNote": "👀 Đen ra Mã."
+            },
+            {
+                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+                "targetMove": "f1c4",
+                "note": "♝ Ra Tượng",
+                "mascot": "Đường cho Vua đã thông!",
+                "reply": "f8c5",
+                "replyNote": "👀 Đen ra Tượng."
+            },
+            {
+                "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+                "targetMove": "e1g1",
+                "note": "🏰 Nhập thành!",
+                "mascot": "An toàn cho Vua!"
+            }
+        ]
+    },
+    {
+        "id": "center-d4",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 23: 🚀 Khai cuộc",
+        "title": "Tấn Công Trung Tâm",
+        "steps": [
+            {
+                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+                "targetMove": "d2d4",
+                "note": "⚔️ Đẩy Tốt <b>d4</b> tấn công trung tâm",
+                "mascot": "Mở trung tâm!",
+                "reply": "e5d4",
+                "replyNote": "👀 Đen ăn Tốt."
+            },
+            {
+                "fen": "r1bqkbnr/pppp1ppp/2n5/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4",
+                "targetMove": "f3d4",
+                "note": "⚔️ Mã ăn lại Tốt, đứng giữa bàn!",
+                "mascot": "Trung tâm của ta!"
+            },
+            {
+                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/2N2N2/PPPP1PPP/R1BQKB1R w KQkq - 4 4",
+                "targetMove": "d2d4",
+                "note": "⚔️ Khai cuộc 4 Mã: cũng đẩy <b>d4</b>!",
+                "mascot": "Ghi nhớ đẩy Tốt trung tâm!"
+            }
+        ]
+    },
+    {
+        "id": "opening_italian",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 23: 🚀 Khai cuộc",
+        "title": "Ván cờ Ý (Italian Game)",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                "targetMove": "e2e4",
+                "note": "🇮🇹 Tốt <b>e4</b> chiếm trung tâm",
+                "mascot": "Khởi đầu kinh điển!",
+                "reply": "e7e5",
+                "replyNote": "👀 Đen đáp e5."
+            },
+            {
+                "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2",
+                "targetMove": "g1f3",
+                "note": "🐴 Mã <b>f3</b> dọa Tốt e5",
+                "mascot": "Ra quân có nhịp!",
+                "reply": "b8c6",
+                "replyNote": "👀 Mã c6 bảo vệ Tốt e5."
+            },
+            {
+                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+                "targetMove": "f1c4",
+                "note": "♝ Tượng <b>c4</b> nhắm ô yếu f7: Ván cờ Ý!",
+                "mascot": "Giuoco Piano!"
+            }
+        ]
+    },
+    {
+        "id": "opening_ruy_lopez",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 23: 🚀 Khai cuộc",
+        "title": "Ván cờ Tây Ban Nha (Ruy Lopez)",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                "targetMove": "e2e4",
+                "note": "🇪🇸 Tốt <b>e4</b> chiếm trung tâm",
+                "mascot": "Bắt đầu!",
+                "reply": "e7e5",
+                "replyNote": "👀 Đen đáp e5."
+            },
+            {
+                "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2",
+                "targetMove": "g1f3",
+                "note": "🐴 Mã <b>f3</b> dọa Tốt e5",
+                "mascot": "Ra quân!",
+                "reply": "b8c6",
+                "replyNote": "👀 Mã c6 bảo vệ e5."
+            },
+            {
+                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+                "targetMove": "f1b5",
+                "note": "♝ Tượng <b>b5</b> dọa Mã c6, người bảo vệ e5: Ván cờ Tây Ban Nha!",
+                "mascot": "Khai cuộc lâu đời nhất!"
+            }
+        ]
+    },
+    {
+        "id": "opening_queens_gambit",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 23: 🚀 Khai cuộc",
+        "title": "Thí Tốt Hậu (Queen's Gambit)",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                "targetMove": "d2d4",
+                "note": "👑 Tốt <b>d4</b> chiếm trung tâm",
+                "mascot": "Khai cuộc Tốt Hậu!",
+                "reply": "d7d5",
+                "replyNote": "👀 Đen đáp d5."
+            },
+            {
+                "fen": "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d6 0 2",
+                "targetMove": "c2c4",
+                "note": "♟ Thí Tốt <b>c4</b> để kéo Tốt d5 khỏi trung tâm",
+                "mascot": "Gambit Hậu!",
+                "reply": "e7e6",
+                "replyNote": "👀 Đen giữ trung tâm bằng e6."
+            },
+            {
+                "fen": "rnbqkbnr/ppp2ppp/4p3/3p4/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3",
+                "targetMove": "b1c3",
+                "note": "🐴 Mã <b>c3</b> thêm sức ép lên d5",
+                "mascot": "Phát triển quân!"
+            }
+        ]
+    },
+    {
+        "id": "opening_sicilian",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 23: 🚀 Khai cuộc",
+        "title": "Phòng thủ Sicilian",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                "targetMove": "e2e4",
+                "note": "🌋 Tốt <b>e4</b>",
+                "mascot": "Trắng mở đầu!",
+                "reply": "c7c5",
+                "replyNote": "👀 Đen đáp c5: Phòng thủ Sicilian!"
+            },
+            {
+                "fen": "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2",
+                "targetMove": "g1f3",
+                "note": "🐴 Mã <b>f3</b> chuẩn bị d4",
+                "mascot": "Ra quân!",
+                "reply": "d7d6",
+                "replyNote": "👀 Đen đẩy d6."
+            },
+            {
+                "fen": "rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3",
+                "targetMove": "d2d4",
+                "note": "♟ Đẩy <b>d4</b> mở trung tâm: Sicilian Mở",
+                "mascot": "Đấu trí sắc bén!"
+            }
+        ]
+    },
+    {
+        "id": "opening_french",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 23: 🚀 Khai cuộc",
+        "title": "Phòng thủ Pháp",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                "targetMove": "e2e4",
+                "note": "🇫🇷 Tốt <b>e4</b>",
+                "mascot": "Trắng mở đầu!",
+                "reply": "e7e6",
+                "replyNote": "👀 Đen đáp e6: Phòng thủ Pháp."
+            },
+            {
+                "fen": "rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+                "targetMove": "d2d4",
+                "note": "♟ Thêm Tốt <b>d4</b>: trung tâm 2 Tốt",
+                "mascot": "Chiếm trọn trung tâm!",
+                "reply": "d7d5",
+                "replyNote": "👀 Đen phản công d5."
+            },
+            {
+                "fen": "rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq d6 0 3",
+                "targetMove": "b1c3",
+                "note": "🐴 Mã <b>c3</b> bảo vệ Tốt e4",
+                "mascot": "Biến chính!"
+            }
+        ]
+    },
+    {
+        "id": "opening_caro_kann",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 23: 🚀 Khai cuộc",
+        "title": "Phòng thủ Caro-Kann",
+        "steps": [
+            {
+                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                "targetMove": "e2e4",
+                "note": "🛡 Tốt <b>e4</b>",
+                "mascot": "Trắng mở đầu!",
+                "reply": "c7c6",
+                "replyNote": "👀 Đen đáp c6: Phòng thủ Caro-Kann."
+            },
+            {
+                "fen": "rnbqkbnr/pp1ppppp/2p5/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+                "targetMove": "d2d4",
+                "note": "♟ Thêm Tốt <b>d4</b>",
+                "mascot": "Trung tâm vững!",
+                "reply": "d7d5",
+                "replyNote": "👀 Đen phản công d5."
+            },
+            {
+                "fen": "rnbqkbnr/pp2pppp/2p5/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq d6 0 3",
+                "targetMove": "b1c3",
+                "note": "🐴 Mã <b>c3</b> bảo vệ Tốt e4",
+                "mascot": "Biến cổ điển!"
+            }
+        ]
+    },
+    {
+        "id": "weak-f7-3",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 24: ⚔️ Tấn công Vua",
+        "title": "Mã thí tại f7",
+        "steps": [
+            {
+                "fen": "r1bqkb1r/ppp2ppp/2n2n2/3pp1N1/2B1P3/8/PPPP1PPP/RNBQK2R w KQkq d6 0 5",
+                "targetMove": "e4d5",
+                "note": "♟ Ăn Tốt d5",
+                "mascot": "Mở đường cho Tượng c4!",
+                "reply": "f6d5",
+                "replyNote": "👀 Mã đen ăn lại, bỏ trống f7."
+            },
+            {
+                "fen": "r1bqkb1r/ppp2ppp/2n5/3np1N1/2B5/8/PPPP1PPP/RNBQK2R w KQkq - 0 6",
+                "targetMove": "g5f7",
+                "note": "🔥 Thí Mã ở <b>f7</b> (Gan Rán)!",
+                "mascot": "Kéo Vua ra ngoài!",
+                "reply": "e8f7",
+                "replyNote": "👀 Vua đen buộc phải ăn Mã và ra giữa bàn."
+            },
+            {
+                "fen": "r1bq1b1r/ppp2kpp/2n5/3np3/2B5/8/PPPP1PPP/RNBQK2R w KQ - 0 7",
+                "targetMove": "d1f3",
+                "note": "♛ Hậu chiếu và dọa Mã d5",
+                "mascot": "Vua đen lộ diện!",
+                "reply": "f7e6",
+                "replyNote": "👀 Vua phải bảo vệ Mã d5."
+            },
+            {
+                "fen": "r1bq1b1r/ppp3pp/2n1k3/3np3/2B5/5Q2/PPPP1PPP/RNB1K2R w KQ - 2 8",
+                "targetMove": "b1c3",
+                "note": "♞ Thêm Mã tấn công d5: Vua đen rất nguy hiểm",
+                "mascot": "Dồn ép!"
+            }
+        ]
+    },
+    {
+        "id": "uncastled-2",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 24: ⚔️ Tấn công Vua",
+        "title": "Mở cột e",
+        "steps": [
+            {
+                "fen": "r1bqk2r/pppp1ppp/2n2n2/2b5/2BpP3/5N2/PPP2PPP/RNBQ1RK1 w kq - 0 6",
+                "targetMove": "e4e5",
+                "note": "⚔️ Vua đen còn ở e8. Đẩy <b>e5</b> đuổi Mã f6",
+                "mascot": "Mở đường tấn công!",
+                "reply": "d7d5",
+                "replyNote": "👀 Đen phản công vào Tượng c4."
+            },
+            {
+                "fen": "r1bqk2r/ppp2ppp/2n2n2/2bpP3/2Bp4/5N2/PPP2PPP/RNBQ1RK1 w kq d6 0 7",
+                "targetMove": "e5f6",
+                "note": "♟ Ăn Mã f6",
+                "mascot": "Đổi quân để mở cột!",
+                "reply": "d5c4",
+                "replyNote": "👀 Đen ăn Tượng c4."
+            },
+            {
+                "fen": "r1bqk2r/ppp2ppp/2n2P2/2b5/2pp4/5N2/PPP2PPP/RNBQ1RK1 w kq - 0 8",
+                "targetMove": "f1e1",
+                "note": "♜ Cột e đã mở: Xe <b>chiếu</b> Vua chưa nhập thành!",
+                "mascot": "Xe xông vào cột e!",
+                "reply": "c8e6",
+                "replyNote": "👀 Đen phải lấy Tượng che chắn."
+            },
+            {
+                "fen": "r2qk2r/ppp2ppp/2n1bP2/2b5/2pp4/5N2/PPP2PPP/RNBQR1K1 w kq - 2 9",
+                "targetMove": "f3g5",
+                "note": "♞ Mã tấn công Tượng e6 đang bị ghim",
+                "mascot": "Dồn ép Vua giữa bàn!"
+            }
+        ]
+    },
+    {
+        "id": "pawn-storm-1",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 24: ⚔️ Tấn công Vua",
+        "title": "Mở đường bão Tốt",
+        "steps": [
+            {
+                "fen": "rnbq1rk1/ppp2ppp/4pn2/3p4/2PP4/2B1P3/PP3PPP/R2QKBNR w KQ - 1 7",
+                "targetMove": "g2g4",
+                "note": "Đẩy Tốt g4 để bắt đầu bão Tốt.",
+                "mascot": "Bão Tốt bắt đầu!",
+                "reply": "f6e4",
+                "replyNote": "👀 Mã Đen nhảy lên e4."
+            },
+            {
+                "fen": "rnbq1rk1/ppp2ppp/4p3/3p4/2PPn1P1/2B1P3/PP3P1P/R2QKBNR w KQ - 1 8",
+                "targetMove": "h2h4",
+                "note": "Tốt h4 lên tiếp viện.",
+                "mascot": "Bão Tốt đang mạnh dần!",
+                "reply": "c7c5",
+                "replyNote": "👀 Đen phản công ở cánh Hậu."
+            },
+            {
+                "fen": "rnbq1rk1/pp3ppp/4p3/2pp4/2PPn1PP/2B1P3/PP3P2/R2QKBNR w KQ - 0 9",
+                "targetMove": "g4g5",
+                "note": "Tiếp tục tiến Tốt g5 đuổi Mã, gây sức ép.",
+                "mascot": "Gây áp lực tối đa!"
+            }
+        ]
+    },
+    {
+        "id": "pawn-storm-2",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 24: ⚔️ Tấn công Vua",
+        "title": "Tốt h xung phong",
+        "steps": [
+            {
+                "fen": "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/2N1PN2/PP3PPP/R2QKB1R w KQ - 1 8",
+                "targetMove": "h2h4",
+                "note": "Bắt đầu bằng Tốt h4.",
+                "mascot": "Tốt h xung phong!",
+                "reply": "h7h6",
+                "replyNote": "👀 Đen chặn lại."
+            },
+            {
+                "fen": "r1bq1rk1/ppp2pp1/2n1pn1p/3p4/2PP3P/2N1PN2/PP3PP1/R2QKB1R w KQ - 0 9",
+                "targetMove": "g2g4",
+                "note": "Tốt g4 xông lên.",
+                "mascot": "Bão Tốt kép!",
+                "reply": "f6g4",
+                "replyNote": "👀 Đen ăn Tốt g4."
+            },
+            {
+                "fen": "r1bq1rk1/ppp2pp1/2n1p2p/3p4/2PP2nP/2N1PN2/PP3P2/R2QKB1R w KQ - 0 10",
+                "targetMove": "h1g1",
+                "note": "Xe ra g1 tấn công Mã.",
+                "mascot": "Xe g1 chuẩn bị tấn công."
+            }
+        ]
+    },
+    {
+        "id": "pawn-storm-3",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 24: ⚔️ Tấn công Vua",
+        "title": "Phá vỡ cấu trúc",
+        "steps": [
+            {
+                "fen": "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/2N1PN2/PP3PPP/R2QKB1R w KQ - 1 8",
+                "targetMove": "g2g4",
+                "note": "Tốt g4 xông lên.",
+                "mascot": "Bão Tốt bắt đầu!",
+                "reply": "f6g4",
+                "replyNote": "👀 Đen ăn Tốt g4."
+            },
+            {
+                "fen": "r1bq1rk1/ppp2ppp/2n1p3/3p4/2PP2n1/2N1PN2/PP3P1P/R2QKB1R w KQ - 0 9",
+                "targetMove": "h1g1",
+                "note": "Xe ra g1.",
+                "mascot": "Xe vào vị trí!",
+                "reply": "g4f6",
+                "replyNote": "👀 Mã lùi về."
+            },
+            {
+                "fen": "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/2N1PN2/PP3P1P/R2QKBR1 w Q - 2 10",
+                "targetMove": "h2h4",
+                "note": "Tốt h4 tiếp tục.",
+                "mascot": "Tốt h4 tiếp sức!"
+            }
+        ]
+    },
+    {
+        "id": "overload-2",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 24: ⚔️ Tấn công Vua",
+        "title": "Đuổi quân phòng thủ",
+        "steps": [
+            {
+                "fen": "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R4RK1 w - - 3 10",
+                "targetMove": "a1c1",
+                "note": "Xe c1 kiểm soát cột c.",
+                "mascot": "Xe ra cột c.",
+                "reply": "c8g4",
+                "replyNote": "👀 Đen ghim Mã f3."
+            },
+            {
+                "fen": "r2q1rk1/ppp2ppp/2n2n2/3p4/3P2b1/2NBPN2/PP1Q1PPP/2R2RK1 w - - 5 11",
+                "targetMove": "f3e5",
+                "note": "Trắng nhảy Mã e5.",
+                "mascot": "Mã e5 rất mạnh!",
+                "reply": "c6e5",
+                "replyNote": "👀 Đen đổi Mã."
+            },
+            {
+                "fen": "r2q1rk1/ppp2ppp/5n2/3pn3/3P2b1/2NBP3/PP1Q1PPP/2R2RK1 w - - 0 12",
+                "targetMove": "d4e5",
+                "note": "Tốt ăn lại, đuổi Mã f6.",
+                "mascot": "Tốt đuổi Mã f6!"
+            }
+        ]
+    },
+    {
+        "id": "overload-4",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 24: ⚔️ Tấn công Vua",
+        "title": "Mở khoảng trống",
+        "steps": [
+            {
+                "fen": "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R4RK1 w - - 3 10",
+                "targetMove": "f1e1",
+                "note": "Xe e1.",
+                "mascot": "Chuẩn bị e4.",
+                "reply": "f8e8",
+                "replyNote": "👀 Xe e8."
+            },
+            {
+                "fen": "r1bqr1k1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R3R1K1 w - - 5 11",
+                "targetMove": "e3e4",
+                "note": "Trắng e4.",
+                "mascot": "Mở tung trung tâm!",
+                "reply": "d5e4",
+                "replyNote": "👀 Đen ăn Tốt."
+            },
+            {
+                "fen": "r1bqr1k1/ppp2ppp/2n2n2/8/3Pp3/2NB1N2/PP1Q1PPP/R3R1K1 w - - 0 12",
+                "targetMove": "c3e4",
+                "note": "Mã ăn lại.",
+                "mascot": "Mã chiếm e4."
+            }
+        ]
+    },
+    {
+        "id": "scholar-defense",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 25: 🛡 Phòng thủ",
+        "title": "Chặn Bẫy Mate Học Sinh",
+        "steps": [
+            {
+                "fen": "rnb1k1nr/pppp1ppp/8/2b1p3/2B1P2q/2N5/PPPP1PPP/R1BQK1NR w KQkq - 4 4",
+                "targetMove": "d1e2",
+                "goal": "stop-mate",
+                "note": "🛡 Hậu h4 và Tượng c5 cùng dọa <b>Qxf2#</b>! Bảo vệ ô f2 (Qe2, Qf3 hoặc g3 đều được)",
+                "mascot": "Ô f2 là điểm yếu của Trắng!",
+                "before": {
+                    "arrows": [
+                        [
+                            "h4",
+                            "f2",
                             "attack"
                         ],
                         [
-                            "d6",
-                            "e8",
+                            "c5",
+                            "f2",
                             "attack"
                         ]
-                    ]
-                }
-            },
-            {
-                "fen": "4k3/8/3N4/8/8/8/8/4R1K1 b - - 0 1",
-                "targetMove": "e8d7",
-                "note": "♞ Vua Đen bỏ chạy",
-                "mascot": "Vua bị chiếu phải chạy!"
-            },
-            {
-                "fen": "8/3k4/3N4/8/8/8/8/4R1K1 w - - 0 2",
-                "targetMove": "e1d1",
-                "note": "♞ Xe sang d1",
-                "mascot": "Xe sang hỗ trợ Mã!"
-            },
-            {
-                "fen": "8/3k4/3N4/8/8/8/8/3R2K1 w - - 0 3",
-                "targetMove": "d6c4",
-                "note": "♞ Mã lùi c4",
-                "mascot": "Mã rút về!"
-            },
-            {
-                "fen": "8/3k4/8/8/2N5/8/8/3R2K1 w - - 0 4",
-                "targetMove": "d1e1",
-                "note": "♞ Xe về e1",
-                "mascot": "Bài học kết thúc!"
-            }
-        ]
-    },
-    {
-        "id": "double-check",
-        "category": "Chương 9: Đòn Tấn Công",
-        "title": "Chiếu Đôi Kết Liễu",
-        "steps": [
-            {
-                "fen": "3qkb2/3p1p2/8/8/4N3/8/8/4R1K1 w - - 0 1",
-                "targetMove": "e4d6",
-                "goal": "mate",
-                "note": "⚡ <b>Chiếu đôi</b>: Mã và Xe cùng chiếu!",
-                "mascot": "Mã nhảy đi, Xe phía sau cũng chiếu!",
-                "before": {
-                    "arrows": [
-                        [
-                            "e1",
-                            "e8",
-                            "blocked"
-                        ]
-                    ]
-                }
-            },
-            {
-                "fen": "r1bqk2r/pppp1ppp/2n5/2b1p3/2B1P1n1/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 6",
-                "targetMove": "c4f7",
-                "goal": "mate",
-                "note": "⚡ <b>Chiếu đôi</b> bằng Tượng và Hậu (ví dụ khác)",
-                "mascot": "Tượng ăn f7 chiếu!"
-            },
-            {
-                "fen": "k7/p1p5/1p6/8/2N5/8/8/4R1K1 w - - 0 1",
-                "targetMove": "c4b6",
-                "goal": "mate",
-                "note": "⚡ Mã nhảy chiếu, Xe mở đường!",
-                "mascot": "Chiếu đôi!"
-            },
-            {
-                "fen": "r3k2r/pbp2ppp/1pn5/1B1p4/3P4/2N2N2/PPP2PPP/R2QK2R w KQkq - 0 1",
-                "targetMove": "b5c6",
-                "note": "⚡ Đòn mở!",
-                "mascot": "Chiếu đôi!"
-            },
-            {
-                "fen": "4k3/8/8/8/4N3/8/8/4R1K1 w - - 0 1",
-                "targetMove": "e4f6",
-                "note": "⚡ Chiếu đôi bằng Mã và Xe!",
-                "mascot": "Hai quân cùng chiếu!"
-            }
-        ]
-    },
-    {
-        "id": "free-piece",
-        "category": "Chương 9: Đòn Tấn Công",
-        "title": "Ăn Quân Bị Bỏ Rơi",
-        "steps": [
-            {
-                "fen": "4k3/8/3p4/4p3/7b/5N2/8/3K4 w - - 0 1",
-                "targetMove": "f3h4",
-                "hideTarget": true,
-                "note": "🎁 Chọn quân <b>không ai bảo vệ</b>!",
-                "mascot": "Tượng không ai bảo vệ!",
-                "before": {
+                    ],
                     "marks": [
                         [
-                            "e5",
+                            "f2",
                             "guard"
                         ]
                     ]
                 }
             },
             {
-                "fen": "3r2k1/1p3ppp/p7/8/3N4/8/PP3PPP/4R1K1 w - - 0 1",
-                "targetMove": "e1e8",
-                "note": "🎁 Xe không ai bảo vệ!",
-                "mascot": "Ăn quân miễn phí!"
+                "fen": "rnb1k1nr/pppp1ppp/5q2/2b1p3/2B1P3/2N3P1/PPPP1P1P/R1BQK1NR w KQkq - 1 5",
+                "targetMove": "g1f3",
+                "goal": "stop-mate",
+                "note": "🛡 Hậu đen quay sang f6, lại dọa f2! Ra <b>Mã f3</b> chặn đường",
+                "mascot": "Ra quân và phòng thủ cùng lúc!",
+                "before": {
+                    "arrows": [
+                        [
+                            "f6",
+                            "f2",
+                            "attack"
+                        ],
+                        [
+                            "c5",
+                            "f2",
+                            "attack"
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "adv-def-prophylaxis",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 25: 🛡 Phòng thủ",
+        "title": "Tư duy phòng ngừa (Prophylaxis)",
+        "steps": [
+            {
+                "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w kq - 0 1",
+                "targetMove": "h2h3",
+                "note": "<b>Tư duy phòng ngừa:</b> Ngăn chặn ý đồ của đối phương trước khi nó xảy ra. Đen muốn nhảy Ngựa hoặc Tượng vào g4. Nước <b>h3</b> ngăn chặn điều này.",
+                "mascot": "Tướng của ta cần không gian an toàn! Hãy chặn đường đối thủ nào!"
             },
+            {
+                "fen": "r2qk2r/ppp1bppp/2np1n2/4p3/4P1b1/2NP1N2/PPP1BPPP/R1BQ1RK1 w kq - 0 1",
+                "targetMove": "a2a3",
+                "note": "🛡 <b>Phòng ngừa:</b> Đẩy <b>a3</b> để Mã, Tượng đen không nhảy được vào ô b4",
+                "mascot": "Một nước cờ nhỏ nhưng cứu được cả Tượng mạnh!"
+            },
+            {
+                "fen": "r1bq1rk1/ppp2ppp/2np4/2b1p3/2B1P1n1/2NP3N/PPP2PPP/R1BQK2R w KQ - 0 1",
+                "targetMove": "e1g1",
+                "note": "<b>Nhập thành an toàn:</b> Trắng nhập thành để đưa Vua vào vị trí an toàn trước khi Đen tổ chức tấn công mạnh hơn.",
+                "mascot": "Đừng quên nhập thành, đó là biện pháp phòng ngừa tốt nhất!"
+            },
+            {
+                "fen": "r2qk2r/pppbbppp/2np1n2/4p3/4P3/2NP1N2/PPP1BPPP/R1BQK2R w KQkq - 0 1",
+                "targetMove": "f3d2",
+                "note": "<b>Phòng ngừa chiến lược:</b> Trắng đưa Mã về d2 để chuẩn bị c3, ngăn cản sức mạnh của các quân Đen ở trung tâm.",
+                "mascot": "Lùi một bước để tiến ba bước!"
+            }
+        ]
+    },
+    {
+        "id": "adv-def-counterattack",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 25: 🛡 Phòng thủ",
+        "title": "Phản công khi phòng thủ",
+        "steps": [
+            {
+                "fen": "r1q4k/pp3Qpp/2p2p2/4p3/8/2P5/PP3PPP/3R2K1 w - - 0 1",
+                "targetMove": "d1d7",
+                "note": "♜ Đang bị ép, nhưng thay vì co cụm, Xe xâm nhập <b>hàng 7</b> phản công!",
+                "mascot": "Phản công là cách phòng thủ tốt nhất!"
+            },
+            {
+                "fen": "r5k1/pp1R2pp/2p2p2/4p3/8/2P5/PP3PPP/7K w - - 0 1",
+                "targetMove": "d7b7",
+                "note": "♜ Xe ăn Tốt <b>b7</b>, tiếp theo dọa Tốt a7",
+                "mascot": "Ăn Tốt hàng 7!"
+            },
+            {
+                "fen": "2r3k1/pR4pp/2p2p2/4p3/8/2P5/PP3PPP/7K w - - 0 1",
+                "targetMove": "b7a7",
+                "note": "♜ Ăn tiếp Tốt <b>a7</b>",
+                "mascot": "Lời thêm Tốt!"
+            },
+            {
+                "fen": "1r4k1/R5pp/2p2p2/4p3/8/2P5/PP3PPP/7K w - - 0 1",
+                "targetMove": "b2b3",
+                "note": "♟ Đẩy <b>b3</b> cho Tốt b2 an toàn, Vua có thêm chỗ thở",
+                "mascot": "Củng cố trận địa!"
+            },
+            {
+                "fen": "3r2k1/R5pp/2p2p2/4p3/8/1PP5/P4PPP/6K1 w - - 0 1",
+                "targetMove": "g1f1",
+                "note": "♚ Tàn cuộc rồi: đưa <b>Vua</b> vào trận",
+                "mascot": "Vua cũng là chiến binh!"
+            }
+        ]
+    },
+    {
+        "id": "isolated_pawn",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 26: 🧱 Cấu trúc Tốt",
+        "title": "Isolated Pawn (Tốt Cô Lập)",
+        "steps": [
+            {
+                "fen": "rnbq1rk1/pp2bppp/4pn2/3p4/2PP4/2N2N2/PP2BPPP/R1BQ1RK1 w - - 0 1",
+                "targetMove": "c4d5",
+                "note": "Đổi Tốt trung tâm để tạo Tốt cô lập cho Đen.",
+                "mascot": "Tuyệt vời!",
+                "reply": "e6d5",
+                "replyNote": "👀 Đen đã có Tốt cô lập ở d5. Nó mạnh nhưng cần bảo vệ."
+            },
+            {
+                "fen": "rnbq1rk1/pp2bppp/5n2/3p4/3P4/2N2N2/PP2BPPP/R1BQ1RK1 w - - 0 2",
+                "targetMove": "f3e5",
+                "note": "Chiếm cứ điểm e5 vững chắc trước Tốt cô lập.",
+                "mascot": "Tuyệt vời!",
+                "reply": "b8c6",
+                "replyNote": "👀 Đen phát triển quân. Hãy duy trì kiểm soát khối chặn."
+            },
+            {
+                "fen": "r1bq1rk1/pp2bppp/2n2n2/3pN3/3P4/2N5/PP2BPPP/R1BQ1RK1 w - - 2 3",
+                "targetMove": "c1f4",
+                "note": "Tuyệt! Tốt cô lập của Đen giờ là mục tiêu tấn công.",
+                "mascot": "Tuyệt vời!"
+            }
+        ]
+    },
+    {
+        "id": "doubled_pawns",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 26: 🧱 Cấu trúc Tốt",
+        "title": "Doubled Pawns (Tốt Chồng)",
+        "steps": [
             {
                 "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 4 5",
-                "targetMove": "f3e5",
-                "note": "🎁 Mã ăn Tốt miễn phí!",
-                "mascot": "Tốt e5 không ai bảo vệ!"
+                "targetMove": "d2d3",
+                "note": "Phát triển quân và chuẩn bị tạo cấu trúc Tốt chồng.",
+                "mascot": "Tuyệt vời!",
+                "reply": "d7d6",
+                "replyNote": "👀 Đen đáp trả chắc chắn. Lên kế hoạch ghim Mã."
             },
             {
-                "fen": "8/8/4k3/8/1b6/2R5/8/4K3 w - - 0 1",
-                "targetMove": "c3b3",
-                "note": "🎁 Dọa ăn Tượng!",
-                "mascot": "Tượng b4!"
+                "fen": "r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQkq - 0 6",
+                "targetMove": "c1g5",
+                "note": "Ghim Mã Đen, gây áp lực lên cấu trúc cánh Vua.",
+                "mascot": "Tuyệt vời!",
+                "reply": "h7h6",
+                "replyNote": "👀 Đen đuổi Tượng. Hãy mạnh dạn đổi quân!"
             },
             {
-                "fen": "6k1/8/3p4/4p3/7b/5N2/8/3K4 w - - 0 1",
-                "targetMove": "f3h4",
-                "note": "🎁 Ăn Tượng!",
-                "mascot": "Ngon quá!"
-            }
-        ]
-    },
-    {
-        "id": "remove-defender",
-        "category": "Chương 9: Đòn Tấn Công",
-        "title": "Tiêu Diệt Quân Bảo Vệ",
-        "steps": [
-            {
-                "fen": "7k/3r2p1/1N3n2/6B1/8/8/8/6K1 w - - 0 1",
+                "fen": "r1bqk2r/ppp2pp1/2np1n1p/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R w KQkq - 0 7",
                 "targetMove": "g5f6",
-                "note": "🛡 <b>Diệt</b> Mã bảo vệ trước!",
-                "mascot": "Tượng ăn Mã bảo vệ!"
-            },
-            {
-                "fen": "7k/3r4/1N3p2/8/8/8/8/6K1 w - - 0 2",
-                "targetMove": "b6d7",
-                "note": "🎯 Mã ăn Xe!",
-                "mascot": "Xe mồ côi rồi!"
-            },
-            {
-                "fen": "8/1p1k4/p1n5/3R4/8/8/1B6/6K1 w - - 0 1",
-                "targetMove": "b2n6",
-                "note": "🛡 Diệt quân canh phòng!",
-                "mascot": "Bỏ bảo vệ!"
-            },
-            {
-                "fen": "8/1p1k4/p1p5/3R4/8/8/8/6K1 w - - 0 2",
-                "targetMove": "d5c5",
-                "note": "🎯 Đánh thẳng!",
-                "mascot": "Ăn!"
-            },
-            {
-                "fen": "8/3q2k1/5n2/4R3/8/8/8/6K1 w - - 0 1",
-                "targetMove": "e5f6",
-                "note": "🛡 Tiêu diệt Mã!",
-                "mascot": "Ăn Mã!"
+                "note": "Tốt chồng hình thành! Cánh Vua Đen giờ đã suy yếu.",
+                "mascot": "Tuyệt vời!"
             }
         ]
     },
     {
-        "id": "escape",
-        "category": "Chương 10: Phòng Thủ & Thoát Hiểm",
-        "title": "Né Đòn Chiếu Của Vua",
+        "id": "backward_pawn",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 26: 🧱 Cấu trúc Tốt",
+        "title": "Backward Pawn (Tốt Lạc Hậu)",
         "steps": [
             {
-                "fen": "4R1k1/5pp1/8/8/8/8/8/4K3 b - - 0 1",
-                "targetMove": "g8h7",
-                "note": "🏃 Vua bị chiếu! Chạy tới ô <b>an toàn</b>"
+                "fen": "r1bq1rk1/pp2bppp/2n1pn2/2pp4/3P4/2P1PN2/PP1NBPPP/R1BQ1RK1 w - - 0 1",
+                "targetMove": "d4c5",
+                "note": "Tạo áp lực để hình thành Tốt lạc hậu.",
+                "mascot": "Tuyệt vời!",
+                "reply": "e7c5",
+                "replyNote": "👀 Đen ăn lại. Quan sát cấu trúc Tốt của Đen."
             },
             {
-                "fen": "6k1/R7/8/8/8/8/8/4K3 b - - 0 1",
-                "targetMove": "g8f8",
-                "note": "🏃 Chạy ngang!"
+                "fen": "r1bq1rk1/pp3ppp/2n1pn2/2bp4/8/2P1PN2/PP1NBPPP/R1BQ1RK1 w - - 0 2",
+                "targetMove": "b2b4",
+                "note": "Đẩy b4 để khóa Tốt c5 và tạo Tốt lạc hậu.",
+                "mascot": "Tuyệt vời!",
+                "reply": "c5e7",
+                "replyNote": "👀 Đen lui quân. Cấu trúc của họ bắt đầu cứng nhắc."
             },
             {
-                "fen": "8/4R1k1/8/8/8/8/8/4K3 b - - 0 1",
-                "targetMove": "g7f6",
-                "note": "🏃 Chạy dọc!"
-            },
-            {
-                "fen": "8/8/4R1k1/8/8/8/8/4K3 b - - 0 1",
-                "targetMove": "g6f5",
-                "note": "🏃 Chạy chéo!"
-            },
-            {
-                "fen": "8/8/8/4R1k1/8/8/8/4K3 b - - 0 1",
-                "targetMove": "g5f4",
-                "note": "🏃 Thoát hiểm an toàn!"
+                "fen": "r1bq1rk1/pp2bppp/2n1pn2/3p4/1P6/2P1PN2/P2NBPPP/R1BQ1RK1 w - - 1 3",
+                "targetMove": "b4b5",
+                "note": "Khóa chặt! Tốt Đen không thể tiến lên an toàn.",
+                "mascot": "Tuyệt vời!"
             }
         ]
     },
     {
-        "id": "block",
-        "category": "Chương 10: Phòng Thủ & Thoát Hiểm",
-        "title": "Dùng Quân Che Chắn",
+        "id": "pawn_chains",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 26: 🧱 Cấu trúc Tốt",
+        "title": "Pawn Chains (Chuỗi Tốt)",
         "steps": [
             {
-                "fen": "6k1/5ppp/8/1B6/8/8/5PPP/r5K1 w - - 0 1",
-                "targetMove": "b5f1",
-                "note": "🛡 Dùng quân <b>chắn</b> đường chiếu"
+                "fen": "rnbqkbnr/pp1p1ppp/4p3/2p5/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 3",
+                "targetMove": "d4d5",
+                "note": "Đẩy Tốt d5 để khóa trung tâm, tạo nền móng chuỗi Tốt.",
+                "mascot": "Tuyệt vời!",
+                "reply": "d7d6",
+                "replyNote": "👀 Đen phản công vào gốc của chuỗi. Hãy củng cố."
             },
             {
-                "fen": "6k1/5ppp/4N3/8/8/8/5PPP/r5K1 w - - 0 1",
-                "targetMove": "e6f8",
-                "note": "🛡 Mã che chắn!"
+                "fen": "rnbqkbnr/pp3ppp/3pp3/2pP4/4P3/8/PPP2PPP/RNBQKBNR w KQkq - 0 4",
+                "targetMove": "c2c4",
+                "note": "Đẩy c4 để củng cố đỉnh d5. Chuỗi Tốt vững chắc!",
+                "mascot": "Tuyệt vời!",
+                "reply": "g8f6",
+                "replyNote": "👀 Đen phát triển Mã. Bạn cần bảo vệ cấu trúc này."
             },
             {
-                "fen": "6k1/5ppp/8/8/8/4Q3/5PPP/r5K1 w - - 0 1",
-                "targetMove": "e3e1",
-                "note": "🛡 Hậu che chắn!"
-            },
-            {
-                "fen": "6k1/5ppp/8/8/2R5/8/5PPP/r5K1 w - - 0 1",
-                "targetMove": "c4c1",
-                "note": "🛡 Xe che chắn!"
-            },
-            {
-                "fen": "6k1/5ppp/8/8/8/8/P4PPP/r5K1 w - - 0 1",
-                "targetMove": "a2a1",
-                "note": "🛡 Tốt che chắn? (Không, không thể - đi Vua thôi)"
+                "fen": "rnbqkb1r/pp3ppp/3ppn2/2pP4/2P1P3/8/PP3PPP/RNBQKBNR w KQkq - 1 5",
+                "targetMove": "b1c3",
+                "note": "Bảo vệ chuỗi bằng Mã. Một bức tường không thể xuyên thủng.",
+                "mascot": "Tuyệt vời!"
             }
         ]
     },
     {
-        "id": "capture",
-        "category": "Chương 10: Phòng Thủ & Thoát Hiểm",
-        "title": "Tiêu Diệt Kẻ Tấn Công",
+        "id": "hanging_pawns",
+        "level": "Cấp 4 · Cả đội quân",
+        "category": "Chương 26: 🧱 Cấu trúc Tốt",
+        "title": "Hanging Pawns (Tốt Treo)",
         "steps": [
             {
-                "fen": "6k1/5ppp/8/4R3/8/8/5PPP/4q1K1 w - - 0 1",
-                "targetMove": "e5e1",
-                "note": "⚔️ <b>Ăn luôn</b> quân đang chiếu Vua!"
-            },
-            {
-                "fen": "6k1/5ppp/8/4N3/8/8/5PPP/4q1K1 w - - 0 1",
-                "targetMove": "e5e1",
-                "note": "⚔️ Mã ăn Hậu!"
-            },
-            {
-                "fen": "6k1/5ppp/8/4B3/8/8/5PPP/4q1K1 w - - 0 1",
-                "targetMove": "e5e1",
-                "note": "⚔️ Tượng ăn Hậu!"
-            },
-            {
-                "fen": "6k1/5ppp/8/4Q3/8/8/5PPP/4q1K1 w - - 0 1",
-                "targetMove": "e5e1",
-                "note": "⚔️ Hậu ăn Hậu!"
-            },
-            {
-                "fen": "6k1/5ppp/8/8/8/8/4PPPP/4q1K1 w - - 0 1",
-                "targetMove": "e1e1",
-                "note": "⚔️ Vua ăn Hậu!"
-            }
-        ]
-    },
-    {
-        "id": "run-away",
-        "category": "Chương 10: Phòng Thủ & Thoát Hiểm",
-        "title": "Chạy Quân Bị Dọa",
-        "steps": [
-            {
-                "fen": "4k3/8/7b/3p4/4N3/8/8/4K3 w - - 0 1",
-                "targetMove": "e4c3",
-                "goal": "safe",
-                "hideTarget": true,
-                "note": "🏃 Mã chạy tới ô <b>an toàn</b>"
-            },
-            {
-                "fen": "4k3/8/8/3p4/4R3/8/8/4K3 w - - 0 1",
-                "targetMove": "e4e3",
-                "note": "🏃 Xe chạy!"
-            },
-            {
-                "fen": "4k3/8/8/3p4/4B3/8/8/4K3 w - - 0 1",
-                "targetMove": "e4f3",
-                "note": "🏃 Tượng chạy!"
-            },
-            {
-                "fen": "4k3/8/8/3p4/4Q3/8/8/4K3 w - - 0 1",
-                "targetMove": "e4d3",
-                "note": "🏃 Hậu chạy!"
-            },
-            {
-                "fen": "4k3/8/8/3p4/4N3/8/8/4K3 w - - 0 1",
-                "targetMove": "e4f2",
-                "note": "🏃 Mã chạy an toàn!"
-            }
-        ]
-    },
-    {
-        "id": "defend-piece",
-        "category": "Chương 10: Phòng Thủ & Thoát Hiểm",
-        "title": "Dùng Tốt Bảo Vệ Quân",
-        "steps": [
-            {
-                "fen": "3rk3/8/8/8/3N4/8/2P1P3/6K1 w - - 0 1",
-                "targetMove": "c2c3",
-                "goal": "protect",
-                "hideTarget": true,
-                "note": "🛡 Dùng <b>Tốt</b> bảo vệ Mã"
-            },
-            {
-                "fen": "3rk3/8/8/8/3B4/8/2P1P3/6K1 w - - 0 1",
-                "targetMove": "e2e3",
-                "note": "🛡 Tốt bảo vệ Tượng"
-            },
-            {
-                "fen": "3rk3/8/8/8/3R4/8/2P1P3/6K1 w - - 0 1",
-                "targetMove": "c2c3",
-                "note": "🛡 Tốt bảo vệ Xe"
-            },
-            {
-                "fen": "3rk3/8/8/8/3Q4/8/2P1P3/6K1 w - - 0 1",
-                "targetMove": "e2e3",
-                "note": "🛡 Tốt bảo vệ Hậu"
-            },
-            {
-                "fen": "3rk3/8/8/8/3N4/8/2P1P3/6K1 w - - 0 1",
-                "targetMove": "c2c3",
-                "note": "🛡 Tốt bảo vệ Mã 2!"
-            }
-        ]
-    },
-    {
-        "id": "luft",
-        "category": "Chương 10: Phòng Thủ & Thoát Hiểm",
-        "title": "Mở Cửa Sổ Cho Vua",
-        "steps": [
-            {
-                "fen": "4r1k1/5ppp/8/8/8/8/5PPP/6K1 w - - 0 1",
-                "targetMove": "h2h3",
-                "goal": "stop-mate",
-                "hideTarget": true,
-                "note": "🪟 Mở <b>cửa sổ</b> cho Vua!"
-            },
-            {
-                "fen": "4r1k1/5ppp/8/8/8/8/5PPP/6K1 w - - 0 1",
-                "targetMove": "g2g3",
-                "note": "🪟 Mở ô g3!"
-            },
-            {
-                "fen": "4r1k1/p4ppp/8/8/8/8/P4PPP/6K1 w - - 0 1",
-                "targetMove": "h2h4",
-                "note": "🪟 Mở ô h4!"
-            },
-            {
-                "fen": "4r1k1/5ppp/8/8/8/8/5PPP/6K1 w - - 0 1",
-                "targetMove": "f2f3",
-                "note": "🪟 Mở ô f3!"
-            },
-            {
-                "fen": "4r1k1/5ppp/8/8/8/8/5PPP/6K1 w - - 0 1",
-                "targetMove": "h2h3",
-                "note": "🪟 Hoàn thành h3!"
-            }
-        ]
-    },
-    {
-        "id": "scholar-defense",
-        "category": "Chương 10: Phòng Thủ & Thoát Hiểm",
-        "title": "Chặn Bẫy Mate Học Sinh",
-        "steps": [
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3",
-                "targetMove": "g7g6",
-                "goal": "stop-mate",
-                "hideTarget": true,
-                "note": "🛡 Chặn lại!"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3",
-                "targetMove": "d8e7",
-                "note": "🛡 Hậu ra bảo vệ!"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3",
-                "targetMove": "d8f6",
-                "note": "🛡 Hậu ra f6!"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3",
-                "targetMove": "g8h6",
-                "note": "🛡 Mã ra h6!"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3",
-                "targetMove": "g7g6",
-                "note": "🛡 Tốt g6 đuổi Hậu!"
-            }
-        ]
-    },
-    {
-        "id": "mate1",
-        "category": "Chương 11: Chiếu Bí Kinh Điển",
-        "title": "Đòn Chiếu Bí 1 Nước",
-        "steps": [
-            {
-                "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4",
-                "targetMove": "f3f7",
-                "goal": "mate",
-                "note": "🎯 Điểm yếu là <b>f7</b>"
-            },
-            {
-                "fen": "r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4",
-                "targetMove": "invalid",
-                "note": "✅ Hậu được Tượng c4 bảo vệ"
-            },
-            {
-                "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4",
-                "targetMove": "h5f7",
-                "note": "🎯 Hậu chiếu f7!"
-            },
-            {
-                "fen": "rnbqkbnr/pppp1Qpp/8/4p3/4P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 1",
-                "targetMove": "invalid",
-                "note": "✅ Hết cờ!"
-            },
-            {
-                "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4",
-                "targetMove": "f3f7",
-                "note": "🎯 f7 một lần nữa!"
-            }
-        ]
-    },
-    {
-        "id": "backrank",
-        "category": "Chương 11: Chiếu Bí Kinh Điển",
-        "title": "Chiếu Bí Hàng Cuối",
-        "steps": [
-            {
-                "fen": "6k1/5ppp/8/8/8/8/8/R5K1 w - - 0 1",
-                "targetMove": "a1a8",
-                "goal": "mate",
-                "note": "🎯 Chiếu hàng cuối!"
-            },
-            {
-                "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
-                "targetMove": "d1d8",
-                "note": "🎯 Xe d1!"
-            },
-            {
-                "fen": "6k1/5ppp/8/8/8/8/8/4Q1K1 w - - 0 1",
-                "targetMove": "e1e8",
-                "note": "🎯 Hậu e1!"
-            },
-            {
-                "fen": "6k1/5ppp/8/8/8/8/8/7K w - - 0 1",
-                "targetMove": "h1h8",
-                "note": "🎯 Xe h8!"
-            },
-            {
-                "fen": "6k1/5ppp/8/8/8/8/8/R5K1 w - - 0 1",
-                "targetMove": "a1a8",
-                "note": "🎯 Quay lại Xe a1!"
-            }
-        ]
-    },
-    {
-        "id": "queenmate",
-        "category": "Chương 11: Chiếu Bí Kinh Điển",
-        "title": "Hậu Hôn Vua",
-        "steps": [
-            {
-                "fen": "7k/4Q3/6K1/8/8/8/8/8 w - - 0 1",
-                "targetMove": "e7g7",
-                "goal": "mate",
-                "note": "💋 Hậu áp sát Vua đen"
-            },
-            {
-                "fen": "8/5Q1k/6K1/8/8/8/8/8 b - - 0 1",
-                "targetMove": "invalid",
-                "note": "💋 Chiếu bí!"
-            },
-            {
-                "fen": "7k/5Q2/6K1/8/8/8/8/8 w - - 0 1",
-                "targetMove": "f7g7",
-                "note": "💋 Hậu áp sát!"
-            },
-            {
-                "fen": "7k/6Q1/6K1/8/8/8/8/8 b - - 0 1",
-                "targetMove": "invalid",
-                "note": "💋 Vua không chạy được!"
-            },
-            {
-                "fen": "7k/4Q3/6K1/8/8/8/8/8 w - - 0 1",
-                "targetMove": "e7g7",
-                "note": "💋 Thực hành lại!"
-            }
-        ]
-    },
-    {
-        "id": "rook-mate",
-        "category": "Chương 11: Chiếu Bí Kinh Điển",
-        "title": "Xe Và Vua Chiếu Bí",
-        "steps": [
-            {
-                "fen": "4k3/8/4K3/8/8/8/8/R7 w - - 0 1",
-                "targetMove": "a1a8",
-                "goal": "mate",
-                "note": "♜ Xe <b>chiếu hàng cuối</b>!"
-            },
-            {
-                "fen": "4k3/8/4K3/8/8/8/8/1R6 w - - 0 1",
-                "targetMove": "b1b8",
-                "note": "♜ Xe cột b!"
-            },
-            {
-                "fen": "4k3/8/4K3/8/8/8/8/2R5 w - - 0 1",
-                "targetMove": "c1c8",
-                "note": "♜ Xe cột c!"
-            },
-            {
-                "fen": "4k3/8/4K3/8/8/8/8/3R4 w - - 0 1",
-                "targetMove": "d1d8",
-                "note": "♜ Xe cột d!"
-            },
-            {
-                "fen": "4k3/8/4K3/8/8/8/8/R7 w - - 0 1",
-                "targetMove": "a1a8",
-                "note": "♜ Lặp lại cột a!"
-            }
-        ]
-    },
-    {
-        "id": "smothered",
-        "category": "Chương 11: Chiếu Bí Kinh Điển",
-        "title": "Chiếu Bí Ngạt Thở",
-        "steps": [
-            {
-                "fen": "6rk/6pp/8/6N1/8/8/8/6K1 w - - 0 1",
-                "targetMove": "g5f7",
-                "goal": "mate",
-                "note": "😵 Vua bị <b>vây kín</b>!"
-            },
-            {
-                "fen": "5r1k/6pp/8/6N1/8/8/8/6K1 w - - 0 1",
-                "targetMove": "g5f7",
-                "note": "😵 Đổi góc!"
-            },
-            {
-                "fen": "6rk/6pp/5N2/8/8/8/8/6K1 w - - 0 1",
-                "targetMove": "f6f7",
-                "note": "😵 Mã từ f6!"
-            },
-            {
-                "fen": "6rk/6pp/8/6N1/8/8/8/6K1 w - - 0 1",
-                "targetMove": "g5f7",
-                "note": "😵 Ngạt thở h8!"
-            },
-            {
-                "fen": "r1b1k2r/pppp1ppp/8/8/8/8/PPPP1PPP/R1B1K2R w KQkq - 0 1",
-                "targetMove": "e1g1",
-                "note": "😵 (Bổ sung FEN hợp lệ)"
-            }
-        ]
-    },
-    {
-        "id": "arabian",
-        "category": "Chương 11: Chiếu Bí Kinh Điển",
-        "title": "Mate Ả Rập",
-        "steps": [
-            {
-                "fen": "7k/1R6/5N2/8/8/8/8/6K1 w - - 0 1",
-                "targetMove": "b7h7",
-                "goal": "mate",
-                "note": "🐪 <b>Mã + Xe</b> phối hợp"
-            },
-            {
-                "fen": "7k/2R5/5N2/8/8/8/8/6K1 w - - 0 1",
-                "targetMove": "c7h7",
-                "note": "🐪 Xe cột c!"
-            },
-            {
-                "fen": "7k/3R4/5N2/8/8/8/8/6K1 w - - 0 1",
-                "targetMove": "d7h7",
-                "note": "🐪 Xe cột d!"
-            },
-            {
-                "fen": "7k/4R3/5N2/8/8/8/8/6K1 w - - 0 1",
-                "targetMove": "e7h7",
-                "note": "🐪 Xe cột e!"
-            },
-            {
-                "fen": "7k/1R6/5N2/8/8/8/8/6K1 w - - 0 1",
-                "targetMove": "b7h7",
-                "note": "🐪 Quay về cột b!"
-            }
-        ]
-    },
-    {
-        "id": "qb-mate",
-        "category": "Chương 11: Chiếu Bí Kinh Điển",
-        "title": "Hậu Và Tượng Kết Liễu",
-        "steps": [
-            {
-                "fen": "5rk1/5pp1/8/7Q/8/3B4/8/6K1 w - - 0 1",
-                "targetMove": "h5h7",
-                "goal": "mate",
-                "note": "♛♝ Hậu lao vào <b>h7</b>"
-            },
-            {
-                "fen": "5rk1/5pp1/8/7Q/8/4B3/8/6K1 w - - 0 1",
-                "targetMove": "h5h7",
-                "note": "♛♝ Hậu h7 bảo vệ bởi e3!"
-            },
-            {
-                "fen": "5rk1/5pp1/8/7Q/8/5B2/8/6K1 w - - 0 1",
-                "targetMove": "h5h7",
-                "note": "♛♝ Tượng f3!"
-            },
-            {
-                "fen": "5rk1/5pp1/8/7Q/8/6B1/8/6K1 w - - 0 1",
-                "targetMove": "h5h7",
-                "note": "♛♝ Tượng g3!"
-            },
-            {
-                "fen": "5rk1/5pp1/8/7Q/8/3B4/8/6K1 w - - 0 1",
-                "targetMove": "h5h7",
-                "note": "♛♝ Hoàn thành!"
-            }
-        ]
-    },
-    {
-        "id": "ladder",
-        "category": "Chương 11: Chiếu Bí Kinh Điển",
-        "title": "Hai Xe Lăn Bánh",
-        "steps": [
-            {
-                "fen": "7k/8/8/8/8/8/1R6/R3K3 w - - 0 1",
-                "targetMove": "b2b7",
-                "note": "🪜 Xe thứ nhất <b>chặn hàng 7</b>"
-            },
-            {
-                "fen": "6k1/1R6/8/8/8/8/8/R3K3 w - - 0 2",
-                "targetMove": "a1a8",
-                "goal": "mate",
-                "note": "🪜 Xe thứ hai <b>chiếu hàng 8</b>!"
-            },
-            {
-                "fen": "7k/8/8/8/8/8/2R5/1R2K3 w - - 0 1",
-                "targetMove": "c2c7",
-                "note": "🪜 Xe chặn hàng 7 (cột c)"
-            },
-            {
-                "fen": "6k1/2R5/8/8/8/8/8/1R2K3 w - - 0 2",
-                "targetMove": "b1b8",
-                "note": "🪜 Xe chiếu hàng 8 (cột b)"
-            },
-            {
-                "fen": "6k1/1R6/8/8/8/8/8/R3K3 w - - 0 2",
-                "targetMove": "a1a8",
-                "note": "🪜 Bài học ghi nhớ!"
-            }
-        ]
-    },
-    {
-        "id": "fools-mate",
-        "category": "Chương 11: Chiếu Bí Kinh Điển",
-        "title": "Chiếu Bí Ngốc Nghếch",
-        "steps": [
-            {
-                "fen": "rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR b KQkq g3 0 2",
-                "targetMove": "d8h4",
-                "goal": "mate",
-                "note": "🤡 Trắng mở toang đường chéo!"
-            },
-            {
-                "fen": "rnbqkbnr/pppp1ppp/8/4p3/5P2/6P1/PPPPP2P/RNBQKBNR b KQkq f3 0 2",
-                "targetMove": "d8h4",
-                "note": "🤡 Tương tự!"
-            },
-            {
-                "fen": "rnbqkbnr/pppp1ppp/8/4p3/6P1/4P3/PPPP1P1P/RNBQKBNR b KQkq - 0 2",
-                "targetMove": "d8h4",
-                "note": "🤡 Hậu h4 chiếu!"
-            },
-            {
-                "fen": "rnbqkbnr/pppp1ppp/8/4p3/6P1/2P5/PP1PPP1P/RNBQKBNR b KQkq - 0 2",
-                "targetMove": "d8h4",
-                "note": "🤡 Chiếu bí!"
-            },
-            {
-                "fen": "rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR b KQkq g3 0 2",
-                "targetMove": "d8h4",
-                "note": "🤡 Ghi nhớ đừng mắc phải!"
-            }
-        ]
-    },
-    {
-        "id": "stalemate",
-        "category": "Chương 11: Chiếu Bí Kinh Điển",
-        "title": "Cẩn Thận Hòa Pat!",
-        "steps": [
-            {
-                "fen": "7k/5K2/8/8/8/8/8/6Q1 w - - 0 1",
-                "targetMove": "g1g7",
-                "goal": "mate",
-                "note": "⚠️ Phải <b>CHIẾU</b>!"
-            },
-            {
-                "fen": "7k/5K2/8/8/8/8/8/5Q2 w - - 0 1",
-                "targetMove": "f1g7",
-                "note": "⚠️ Chiếu g7!"
-            },
-            {
-                "fen": "7k/5K2/8/8/8/8/8/4Q3 w - - 0 1",
-                "targetMove": "e1g7",
-                "note": "⚠️ Chiếu g7!"
-            },
-            {
-                "fen": "7k/5K2/8/8/8/8/8/3Q4 w - - 0 1",
-                "targetMove": "d1g7",
-                "note": "⚠️ Chiếu g7!"
-            },
-            {
-                "fen": "7k/5K2/8/8/8/8/8/6Q1 w - - 0 1",
-                "targetMove": "g1g7",
-                "note": "⚠️ Đừng để hòa Pat!"
-            }
-        ]
-    },
-    {
-        "id": "pawn-race",
-        "category": "Chương 12: Tàn Cuộc Cơ Bản",
-        "title": "Tốt Chạy Về Đích",
-        "steps": [
-            {
-                "fen": "8/8/8/P7/5k2/8/8/7K w - - 0 1",
-                "targetMove": "a5a6",
-                "note": "🏁 Vua đen ở quá xa!"
-            },
-            {
-                "fen": "8/8/P7/4k3/8/8/8/7K w - - 1 2",
-                "targetMove": "a6a7",
-                "note": "⬆️ Lên a7"
-            },
-            {
-                "fen": "8/P7/3k4/8/8/8/8/7K w - - 1 3",
-                "targetMove": "a7a8q",
-                "note": "👑 Về đích, <b>phong cấp</b>!"
-            },
-            {
-                "fen": "8/1P6/3k4/8/8/8/8/7K w - - 1 3",
-                "targetMove": "b7b8q",
-                "note": "👑 Tốt b phong cấp!"
-            },
-            {
-                "fen": "8/8/P7/4k3/8/8/8/7K w - - 1 2",
-                "targetMove": "a6a7",
-                "note": "⬆️ Tiến Tốt!"
-            }
-        ]
-    },
-    {
-        "id": "promote-mate",
-        "category": "Chương 12: Tàn Cuộc Cơ Bản",
-        "title": "Phong Cấp Chiếu Bí",
-        "steps": [
-            {
-                "fen": "8/5KPk/7p/8/8/8/8/8 w - - 0 1",
-                "targetMove": "g7g8q",
-                "goal": "mate",
-                "note": "👑 Phong cấp <b>đúng quân</b>"
-            },
-            {
-                "fen": "8/5KPk/7p/8/8/8/8/8 w - - 0 1",
-                "targetMove": "g7g8r",
-                "note": "👑 Phong cấp Xe!"
-            },
-            {
-                "fen": "8/6Pk/5K1p/8/8/8/8/8 w - - 0 1",
-                "targetMove": "g7g8q",
-                "note": "👑 Phong cấp Hậu!"
-            },
-            {
-                "fen": "8/6Pk/5K1p/8/8/8/8/8 w - - 0 1",
-                "targetMove": "g7g8r",
-                "note": "👑 Phong cấp Xe!"
-            },
-            {
-                "fen": "8/5KPk/7p/8/8/8/8/8 w - - 0 1",
-                "targetMove": "g7g8q",
-                "note": "👑 Ghi nhớ!"
-            }
-        ]
-    },
-    {
-        "id": "king-catch",
-        "category": "Chương 12: Tàn Cuộc Cơ Bản",
-        "title": "Vua Đuổi Bắt Tốt",
-        "steps": [
-            {
-                "fen": "8/8/8/8/p2K4/8/8/7k w - - 0 1",
-                "targetMove": "d4c4",
-                "note": "♚ Vua đuổi theo: sang c4"
-            },
-            {
-                "fen": "8/8/8/8/2K5/p7/8/7k w - - 0 2",
-                "targetMove": "c4b3",
-                "note": "♚ Đứng sát Tốt: lên b3"
-            },
-            {
-                "fen": "8/8/8/8/8/1K6/p7/7k w - - 0 3",
-                "targetMove": "b3a2",
-                "note": "♚ Ăn Tốt!"
-            },
-            {
-                "fen": "8/8/8/8/p2K4/8/8/7k w - - 0 1",
-                "targetMove": "d4c3",
-                "note": "♚ Đuổi theo c3!"
-            },
-            {
-                "fen": "8/8/8/8/2K5/p7/8/7k w - - 0 2",
-                "targetMove": "c4b3",
-                "note": "♚ Tiến tới b3!"
-            }
-        ]
-    },
-    {
-        "id": "opening",
-        "category": "Chương 13: Thực Chiến Toàn Bàn Cờ",
-        "title": "Nguyên Tắc Khai Cuộc Ô Tô",
-        "steps": [
-            {
-                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-                "targetMove": "e2e4",
-                "note": "🚀 Khai cuộc: đẩy Tốt <b>trung tâm</b> lên e4"
-            },
-            {
-                "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1",
-                "targetMove": "e7e5",
-                "note": "🚀 Đen phản hồi!"
-            },
-            {
-                "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
-                "targetMove": "g1f3",
-                "note": "🚀 Mã ra quân!"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
-                "targetMove": "f1c4",
-                "note": "🚀 Tượng ra quân!"
-            },
-            {
-                "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-                "targetMove": "d2d4",
-                "note": "🚀 Lựa chọn trung tâm khác d4!"
-            }
-        ]
-    },
-    {
-        "id": "develop",
-        "category": "Chương 13: Thực Chiến Toàn Bàn Cờ",
-        "title": "Ra Quân & Nhập Thành",
-        "steps": [
-            {
-                "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2",
-                "targetMove": "g1f3",
-                "note": "🐴 Ra <b>Mã</b> trước"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
-                "targetMove": "f1c4",
-                "note": "♝ Ra <b>Tượng</b>"
-            },
-            {
-                "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
-                "targetMove": "e1g1",
-                "note": "🏰 <b>Nhập thành</b>!"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/2N5/PPPP1PPP/R1BQKBNR w KQkq - 2 3",
-                "targetMove": "g1f3",
-                "note": "🐴 Ra thêm Mã!"
-            },
-            {
-                "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
-                "targetMove": "e1g1",
-                "note": "🏰 An toàn cho Vua!"
-            }
-        ]
-    },
-    {
-        "id": "center-d4",
-        "category": "Chương 13: Thực Chiến Toàn Bàn Cờ",
-        "title": "Tấn Công Trung Tâm",
-        "steps": [
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
-                "targetMove": "d2d4",
-                "note": "⚔️ Đẩy Tốt <b>d4</b> tấn công trung tâm"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq - 0 3",
-                "targetMove": "e5d4",
-                "note": "⚔️ Đen ăn Tốt d4!"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4",
-                "targetMove": "f3d4",
-                "note": "⚔️ Mã ăn lại Tốt!"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/2N2N2/PPPP1PPP/R1BQKB1R w KQkq - 4 4",
-                "targetMove": "d2d4",
-                "note": "⚔️ Khai cuộc bốn Mã đẩy d4!"
-            },
-            {
-                "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
-                "targetMove": "d2d4",
-                "note": "⚔️ Ghi nhớ đẩy Tốt trung tâm!"
+                "fen": "r1bq1rk1/pp3ppp/2n1pn2/3p4/2PP4/2N2N2/PP1QBPPP/R4RK1 w - - 0 1",
+                "targetMove": "c4d5",
+                "note": "Đổi Tốt để tạo cấu trúc Tốt treo cho Đen.",
+                "mascot": "Tuyệt vời!",
+                "reply": "f6d5",
+                "replyNote": "👀 Đen giữ Tốt bằng Mã. Tiếp tục trao đổi."
+            },
+            {
+                "fen": "r1bq1rk1/pp3ppp/2n1p3/3n4/3P4/2N2N2/PP1QBPPP/R4RK1 w - - 0 2",
+                "targetMove": "c3d5",
+                "note": "Tiêu diệt quân bảo vệ để lộ rõ Tốt treo.",
+                "mascot": "Tuyệt vời!",
+                "reply": "e6d5",
+                "replyNote": "👀 Đen có cặp Tốt treo c5-d5. Linh hoạt nhưng dễ rụng."
+            },
+            {
+                "fen": "r1bq1rk1/pp3ppp/2n5/3p4/3P4/5N2/PP1QBPPP/R4RK1 w - - 0 3",
+                "targetMove": "f1e1",
+                "note": "Đưa Xe vào nhắm mục tiêu. Khai thác nhược điểm ngay!",
+                "mascot": "Tuyệt vời!"
             }
         ]
     }
-,
-  {
-    id: "combo_attraction",
-    category: "Chiến thuật tổ hợp",
-    title: "Thu hút (Attraction)",
-    steps: [
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Bc4", note: "Nhử đối phương vào bẫy.", mascot: "Thu hút là việc buộc quân đối phương phải di chuyển đến một ô bất lợi. Hãy đưa Tượng lên c4!" },
-      { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "d3", note: "Chuẩn bị cho đòn thu hút.", mascot: "Tiếp tục phát triển quân d3 để củng cố." },
-      { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R b KQkq - 0 4", targetMove: "d6", note: "Đen đáp trả.", mascot: "Đen củng cố trung tâm." },
-      { fen: "r1bqk1nr/ppp2ppp/2np4/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 0 5", targetMove: "O-O", note: "Bảo vệ Vua.", mascot: "Nhập thành an toàn." },
-      { fen: "r1bqk1nr/ppp2ppp/2np4/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQ1RK1 b kq - 1 5", targetMove: "Nf6", note: "Hoàn tất 5 bước cơ bản.", mascot: "Phát triển Mã." }
-    ]
-  },
-  {
-    id: "combo_deflection",
-    category: "Chiến thuật tổ hợp",
-    title: "Đánh lạc hướng (Deflection)",
-    steps: [
-      { fen: "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", targetMove: "e5", note: "Bước 1.", mascot: "Đánh lạc hướng giúp loại bỏ quân bảo vệ." },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Nf3", note: "Bước 2.", mascot: "Tấn công tốt e5." },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2", targetMove: "Nc6", note: "Bước 3.", mascot: "Bảo vệ tốt e5." },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "Bc4", note: "Bước 4.", mascot: "Phát triển Tượng." },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "Bc5", note: "Bước 5.", mascot: "Đen cũng phát triển Tượng." }
-    ]
-  },
-  {
-    id: "combo_interference",
-    category: "Chiến thuật tổ hợp",
-    title: "Khóa (Interference)",
-    steps: [
-      { fen: "8/8/8/8/4k3/8/8/4K3 w - - 0 1", targetMove: "Ke2", note: "Vua tiến lên.", mascot: "Khóa đường phòng ngự của đối phương." },
-      { fen: "8/8/8/8/4k3/8/4K3/8 b - - 1 1", targetMove: "Kd4", note: "Khóa.", mascot: "Đối phương di chuyển Vua." },
-      { fen: "8/8/8/8/3k4/8/4K3/8 w - - 2 2", targetMove: "Kd2", note: "Kiểm soát.", mascot: "Chặn đường đối phương." },
-      { fen: "8/8/8/8/3k4/8/3K4/8 b - - 3 2", targetMove: "Kc4", note: "Cản trở.", mascot: "Vua Đen cố gắng lách." },
-      { fen: "8/8/8/8/2k5/8/3K4/8 w - - 4 3", targetMove: "Kc2", note: "Hoàn tất đòn khóa.", mascot: "Bám sát và khóa chặt." }
-    ]
-  },
-  {
-    id: "combo_remove_defender",
-    category: "Chiến thuật tổ hợp",
-    title: "Xóa bỏ phòng ngự (Removing Defender)",
-    steps: [
-      { fen: "4k3/8/8/8/8/8/8/4K3 w - - 0 1", targetMove: "Ke2", note: "Bước 1.", mascot: "Loại bỏ quân bảo vệ." },
-      { fen: "4k3/8/8/8/8/8/4K3/8 b - - 1 1", targetMove: "Ke7", note: "Bước 2.", mascot: "Bước 2." },
-      { fen: "4k3/4K3/8/8/8/8/8/8 w - - 0 2", targetMove: "Kd2", note: "Bước 3.", mascot: "Bước 3." },
-      { fen: "4k3/4K3/8/8/8/8/3K4/8 b - - 1 2", targetMove: "Kd7", note: "Bước 4.", mascot: "Bước 4." },
-      { fen: "8/3k4/8/8/8/8/3K4/8 w - - 2 3", targetMove: "Kd3", note: "Bước 5.", mascot: "Bước 5." }
-    ]
-  },
-  {
-    id: "combo_clearance",
-    category: "Chiến thuật tổ hợp",
-    title: "Mở đường (Clearance)",
-    steps: [
-      { fen: "8/8/8/8/8/8/8/K7 w - - 0 1", targetMove: "Kb1", note: "Mở đường.", mascot: "Mở đường cho quân khác." },
-      { fen: "8/8/8/8/8/8/8/1K6 b - - 1 1", targetMove: "Ka7", note: "Mở đường.", mascot: "Vua Đen di chuyển." },
-      { fen: "8/k7/8/8/8/8/8/1K6 w - - 2 2", targetMove: "Kc1", note: "Mở đường.", mascot: "Tiếp tục di chuyển." },
-      { fen: "8/k7/8/8/8/8/8/2K5 b - - 3 2", targetMove: "Kb7", note: "Mở đường.", mascot: "Đen di chuyển." },
-      { fen: "8/1k6/8/8/8/8/8/2K5 w - - 4 3", targetMove: "Kd1", note: "Mở đường.", mascot: "Hoàn thành." }
-    ]
-  },
-  {
-    id: "combo_overloading",
-    category: "Chiến thuật tổ hợp",
-    title: "Quá tải (Overloading)",
-    steps: [
-      { fen: "8/8/8/8/8/8/8/K7 w - - 0 1", targetMove: "Kb2", note: "Quá tải.", mascot: "Tạo áp lực quá tải." },
-      { fen: "8/8/8/8/8/8/1K6/8 b - - 1 1", targetMove: "Ka7", note: "Quá tải.", mascot: "Đen di chuyển." },
-      { fen: "8/k7/8/8/8/8/1K6/8 w - - 2 2", targetMove: "Kc2", note: "Quá tải.", mascot: "Tiếp tục." },
-      { fen: "8/k7/8/8/8/8/2K5/8 b - - 3 2", targetMove: "Kb7", note: "Quá tải.", mascot: "Đen di chuyển." },
-      { fen: "8/1k6/8/8/8/8/2K5/8 w - - 4 3", targetMove: "Kd2", note: "Quá tải.", mascot: "Hoàn tất." }
-    ]
-  },
-  {
-    id: "combo_xray",
-    category: "Chiến thuật tổ hợp",
-    title: "Tấn công X-Ray",
-    steps: [
-      { fen: "8/8/8/8/8/8/8/K7 w - - 0 1", targetMove: "Kb2", note: "Tia X.", mascot: "Tấn công tia X." },
-      { fen: "8/8/8/8/8/8/1K6/8 b - - 1 1", targetMove: "Ka7", note: "Tia X.", mascot: "Đen." },
-      { fen: "8/k7/8/8/8/8/1K6/8 w - - 2 2", targetMove: "Kc2", note: "Tia X.", mascot: "Trắng." },
-      { fen: "8/k7/8/8/8/8/2K5/8 b - - 3 2", targetMove: "Kb7", note: "Tia X.", mascot: "Đen." },
-      { fen: "8/1k6/8/8/8/8/2K5/8 w - - 4 3", targetMove: "Kd2", note: "Tia X.", mascot: "Xong." }
-    ]
-  },
-  {
-    id: "combo_zwischenzug",
-    category: "Chiến thuật tổ hợp",
-    title: "Nước đi xen ngang (Zwischenzug)",
-    steps: [
-      { fen: "8/8/8/8/8/8/8/K7 w - - 0 1", targetMove: "Kb2", note: "Zwischenzug.", mascot: "Nước đi xen ngang bất ngờ." },
-      { fen: "8/8/8/8/8/8/1K6/8 b - - 1 1", targetMove: "Ka7", note: "Zwischenzug.", mascot: "Đen." },
-      { fen: "8/k7/8/8/8/8/1K6/8 w - - 2 2", targetMove: "Kc2", note: "Zwischenzug.", mascot: "Trắng." },
-      { fen: "8/k7/8/8/8/8/2K5/8 b - - 3 2", targetMove: "Kb7", note: "Zwischenzug.", mascot: "Đen." },
-      { fen: "8/1k6/8/8/8/8/2K5/8 w - - 4 3", targetMove: "Kd2", note: "Zwischenzug.", mascot: "Xong." }
-    ]
-  },
-  {
-    id: "combo_windmill",
-    category: "Chiến thuật tổ hợp",
-    title: "Cối xay gió (Windmill)",
-    steps: [
-      { fen: "8/8/8/8/8/8/8/K7 w - - 0 1", targetMove: "Kb2", note: "Cối xay gió.", mascot: "Cối xay gió." },
-      { fen: "8/8/8/8/8/8/1K6/8 b - - 1 1", targetMove: "Ka7", note: "Cối xay gió.", mascot: "Đen." },
-      { fen: "8/k7/8/8/8/8/1K6/8 w - - 2 2", targetMove: "Kc2", note: "Cối xay gió.", mascot: "Trắng." },
-      { fen: "8/k7/8/8/8/8/2K5/8 b - - 3 2", targetMove: "Kb7", note: "Cối xay gió.", mascot: "Đen." },
-      { fen: "8/1k6/8/8/8/8/2K5/8 w - - 4 3", targetMove: "Kd2", note: "Cối xay gió.", mascot: "Xong." }
-    ]
-  },
-  {
-    id: "combo_zugzwang",
-    category: "Chiến thuật tổ hợp",
-    title: "Zugzwang",
-    steps: [
-      { fen: "8/8/8/8/8/8/8/K7 w - - 0 1", targetMove: "Kb2", note: "Zugzwang.", mascot: "Ép nước." },
-      { fen: "8/8/8/8/8/8/1K6/8 b - - 1 1", targetMove: "Ka7", note: "Zugzwang.", mascot: "Đen." },
-      { fen: "8/k7/8/8/8/8/1K6/8 w - - 2 2", targetMove: "Kc2", note: "Zugzwang.", mascot: "Trắng." },
-      { fen: "8/k7/8/8/8/8/2K5/8 b - - 3 2", targetMove: "Kb7", note: "Zugzwang.", mascot: "Đen." },
-      { fen: "8/1k6/8/8/8/8/2K5/8 w - - 4 3", targetMove: "Kd2", note: "Zugzwang.", mascot: "Xong." }
-    ]
-  },
-  {
-    id: "opening_italian",
-    category: "Khai cuộc kinh điển",
-    title: "Ván cờ Ý (Italian Game)",
-    steps: [
-      { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e4", note: "Khởi đầu trung tâm.", mascot: "Ván cờ Ý bắt đầu bằng nước e4." },
-      { fen: "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", targetMove: "e5", note: "Tranh chấp trung tâm.", mascot: "Đen đáp trả bằng e5." },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Nf3", note: "Phát triển quân.", mascot: "Phát triển Mã tấn công e5." },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2", targetMove: "Nc6", note: "Bảo vệ Tốt.", mascot: "Đen bảo vệ Tốt e5." },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "Bc4", note: "Hoàn tất khai cuộc Ý.", mascot: "Đưa Tượng lên c4, hướng về f7. Đây là Ván cờ Ý!" }
-    ]
-  },
-  {
-    id: "opening_ruy_lopez",
-    category: "Khai cuộc kinh điển",
-    title: "Ván cờ Tây Ban Nha (Ruy Lopez)",
-    steps: [
-      { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e4", note: "Bước 1.", mascot: "Bắt đầu bằng e4." },
-      { fen: "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", targetMove: "e5", note: "Bước 2.", mascot: "Đen e5." },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Nf3", note: "Bước 3.", mascot: "Mã f3." },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2", targetMove: "Nc6", note: "Bước 4.", mascot: "Mã c6." },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "Bb5", note: "Bước 5.", mascot: "Tượng lên b5, Ván cờ Tây Ban Nha!" }
-    ]
-  },
-  {
-    id: "opening_queens_gambit",
-    category: "Khai cuộc kinh điển",
-    title: "Thí Tốt Hậu (Queen's Gambit)",
-    steps: [
-      { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "d4", note: "Khai cuộc d4.", mascot: "Nước đi d4." },
-      { fen: "rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d3 0 1", targetMove: "d5", note: "Tranh trung tâm.", mascot: "Đen d5." },
-      { fen: "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq - 0 2", targetMove: "c4", note: "Gambit.", mascot: "Thí Tốt Hậu c4!" },
-      { fen: "rnbqkbnr/ppp1pppp/8/3p4/2PP4/8/PP2PPPP/RNBQKBNR b KQkq c3 0 2", targetMove: "e6", note: "QGD.", mascot: "Đen từ chối bằng e6." },
-      { fen: "rnbqkbnr/ppp2ppp/4p3/3p4/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3", targetMove: "Nc3", note: "Phát triển.", mascot: "Trắng phát triển Mã." }
-    ]
-  },
-  {
-    id: "opening_sicilian",
-    category: "Khai cuộc kinh điển",
-    title: "Phòng thủ Sicilian",
-    steps: [
-      { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e4", note: "Bước 1.", mascot: "Trắng e4." },
-      { fen: "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", targetMove: "c5", note: "Phòng thủ Sicilian.", mascot: "Đen đáp trả c5 - Phòng thủ Sicilian!" },
-      { fen: "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2", targetMove: "Nf3", note: "Bước 3.", mascot: "Trắng Mã f3." },
-      { fen: "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2", targetMove: "d6", note: "Bước 4.", mascot: "Đen d6." },
-      { fen: "rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3", targetMove: "d4", note: "Sicilian Mở.", mascot: "Trắng mở trung tâm d4." }
-    ]
-  },
-  {
-    id: "opening_french",
-    category: "Khai cuộc kinh điển",
-    title: "Phòng thủ Pháp",
-    steps: [
-      { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e4", note: "Bước 1.", mascot: "Trắng e4." },
-      { fen: "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", targetMove: "e6", note: "Phòng thủ Pháp.", mascot: "Đen e6 - Phòng thủ Pháp!" },
-      { fen: "rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "d4", note: "Bước 3.", mascot: "Trắng d4." },
-      { fen: "rnbqkbnr/pppp1ppp/4p3/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3 0 2", targetMove: "d5", note: "Bước 4.", mascot: "Đen d5." },
-      { fen: "rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 3", targetMove: "Nc3", note: "Biến chính.", mascot: "Trắng phát triển Mã bảo vệ trung tâm." }
-    ]
-  },
-  {
-    id: "opening_caro_kann",
-    category: "Khai cuộc kinh điển",
-    title: "Phòng thủ Caro-Kann",
-    steps: [
-      { fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", targetMove: "e4", note: "Bước 1.", mascot: "Trắng e4." },
-      { fen: "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", targetMove: "c6", note: "Phòng thủ Caro-Kann.", mascot: "Đen c6 - Phòng thủ Caro-Kann!" },
-      { fen: "rnbqkbnr/pp1ppppp/2p5/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "d4", note: "Bước 3.", mascot: "Trắng d4." },
-      { fen: "rnbqkbnr/pp1ppppp/2p5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3 0 2", targetMove: "d5", note: "Bước 4.", mascot: "Đen d5." },
-      { fen: "rnbqkbnr/pp2pppp/2p5/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 3", targetMove: "Nc3", note: "Biến cổ điển.", mascot: "Trắng phát triển Mã." }
-    ]
-  },
-  {
-    id: "greek-gift-1",
-    category: "Thí tượng Hy Lạp (Greek Gift)",
-    title: "Khởi đầu thí quân",
-    steps: [
-      { fen: "rnbq1rk1/ppp1bppp/4pn2/3p4/3P4/3BPN2/PPP2PPP/RNBQ1RK1 w - - 4 6", targetMove: "Bxh7+", note: "Tượng thí tại h7 là khởi đầu của đòn Greek Gift. Hãy bắt đầu chiến dịch!", mascot: "Tặng Vua Đen một món quà bất ngờ nào!" },
-      { fen: "rnbq1rk1/ppp1bppB/4pn2/3p4/3P4/4PN2/PPP2PPP/RNBQ1RK1 b - - 0 6", targetMove: "Kxh7", note: "Đen buộc phải ăn Tượng để không bị mất Không.", mascot: "Đen nhận quà rồi, tiếp theo là gì?" },
-      { fen: "rnbq1r2/ppp1bppk/4pn2/3p4/3P4/4PN2/PPP2PPP/RNBQ1RK1 w - - 0 7", targetMove: "Ng5+", note: "Mã Trắng nhảy lên g5 chiếu, tham gia tấn công.", mascot: "Mã phi lên g5! Vua Đen sắp gặp rắc rối to!" },
-      { fen: "rnbq1r2/ppp1bppk/4pn2/3p2N1/3P4/4P3/PPP2PPP/RNBQ1RK1 b - - 1 7", targetMove: "Kg8", note: "Vua Đen lui về g8 để tránh đòn.", mascot: "Trốn đi đâu cho thoát?" },
-      { fen: "rnbq1rk1/ppp1bpp1/4pn2/3p2N1/3P4/4P3/PPP2PPP/RNBQ1RK1 w - - 2 8", targetMove: "Qh5", note: "Hậu xuất kích đến h5, đe dọa chiếu hết tại h7.", mascot: "Hậu đã vào vị trí! Trận đấu đã an bài!" }
-    ]
-  },
-  {
-    id: "greek-gift-2",
-    category: "Thí tượng Hy Lạp (Greek Gift)",
-    title: "Hậu tham chiến",
-    steps: [
-      { fen: "r1bq1rk1/ppp1bppp/2n1pn2/3p4/3P4/3BPN2/PPP2PPP/RNBQ1RK1 w - - 6 7", targetMove: "Bxh7+", note: "Tiếp tục thực hành đòn Greek Gift với thế cờ phức tạp hơn.", mascot: "Thí Tượng tại h7, món quà quen thuộc!" },
-      { fen: "r1bq1rk1/ppp1bppB/2n1pn2/3p4/3P4/4PN2/PPP2PPP/RNBQ1RK1 b - - 0 7", targetMove: "Kxh7", note: "Vua ăn Tượng.", mascot: "Vua lại tham ăn rồi!" },
-      { fen: "r1bq1r2/ppp1bppk/2n1pn2/3p4/3P4/4PN2/PPP2PPP/RNBQ1RK1 w - - 0 8", targetMove: "Ng5+", note: "Mã chiếu g5.", mascot: "Mã chiếu! Vua Đen phải lùi bước." },
-      { fen: "r1bq1r2/ppp1bppk/2n1pn2/3p2N1/3P4/4P3/PPP2PPP/RNBQ1RK1 b - - 1 8", targetMove: "Kg8", note: "Vua lui về g8.", mascot: "Lại là g8!" },
-      { fen: "r1bq1rk1/ppp1bpp1/2n1pn2/3p2N1/3P4/4P3/PPP2PPP/RNBQ1RK1 w - - 2 9", targetMove: "Qh5", note: "Hậu tiến đến h5 đe dọa mat.", mascot: "Hậu h5! Đen không thể đỡ nổi đòn này." }
-    ]
-  },
-  {
-    id: "greek-gift-3",
-    category: "Thí tượng Hy Lạp (Greek Gift)",
-    title: "Mã yểm trợ",
-    steps: [
-      { fen: "r1bq1rk1/ppp1nppp/3bpn2/3p4/3P4/2PBPN2/PP1N1PPP/R1BQ1RK1 w - - 5 8", targetMove: "Bxh7+", note: "Một dạng khác của Greek Gift.", mascot: "Thí Tượng lần 3 nào!" },
-      { fen: "r1bq1rk1/ppp1nppB/3bpn2/3p4/3P4/2P1PN2/PP1N1PPP/R1BQ1RK1 b - - 0 8", targetMove: "Kxh7", note: "Vua ăn Tượng.", mascot: "Ăn Tượng đi Vua ơi!" },
-      { fen: "r1bq1r2/ppp1nppk/3bpn2/3p4/3P4/2P1PN2/PP1N1PPP/R1BQ1RK1 w - - 0 9", targetMove: "Ng5+", note: "Mã g5 chiếu.", mascot: "Mã g5 lại xuất hiện!" },
-      { fen: "r1bq1r2/ppp1nppk/3bpn2/3p2N1/3P4/2P1P3/PP1N1PPP/R1BQ1RK1 b - - 1 9", targetMove: "Kg8", note: "Vua lui g8.", mascot: "Vua lại chạy trốn." },
-      { fen: "r1bq1rk1/ppp1npp1/3bpn2/3p2N1/3P4/2P1P3/PP1N1PPP/R1BQ1RK1 w - - 2 10", targetMove: "Qh5", note: "Hậu h5 đe dọa chiếu hết.", mascot: "Hậu h5 quyết định trận đấu!" }
-    ]
-  },
-  {
-    id: "greek-gift-4",
-    category: "Thí tượng Hy Lạp (Greek Gift)",
-    title: "Kết liễu Vua",
-    steps: [
-      { fen: "r1bq1rk1/ppp2ppp/2nbpn2/3p4/3P4/2PBPN2/PP3PPP/RNBQ1RK1 w - - 3 7", targetMove: "Bxh7+", note: "Bước đầu tiên.", mascot: "Hy sinh vì đại cuộc!" },
-      { fen: "r1bq1rk1/ppp2ppB/2nbpn2/3p4/3P4/4PN2/PPP2PPP/RNBQ1RK1 b - - 0 7", targetMove: "Kxh7", note: "Vua ăn Tượng h7.", mascot: "Đen không có lựa chọn." },
-      { fen: "r1bq1r2/ppp2ppk/2nbpn2/3p4/3P4/4PN2/PPP2PPP/RNBQ1RK1 w - - 0 8", targetMove: "Ng5+", note: "Mã g5 chiếu.", mascot: "Tiếp tục chiếu nào!" },
-      { fen: "r1bq1r2/ppp2ppk/2nbpn2/3p2N1/3P4/4P3/PPP2PPP/RNBQ1RK1 b - - 1 8", targetMove: "Kg8", note: "Vua về g8.", mascot: "Vua Đen đang sợ hãi!" },
-      { fen: "r1bq1rk1/ppp2pp1/2nbpn2/3p2N1/3P4/4P3/PPP2PPP/RNBQ1RK1 w - - 2 9", targetMove: "Qh5", note: "Đưa Hậu vào h5.", mascot: "Chốt hạ bằng Hậu h5!" }
-    ]
-  },
-  {
-    id: "greek-gift-5",
-    category: "Thí tượng Hy Lạp (Greek Gift)",
-    title: "Đòn phối hợp hoàn chỉnh",
-    steps: [
-      { fen: "r1bq1rk1/pppn1ppp/3bpn2/3p4/3P4/3BPN2/PPP2PPP/RNBQ1RK1 w - - 5 7", targetMove: "Bxh7+", note: "Thực hành lần cuối.", mascot: "Đòn hy sinh Tượng quen thuộc!" },
-      { fen: "r1bq1rk1/pppn1ppB/3bpn2/3p4/3P4/4PN2/PPP2PPP/RNBQ1RK1 b - - 0 7", targetMove: "Kxh7", note: "Vua ăn Tượng.", mascot: "Ăn đi nào!" },
-      { fen: "r1bq1r2/pppn1ppk/3bpn2/3p4/3P4/4PN2/PPP2PPP/RNBQ1RK1 w - - 0 8", targetMove: "Ng5+", note: "Mã chiếu g5.", mascot: "Mã chiếu hiểm hóc!" },
-      { fen: "r1bq1r2/pppn1ppk/3bpn2/3p2N1/3P4/4P3/PPP2PPP/RNBQ1RK1 b - - 1 8", targetMove: "Kg8", note: "Vua lùi.", mascot: "Vua đã rút lui." },
-      { fen: "r1bq1rk1/pppn1pp1/3bpn2/3p2N1/3P4/4P3/PPP2PPP/RNBQ1RK1 w - - 2 9", targetMove: "Qh5", note: "Hậu h5.", mascot: "Kết thúc đẹp mắt!" }
-    ]
-  },
-  {
-    id: "uncastled-1",
-    category: "Tấn công Vua chưa nhập thành",
-    title: "Khai thác cột trung tâm",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "Nxe5", note: "Đen chưa nhập thành, Trắng ăn Tốt e5 để mở trung tâm.", mascot: "Ăn Tốt để mở đường!" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1N3/2B1P3/2N5/PPPP1PPP/R1BQK2R b KQkq - 0 5", targetMove: "Nxe5", note: "Đen ăn lại Mã.", mascot: "Đen ăn lại rồi." },
-      { fen: "r1bqk2r/pppp1ppp/5n2/2b1n3/2B1P3/2N5/PPPP1PPP/R1BQK2R w KQkq - 0 6", targetMove: "d4", note: "Trắng d4, tấn công đôi Tượng và Mã.", mascot: "Đòn chĩa đôi d4!" },
-      { fen: "r1bqk2r/pppp1ppp/5n2/2b1n3/2BPP3/2N5/PPP2PPP/R1BQK2R b KQkq - 0 6", targetMove: "Bxd4", note: "Đen ăn Tốt d4.", mascot: "Đen phản công." },
-      { fen: "r1bqk2r/pppp1ppp/5n2/2b1n3/2BbP3/2N5/PPP2PPP/R1BQK2R w KQkq - 0 7", targetMove: "Qxd4", note: "Hậu ăn Tượng, Trắng kiểm soát trung tâm và Vua Đen vẫn chưa an toàn.", mascot: "Trắng chiếm ưu thế!" }
-    ]
-  },
-  {
-    id: "uncastled-2",
-    category: "Tấn công Vua chưa nhập thành",
-    title: "Mở cột e",
-    steps: [
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Nf3", note: "Phát triển Mã.", mascot: "Mã lên nào!" },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2", targetMove: "Nc6", note: "Đen bảo vệ Tốt e5.", mascot: "Đen giữ Tốt." },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "Bc4", note: "Tượng lên c4 nhắm vào f7.", mascot: "Nhắm vào điểm yếu!" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "Bc5", note: "Đen phát triển Tượng c5.", mascot: "Đen cũng ra quân." },
-      { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "d3", note: "Mở đường cho Tượng c1.", mascot: "Củng cố đội hình!" }
-    ]
-  },
-  {
-    id: "uncastled-3",
-    category: "Tấn công Vua chưa nhập thành",
-    title: "Ghim quân trung tâm",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 b kq - 7 5", targetMove: "O-O", note: "Đen nhập thành muộn.", mascot: "Đen đã an toàn." },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w - - 8 6", targetMove: "d3", note: "Trắng củng cố trung tâm.", mascot: "Giữ vững vị trí!" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 b - - 0 6", targetMove: "d6", note: "Đen mở đường cho Tượng.", mascot: "Đen cũng vậy." },
-      { fen: "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 0 7", targetMove: "Bg5", note: "Trắng ghim Mã f6.", mascot: "Ghim Mã Đen lại!" },
-      { fen: "r1bq1rk1/ppp2ppp/2np1n2/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2Q1RK1 b - - 1 7", targetMove: "h6", note: "Đen đuổi Tượng.", mascot: "Đen phản ứng nhanh đấy." }
-    ]
-  },
-  {
-    id: "uncastled-4",
-    category: "Tấn công Vua chưa nhập thành",
-    title: "Ngăn chặn nhập thành",
-    steps: [
-      { fen: "rn1qk2r/ppp2ppp/3bbn2/3p4/3P4/2NBPN2/PP3PPP/R1BQK2R w KQkq - 3 8", targetMove: "O-O", note: "Trắng nhập thành.", mascot: "Trắng an toàn trước!" },
-      { fen: "rn1qk2r/ppp2ppp/3bbn2/3p4/3P4/2NBPN2/PP3PPP/R1BQ1RK1 b kq - 4 8", targetMove: "O-O", note: "Đen cũng nhập thành.", mascot: "Cả hai đều đã nhập thành." },
-      { fen: "rn1q1rk1/ppp2ppp/3bbn2/3p4/3P4/2NBPN2/PP3PPP/R1BQ1RK1 w - - 5 9", targetMove: "Re1", note: "Đưa Xe ra cột e.", mascot: "Xe sẵn sàng tham chiến!" },
-      { fen: "rn1q1rk1/ppp2ppp/3bbn2/3p4/3P4/2NBPN2/PP3PPP/R1BQR1K1 b - - 6 9", targetMove: "c6", note: "Đen củng cố trung tâm.", mascot: "Đen chơi rất chắc chắn." },
-      { fen: "rn1q1rk1/pp3ppp/2pbbn2/3p4/3P4/2NBPN2/PP3PPP/R1BQR1K1 w - - 0 10", targetMove: "e4", note: "Phá vỡ trung tâm.", mascot: "Mở trung tâm thôi!" }
-    ]
-  },
-  {
-    id: "uncastled-5",
-    category: "Tấn công Vua chưa nhập thành",
-    title: "Đòn mat ở trung tâm",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w kq - 7 6", targetMove: "Re1", note: "Xe ra cột e.", mascot: "Xe lên tiếng!" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQR1K1 b kq - 8 6", targetMove: "d6", note: "Đen d6.", mascot: "Đen cẩn thận đấy." },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQR1K1 w kq - 0 7", targetMove: "d4", note: "Mở trung tâm.", mascot: "Tấn công trung tâm!" },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p3/2BPP3/2N2N2/PPP2PPP/R1BQR1K1 b kq - 0 7", targetMove: "exd4", note: "Đen ăn Tốt.", mascot: "Đen chấp nhận thách thức." },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b5/2BpP3/2N2N2/PPP2PPP/R1BQR1K1 w kq - 0 8", targetMove: "Nxd4", note: "Mã ăn lại Tốt.", mascot: "Mã giành lại lợi thế." }
-    ]
-  },
-  {
-    id: "pawn-storm-1",
-    category: "Bão Tốt (Pawn Storm)",
-    title: "Mở đường bão Tốt",
-    steps: [
-      { fen: "rnbq1rk1/ppp2ppp/4pn2/3p4/2PP4/2B1P3/PP3PPP/R2QKBNR w KQ - 1 7", targetMove: "g4", note: "Đẩy Tốt g4 để bắt đầu bão Tốt.", mascot: "Bão Tốt bắt đầu!" },
-      { fen: "rnbq1rk1/ppp2ppp/4pn2/3p4/2PP2P1/2B1P3/PP3P1P/R2QKBNR b KQ - 0 7", targetMove: "Ne4", note: "Mã Đen nhảy lên e4.", mascot: "Đen phản đòn." },
-      { fen: "rnbq1rk1/ppp2ppp/4p3/3p4/2PPn1P1/2B1P3/PP3P1P/R2QKBNR w KQ - 1 8", targetMove: "h4", note: "Tốt h4 lên tiếp viện.", mascot: "Bão Tốt đang mạnh dần!" },
-      { fen: "rnbq1rk1/ppp2ppp/4p3/3p4/2PPn1PP/2B1P3/PP3P2/R2QKBNR b KQ - 0 8", targetMove: "c5", note: "Đen phản công ở cánh Hậu.", mascot: "Đen đánh ở cánh Hậu." },
-      { fen: "rnbq1rk1/pp3ppp/4p3/2pp4/2PPn1PP/2B1P3/PP3P2/R2QKBNR w KQ - 0 9", targetMove: "g5", note: "Tiếp tục tiến Tốt g5 đuổi Mã, gây sức ép.", mascot: "Gây áp lực tối đa!" }
-    ]
-  },
-  {
-    id: "pawn-storm-2",
-    category: "Bão Tốt (Pawn Storm)",
-    title: "Tốt h xung phong",
-    steps: [
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/2N1PN2/PP3PPP/R2QKB1R w KQ - 1 8", targetMove: "h4", note: "Bắt đầu bằng Tốt h4.", mascot: "Tốt h xung phong!" },
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP3P/2N1PN2/PP3PP1/R2QKB1R b KQ - 0 8", targetMove: "h6", note: "Đen chặn lại.", mascot: "Đen đã phòng thủ." },
-      { fen: "r1bq1rk1/ppp2pp1/2n1pn1p/3p4/2PP3P/2N1PN2/PP3PP1/R2QKB1R w KQ - 0 9", targetMove: "g4", note: "Tốt g4 xông lên.", mascot: "Bão Tốt kép!" },
-      { fen: "r1bq1rk1/ppp2pp1/2n1pn1p/3p4/2PP2PP/2N1PN2/PP3P2/R2QKB1R b KQ - 0 9", targetMove: "Nxg4", note: "Đen ăn Tốt g4.", mascot: "Đen ăn Tốt rồi!" },
-      { fen: "r1bq1rk1/ppp2pp1/2n1p2p/3p4/2PP2nP/2N1PN2/PP3P2/R2QKB1R w KQ - 0 10", targetMove: "Rg1", note: "Xe ra g1 tấn công Mã.", mascot: "Xe g1 chuẩn bị tấn công." }
-    ]
-  },
-  {
-    id: "pawn-storm-3",
-    category: "Bão Tốt (Pawn Storm)",
-    title: "Phá vỡ cấu trúc",
-    steps: [
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/2N1PN2/PP3PPP/R2QKB1R w KQ - 1 8", targetMove: "g4", note: "Tốt g4 xông lên.", mascot: "Bão Tốt bắt đầu!" },
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP2P1/2N1PN2/PP3P1P/R2QKB1R b KQ - 0 8", targetMove: "Nxg4", note: "Đen ăn Tốt g4.", mascot: "Mã ăn Tốt." },
-      { fen: "r1bq1rk1/ppp2ppp/2n1p3/3p4/2PP2n1/2N1PN2/PP3P1P/R2QKB1R w KQ - 0 9", targetMove: "Rg1", note: "Xe ra g1.", mascot: "Xe vào vị trí!" },
-      { fen: "r1bq1rk1/ppp2ppp/2n1p3/3p4/2PP2n1/2N1PN2/PP3P1P/R2QKB1R b KQ - 1 9", targetMove: "Nf6", note: "Mã lùi về.", mascot: "Mã phải rút lui." },
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/2N1PN2/PP3P1P/R2QKB1R w KQ - 2 10", targetMove: "h4", note: "Tốt h4 tiếp tục.", mascot: "Tốt h4 tiếp sức!" }
-    ]
-  },
-  {
-    id: "pawn-storm-4",
-    category: "Bão Tốt (Pawn Storm)",
-    title: "Đưa Xe vào tham chiến",
-    steps: [
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/2N1PN2/PP3PPP/R2QKB1R w KQ - 1 8", targetMove: "h3", note: "Chuẩn bị đẩy g4.", mascot: "Chuẩn bị cho bão Tốt." },
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/2N1PN1P/PP3PP1/R2QKB1R b KQ - 0 8", targetMove: "h6", note: "Đen cũng h6.", mascot: "Đen cũng chuẩn bị." },
-      { fen: "r1bq1rk1/ppp2pp1/2n1pn1p/3p4/2PP4/2N1PN1P/PP3PP1/R2QKB1R w KQ - 0 9", targetMove: "g4", note: "Tốt g4.", mascot: "G4! Bão tới rồi." },
-      { fen: "r1bq1rk1/ppp2pp1/2n1pn1p/3p4/2PP2P1/2N1PN1P/PP3P2/R2QKB1R b KQ - 0 9", targetMove: "dxc4", note: "Đen ăn Tốt c4.", mascot: "Đen đánh cánh Hậu." },
-      { fen: "r1bq1rk1/ppp2pp1/2n1pn1p/8/2pP2P1/2N1PN1P/PP3P2/R2QKB1R w KQ - 0 10", targetMove: "Bxc4", note: "Tượng ăn lại Tốt.", mascot: "Tượng giành lại Tốt." }
-    ]
-  },
-  {
-    id: "pawn-storm-5",
-    category: "Bão Tốt (Pawn Storm)",
-    title: "Tấn công tổng lực",
-    steps: [
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/2N1PN2/PP3PPP/R2QKB1R w KQ - 1 8", targetMove: "a3", note: "Chuẩn bị cánh Hậu.", mascot: "Một chút ở cánh Hậu." },
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/P1N1PN2/1P3PPP/R2QKB1R b KQ - 0 8", targetMove: "a6", note: "Đen cũng a6.", mascot: "Đen cũng vậy." },
-      { fen: "r1bq1rk1/1pp2ppp/p1n1pn2/3p4/2PP4/P1N1PN2/1P3PPP/R2QKB1R w KQ - 0 9", targetMove: "b4", note: "B4 xông lên.", mascot: "Đánh cánh Hậu!" },
-      { fen: "r1bq1rk1/1pp2ppp/p1n1pn2/3p4/1PPP4/P1N1PN2/5PPP/R2QKB1R b KQ - 0 9", targetMove: "dxc4", note: "Đen ăn Tốt.", mascot: "Đen phản đòn." },
-      { fen: "r1bq1rk1/1pp2ppp/p1n1pn2/8/1PpP4/P1N1PN2/5PPP/R2QKB1R w KQ - 0 10", targetMove: "Bxc4", note: "Tượng ăn Tốt.", mascot: "Lấy lại Tốt c4." }
-    ]
-  },
-  {
-    id: "weak-f7-1",
-    category: "Điểm yếu f7/f2",
-    title: "Chiếu hết Scholar",
-    steps: [
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Qh5", note: "Hậu h5 nhắm vào f7.", mascot: "Chiếu hết Scholar đang đến!" },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR b KQkq - 1 2", targetMove: "Nc6", note: "Đen bảo vệ e5.", mascot: "Mã giữ e5." },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR w KQkq - 2 3", targetMove: "Bc4", note: "Tượng c4 phối hợp tấn công f7.", mascot: "Hai quân cùng nhắm f7!" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3", targetMove: "Nf6", note: "Đen đuổi Hậu.", mascot: "Sai lầm chí mạng của Đen!" },
-      { fen: "r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4", targetMove: "Qxf7#", note: "Chiếu hết!", mascot: "Trận đấu kết thúc chớp nhoáng!" }
-    ]
-  },
-  {
-    id: "weak-f7-2",
-    category: "Điểm yếu f7/f2",
-    title: "Khai thác bằng Tượng",
-    steps: [
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "Bc5", note: "Đen phát triển Tượng.", mascot: "Cả hai đều nhắm vào f7 và f2." },
-      { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "c3", note: "Trắng chuẩn bị d4.", mascot: "Chuẩn bị chiếm trung tâm." },
-      { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/2P2N2/PP1P1PPP/RNBQK2R b KQkq - 0 4", targetMove: "Nf6", note: "Mã f6 tấn công e4.", mascot: "Đen tấn công e4." },
-      { fen: "r1bqkb1r/pppp1ppp/2n2n2/2b1p3/2B1P3/2P2N2/PP1P1PPP/RNBQK2R w KQkq - 1 5", targetMove: "d4", note: "D4 tấn công Tượng và chiếm trung tâm.", mascot: "Đòn d4 mạnh mẽ!" },
-      { fen: "r1bqkb1r/pppp1ppp/2n2n2/2b1p3/2BPP3/2P2N2/PP3PPP/RNBQK2R b KQkq - 0 5", targetMove: "exd4", note: "Đen ăn Tốt d4.", mascot: "Trung tâm căng thẳng." }
-    ]
-  },
-  {
-    id: "weak-f7-3",
-    category: "Điểm yếu f7/f2",
-    title: "Mã thí tại f7",
-    steps: [
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "Nf6", note: "Phòng thủ 2 Mã.", mascot: "Phòng thủ 2 Mã nổi tiếng!" },
-      { fen: "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "Ng5", note: "Mã g5 tấn công f7.", mascot: "Tấn công f7 gay gắt!" },
-      { fen: "r1bqkb1r/pppp1ppp/2n2n2/4p1N1/2B1P3/8/PPPP1PPP/RNBQK2R b KQkq - 5 4", targetMove: "d5", note: "Đen phải cản bằng d5.", mascot: "Đen d5 để che f7." },
-      { fen: "r1bqkb1r/ppp2ppp/2n2n2/3pp1N1/2B1P3/8/PPPP1PPP/RNBQK2R w KQkq - 0 5", targetMove: "exd5", note: "Trắng ăn Tốt d5.", mascot: "Tốt e4 ăn d5." },
-      { fen: "r1bqkb1r/ppp2ppp/2n2n2/3Pp1N1/2B5/8/PPPP1PPP/RNBQK2R b KQkq - 0 5", targetMove: "Na5", note: "Mã a5 tấn công Tượng.", mascot: "Đen đánh trả mạnh mẽ." }
-    ]
-  },
-  {
-    id: "weak-f7-4",
-    category: "Điểm yếu f7/f2",
-    title: "Đòn phối hợp f7",
-    steps: [
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "d6", note: "Đen chơi d6.", mascot: "Đen phòng thủ chắc." },
-      { fen: "r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4", targetMove: "d4", note: "Trắng d4.", mascot: "Phá trung tâm." },
-      { fen: "r1bqkbnr/ppp2ppp/2np4/4p3/2BPP3/5N2/PPP2PPP/RNBQK2R b KQkq - 0 4", targetMove: "exd4", note: "Đen ăn Tốt.", mascot: "Đen ăn Tốt d4." },
-      { fen: "r1bqkbnr/ppp2ppp/2np4/8/2BpP3/5N2/PPP2PPP/RNBQK2R w KQkq - 0 5", targetMove: "Nxd4", note: "Mã ăn lại.", mascot: "Mã chiếm trung tâm." },
-      { fen: "r1bqkbnr/ppp2ppp/2np4/8/2BNP3/8/PPP2PPP/RNBQK2R b KQkq - 0 5", targetMove: "Nf6", note: "Đen phát triển Mã.", mascot: "Đen ra quân." }
-    ]
-  },
-  {
-    id: "weak-f7-5",
-    category: "Điểm yếu f7/f2",
-    title: "Tấn công kép",
-    steps: [
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "Bc4", note: "Tượng c4.", mascot: "Tượng c4 quen thuộc." },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "Nf6", note: "Mã f6.", mascot: "Đen phòng thủ 2 mã." },
-      { fen: "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "d3", note: "Trắng chơi d3.", mascot: "Chơi chậm lại." },
-      { fen: "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R b KQkq - 0 4", targetMove: "Bc5", note: "Đen Tượng c5.", mascot: "Đen cũng ra Tượng." },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 1 5", targetMove: "O-O", note: "Trắng nhập thành.", mascot: "An toàn là trên hết." }
-    ]
-  },
-  {
-    id: "overload-1",
-    category: "Quá tải hàng phòng ngự",
-    title: "Quân bảo vệ quá tải",
-    steps: [
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3p4/2PP4/2N1PN2/PP1Q1PPP/R3KB1R w KQ - 1 8", targetMove: "cxd5", note: "Trắng ăn Tốt d5.", mascot: "Tạo áp lực ở trung tâm!" },
-      { fen: "r1bq1rk1/ppp2ppp/2n1pn2/3P4/3P4/2N1PN2/PP1Q1PPP/R3KB1R b KQ - 0 8", targetMove: "exd5", note: "Đen ăn lại bằng Tốt e.", mascot: "Đen duy duy trì cấu trúc." },
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2N1PN2/PP1Q1PPP/R3KB1R w KQ - 0 9", targetMove: "Bd3", note: "Trắng phát triển Tượng d3.", mascot: "Tượng d3 ngắm h7." },
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R3K2R b KQ - 1 9", targetMove: "Re8", note: "Đen đưa Xe ra e8.", mascot: "Xe e8 kiểm soát cột nửa mở." },
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R3K2R w KQ - 2 10", targetMove: "O-O", note: "Trắng nhập thành.", mascot: "Trắng cũng an toàn rồi." }
-    ]
-  },
-  {
-    id: "overload-2",
-    category: "Quá tải hàng phòng ngự",
-    title: "Đuổi quân phòng thủ",
-    steps: [
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R4RK1 w - - 3 10", targetMove: "Rac1", note: "Xe c1 kiểm soát cột c.", mascot: "Xe ra cột c." },
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/2R2RK1 b - - 4 10", targetMove: "Bg4", note: "Đen ghim Mã f3.", mascot: "Đen ghim Mã Trắng." },
-      { fen: "r2q1rk1/ppp2ppp/2n2n2/3p4/3P2b1/2NBPN2/PP1Q1PPP/2R2RK1 w - - 5 11", targetMove: "Ne5", note: "Trắng nhảy Mã e5.", mascot: "Mã e5 rất mạnh!" },
-      { fen: "r2q1rk1/ppp2ppp/2n2n2/3pN3/3P2b1/2NB4/PP1Q1PPP/2R2RK1 b - - 6 11", targetMove: "Nxe5", note: "Đen đổi Mã.", mascot: "Đen không để Mã đó yên." },
-      { fen: "r2q1rk1/ppp2ppp/5n2/3pn3/3P2b1/2NB4/PP1Q1PPP/2R2RK1 w - - 0 12", targetMove: "dxe5", note: "Tốt ăn lại, đuổi Mã f6.", mascot: "Tốt đuổi Mã f6!" }
-    ]
-  },
-  {
-    id: "overload-3",
-    category: "Quá tải hàng phòng ngự",
-    title: "Đòn đánh lạc hướng",
-    steps: [
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R4RK1 w - - 3 10", targetMove: "h3", note: "Ngăn Bg4.", mascot: "Chặn Đen ghim Mã." },
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN1P/PP1Q1PP1/R4RK1 b - - 0 10", targetMove: "a6", note: "Đen a6.", mascot: "Đen cũng chơi cẩn thận." },
-      { fen: "r1bq1rk1/1pp2ppp/p1n2n2/3p4/3P4/2NBPN1P/PP1Q1PP1/R4RK1 w - - 0 11", targetMove: "a3", note: "Trắng a3.", mascot: "Trắng cũng vậy." },
-      { fen: "r1bq1rk1/1pp2ppp/p1n2n2/3p4/3P4/P1NBPN1P/1P1Q1PP1/R4RK1 b - - 0 11", targetMove: "h6", note: "Đen h6.", mascot: "Một thế cờ chậm rãi." },
-      { fen: "r1bq1rk1/1pp2pp1/p1n2n1p/3p4/3P4/P1NBPN1P/1P1Q1PP1/R4RK1 w - - 0 12", targetMove: "b4", note: "B4 xông lên.", mascot: "Khởi động tấn công cánh Hậu." }
-    ]
-  },
-  {
-    id: "overload-4",
-    category: "Quá tải hàng phòng ngự",
-    title: "Mở khoảng trống",
-    steps: [
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R4RK1 w - - 3 10", targetMove: "Rfe1", note: "Xe e1.", mascot: "Chuẩn bị e4." },
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R3R1K1 b - - 4 10", targetMove: "Re8", note: "Xe e8.", mascot: "Đen cũng chuẩn bị trung tâm." },
-      { fen: "r1bqr1k1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R3R1K1 w - - 5 11", targetMove: "e4", note: "Trắng e4.", mascot: "Mở tung trung tâm!" },
-      { fen: "r1bqr1k1/ppp2ppp/2n2n2/3p4/3PP3/2NB1N2/PP1Q1PPP/R3R1K1 b - - 0 11", targetMove: "dxe4", note: "Đen ăn Tốt.", mascot: "Giao tranh ở trung tâm." },
-      { fen: "r1bqr1k1/ppp2ppp/2n2n2/8/3Pp3/2NB1N2/PP1Q1PPP/R3R1K1 w - - 0 12", targetMove: "Nxe4", note: "Mã ăn lại.", mascot: "Mã chiếm e4." }
-    ]
-  },
-  {
-    id: "overload-5",
-    category: "Quá tải hàng phòng ngự",
-    title: "Chiếu hết ngoạn mục",
-    steps: [
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3p4/3P4/2NBPN2/PP1Q1PPP/R4RK1 w - - 3 10", targetMove: "Ne5", note: "Mã e5.", mascot: "Mã e5 rất hay được dùng." },
-      { fen: "r1bq1rk1/ppp2ppp/2n2n2/3pN3/3P4/2NB4/PP1Q1PPP/R4RK1 b - - 4 10", targetMove: "Nxe5", note: "Đen đổi Mã.", mascot: "Đổi ngay lập tức." },
-      { fen: "r1bq1rk1/ppp2ppp/5n2/3pn3/3P4/2NB4/PP1Q1PPP/R4RK1 w - - 0 11", targetMove: "dxe5", note: "Tốt ăn lại.", mascot: "Đuổi Mã f6." },
-      { fen: "r1bq1rk1/ppp2ppp/5n2/4P3/8/2NB4/PP1Q1PPP/R4RK1 b - - 0 11", targetMove: "Nd7", note: "Mã lùi về d7.", mascot: "Mã phải chạy về d7." },
-      { fen: "r1bq1rk1/pppn1ppp/8/4P3/8/2NB4/PP1Q1PPP/R4RK1 w - - 1 12", targetMove: "f4", note: "F4 giữ Tốt e5.", mascot: "Củng cố Tốt e5 mạnh mẽ." }
-    ]
-  },
-  {
-    id: "open-file-1",
-    category: "Mở cột tấn công Vua",
-    title: "Thí Tốt mở cột",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "d3", note: "Mở đường Tượng c1.", mascot: "Chơi d3 chắc chắn." },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R b KQkq - 0 5", targetMove: "d6", note: "Đen cũng d6.", mascot: "Đen đáp trả tương tự." },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQkq - 0 6", targetMove: "Bg5", note: "Ghim Mã.", mascot: "Ghim Mã Đen!" },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R b KQkq - 1 6", targetMove: "h6", note: "Đuổi Tượng.", mascot: "Đen muốn đuổi Tượng." },
-      { fen: "r1bqk2r/ppp2pp1/2np1n1p/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R w KQkq - 0 7", targetMove: "Bh4", note: "Tượng lùi h4, duy trì ghim.", mascot: "Vẫn giữ áp lực ghim." }
-    ]
-  },
-  {
-    id: "open-file-2",
-    category: "Mở cột tấn công Vua",
-    title: "Đưa Xe sang cột h",
-    steps: [
-      { fen: "r1bqk2r/ppp2pp1/2np1n1p/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R w KQkq - 0 7", targetMove: "Bxf6", note: "Tượng ăn Mã f6.", mascot: "Đổi Tượng lấy Mã." },
-      { fen: "r1bqk2r/ppp2pp1/2np1B1p/2b1p3/2B1P3/2NP1N2/PPP2PPP/R2QK2R b KQkq - 0 7", targetMove: "Qxf6", note: "Hậu ăn lên f6.", mascot: "Hậu Đen đã lên." },
-      { fen: "r1b1k2r/ppp2pp1/2np1q1p/2b1p3/2B1P3/2NP1N2/PPP2PPP/R2QK2R w KQkq - 0 8", targetMove: "Nd5", note: "Mã d5 tấn công Hậu và c7.", mascot: "Mã trung tâm đáng sợ!" },
-      { fen: "r1b1k2r/ppp2pp1/2np1q1p/2bNp3/2B1P3/3P1N2/PPP2PPP/R2QK2R b KQkq - 1 8", targetMove: "Qd8", note: "Hậu lui về d8.", mascot: "Hậu phải rút về." },
-      { fen: "r1bqk2r/ppp2pp1/2np3p/2bNp3/2B1P3/3P1N2/PPP2PPP/R2QK2R w KQkq - 2 9", targetMove: "c3", note: "Củng cố Mã d5.", mascot: "Chuẩn bị đẩy d4." }
-    ]
-  },
-  {
-    id: "open-file-3",
-    category: "Mở cột tấn công Vua",
-    title: "Kiểm soát cột mở",
-    steps: [
-      { fen: "r1bqk2r/ppp2pp1/2np3p/2bNp3/2B1P3/3P1N2/PPP2PPP/R2QK2R w KQkq - 2 9", targetMove: "O-O", note: "Nhập thành.", mascot: "Đã an toàn." },
-      { fen: "r1bqk2r/ppp2pp1/2np3p/2bNp3/2B1P3/3P1N2/PPP2PPP/R2Q1RK1 b kq - 3 9", targetMove: "O-O", note: "Đen nhập thành.", mascot: "Cả hai đều an toàn." },
-      { fen: "r1bq1rk1/ppp2pp1/2np3p/2bNp3/2B1P3/3P1N2/PPP2PPP/R2Q1RK1 w - - 4 10", targetMove: "h3", note: "H3 ngăn Bg4.", mascot: "Phòng thủ cần thiết." },
-      { fen: "r1bq1rk1/ppp2pp1/2np3p/2bNp3/2B1P3/3P1N1P/PPP2PP1/R2Q1RK1 b - - 0 10", targetMove: "Ne7", note: "Đen Ne7 đuổi Mã d5.", mascot: "Đen muốn đổi Mã." },
-      { fen: "r1bq1rk1/ppp1npp1/3p3p/2bNp3/2B1P3/3P1N1P/PPP2PP1/R2Q1RK1 w - - 1 11", targetMove: "Nxe7+", note: "Trắng đổi Mã e7.", mascot: "Đổi Mã luôn." }
-    ]
-  },
-  {
-    id: "open-file-4",
-    category: "Mở cột tấn công Vua",
-    title: "Tấn công bằng Xe",
-    steps: [
-      { fen: "r1bqk2r/ppp2pp1/2np3p/2bNp3/2B1P3/3P1N2/PPP2PPP/R2QK2R w KQkq - 2 9", targetMove: "a3", note: "a3 chuẩn bị b4.", mascot: "Tấn công cánh Hậu." },
-      { fen: "r1bqk2r/ppp2pp1/2np3p/2bNp3/2B1P3/P2P1N2/1PP2PPP/R2QK2R b KQkq - 0 9", targetMove: "a6", note: "Đen a6.", mascot: "Đen cũng đỡ." },
-      { fen: "r1bqk2r/1pp2pp1/p1np3p/2bNp3/2B1P3/P2P1N2/1PP2PPP/R2QK2R w KQkq - 0 10", targetMove: "b4", note: "b4 đuổi Tượng.", mascot: "Đuổi Tượng Đen." },
-      { fen: "r1bqk2r/1pp2pp1/p1np3p/2bNp3/1PB1P3/P2P1N2/2P2PPP/R2QK2R b KQkq - 0 10", targetMove: "Ba7", note: "Tượng chạy a7.", mascot: "Tượng lùi về a7." },
-      { fen: "r1bqk2r/bpp2pp1/p1np3p/3Np3/1PB1P3/P2P1N2/2P2PPP/R2QK2R w KQkq - 1 11", targetMove: "O-O", note: "Nhập thành.", mascot: "Tiếp tục nhập thành." }
-    ]
-  },
-  {
-    id: "open-file-5",
-    category: "Mở cột tấn công Vua",
-    title: "Nhân đôi sức ép",
-    steps: [
-      { fen: "r1bqk2r/ppp2pp1/2np3p/2bNp3/2B1P3/3P1N2/PPP2PPP/R2QK2R w KQkq - 2 9", targetMove: "Qe2", note: "Hậu e2.", mascot: "Hậu sẵn sàng." },
-      { fen: "r1bqk2r/ppp2pp1/2np3p/2bNp3/2B1P3/3P1N2/PPP1QPPP/R3K2R b KQkq - 3 9", targetMove: "Bg4", note: "Ghim Mã.", mascot: "Đen ghim Mã f3." },
-      { fen: "r2qk2r/ppp2pp1/2np3p/2bNp3/2B1P1b1/3P1N2/PPP1QPPP/R3K2R w KQkq - 4 10", targetMove: "c3", note: "C3 vững chắc.", mascot: "Giữ chặt d4 và b4." },
-      { fen: "r2qk2r/ppp2pp1/2np3p/2bNp3/2B1P1b1/2PP1N2/PP2QPPP/R3K2R b KQkq - 0 10", targetMove: "O-O", note: "Nhập thành.", mascot: "Đen an toàn." },
-      { fen: "r2q1rk1/ppp2pp1/2np3p/2bNp3/2B1P1b1/2PP1N2/PP2QPPP/R3K2R w KQ - 1 11", targetMove: "h3", note: "Đuổi Tượng.", mascot: "H3 hỏi tội Tượng!" }
-    ]
-  },
-  {
-    id: "back-rank-1",
-    category: "Tấn công hàng ngang cuối",
-    title: "Mối đe dọa cơ bản",
-    steps: [
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1", targetMove: "Re8#", note: "Chiếu hết hàng ngang cuối cơ bản.", mascot: "Một nước chiếu hết đơn giản!" },
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1", targetMove: "Re8#", note: "Thực hành lại đòn.", mascot: "Rất dễ phải không?" },
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1", targetMove: "Re8#", note: "Ghi nhớ cấu trúc Tốt cản Vua.", mascot: "Tốt Đen chính là kẻ thù của Vua Đen." },
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1", targetMove: "Re8#", note: "Vua không có lối thoát.", mascot: "Không còn đường lùi." },
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1", targetMove: "Re8#", note: "Hoàn thành bài tập.", mascot: "Xuất sắc!" }
-    ]
-  },
-  {
-    id: "back-rank-2",
-    category: "Tấn công hàng ngang cuối",
-    title: "Dụ quân bảo vệ",
-    steps: [
-      { fen: "3r2k1/5ppp/8/8/1Q6/8/5PPP/4R1K1 w - - 0 1", targetMove: "Qe7", note: "Hậu đe dọa chiếu hết hàng cuối.", mascot: "Hậu tạo áp lực lớn." },
-      { fen: "3r2k1/4Qppp/8/8/8/8/5PPP/4R1K1 b - - 1 1", targetMove: "Rf8", note: "Xe lui về phòng thủ.", mascot: "Xe phải giữ hàng ngang." },
-      { fen: "5rk1/4Qppp/8/8/8/8/5PPP/4R1K1 w - - 2 2", targetMove: "Rd1", note: "Đưa thêm Xe tham gia.", mascot: "Tăng cường quân số!" },
-      { fen: "5rk1/4Qppp/8/8/8/8/5PPP/3R2K1 b - - 3 2", targetMove: "h6", note: "Đen tạo lỗ thông hơi cho Vua.", mascot: "Đen mở đường máu." },
-      { fen: "5rk1/4Qpp1/7p/8/8/8/5PPP/3R2K1 w - - 0 3", targetMove: "Rd8", note: "Trắng đổi Xe.", mascot: "Ép đổi quân!" }
-    ]
-  },
-  {
-    id: "back-rank-3",
-    category: "Tấn công hàng ngang cuối",
-    title: "Thí quân mở đường",
-    steps: [
-      { fen: "6k1/1q3ppp/8/8/4Q3/8/5PPP/4R1K1 w - - 0 1", targetMove: "Qxb7", note: "Ăn Hậu Đen.", mascot: "Lấy Hậu đối phương!" },
-      { fen: "6k1/1Q3ppp/8/8/8/8/5PPP/4R1K1 b - - 0 1", targetMove: "h6", note: "Đen tạo lỗ thoát.", mascot: "Lỗ thông hơi h6." },
-      { fen: "6k1/1Q3pp1/7p/8/8/8/5PPP/4R1K1 w - - 0 2", targetMove: "Re8+", note: "Chiếu Vua.", mascot: "Chiếu Vua từ hàng ngang." },
-      { fen: "4R1k1/1Q3pp1/7p/8/8/8/5PPP/6K1 b - - 1 2", targetMove: "Kh7", note: "Vua thoát ra.", mascot: "Vua đã chạy." },
-      { fen: "4R3/1Q3ppk/7p/8/8/8/5PPP/6K1 w - - 2 3", targetMove: "Qe4+", note: "Tiếp tục chiếu bằng Hậu.", mascot: "Không cho Vua nghỉ ngơi!" }
-    ]
-  },
-  {
-    id: "back-rank-4",
-    category: "Tấn công hàng ngang cuối",
-    title: "Kết hợp đòn ghim",
-    steps: [
-      { fen: "4r1k1/5ppp/8/8/3Q4/8/5PPP/4R1K1 w - - 0 1", targetMove: "Rxe8#", note: "Ăn Xe và chiếu hết.", mascot: "Chiếu hết đơn giản!" },
-      { fen: "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1", targetMove: "Kh7", note: "Lỗi FEN", mascot: "" },
-      { fen: "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1", targetMove: "Kh7", note: "Lỗi FEN", mascot: "" },
-      { fen: "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1", targetMove: "Kh7", note: "Lỗi FEN", mascot: "" },
-      { fen: "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1", targetMove: "Kh7", note: "Lỗi FEN", mascot: "" }
-    ]
-  },
-  {
-    id: "back-rank-5",
-    category: "Tấn công hàng ngang cuối",
-    title: "Chiếu hết hàng ngang",
-    steps: [
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1", targetMove: "Re8#", note: "Một bài tập dễ khác.", mascot: "Ôn tập lại!" },
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1", targetMove: "Re8#", note: "Đơn giản.", mascot: "Chiếu hết." },
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1", targetMove: "Re8#", note: "Dễ dàng.", mascot: "Nhanh gọn." },
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1", targetMove: "Re8#", note: "Kết thúc.", mascot: "Kết liễu." },
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1", targetMove: "Re8#", note: "Xong.", mascot: "Chúc mừng!" }
-    ]
-  },
-  {
-    id: "smothered-1",
-    category: "Thiết lập Mat ngạt",
-    title: "Chiếu đôi",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "O-O", note: "Nhập thành.", mascot: "Đưa Vua vào an toàn." },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 b kq - 7 5", targetMove: "O-O", note: "Đen cũng nhập thành.", mascot: "Đen cũng vậy." },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w - - 8 6", targetMove: "d3", note: "Chơi d3.", mascot: "Mở đường Tượng." },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 b - - 0 6", targetMove: "d6", note: "Đen d6.", mascot: "Đen cũng thế." },
-      { fen: "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 0 7", targetMove: "Bg5", note: "Ghim.", mascot: "Ghim Mã f6." }
-    ]
-  },
-  {
-    id: "smothered-2",
-    category: "Thiết lập Mat ngạt",
-    title: "Đưa Mã vào vị trí",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "d3", note: "d3", mascot: "d3" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R b KQkq - 0 5", targetMove: "d6", note: "d6", mascot: "d6" },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQkq - 0 6", targetMove: "Bg5", note: "Bg5", mascot: "Bg5" },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R b KQkq - 1 6", targetMove: "h6", note: "h6", mascot: "h6" },
-      { fen: "r1bqk2r/ppp2pp1/2np1n1p/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R w KQkq - 0 7", targetMove: "Bh4", note: "Bh4", mascot: "Bh4" }
-    ]
-  },
-  {
-    id: "smothered-3",
-    category: "Thiết lập Mat ngạt",
-    title: "Thí Hậu",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "d3", note: "d3", mascot: "d3" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R b KQkq - 0 5", targetMove: "d6", note: "d6", mascot: "d6" },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQkq - 0 6", targetMove: "Bg5", note: "Bg5", mascot: "Bg5" },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R b KQkq - 1 6", targetMove: "h6", note: "h6", mascot: "h6" },
-      { fen: "r1bqk2r/ppp2pp1/2np1n1p/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R w KQkq - 0 7", targetMove: "Bxf6", note: "Bxf6", mascot: "Bxf6" }
-    ]
-  },
-  {
-    id: "smothered-4",
-    category: "Thiết lập Mat ngạt",
-    title: "Mat ngạt cổ điển",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 b kq - 7 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w - - 8 6", targetMove: "d3", note: "d3", mascot: "d3" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 b - - 0 6", targetMove: "d6", note: "d6", mascot: "d6" },
-      { fen: "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 0 7", targetMove: "h3", note: "h3", mascot: "h3" }
-    ]
-  },
-  {
-    id: "smothered-5",
-    category: "Thiết lập Mat ngạt",
-    title: "Đòn biến thể",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 b kq - 7 5", targetMove: "d6", note: "d6", mascot: "d6" },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w kq - 0 6", targetMove: "d3", note: "d3", mascot: "d3" },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 b kq - 0 6", targetMove: "h6", note: "h6", mascot: "h6" },
-      { fen: "r1bqk2r/ppp2pp1/2np1n1p/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w kq - 0 7", targetMove: "a3", note: "a3", mascot: "a3" }
-    ]
-  },
-  {
-    id: "destroy-pawn-1",
-    category: "Phá vỡ cấu trúc Tốt bảo vệ Vua",
-    title: "Thí Tượng đổi Tốt",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 b kq - 7 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w - - 8 6", targetMove: "d3", note: "d3", mascot: "d3" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 b - - 0 6", targetMove: "d6", note: "d6", mascot: "d6" },
-      { fen: "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 0 7", targetMove: "h3", note: "h3", mascot: "h3" }
-    ]
-  },
-  {
-    id: "destroy-pawn-2",
-    category: "Phá vỡ cấu trúc Tốt bảo vệ Vua",
-    title: "Xé toang lá chắn",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 b kq - 7 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w - - 8 6", targetMove: "d3", note: "d3", mascot: "d3" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 b - - 0 6", targetMove: "d6", note: "d6", mascot: "d6" },
-      { fen: "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 0 7", targetMove: "h3", note: "h3", mascot: "h3" }
-    ]
-  },
-  {
-    id: "destroy-pawn-3",
-    category: "Phá vỡ cấu trúc Tốt bảo vệ Vua",
-    title: "Khống chế đường chéo",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 b kq - 7 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w - - 8 6", targetMove: "d3", note: "d3", mascot: "d3" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 b - - 0 6", targetMove: "d6", note: "d6", mascot: "d6" },
-      { fen: "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 0 7", targetMove: "h3", note: "h3", mascot: "h3" }
-    ]
-  },
-  {
-    id: "destroy-pawn-4",
-    category: "Phá vỡ cấu trúc Tốt bảo vệ Vua",
-    title: "Mở đường cho Hậu",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 b kq - 7 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w - - 8 6", targetMove: "d3", note: "d3", mascot: "d3" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 b - - 0 6", targetMove: "d6", note: "d6", mascot: "d6" },
-      { fen: "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 0 7", targetMove: "h3", note: "h3", mascot: "h3" }
-    ]
-  },
-  {
-    id: "destroy-pawn-5",
-    category: "Phá vỡ cấu trúc Tốt bảo vệ Vua",
-    title: "Tấn công chớp nhoáng",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 6 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 b kq - 7 5", targetMove: "O-O", note: "O-O", mascot: "O-O" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w - - 8 6", targetMove: "d3", note: "d3", mascot: "d3" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 b - - 0 6", targetMove: "d6", note: "d6", mascot: "d6" },
-      { fen: "r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQ1RK1 w - - 0 7", targetMove: "h3", note: "h3", mascot: "h3" }
-    ]
-  },
-  {
-    id: "dev-lead-1",
-    category: "Tấn công khi ưu thế phát triển",
-    title: "Khai thác sự chậm trễ",
-    steps: [
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Nf3", note: "Nf3", mascot: "Nf3" },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2", targetMove: "Nc6", note: "Nc6", mascot: "Nc6" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "Bc4", note: "Bc4", mascot: "Bc4" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "Bc5", note: "Bc5", mascot: "Bc5" },
-      { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "c3", note: "c3", mascot: "c3" }
-    ]
-  },
-  {
-    id: "dev-lead-2",
-    category: "Tấn công khi ưu thế phát triển",
-    title: "Mở trung tâm",
-    steps: [
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Nf3", note: "Nf3", mascot: "Nf3" },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2", targetMove: "Nc6", note: "Nc6", mascot: "Nc6" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "Bc4", note: "Bc4", mascot: "Bc4" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "Bc5", note: "Bc5", mascot: "Bc5" },
-      { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "c3", note: "c3", mascot: "c3" }
-    ]
-  },
-  {
-    id: "dev-lead-3",
-    category: "Tấn công khi ưu thế phát triển",
-    title: "Ngăn chặn phát triển",
-    steps: [
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Nf3", note: "Nf3", mascot: "Nf3" },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2", targetMove: "Nc6", note: "Nc6", mascot: "Nc6" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "Bc4", note: "Bc4", mascot: "Bc4" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "Bc5", note: "Bc5", mascot: "Bc5" },
-      { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "c3", note: "c3", mascot: "c3" }
-    ]
-  },
-  {
-    id: "dev-lead-4",
-    category: "Tấn công khi ưu thế phát triển",
-    title: "Tấn công từ mọi phía",
-    steps: [
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Nf3", note: "Nf3", mascot: "Nf3" },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2", targetMove: "Nc6", note: "Nc6", mascot: "Nc6" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "Bc4", note: "Bc4", mascot: "Bc4" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "Bc5", note: "Bc5", mascot: "Bc5" },
-      { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "c3", note: "c3", mascot: "c3" }
-    ]
-  },
-  {
-    id: "dev-lead-5",
-    category: "Tấn công khi ưu thế phát triển",
-    title: "Đòn quyết định",
-    steps: [
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2", targetMove: "Nf3", note: "Nf3", mascot: "Nf3" },
-      { fen: "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2", targetMove: "Nc6", note: "Nc6", mascot: "Nc6" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3", targetMove: "Bc4", note: "Bc4", mascot: "Bc4" },
-      { fen: "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3", targetMove: "Bc5", note: "Bc5", mascot: "Bc5" },
-      { fen: "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", targetMove: "c3", note: "c3", mascot: "c3" }
-    ]
-  },
-  {
-    id: "adv-def-prophylaxis",
-    category: "Chương 5: Phòng thủ nâng cao",
-    title: "Bài 1: Tư duy phòng ngừa (Prophylaxis)",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQ1RK1 w kq - 0 1", targetMove: "h2h3", note: "<b>Tư duy phòng ngừa:</b> Ngăn chặn ý đồ của đối phương trước khi nó xảy ra. Đen muốn nhảy Ngựa hoặc Tượng vào g4. Nước <b>h3</b> ngăn chặn điều này.", mascot: "Tướng của ta cần không gian an toàn! Hãy chặn đường đối thủ nào!" },
-      { fen: "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N1P/PPP2PP1/R1BQ1RK1 b - - 0 1", targetMove: "h7h6", note: "<b>Phòng ngừa cho Đen:</b> Đen cũng dùng cách tương tự để ngăn Trắng ghim Mã bằng Tượng g5.", mascot: "Đến lượt Đen cẩn tắc vô áy náy nhé!" },
-      { fen: "r2qk2r/ppp1bppp/2np1n2/4p3/4P1b1/2NP1N2/PPP1BPPP/R1BQ1RK1 w kq - 0 1", targetMove: "a2a3", note: "<b>Bảo vệ Tượng:</b> Trắng chơi <b>a3</b> để có chỗ lùi cho Tượng về a2 nếu Đen tấn công bằng Na5.", mascot: "Một nước cờ nhỏ nhưng cứu được cả Tượng mạnh!" },
-      { fen: "r1bq1rk1/ppp2ppp/2np4/2b1p3/2B1P1n1/2NP3N/PPP2PPP/R1BQK2R w KQ - 0 1", targetMove: "e1g1", note: "<b>Nhập thành an toàn:</b> Trắng nhập thành để đưa Vua vào vị trí an toàn trước khi Đen tổ chức tấn công mạnh hơn.", mascot: "Đừng quên nhập thành, đó là biện pháp phòng ngừa tốt nhất!" },
-      { fen: "r2qk2r/pppbbppp/2np1n2/4p3/4P3/2NP1N2/PPP1BPPP/R1BQK2R w KQkq - 0 1", targetMove: "f3d2", note: "<b>Phòng ngừa chiến lược:</b> Trắng đưa Mã về d2 để chuẩn bị c3, ngăn cản sức mạnh của các quân Đen ở trung tâm.", mascot: "Lùi một bước để tiến ba bước!" }
-    ]
-  },
-  {
-    id: "adv-def-mate",
-    category: "Chương 5: Phòng thủ nâng cao",
-    title: "Bài 2: Chống đe dọa chiếu hết",
-    steps: [
-      { fen: "r1bq1rk1/pppp1ppp/2n5/4P3/2B5/5N2/PqPQ1PPP/R4RK1 w - - 0 1", targetMove: "a1b1", note: "Đen đang đe dọa Hậu, nhưng chưa có chiếu hết. Tuy nhiên, bài toán là tạo phòng tuyến.", mascot: "Hãy đuổi Hậu Đen đi để củng cố phòng thủ!" },
-      { fen: "6k1/5ppp/8/8/8/8/5PPP/4R1K1 b - - 0 1", targetMove: "g8f8", note: "<b>Tránh chiếu ở hàng ngang cuối:</b> Trắng đang dọa chiếu hết bằng Xe. Đen cần đưa Vua ra khỏi khu vực nguy hiểm hoặc chuẩn bị chặn.", mascot: "Vua phải luôn có đường lui!" },
-      { fen: "7k/5Qpp/8/8/8/8/6PP/7K b - - 0 1", targetMove: "h7h6", note: "<b>Mở lỗ thông hơi (Luft):</b> Đẩy Tốt h6 hoặc h5 để Vua không bị chiếu hết ở hàng cuối.", mascot: "Cho Vua thêm chút không khí nào!" },
-      { fen: "3r2k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1", targetMove: "g2g3", note: "Trắng mở cửa sổ cho Vua trước khi tiến lên tấn công.", mascot: "Không ai muốn thua vì một đòn chiếu hết ngớ ngẩn!" },
-      { fen: "6k1/5p1p/6p1/8/8/8/5PPP/1q4K1 w - - 0 1", targetMove: "g1h2", note: "Khi bị chiếu, nếu có đường thoát, hãy di chuyển Vua đến ô an toàn.", mascot: "An toàn là bạn, tai nạn là... thua cờ!" }
-    ]
-  },
-  {
-    id: "adv-def-blockade",
-    category: "Chương 5: Phòng thủ nâng cao",
-    title: "Bài 3: Phong tỏa Tốt thông",
-    steps: [
-      { fen: "8/8/3p4/3N4/8/8/3K4/2k5 w - - 0 1", targetMove: "d5c3", note: "<b>Mã phong tỏa:</b> Mã là quân tuyệt vời nhất để chặn Tốt thông vì nó vừa chặn, vừa kiểm soát các ô xung quanh.", mascot: "Mã đứng chặn Tốt là vững như bàn thạch!" },
-      { fen: "8/8/8/3p4/3N4/8/8/3K2k1 w - - 0 1", targetMove: "d4e2", note: "Chặn Tốt trước khi nó tiến thêm.", mascot: "Đừng để Tốt đối phương tiến quá xa!" },
-      { fen: "8/8/8/8/4p3/4B3/8/3K2k1 w - - 0 1", targetMove: "e3d4", note: "<b>Tượng phong tỏa:</b> Tượng cũng chặn Tốt rất tốt từ xa hoặc trực tiếp.", mascot: "Tượng không chỉ để tấn công, mà phòng thủ cũng rất hay!" },
-      { fen: "8/8/8/8/8/5p2/5K2/6k1 w - - 0 1", targetMove: "f2g3", note: "<b>Vua phong tỏa:</b> Trong tàn cuộc, Vua là quân chặn Tốt thông dũng cảm nhất.", mascot: "Đích thân Vua ra trận chặn đường Tốt!" },
-      { fen: "8/8/4p3/4R3/8/8/3K4/1k6 w - - 0 1", targetMove: "e5e4", note: "<b>Xe phong tỏa:</b> Dù không lý tưởng, Xe đôi khi phải đứng chặn trước Tốt.", mascot: "Tạm thời lấy Xe chặn Tốt vậy!" }
-    ]
-  },
-  {
-    id: "adv-def-perpetual",
-    category: "Chương 5: Phòng thủ nâng cao",
-    title: "Bài 4: Chiếu vĩnh viễn (Perpetual check)",
-    steps: [
-      { fen: "8/5pkp/6p1/8/8/6Q1/5qPP/7K b - - 0 1", targetMove: "f2f1", note: "Khi thế cờ bất lợi, hãy tìm cách chiếu vĩnh viễn để gỡ hòa.", mascot: "Cứu vãn tình thế bằng một trận hòa ngoạn mục!" },
-      { fen: "8/5pkp/6p1/8/8/6Q1/7P/5q1K w - - 0 2", targetMove: "g3g1", note: "Đen chiếu, Trắng buộc phải chống đỡ, dẫn đến thế hòa lặp đi lặp lại.", mascot: "Không thắng được thì hòa cũng là một nghệ thuật!" },
-      { fen: "7k/7p/7K/8/8/8/7q/8 w - - 0 1", targetMove: "h6g5", note: "Thoát khỏi các đợt chiếu lặp lại nếu có thể.", mascot: "Tìm đường máu thoát thân!" },
-      { fen: "8/6pk/7p/8/5N2/8/3q1PPP/6K1 w - - 0 1", targetMove: "f4g6", note: "Mã cũng có thể tạo ra chiếu vĩnh viễn nếu kết hợp tốt với Vua địch bị kẹt.", mascot: "Ngựa phi nước đại, chiếu mãi không thôi!" },
-      { fen: "8/6pk/7p/8/5N2/8/3q1PPP/6K1 w - - 0 1", targetMove: "g2g3", note: "Trắng mở đường hòng trốn chiếu.", mascot: "Phải mở đường máu!" }
-    ]
-  },
-  {
-    id: "adv-def-stalemate",
-    category: "Chương 5: Phòng thủ nâng cao",
-    title: "Bài 5: Cạm bẫy hòa trượng (Stalemate tricks)",
-    steps: [
-      { fen: "8/8/8/8/8/5q2/5p1K/5k2 w - - 0 1", targetMove: "h2h3", note: "<b>Tránh hòa trượng:</b> Trắng đi Vua để tránh bị đối phương dụ vào thế bí.", mascot: "Cẩn thận đừng để đối thủ hết nước đi mà không bị chiếu nhé!" },
-      { fen: "7k/7P/6K1/8/8/8/8/8 b - - 0 1", targetMove: "h8g8", note: "Đen không còn nước đi nào khác ngoài chờ Vua Trắng mắc sai lầm.", mascot: "Đôi khi đứng im là cách tốt nhất!" },
-      { fen: "8/8/8/8/7p/7K/8/5k2 w - - 0 1", targetMove: "h3h4", note: "Trắng ăn Tốt để thoát khỏi thế bí.", mascot: "Ăn quân đúng lúc để sống sót!" },
-      { fen: "8/8/8/6R1/8/8/5p1K/5k2 w - - 0 1", targetMove: "g5g4", note: "Xe Trắng di chuyển để không cản đường Vua tiến.", mascot: "Mở đường cho Vua di chuyển đi!" },
-      { fen: "8/8/8/8/8/7p/7K/5k2 w - - 0 1", targetMove: "h2h1", note: "Trắng tự đưa mình vào thế hòa trượng khi biết không thể thắng.", mascot: "Bí cờ (Stalemate) là phao cứu sinh tuyệt vời!" }
-    ]
-  },
-  {
-    id: "adv-def-counterattack",
-    category: "Chương 5: Phòng thủ nâng cao",
-    title: "Bài 6: Phản công khi phòng thủ",
-    steps: [
-      { fen: "3r2k1/pp3ppp/2p5/8/4P3/2P2P2/PP3qPP/R1Q4K b - - 0 1", targetMove: "d8d2", note: "Thay vì co cụm phòng thủ, Đen đưa Xe xuống hàng 2 phản công mạnh mẽ.", mascot: "Phòng thủ tốt nhất là tấn công!" },
-      { fen: "8/pp3ppp/2p5/8/4P3/2P2P2/PP1r2PP/R5K1 b - - 0 1", targetMove: "d2b2", note: "Đen ăn Tốt, đe dọa tiếp tục ăn Tốt a2 và phá nát hàng lang của Trắng.", mascot: "Tuyệt vời! Chúng ta đang chiếm ưu thế lớn." },
-      { fen: "8/pp3ppp/2p5/8/4P3/2P2P2/Pr4PP/2R3K1 b - - 0 1", targetMove: "b2a2", note: "Tiếp tục tạo lợi thế vật chất.", mascot: "Ăn sạch Tốt của họ đi!" },
-      { fen: "8/pp3ppp/2p5/8/4P3/2P2P2/r5PP/1R4K1 b - - 0 1", targetMove: "b7b6", note: "Bảo vệ Tốt b7, củng cố trận địa.", mascot: "An toàn là trên hết, bảo vệ Tốt nào!" },
-      { fen: "8/p4ppp/1pp5/8/4P3/2P2P2/r5PP/3R2K1 b - - 0 1", targetMove: "g8f8", note: "Đưa Vua vào tham chiến ở tàn cuộc.", mascot: "Vua đã đến lúc phải ra trận!" }
-    ]
-  },
-  {
-    id: "endgame-opposition",
-    category: "Chương 6: Tàn cuộc thực chiến",
-    title: "Bài 7: Đối Vua (Opposition)",
-    steps: [
-      { fen: "8/8/8/8/8/4k3/8/4K3 w - - 0 1", targetMove: "e1d1", note: "<b>Đối Vua:</b> Trắng cần giữ Vua đối diện với Vua Đen để ngăn cản sự tiến lên.", mascot: "Nhìn thẳng vào mắt kẻ thù! Đừng nháy mắt!" },
-      { fen: "8/8/8/8/8/3k4/8/3K4 w - - 0 1", targetMove: "d1c1", note: "Trắng tiếp tục giữ đối Vua khi Vua Đen lách sang một bên.", mascot: "Bám sát mọi bước đi của đối thủ!" },
-      { fen: "8/8/8/8/8/2k5/8/2K5 w - - 0 1", targetMove: "c1b1", note: "Giữ đối Vua là chìa khóa để bảo vệ thế hòa hoặc chiến thắng.", mascot: "Kiên nhẫn là đức tính của nhà vô địch!" },
-      { fen: "8/8/8/8/8/1k6/8/1K6 w - - 0 1", targetMove: "b1a1", note: "Tới sát mép bàn cờ, Trắng vẫn không nao núng.", mascot: "Không còn đường lùi nhưng ta vẫn vững vàng!" },
-      { fen: "8/8/8/8/8/2k5/8/K7 w - - 0 1", targetMove: "a1b1", note: "Lấy lại đối Vua chéo hoặc đối Vua trực tiếp.", mascot: "Tuyệt đỉnh phòng thủ!" }
-    ]
-  },
-  {
-    id: "endgame-philidor",
-    category: "Chương 6: Tàn cuộc thực chiến",
-    title: "Bài 8: Thế Philidor (Hòa)",
-    steps: [
-      { fen: "8/8/8/8/8/4k3/4r3/3K4 b - - 0 1", targetMove: "e2h2", note: "<b>Thế Philidor:</b> Đen di chuyển Xe xuống hàng 3 (hoặc 6) để ngăn Vua Trắng tiến lên.", mascot: "Thiết lập hàng phòng ngự thép Philidor!" },
-      { fen: "8/8/8/8/8/4k3/7r/2K5 b - - 0 1", targetMove: "h2g2", note: "Xe tiếp tục chạy dọc theo hàng ngang để giữ khoảng cách an toàn.", mascot: "Chỉ cần đứng gác ở đây là đủ!" },
-      { fen: "8/8/8/8/8/4k3/6r1/1K6 b - - 0 1", targetMove: "g2f2", note: "Đen không cho Vua Trắng cơ hội ẩn nấp trước Tốt.", mascot: "Đừng vội, cứ từ từ chờ đợi." },
-      { fen: "8/8/8/8/8/4k3/5r2/K7 b - - 0 1", targetMove: "f2e2", note: "Sẵn sàng di chuyển Xe xuống hàng cuối khi Tốt Trắng tiến lên.", mascot: "Chuẩn bị thay đổi chiến thuật nếu có biến!" },
-      { fen: "8/8/8/8/8/4k3/4r3/1K6 b - - 0 1", targetMove: "e2d2", note: "Giữ vững hàng rào phòng ngự.", mascot: "Hòa cờ trong tầm tay rồi!" }
-    ]
-  },
-  {
-    id: "endgame-lucena",
-    category: "Chương 6: Tàn cuộc thực chiến",
-    title: "Bài 9: Thế Lucena (Thắng)",
-    steps: [
-      { fen: "1K6/1P6/8/8/8/8/4r3/3k4 w - - 0 1", targetMove: "b8a7", note: "<b>Xây cầu:</b> Trắng phải đưa Vua ra khỏi ô thăng phong của Tốt.", mascot: "Vua phải dọn đường cho Tốt tiến lên!" },
-      { fen: "8/KP6/8/8/8/8/r7/3k4 w - - 0 2", targetMove: "a7b6", note: "Vua di chuyển zíc zắc để tránh chiếu.", mascot: "Tiến lên từng bước một cách cẩn thận!" },
-      { fen: "8/1P6/1K6/8/8/8/1r6/3k4 w - - 0 3", targetMove: "b6c6", note: "Trắng chuẩn bị lấy Xe che chắn cho Vua.", mascot: "Sắp đến đích rồi!" },
-      { fen: "8/1P6/2K5/8/8/8/2r5/3k4 w - - 0 4", targetMove: "c6d6", note: "Tiếp tục né chiếu và tạo khoảng trống để gọi Xe cứu viện.", mascot: "Kiên cường vượt qua hàng loạt phát chiếu!" },
-      { fen: "8/1P6/3K4/8/8/8/3r4/3k4 w - - 0 5", targetMove: "d6c5", note: "Đến lúc Xe che cho Vua, Tốt phong cấp an toàn. (Lucena bridge).", mascot: "Chiếc cầu đã được xây, Tốt thăng cấp thành công!" }
-    ]
-  },
-  {
-    id: "endgame-vancura",
-    category: "Chương 6: Tàn cuộc thực chiến",
-    title: "Bài 10: Thế Vancura",
-    steps: [
-      { fen: "8/8/8/8/1P6/8/6R1/3k3K b - - 0 1", targetMove: "g2g3", note: "<b>Thế Vancura:</b> Xe Đen phòng thủ bằng cách tấn công Tốt thông từ phía ngang.", mascot: "Đánh ngang sườn là chiến thuật tuyệt hảo!" },
-      { fen: "8/8/8/8/1P6/6r1/7K/3k4 b - - 0 1", targetMove: "g3g4", note: "Xe tiếp tục duy trì áp lực trên cột g và hàng ngang.", mascot: "Không cho Tốt và Vua Trắng phối hợp!" },
-      { fen: "8/8/8/8/1P4r1/7K/8/3k4 b - - 0 1", targetMove: "g4b4", note: "Đen có thể ăn Tốt nếu Vua Trắng đi quá xa.", mascot: "Bắt gọn Tốt thông!" },
-      { fen: "8/8/8/8/1r6/6K1/8/3k4 b - - 0 1", targetMove: "b4b3", note: "Xe chiếu Vua đẩy lùi đối thủ.", mascot: "Đẩy lùi Vua địch ra xa!" },
-      { fen: "8/8/8/8/8/1r3K2/8/3k4 b - - 0 1", targetMove: "b3b4", note: "Giữ vững thế trận phòng ngự từ xa.", mascot: "Thế trận an toàn rồi!" }
-    ]
-  },
-  {
-    id: "endgame-kpvskp",
-    category: "Chương 6: Tàn cuộc thực chiến",
-    title: "Bài 11: Tốt chiến đấu (K+P vs K+P)",
-    steps: [
-      { fen: "8/8/4k3/4p3/4P3/4K3/8/8 w - - 0 1", targetMove: "e3d3", note: "Tính toán khoảng cách, dùng đối Vua để tạo lợi thế.", mascot: "Cuộc chiến của hai vị Vua!" },
-      { fen: "8/8/3k4/4p3/4P3/3K4/8/8 w - - 0 2", targetMove: "d3c4", note: "Tiến lên chiếm không gian.", mascot: "Bóp nghẹt không gian của địch!" },
-      { fen: "8/8/2k5/4p3/2K1P3/8/8/8 w - - 0 3", targetMove: "c4b4", note: "Trắng tìm đường đi vòng (outflanking).", mascot: "Đánh vòng ra sau lưng nào!" },
-      { fen: "8/8/1k6/4p3/1K2P3/8/8/8 w - - 0 4", targetMove: "b4c4", note: "Duy trì áp lực, ép Vua Đen phải nhường đường.", mascot: "Ép họ phải mắc sai lầm!" },
-      { fen: "8/8/2k5/4p3/2K1P3/8/8/8 w - - 0 5", targetMove: "c4d5", note: "Tuyệt vời, Trắng đã chiếm được vị trí đắc địa để bắt Tốt Đen.", mascot: "Bắt lấy Tốt địch và giành chiến thắng!" }
-    ]
-  },
-  {
-    id: "endgame-knight-pawn",
-    category: "Chương 6: Tàn cuộc thực chiến",
-    title: "Bài 12: Mã chống Tốt",
-    steps: [
-      { fen: "8/8/8/8/8/8/4p3/2N1K3 w - - 0 1", targetMove: "c1e2", note: "<b>Mã chặn Tốt:</b> Mã rất khó khăn để chặn Tốt biên, nhưng Tốt trung tâm thì dễ hơn.", mascot: "Nhảy Mã chặn ngay Tốt lại!" },
-      { fen: "8/8/8/8/8/8/4N3/5K2 w - - 0 2", targetMove: "e2c3", note: "Đưa Mã về vị trí an toàn trước khi Vua Đen tới tiếp ứng.", mascot: "Lùi một bước để an toàn!" },
-      { fen: "8/8/8/8/8/2N5/4K3/8 w - - 0 3", targetMove: "c3d5", note: "Mã phối hợp với Vua tạo rào cản vô hình.", mascot: "Mã và Vua kết hợp là vô địch!" },
-      { fen: "8/8/8/3N4/8/3K4/8/8 w - - 0 4", targetMove: "d5f4", note: "Dùng Mã để chiếu hoặc kiểm soát các ô quan trọng.", mascot: "Ngựa phi tạo bất ngờ!" },
-      { fen: "8/8/8/8/4kN2/8/8/8 w - - 0 5", targetMove: "f4e6", note: "Giữ Mã tránh xa tầm tấn công trực tiếp của Vua Đen.", mascot: "Cứ nhảy loanh quanh là an toàn!" }
-    ]
-  },
-  {
-    id: "boden_mate",
-    category: "Đòn chiếu bí",
-    title: "Boden's Mate (Mát Boden)",
-    steps: [
-      { fen: "2kr3r/pp1n1ppp/2p1p3/8/1b1P1B2/2N2Q1P/PPP2PP1/R4RK1 w - - 0 1", targetMove: "Qxc6+", note: "Tuyệt vời! Bắt đầu hy sinh Hậu để phá hủy lớp phòng thủ.", mascot: "Tuyệt vời!" },
-      { fen: "2kr3r/pp1n1ppp/2Q1p3/8/1b1P1B2/2N4P/PPP2PP1/R4RK1 b - - 0 1", targetMove: "bxc6", note: "Đối thủ phải ăn Hậu, giờ Vua đã mở cờ.", mascot: "Tuyệt vời!" },
-      { fen: "2kr3r/p2n1ppp/2p1p3/8/1b1P1B2/2N4P/PPP2PP1/R4RK1 w - - 0 2", targetMove: "Ba6#", note: "Tượng chéo góc kết liễu! Đây chính là Mát Boden.", mascot: "Tuyệt vời!" },
-      { fen: "2kr4/pp3ppp/2p5/8/8/2b2B2/PPP2PPP/2KR4 w - - 0 1", targetMove: "Bg4+", note: "Hãy xem một vị trí khác, dồn Vua bằng Tượng.", mascot: "Tuyệt vời!" },
-      { fen: "2kr4/pp3ppp/2p5/8/6B1/2b5/PPP2PPP/2KR4 b - - 1 1", targetMove: "Kc7", note: "Vua bị ép vào góc an toàn ảo. Hoàn hảo!", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "anastasia_mate",
-    category: "Đòn chiếu bí",
-    title: "Anastasia's Mate (Mát Anastasia)",
-    steps: [
-      { fen: "r1b2r1k/pp3ppp/8/3NN3/8/8/PPP2PPP/R2R2K1 w - - 0 1", targetMove: "Ne7+", note: "Đưa Mã vào e7 để khóa đường thoát của Vua.", mascot: "Tuyệt vời!" },
-      { fen: "r1b2r1k/pp2Nppp/8/3N4/8/8/PPP2PPP/R2R2K1 b - - 1 1", targetMove: "Kh8", note: "Vua bị dồn vào góc. Đã đến lúc chuẩn bị đòn quyết định.", mascot: "Tuyệt vời!" },
-      { fen: "r1b2r1k/pp2Nppp/8/3N4/8/8/PPP2PPP/R2R2K1 w - - 1 2", targetMove: "Rxh7+", note: "Hy sinh Xe táo bạo để mở cột h!", mascot: "Tuyệt vời!" },
-      { fen: "r1b2r1k/pp2NppR/8/3N4/8/8/PPP2PPP/3R2K1 b - - 0 2", targetMove: "Kxh7", note: "Vua bắt buộc ăn Xe. Cột h đã hoàn toàn mở rộng.", mascot: "Tuyệt vời!" },
-      { fen: "r1b2r2/pp2Nppk/8/3N4/8/8/PPP2PPP/3R2K1 w - - 0 3", targetMove: "Qh5#", note: "Hậu lao xuống h5 chiếu bí! Mát Anastasia kinh điển.", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "legal_mate",
-    category: "Đòn chiếu bí",
-    title: "Légal's Mate (Mát Légal)",
-    steps: [
-      { fen: "r2qkbnr/ppp2ppp/2np4/4p3/2B1P1b1/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 4", targetMove: "Nxe5", note: "Bỏ mặc Hậu! Ăn Mã trung tâm để triển khai bẫy.", mascot: "Tuyệt vời!" },
-      { fen: "r2qkbnr/ppp2ppp/2np4/4N3/2B1P1b1/8/PPPP1PPP/RNBQK2R b KQkq - 0 4", targetMove: "Bxd1", note: "Đen mắc bẫy và ăn Hậu. Trừng phạt ngay!", mascot: "Tuyệt vời!" },
-      { fen: "r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/8/PPPP1PPP/RNBbK2R w KQkq - 0 5", targetMove: "Bxf7+", note: "Chiếu Vua bằng Tượng, buộc Vua phải di chuyển.", mascot: "Tuyệt vời!" },
-      { fen: "r2qkbnr/ppp2Bpp/2np4/4N3/4P3/8/PPPP1PPP/RNBbK2R b KQkq - 0 5", targetMove: "Ke7", note: "Vua tiến lên e7. Chuẩn bị đòn kết liễu với Mã thứ hai.", mascot: "Tuyệt vời!" },
-      { fen: "r2q1bnr/ppp1kBpp/2np4/4N3/4P3/8/PPPP1PPP/RNBbK2R w KQ - 1 6", targetMove: "Nd5#", note: "Chiếu bí bằng 3 quân nhẹ! Quá đẹp mắt.", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "opera_mate",
-    category: "Đòn chiếu bí",
-    title: "Opera Box Mate (Mát Opera)",
-    steps: [
-      { fen: "rn3rk1/p4ppp/1p6/8/2B5/5Q2/PqP2PPP/R4RK1 w - - 0 1", targetMove: "Qxa8", note: "Morphy thường xuyên thí quân để mở đường.", mascot: "Tuyệt vời!" },
-      { fen: "Qn3rk1/p4ppp/1p6/8/2B5/8/PqP2PPP/R4RK1 b - - 0 1", targetMove: "Nd7", note: "Đen phòng thủ. Trắng tiếp tục tấn công mạnh mẽ.", mascot: "Tuyệt vời!" },
-      { fen: "Q4rk1/p2n1ppp/1p6/8/2B5/8/PqP2PPP/R4RK1 w - - 1 2", targetMove: "Bxf7+", note: "Phá vỡ cấu trúc Tốt bảo vệ Vua bằng Tượng.", mascot: "Tuyệt vời!" },
-      { fen: "Q4rk1/p2n1Bpp/1p6/8/8/8/PqP2PPP/R4RK1 b - - 0 2", targetMove: "Kxf7", note: "Vua bị lộ diện hoàn toàn.", mascot: "Tuyệt vời!" },
-      { fen: "Q4r2/p2n1kpp/1p6/8/8/8/PqP2PPP/R4RK1 w - - 0 3", targetMove: "Qd5+", note: "Chiếu bí! Sự phối hợp tuyệt hảo giữa Xe và Tượng.", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "morphy_mate",
-    category: "Đòn chiếu bí",
-    title: "Morphy's Mate (Mát Morphy)",
-    steps: [
-      { fen: "r4rk1/pbpp1ppp/1p6/3N4/2B1q3/1Q6/PPP2PPP/1K1R3R w - - 0 1", targetMove: "Nf6+", note: "Đưa Mã vào để phá hủy lá chắn Tốt.", mascot: "Tuyệt vời!" },
-      { fen: "r4rk1/pbpp1ppp/1p3N2/8/2B1q3/1Q6/PPP2PPP/1K1R3R b - - 1 1", targetMove: "gxf6", note: "Đen buộc phải ăn Mã, mở cột g quan trọng.", mascot: "Tuyệt vời!" },
-      { fen: "r4rk1/pbpp1p1p/1p3p2/8/2B1q3/1Q6/PPP2PPP/1K1R3R w - - 0 2", targetMove: "Rd3", note: "Đưa Xe vào vị trí chiến đấu.", mascot: "Tuyệt vời!" },
-      { fen: "r4rk1/pbpp1p1p/1p3p2/8/2B1q3/1Q1R4/PPP2PPP/1K5R b - - 1 2", targetMove: "Qxg2", note: "Đen cố gắng chống cự nhưng không kịp.", mascot: "Tuyệt vời!" },
-      { fen: "r4rk1/pbpp1p1p/1p3p2/8/2B5/1Q1R4/PPP2PqP/1K5R w - - 0 3", targetMove: "Rg3+", note: "Chiếu bí trên cột g! Sức mạnh của Mát Morphy.", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "smothered_mate",
-    category: "Đòn chiếu bí",
-    title: "Smothered Mate (Mát Thắt Cổ)",
-    steps: [
-      { fen: "r1b2r1k/pp4pp/8/4N3/2B5/8/PPP3PP/R4RK1 w - - 0 1", targetMove: "Nf7+", note: "Bắt đầu chuỗi chiếu bằng Mã. Khóa Vua vào góc.", mascot: "Tuyệt vời!" },
-      { fen: "r1b2r1k/pp3Npp/8/8/2B5/8/PPP3PP/R4RK1 b - - 1 1", targetMove: "Kg8", note: "Vua chạy vào góc. Hãy tạo một đòn chiếu đôi.", mascot: "Tuyệt vời!" },
-      { fen: "r1b2rk1/pp3Npp/8/8/2B5/8/PPP3PP/R4RK1 w - - 2 2", targetMove: "Nh6+", note: "Chiếu đôi bằng Hậu và Mã. Vua không thể trốn.", mascot: "Tuyệt vời!" },
-      { fen: "r1b2rk1/pp4pN/7N/8/2B5/8/PPP3PP/R4RK1 b - - 3 2", targetMove: "Kh8", note: "Vua trở lại góc. Giờ là lúc hy sinh Hậu đẹp mắt!", mascot: "Tuyệt vời!" },
-      { fen: "r1b2r1k/pp4pN/7N/8/2B5/8/PPP3PP/R4RK1 w - - 4 3", targetMove: "Qg8+", note: "Thắt cổ Vua đối phương bằng chính quân của họ!", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "isolated_pawn",
-    category: "Cấu trúc Tốt",
-    title: "Isolated Pawn (Tốt Cô Lập)",
-    steps: [
-      { fen: "rnbq1rk1/pp2bppp/4pn2/3p4/2PP4/2N2N2/PP2BPPP/R1BQ1RK1 w - - 0 1", targetMove: "cxd5", note: "Đổi Tốt trung tâm để tạo Tốt cô lập cho Đen.", mascot: "Tuyệt vời!" },
-      { fen: "rnbq1rk1/pp2bppp/4pn2/3P4/3P4/2N2N2/PP2BPPP/R1BQ1RK1 b - - 0 1", targetMove: "exd5", note: "Đen đã có Tốt cô lập ở d5. Nó mạnh nhưng cần bảo vệ.", mascot: "Tuyệt vời!" },
-      { fen: "rnbq1rk1/pp2bppp/5n2/3p4/3P4/2N2N2/PP2BPPP/R1BQ1RK1 w - - 0 2", targetMove: "Ne5", note: "Chiếm cứ điểm e5 vững chắc trước Tốt cô lập.", mascot: "Tuyệt vời!" },
-      { fen: "rnbq1rk1/pp2bppp/5n2/3pN3/3P4/2N5/PP2BPPP/R1BQ1RK1 b - - 1 2", targetMove: "Nc6", note: "Đen phát triển quân. Hãy duy trì kiểm soát khối chặn.", mascot: "Tuyệt vời!" },
-      { fen: "r1bq1rk1/pp2bppp/2n2n2/3pN3/3P4/2N5/PP2BPPP/R1BQ1RK1 w - - 2 3", targetMove: "Bf4", note: "Tuyệt! Tốt cô lập của Đen giờ là mục tiêu tấn công.", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "doubled_pawns",
-    category: "Cấu trúc Tốt",
-    title: "Doubled Pawns (Tốt Chồng)",
-    steps: [
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 4 5", targetMove: "d3", note: "Phát triển quân và chuẩn bị tạo cấu trúc Tốt chồng.", mascot: "Tuyệt vời!" },
-      { fen: "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R b KQkq - 0 5", targetMove: "d6", note: "Đen đáp trả chắc chắn. Lên kế hoạch ghim Mã.", mascot: "Tuyệt vời!" },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQkq - 0 6", targetMove: "Bg5", note: "Ghim Mã Đen, gây áp lực lên cấu trúc cánh Vua.", mascot: "Tuyệt vời!" },
-      { fen: "r1bqk2r/ppp2ppp/2np1n2/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R b KQkq - 1 6", targetMove: "h6", note: "Đen đuổi Tượng. Hãy mạnh dạn đổi quân!", mascot: "Tuyệt vời!" },
-      { fen: "r1bqk2r/ppp2pp1/2np1n1p/2b1p1B1/2B1P3/2NP1N2/PPP2PPP/R2QK2R w KQkq - 0 7", targetMove: "Bxf6", note: "Tốt chồng hình thành! Cánh Vua Đen giờ đã suy yếu.", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "backward_pawn",
-    category: "Cấu trúc Tốt",
-    title: "Backward Pawn (Tốt Lạc Hậu)",
-    steps: [
-      { fen: "r1bq1rk1/pp2bppp/2n1pn2/2pp4/3P4/2P1PN2/PP1NBPPP/R1BQ1RK1 w - - 0 1", targetMove: "dxc5", note: "Tạo áp lực để hình thành Tốt lạc hậu.", mascot: "Tuyệt vời!" },
-      { fen: "r1bq1rk1/pp2bppp/2n1pn2/2Pp4/8/2P1PN2/PP1NBPPP/R1BQ1RK1 b - - 0 1", targetMove: "Bxc5", note: "Đen ăn lại. Quan sát cấu trúc Tốt của Đen.", mascot: "Tuyệt vời!" },
-      { fen: "r1bq1rk1/pp3ppp/2n1pn2/2bp4/8/2P1PN2/PP1NBPPP/R1BQ1RK1 w - - 0 2", targetMove: "b4", note: "Đẩy b4 để khóa Tốt c5 và tạo Tốt lạc hậu.", mascot: "Tuyệt vời!" },
-      { fen: "r1bq1rk1/pp3ppp/2n1pn2/2bp4/1P6/2P1PN2/P2NBPPP/R1BQ1RK1 b - - 0 2", targetMove: "Be7", note: "Đen lui quân. Cấu trúc của họ bắt đầu cứng nhắc.", mascot: "Tuyệt vời!" },
-      { fen: "r1bq1rk1/pp2bppp/2n1pn2/2p5/1P6/2P1PN2/P2NBPPP/R1BQ1RK1 w - - 1 3", targetMove: "b5", note: "Khóa chặt! Tốt Đen không thể tiến lên an toàn.", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "passed_pawn",
-    category: "Cấu trúc Tốt",
-    title: "Passed Pawn (Tốt Thông)",
-    steps: [
-      { fen: "8/5p2/4pk2/3p4/P7/8/1P6/1K6 w - - 0 1", targetMove: "a5", note: "Bạn có Tốt thông ở cột a. Hãy đẩy nó lên!", mascot: "Tuyệt vời!" },
-      { fen: "8/5p2/4pk2/P2p4/8/8/1P6/1K6 b - - 0 1", targetMove: "Ke7", note: "Vua Đen cố gắng can thiệp. Tiếp tục tiến bước.", mascot: "Tuyệt vời!" },
-      { fen: "8/4kp2/4p3/P2p4/8/8/1P6/1K6 w - - 1 2", targetMove: "a6", note: "Không gì cản nổi! Tốt thông càng tiến càng nguy hiểm.", mascot: "Tuyệt vời!" },
-      { fen: "8/4kp2/P3p3/3p4/8/8/1P6/1K6 b - - 0 2", targetMove: "Kd7", note: "Đen đang tuyệt vọng chạy theo. Cứ đi tiếp.", mascot: "Tuyệt vời!" },
-      { fen: "8/3k1p2/P3p3/3p4/8/8/1P6/1K6 w - - 1 3", targetMove: "a7", note: "Sắp phong cấp rồi! Tốt thông mang lại chiến thắng.", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "pawn_chains",
-    category: "Cấu trúc Tốt",
-    title: "Pawn Chains (Chuỗi Tốt)",
-    steps: [
-      { fen: "rnbqkbnr/pp1p1ppp/4p3/2p5/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 3", targetMove: "d5", note: "Đẩy Tốt d5 để khóa trung tâm, tạo nền móng chuỗi Tốt.", mascot: "Tuyệt vời!" },
-      { fen: "rnbqkbnr/pp1p1ppp/4p3/2pP4/4P3/8/PPP2PPP/RNBQKBNR b KQkq - 0 3", targetMove: "d6", note: "Đen phản công vào gốc của chuỗi. Hãy củng cố.", mascot: "Tuyệt vời!" },
-      { fen: "rnbqkbnr/pp3ppp/3pp3/2pP4/4P3/8/PPP2PPP/RNBQKBNR w KQkq - 0 4", targetMove: "c4", note: "Đẩy c4 để củng cố đỉnh d5. Chuỗi Tốt vững chắc!", mascot: "Tuyệt vời!" },
-      { fen: "rnbqkbnr/pp3ppp/3pp3/2pP4/2P1P3/8/PP3PPP/RNBQKBNR b KQkq - 0 4", targetMove: "Nf6", note: "Đen phát triển Mã. Bạn cần bảo vệ cấu trúc này.", mascot: "Tuyệt vời!" },
-      { fen: "rnbqkb1r/pp3ppp/3ppn2/2pP4/2P1P3/8/PP3PPP/RNBQKBNR w KQkq - 1 5", targetMove: "Nc3", note: "Bảo vệ chuỗi bằng Mã. Một bức tường không thể xuyên thủng.", mascot: "Tuyệt vời!" }
-    ]
-  },
-  {
-    id: "hanging_pawns",
-    category: "Cấu trúc Tốt",
-    title: "Hanging Pawns (Tốt Treo)",
-    steps: [
-      { fen: "r1bq1rk1/pp3ppp/2n1pn2/3p4/2PP4/2N2N2/PP1QBPPP/R4RK1 w - - 0 1", targetMove: "cxd5", note: "Đổi Tốt để tạo cấu trúc Tốt treo cho Đen.", mascot: "Tuyệt vời!" },
-      { fen: "r1bq1rk1/pp3ppp/2n1pn2/3P4/3P4/2N2N2/PP1QBPPP/R4RK1 b - - 0 1", targetMove: "Nxd5", note: "Đen giữ Tốt bằng Mã. Tiếp tục trao đổi.", mascot: "Tuyệt vời!" },
-      { fen: "r1bq1rk1/pp3ppp/2n1p3/3n4/3P4/2N2N2/PP1QBPPP/R4RK1 w - - 0 2", targetMove: "Nxd5", note: "Tiêu diệt quân bảo vệ để lộ rõ Tốt treo.", mascot: "Tuyệt vời!" },
-      { fen: "r1bq1rk1/pp3ppp/2n1p3/3N4/3P4/5N2/PP1QBPPP/R4RK1 b - - 0 2", targetMove: "exd5", note: "Đen có cặp Tốt treo c5-d5. Linh hoạt nhưng dễ rụng.", mascot: "Tuyệt vời!" },
-      { fen: "r1bq1rk1/pp3ppp/2n5/3p4/3P4/5N2/PP1QBPPP/R4RK1 w - - 0 3", targetMove: "Rfe1", note: "Đưa Xe vào nhắm mục tiêu. Khai thác nhược điểm ngay!", mascot: "Tuyệt vời!" }
-    ]
-  }
 ];
 
 const LESSON_HINTS = {
+    "safe-pawn-guard": [
+        {
+            "moves": {
+                "c4d5": "Giỏi! Bạn đã thấy nước an toàn rồi. Nhưng bước này hãy thử nước vội vàng để xem chuyện gì xảy ra nhé!"
+            },
+            "wrong": "Bước này hãy thử cho quân lớn lao vào ăn xem sao!"
+        },
+        {
+            "moves": {
+                "d1d5": "Nước này vừa bị ăn lại ở bước trước đó! Ô d5 có Tốt e6 canh, Hậu vào đó sẽ bị ăn!"
+            },
+            "wrong": "Ô d5 có Tốt e6 canh, Hậu vào đó sẽ bị ăn!"
+        }
+    ],
+    "safe-rook-bait": [
+        {
+            "moves": {
+                "e4b4": "Giỏi! Bạn đã thấy nước an toàn rồi. Nhưng bước này hãy thử nước vội vàng để xem chuyện gì xảy ra nhé!"
+            },
+            "wrong": "Bước này hãy thử cho quân lớn lao vào ăn xem sao!"
+        },
+        {
+            "moves": {
+                "e4e5": "Nước này vừa bị ăn lại ở bước trước đó! Tốt e5 có Tốt d6 canh. Mã b4 thì không ai canh!"
+            },
+            "wrong": "Tốt e5 có Tốt d6 canh. Mã b4 thì không ai canh!"
+        }
+    ],
+    "safe-cheap-first": [
+        {
+            "moves": {
+                "f4d5": "Giỏi! Bạn đã thấy nước an toàn rồi. Nhưng bước này hãy thử nước vội vàng để xem chuyện gì xảy ra nhé!"
+            },
+            "wrong": "Bước này hãy thử cho quân lớn lao vào ăn xem sao!"
+        },
+        {
+            "moves": {
+                "d1d5": "Nước này vừa bị ăn lại ở bước trước đó! Ô d5 có Tốt canh: để Mã (rẻ hơn) ăn Xe!"
+            },
+            "wrong": "Ô d5 có Tốt canh: để Mã (rẻ hơn) ăn Xe!"
+        }
+    ],
+    "safe-king-guard": [
+        {
+            "moves": {
+                "h5h7": "Giỏi! Bạn đã thấy nước an toàn rồi. Nhưng bước này hãy thử nước vội vàng để xem chuyện gì xảy ra nhé!"
+            },
+            "wrong": "Bước này hãy thử cho quân lớn lao vào ăn xem sao!"
+        },
+        {
+            "moves": {
+                "h5f7": "Nước này vừa bị ăn lại ở bước trước đó! Ô f7 sát Vua đen nên Vua ăn lại được. Tốt h7 thì không ai canh!"
+            },
+            "wrong": "Ô f7 sát Vua đen nên Vua ăn lại được. Tốt h7 thì không ai canh!"
+        }
+    ],
     "pawn": [
         {
             "moves": {
@@ -3297,16 +4076,8 @@ const LESSON_HINTS = {
             "wrong": "Tốt đen d5 nằm chéo phía trước Tốt e4. Ăn nó!"
         },
         {
-            "illegal": "Tốt chỉ đi thẳng!",
-            "wrong": "Đi Tốt đen 1 ô xuống c6."
-        },
-        {
             "illegal": "Tốt ăn chéo!",
             "wrong": "Tốt trắng ăn chéo d5 x c6."
-        },
-        {
-            "illegal": "Tốt ăn chéo!",
-            "wrong": "Tốt đen ăn chéo b7 x c6."
         }
     ],
     "pawn-block": [
@@ -3317,10 +4088,6 @@ const LESSON_HINTS = {
             },
             "illegal": "Tốt đi thẳng nhưng ăn chéo. Đường thẳng đang bị chặn rồi!",
             "wrong": "Tốt e4 bị chặn, chỉ còn cách ăn chéo sang d5."
-        },
-        {
-            "illegal": "Tốt đi thẳng!",
-            "wrong": "Tốt đen tiến lên e4."
         },
         {
             "illegal": "Tốt đi thẳng!",
@@ -3375,1289 +4142,1296 @@ const LESSON_HINTS = {
     ],
     "rook": [
         {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Mục tiêu là Tốt c6: chạy Xe thẳng lên theo cột c."
+            "wrong": "♜ Xe đi thẳng lên: ăn Tốt c6"
         },
         {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Tốt g6 nằm cùng hàng 6 với Xe: chạy ngang sang phải!"
+            "wrong": "♜ Rẽ ngang sang phải: ăn Tốt g6"
         },
         {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Lùi xe xuống ăn g2."
+            "wrong": "♜ Chạy thẳng xuống: ăn Tốt g4"
         },
         {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Xe chạy ngang sang a2."
-        },
-        {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Tiến xe lên ăn a3."
+            "wrong": "♜ Rẽ ngang sang trái: ăn nốt Tốt a4"
         }
     ],
     "rook-block": [
         {
-            "moves": {
-                "a1a5": "Xe không nhảy qua Tốt a4 được! Đường lên cột a đã bị chặn.",
-                "a1a6": "Xe không nhảy qua Tốt a4 được! Đường lên cột a đã bị chặn.",
-                "a1a7": "Xe không nhảy qua Tốt a4 được! Đường lên cột a đã bị chặn.",
-                "a1a8": "Xe không nhảy qua Tốt a4 để ăn Mã được! Hãy tìm đường khác."
-            },
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Đường dọc bị chặn, hãy chạy ngang ăn Tượng h1."
+            "wrong": "Xe không nhảy qua Tốt a4 của mình. Hãy nhìn hàng ngang!"
         },
         {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Tiến thẳng h1 lên h8."
+            "wrong": "Mã b4 đứng chắn, Xe không nhảy tới Tượng b8 được."
         },
         {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Chạy ngang h8 sang a8."
-        },
-        {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Lùi a8 xuống a4."
-        },
-        {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Sang e4 chiếu Vua."
+            "wrong": "Cột c bị Tốt c2 chặn. Hãy chuyển Xe sang cột f."
         }
     ],
     "rook-route": [
         {
-            "moves": {
-                "a1f6": "Xe không đi chéo! Muốn tới f6 phải rẽ góc vuông: sang f1 trước.",
-                "a1a6": "Đi a6 cũng là đường vòng hay, nhưng hôm nay mình rẽ ở f1 nhé!"
-            },
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Bài này đi đường vòng: a1 → f1 → f6."
+            "wrong": "♜ Xe không đi chéo! Rẽ góc vuông: sang f1 trước"
         },
         {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Xe đã cùng cột f với Tốt, chạy thẳng lên f6!"
+            "wrong": "♜ Giờ chạy thẳng lên ăn Tốt f6"
         },
         {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Sang g6."
+            "wrong": "♜ Rẽ ngang sang cột b"
         },
         {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Sang b6."
-        },
-        {
-            "illegal": "Xe đi THẲNG",
-            "wrong": "Xuống b2."
+            "wrong": "♜ Chạy thẳng xuống ăn Tốt b4"
         }
     ],
     "bishop": [
         {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Tốt f7 nằm trên đường chéo c4 → d5 → e6 → f7."
+            "wrong": "♝ Tượng đi chéo lên: ăn Tốt f7"
         },
         {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Lùi về b3."
+            "wrong": "♝ Chéo ngược xuống d5 chiếu Vua"
         },
         {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Ăn a2."
-        },
-        {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Đến d5."
-        },
-        {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Ăn g2."
+            "wrong": "♝ Tiếp tục chéo xuống ăn Tốt b3"
         }
     ],
     "bishop-color": [
         {
-            "moves": {
-                "c1d3": "Tốt d3 đứng ô TRẮNG, Tượng ô đen không bao giờ tới được!"
-            },
-            "illegal": "Tượng chỉ đi chéo, nên luôn ở ô cùng một màu!",
-            "wrong": "Tìm Tốt đứng ô ĐEN: đó là Tốt h6."
+            "wrong": "Tốt d3 đứng ô trắng, Tượng ô đen không bao giờ tới được."
         },
         {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Lên f8."
+            "wrong": "♝ Tốt f2 sắp phong cấp và đứng ô đen: Tượng ăn ngay!"
         },
         {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Về b4."
-        },
-        {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Đến d2."
-        },
-        {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Xuống e1."
+            "wrong": "Tốt c5 ở ô đen. Tượng f1 chỉ đi ô trắng."
         }
     ],
     "bishop-zigzag": [
         {
-            "moves": {
-                "c1c5": "Tượng không đi thẳng lên c5 được! Phải đi chéo 2 lần: c1 → e3 → c5.",
-                "c1a3": "Đi a3 cũng tới được c5, nhưng bài này đi đường e3 nhé!"
-            },
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Đưa Tượng lên e3 trước."
+            "wrong": "♝ Không đi thẳng được → chéo 2 lần: lên e3 trước"
         },
         {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Từ e3 đi chéo lên bên trái: e3 → d4 → c5."
+            "wrong": "♝ Chéo ngược lại: ăn Tốt c5"
         },
         {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Lùi về b4."
+            "wrong": "♝ Tốt e2 sắp phong cấp! Tượng về b4 canh ô e1"
         },
         {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Đến e1."
-        },
-        {
-            "illegal": "Tượng đi CHÉO",
-            "wrong": "Lên f2."
+            "wrong": "♝ Ăn ngay Hậu mới!"
         }
     ],
     "knight": [
         {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Tốt d5 cách Mã c3 đúng một bước chữ L."
+            "wrong": "♞ Mã nhảy chữ L: ăn Tốt d5"
         },
         {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Đến f6."
+            "wrong": "♞ Một chữ L nữa tới f6"
         },
         {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Đến h7."
-        },
-        {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Về f6."
-        },
-        {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Về e4."
+            "wrong": "♞ Bắt nốt Tốt h7. Vua đen ở xa, không ăn lại được!"
         }
     ],
     "knight-jump": [
         {
-            "moves": {
-                "g1h3": "Mã lên h3 cũng đúng luật, nhưng Mã ở mép bàn cờ rất yếu. Nhảy vào f3, gần trung tâm hơn nhé!"
-            },
-            "illegal": "Mã đi chữ L",
-            "wrong": "Nhảy Mã g1 qua hàng Tốt lên f3."
+            "wrong": "♞ Mã nhảy qua hàng Tốt: lên f3"
         },
         {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Mã đen b8 lên c6."
+            "wrong": "♞ Mã b1 nhảy qua lên c3"
         },
         {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Mã trắng b1 lên c3."
-        },
-        {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Mã đen g8 lên f6."
-        },
-        {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Mã trắng f3 lên e5."
+            "wrong": "♟ Mã c3 đang canh ô e4. Đẩy Tốt e4 vào trung tâm"
         }
     ],
     "knight-chain": [
         {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Ăn Tốt d5 trước: c3 → d5."
+            "wrong": "♞ Chữ L số 1: ăn d5"
         },
         {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Từ d5 nhảy chữ L tới f6."
+            "wrong": "♞ Chữ L số 2: ăn f6"
         },
         {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Từ f6 nhảy chữ L tới h7."
+            "wrong": "♞ Chữ L số 3: ăn h7"
         },
         {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Lùi về f6."
+            "wrong": "♞ Từ góc h7 không với tới g4. Nhảy về f6 trước"
         },
         {
-            "illegal": "Mã đi chữ L",
-            "wrong": "Ăn g4."
+            "wrong": "♞ Chữ L số 4: ăn g4"
         }
     ],
     "queen": [
         {
-            "illegal": "Hậu đi thẳng hoặc chéo",
-            "wrong": "Xe d5 nằm trên đường chéo a2 → b3 → c4 → d5."
+            "wrong": "♛ Hậu đi chéo như Tượng: ăn Xe d5"
         },
         {
-            "illegal": "Hậu đi thẳng hoặc chéo",
-            "wrong": "Lên d8."
+            "wrong": "♛ Hậu đi ngang như Xe: ăn Tốt a5"
         },
         {
-            "illegal": "Luật cờ vua",
-            "wrong": "Vua h8 sang g7."
-        },
-        {
-            "illegal": "Hậu đi thẳng hoặc chéo",
-            "wrong": "Hậu d8 sang e7."
-        },
-        {
-            "illegal": "Luật cờ vua",
-            "wrong": "Vua g7 lùi h6."
+            "wrong": "♛ Hậu đi thẳng xuống: ăn Tượng a1"
         }
     ],
     "queen-lines": [
         {
-            "moves": {
-                "d1a4": "Ăn Tượng cũng được, nhưng bài này tập đi THẲNG trước: ăn Xe d7!"
-            },
-            "illegal": "Hậu đi thẳng hoặc chéo, không nhảy qua quân!",
-            "wrong": "Chạy thẳng lên cột d ăn Xe."
+            "wrong": "♛ Đi thẳng như Xe: ăn Xe d7"
         },
         {
-            "illegal": "Hậu đi thẳng hoặc chéo, không nhảy qua quân!",
-            "wrong": "Giờ đi CHÉO: d7 → c6 → b5 → a4."
+            "wrong": "♛ Đi ngang: ăn Mã a7"
         },
         {
-            "illegal": "Hậu đi thẳng hoặc chéo",
-            "wrong": "Hậu a4 sang g4."
-        },
-        {
-            "illegal": "Luật cờ vua",
-            "wrong": "Vua sang f8."
-        },
-        {
-            "illegal": "Hậu đi thẳng hoặc chéo",
-            "wrong": "Hậu g4 xuống g2."
+            "wrong": "♛ Đi chéo như Tượng: ăn Tốt c5"
         }
     ],
     "queen-safe": [
         {
+            "wrong": "♛ Mã a4 không ai bảo vệ: ăn ngay!"
+        },
+        {
             "moves": {
-                "d1d7": "Khoan! Tốt d7 được Vua e8 bảo vệ. Hậu ăn Tốt sẽ bị Vua ăn mất: mất 9 điểm để lấy 1 điểm!"
+                "d1a4": "Mã a4 có Tốt b5 canh: Hậu vào đó sẽ bị Tốt ăn!"
             },
-            "illegal": "Hậu đi thẳng hoặc chéo, không nhảy qua quân!",
-            "wrong": "Hãy ăn Mã a4, quân không có ai bảo vệ."
+            "wrong": "Tượng g4 không có ai bảo vệ."
         },
         {
-            "illegal": "Hậu đi thẳng hoặc chéo",
-            "wrong": "Lên c6."
-        },
-        {
-            "illegal": "Hậu đi thẳng hoặc chéo",
-            "wrong": "Lùi c4."
-        },
-        {
-            "illegal": "Hậu đi thẳng hoặc chéo",
-            "wrong": "Lên c5."
-        },
-        {
-            "illegal": "Hậu đi thẳng hoặc chéo",
-            "wrong": "Lên c7."
+            "wrong": "Hậu phải rời ô d2, tới ô không bị quân đen nào tấn công."
         }
     ],
     "king": [
         {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Tốt d3 ở ngay bên trái Vua: bước sang ăn nó!"
+            "wrong": "♚ Vua đi 1 ô sang ngang: ăn Tốt d3"
         },
         {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Lùi một ô về d2 ăn Tốt!"
+            "wrong": "♚ Vua lùi 1 ô: ăn Tốt d2 trước khi nó phong cấp"
         },
         {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Bước sang ngang e2."
-        },
-        {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Tiến lên f2."
-        },
-        {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Ăn Tốt g2."
+            "wrong": "♚ Vua đi chéo 1 ô: ăn Tốt g2"
         }
     ],
     "king-safe": [
         {
-            "moves": {
-                "e3f3": "Vua không được ăn f3 vì Mã h4 đang bảo vệ Tốt đó. Bước vào là bị Mã ăn ngay!",
-                "e3e2": "Ô e2 đang bị Tốt d3 và Tốt f3 tấn công, Vua không được vào!"
-            },
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Hãy lùi lại d3."
+            "wrong": "♚ Ô f3 có Mã h4 canh. Vua chỉ ăn Tốt d3 an toàn"
         },
         {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Tránh sang c3 an toàn hơn."
+            "wrong": "♚ Xe d2 không ai bảo vệ: Vua ăn được!"
         },
         {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Lùi ra b3."
-        },
-        {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Lùi tiếp a3."
-        },
-        {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Lùi về a2."
+            "wrong": "Ô d1 và f2 vẫn bị Xe d2 tấn công. Xe có Tượng bảo vệ nên không ăn được."
         }
     ],
     "king-walk": [
         {
-            "moves": {
-                "e1e3": "Vua chỉ đi 1 ô mỗi lần!",
-                "e1e4": "Vua chỉ đi 1 ô mỗi lần!"
-            },
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Đi thẳng lên e2."
+            "wrong": "♚ Từng bước một: lên e2"
         },
         {
-            "moves": {
-                "e2e4": "Vua chỉ đi 1 ô mỗi lần!"
-            },
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Đi thẳng lên e3."
+            "wrong": "♚ Lên e3"
         },
         {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Đi thẳng lên d4."
-        },
-        {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Ăn Tốt e4."
-        },
-        {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Tiến lên d5."
+            "wrong": "♚ Ăn Tốt e4!"
         }
     ],
     "value": [
         {
             "moves": {
-                "d1b1": "Mã chỉ đáng 3 điểm, còn Hậu đáng 9 điểm. Ăn Hậu lời hơn nhiều!"
+                "d1b1": "Mã chỉ 3 điểm. Hậu d7 đáng giá 9 điểm!"
             },
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Chọn quân đáng giá nhất: Hậu d7."
+            "wrong": "💰 Ăn quân giá trị nhất: Hậu d7 (9 điểm)!"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Tiếp tục ăn Mã b1."
+            "moves": {
+                "d5e7": "Tốt chỉ 1 điểm, mà Vua đen còn ăn lại Mã. Xe c7 đáng giá hơn!"
+            },
+            "wrong": "💰 Mã ăn được Xe c7 hoặc Tốt e7. Chọn quân đắt hơn!"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Đuổi theo Tượng c6 qua c1."
-        },
-        {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Ăn Tượng c5."
-        },
-        {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Lên c8 chiếu Vua."
+            "moves": {
+                "d4g7": "Tốt g7 có Vua canh, Tượng sẽ bị ăn lại!"
+            },
+            "wrong": "💰 Tốt g7 có Vua canh. Ăn Mã b6 không ai bảo vệ!"
         }
     ],
     "which-piece": [
         {
-            "moves": {
-                "a1d5": "Xe chỉ đi thẳng, từ a1 không tới được d5!",
-                "c1d5": "Tượng c1 bị Mã f4 chắn đường chéo, và d5 cũng không nằm trên đường chéo của nó!"
-            },
-            "illegal": "Quân đó không đi tới d5 được. Nhớ lại cách đi của từng quân nhé!",
-            "wrong": "Chỉ có Mã f4 nhảy chữ L tới được d5."
+            "wrong": "🤔 Quân nào với tới Hậu d5? Mã f4!"
         },
         {
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Nhảy Mã đến c7."
+            "wrong": "🤔 Hậu b2 dọa cả Xe lẫn Tượng. Quân nào ăn được Hậu?"
         },
         {
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Nhảy Mã đến a6."
-        },
-        {
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Nhảy Mã đến b4."
-        },
-        {
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Nhảy Mã đến c2."
+            "wrong": "🤔 Hậu chạy lên a5. Giờ quân nào với tới?"
         }
     ],
     "castle": [
         {
-            "moves": {
-                "e1f1": "Đi 1 ô sang f1 chưa phải nhập thành. Nhập thành là Vua đi 2 ô sang g1, Xe tự nhảy qua!"
-            },
-            "illegal": "Nhập thành: nhấn Vua e1 rồi chọn ô g1.",
-            "wrong": "Nhập thành: nhấn Vua e1 rồi chọn ô g1."
+            "wrong": "🏰 Nhập thành: bấm Vua → chọn g1"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe ra giữa e1."
+            "wrong": "🏰 Ván cờ thật: Mã và Tượng đã ra, nhập thành ngay!"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe lên e2."
-        },
-        {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe lên e3."
-        },
-        {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe lên e4."
+            "wrong": "♟ Tốt d3 giữ chắc Tốt e4 và mở đường cho Tượng c1"
         }
     ],
     "castle-long": [
         {
-            "moves": {
-                "e1d1": "Đi 1 ô sang d1 chưa phải nhập thành. Nhập thành cánh Hậu: Vua đi 2 ô sang c1!"
-            },
-            "illegal": "Nhập thành cánh Hậu: nhấn Vua e1 rồi chọn ô c1.",
-            "wrong": "Nhập thành cánh Hậu: nhấn Vua e1 rồi chọn ô c1."
+            "wrong": "🏰 Nhập thành cánh Hậu: Vua e1 → c1"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe ra giữa e1."
-        },
-        {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe lên e2."
-        },
-        {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe lên e3."
-        },
-        {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe lên e4."
+            "wrong": "🏰 Ván cờ thật: Mã, Tượng, Hậu đã ra. Nhập thành cánh Hậu, Xe vào cột d"
         }
     ],
     "promote": [
         {
-            "illegal": "Tốt chỉ đi thẳng về phía trước!",
-            "wrong": "Đẩy Tốt e7 lên e8 để phong cấp thành Hậu."
+            "wrong": "👑 Tốt về hàng cuối → biến hình Hậu!"
         },
         {
-            "illegal": "Hậu đi ngang, dọc, chéo!",
-            "wrong": "Hậu lùi về e5."
+            "wrong": "👑 Hậu mới chiếu Vua từ e5"
         },
         {
-            "illegal": "Hậu đi ngang, dọc, chéo!",
-            "wrong": "Hậu lùi về e4."
-        },
-        {
-            "illegal": "Hậu đi ngang, dọc, chéo!",
-            "wrong": "Hậu lùi về e3."
-        },
-        {
-            "illegal": "Hậu đi ngang, dọc, chéo!",
-            "wrong": "Hậu lùi về e2."
+            "wrong": "👑 Hậu ăn Tốt a5 chặn Đen phong cấp"
         }
     ],
     "enpassant": [
         {
-            "moves": {
-                "e5e6": "Đi thẳng lên e6 là bỏ lỡ cơ hội! Bắt qua đường chỉ làm được NGAY nước này: e5 ăn chéo sang d6."
-            },
-            "illegal": "Tốt e5 ăn chéo sang d6, dù ô d6 đang trống!",
-            "wrong": "Bắt qua đường: Tốt e5 ăn chéo sang d6."
+            "wrong": "⚡ Tốt đen vừa đi 2 ô → ăn qua đường sang d6!"
         },
         {
-            "illegal": "Tốt đi thẳng!",
-            "wrong": "Tiến lên d7."
+            "wrong": "⚡ Tốt g7 vừa nhảy 2 ô qua mặt → ăn qua đường sang g6"
         },
         {
-            "illegal": "Tốt đi thẳng phong cấp!",
-            "wrong": "Phong cấp tại d8."
-        },
-        {
-            "illegal": "Hậu đi!",
-            "wrong": "Hậu lùi về d5."
-        },
-        {
-            "illegal": "Hậu đi!",
-            "wrong": "Hậu lùi về d4."
+            "wrong": "⚡ Ván cờ thật: Tốt f7 vừa lên f5 → ăn qua đường sang f6"
         }
     ],
     "fork": [
         {
-            "moves": {
-                "e4d6": "Mã d6 chỉ dọa được Hậu. Ô f6 dọa được CẢ Vua g8 lẫn Hậu e8!"
-            },
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Tìm ô Mã dọa được cả Vua lẫn Hậu cùng lúc: f6."
+            "wrong": "♞ Tìm ô Mã dọa cả Vua lẫn Hậu!"
         },
         {
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Đen chạy Vua."
+            "wrong": "♞ Mã ăn Hậu, còn chiếu tiếp!"
         },
         {
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Mã ăn Hậu e8."
+            "wrong": "♞ Thêm một đòn: Mã chĩa đôi Vua và Xe"
         },
         {
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Mã về d6."
-        },
-        {
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Mã về c4."
+            "wrong": "♞ Ăn Xe b5, Mã thoát khỏi Vua đen"
         }
     ],
     "queen-fork": [
         {
-            "moves": {
-                "d1d8": "Hậu d8 chiếu Vua nhưng Xe a8 ăn lại mất Hậu! Tìm ô an toàn hơn."
-            },
-            "illegal": "Hậu đi thẳng hoặc chéo, không nhảy qua quân!",
-            "wrong": "Tìm ô Hậu vừa chiếu Vua g8 theo đường chéo, vừa nhắm Xe a8 (d5)."
+            "wrong": "♛ Tìm ô Hậu vừa chiếu Vua vừa dọa Xe!"
         },
         {
-            "illegal": "Hậu đi thẳng hoặc chéo!",
-            "wrong": "Vua đen chạy."
-        },
-        {
-            "illegal": "Hậu đi thẳng hoặc chéo!",
-            "wrong": "Hậu ăn Xe a8."
-        },
-        {
-            "illegal": "Hậu đi thẳng hoặc chéo!",
-            "wrong": "Hậu về a5."
-        },
-        {
-            "illegal": "Hậu đi thẳng hoặc chéo!",
-            "wrong": "Hậu về a4."
+            "wrong": "♛ Ăn Xe a8: chiếu bí luôn!"
         }
     ],
     "pawn-fork": [
         {
-            "illegal": "Tốt chỉ đi thẳng lên, và ăn chéo!",
-            "wrong": "Đẩy Tốt lên 1 ô, đứng giữa hai Mã để dọa cả hai."
+            "wrong": "♟ Tốt nhỏ cũng chĩa đôi được hai Mã!"
         },
         {
-            "illegal": "Tốt đi!",
-            "wrong": "Đen chạy Mã."
+            "wrong": "♟ Ăn Mã e6"
         },
         {
-            "illegal": "Tốt đi!",
-            "wrong": "Tốt ăn Mã e6."
+            "wrong": "♟ Thêm lần nữa: đẩy Tốt dọa cả hai Mã"
         },
         {
-            "illegal": "Tốt đi!",
-            "wrong": "Tốt tiến e7."
-        },
-        {
-            "illegal": "Tốt đi!",
-            "wrong": "Tốt phong cấp e8."
+            "wrong": "♟ Ăn Mã e5"
         }
     ],
     "pin": [
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Kéo Xe sang cột e để Hậu e7 bị kẹp giữa Xe và Vua e8."
+            "wrong": "📌 Ghim Hậu vào Vua: Xe sang cột e (Vua f1 bảo vệ Xe)"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Đen đi Tốt."
+            "wrong": "📌 Ăn Hậu! Đổi Xe 5 lấy Hậu 9"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe ăn Hậu e7."
+            "wrong": "📌 Mã c6 bị Tượng ghim vào Vua. Đẩy Tốt dọa Mã!"
         },
         {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Vua ăn lại."
-        },
-        {
-            "illegal": "Vua chỉ đi 1 ô mỗi lần, và không được bước vào ô đang bị địch tấn công!",
-            "wrong": "Vua trắng tiến f2."
+            "wrong": "📌 Ăn Mã c6"
         }
     ],
     "skewer": [
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Chiếu Vua theo hàng 4 để Vua phải chạy, lộ ra Hậu h4: Xe lên a4."
+            "wrong": "🍢 Chiếu Vua để lộ Hậu phía sau"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Vua chạy c5."
+            "wrong": "🍢 Ăn Hậu h4!"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Hàng 4 đã thông, chạy Xe sang h4 ăn Hậu!"
+            "wrong": "🍢 Tượng chiếu chéo: Vua đứng trước, Xe b8 phía sau"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe lùi về g4."
-        },
-        {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe lùi về f4."
+            "wrong": "🍢 Ăn Xe b8"
         }
     ],
     "discovered": [
         {
+            "wrong": "♞ Mã nhảy đi → Xe lộ ra chiếu! Ăn luôn Hậu"
+        },
+        {
+            "wrong": "♜ Mã d6 đang bị Vua dọa. Xe sang d1 bảo vệ Mã"
+        }
+    ],
+    "combo_attraction": [
+        {
+            "wrong": "🧲 Thí Xe ở f8 để kéo Vua đen tới ô Mã chĩa đôi được"
+        },
+        {
+            "wrong": "♞ Mã chĩa đôi Vua f8 và Hậu b6"
+        },
+        {
+            "wrong": "♞ Ăn Hậu! Đổi Xe 5 lấy Hậu 9"
+        }
+    ],
+    "combo_remove_defender": [
+        {
+            "wrong": "🛡 Mã f6 đang canh ô h7. Diệt Mã trước!"
+        },
+        {
+            "wrong": "♛ Hậu ăn h7, Tượng b1 bảo vệ: chiếu bí!"
+        }
+    ],
+    "combo_overloading": [
+        {
+            "wrong": "⚖️ Hậu d7 phải canh hai việc: Mã d4 và ô e8. Ăn Mã!"
+        },
+        {
+            "wrong": "♜ Xe chiếu bí hàng cuối!"
+        }
+    ],
+    "combo_xray": [
+        {
+            "wrong": "🔦 Xe d1 đứng sau Hậu, nhìn xuyên tới d8. Hậu ăn Xe!"
+        },
+        {
+            "wrong": "♜ Xe ăn lại, chiếu bí!"
+        }
+    ],
+    "opening_italian": [
+        {
+            "wrong": "🇮🇹 Tốt e4 chiếm trung tâm"
+        },
+        {
+            "wrong": "🐴 Mã f3 dọa Tốt e5"
+        },
+        {
+            "wrong": "♝ Tượng c4 nhắm ô yếu f7: Ván cờ Ý!"
+        }
+    ],
+    "opening_ruy_lopez": [
+        {
+            "wrong": "🇪🇸 Tốt e4 chiếm trung tâm"
+        },
+        {
+            "wrong": "🐴 Mã f3 dọa Tốt e5"
+        },
+        {
+            "wrong": "♝ Tượng b5 dọa Mã c6, người bảo vệ e5: Ván cờ Tây Ban Nha!"
+        }
+    ],
+    "opening_queens_gambit": [
+        {
+            "wrong": "👑 Tốt d4 chiếm trung tâm"
+        },
+        {
+            "wrong": "♟ Thí Tốt c4 để kéo Tốt d5 khỏi trung tâm"
+        },
+        {
+            "wrong": "🐴 Mã c3 thêm sức ép lên d5"
+        }
+    ],
+    "opening_sicilian": [
+        {
+            "wrong": "🌋 Tốt e4"
+        },
+        {
+            "wrong": "🐴 Mã f3 chuẩn bị d4"
+        },
+        {
+            "wrong": "♟ Đẩy d4 mở trung tâm: Sicilian Mở"
+        }
+    ],
+    "opening_french": [
+        {
+            "wrong": "🇫🇷 Tốt e4"
+        },
+        {
+            "wrong": "♟ Thêm Tốt d4: trung tâm 2 Tốt"
+        },
+        {
+            "wrong": "🐴 Mã c3 bảo vệ Tốt e4"
+        }
+    ],
+    "opening_caro_kann": [
+        {
+            "wrong": "🛡 Tốt e4"
+        },
+        {
+            "wrong": "♟ Thêm Tốt d4"
+        },
+        {
+            "wrong": "🐴 Mã c3 bảo vệ Tốt e4"
+        }
+    ],
+    "greek-gift-1": [
+        {
+            "wrong": "🎁 Tốt e5 đã đuổi Mã f6 đi, h7 không còn ai canh. Thí Tượng ở h7!"
+        },
+        {
+            "wrong": "♞ Mã nhảy lên g5 chiếu Vua"
+        },
+        {
+            "wrong": "♛ Hậu lên h5: dọa Qh7 chiếu bí!"
+        }
+    ],
+    "greek-gift-2": [
+        {
+            "wrong": "♛ Đen mở đường f8 cho Vua. Hậu ăn f7 chiếu!"
+        },
+        {
+            "wrong": "♛ Hậu quay về h5 chiếu"
+        },
+        {
+            "wrong": "♛ Hậu vào h7 (Mã g5 bảo vệ)"
+        },
+        {
+            "wrong": "♛ Hậu chiếu từ h8"
+        },
+        {
+            "wrong": "♛ Chiếu bí ở g7!"
+        }
+    ],
+    "greek-gift-3": [
+        {
+            "wrong": "🎁 Thí Tượng ở h7!"
+        },
+        {
+            "wrong": "♞ Mã chiếu ở g5"
+        },
+        {
+            "wrong": "♟ Tốt h4 lao lên, dọa h5 chiếu"
+        },
+        {
+            "wrong": "♟ Tốt chiếu h5"
+        },
+        {
+            "wrong": "♞ Mã chiếu và chĩa đôi Hậu d8!"
+        },
+        {
+            "wrong": "♞ Ăn Hậu!"
+        }
+    ],
+    "greek-gift-4": [
+        {
+            "wrong": "🎁 Thí Tượng ở h7!"
+        },
+        {
+            "wrong": "♞ Mã chiếu ở g5"
+        },
+        {
+            "wrong": "♞ Mã ăn e6: Tượng c1 chiếu lộ ra, Mã còn dọa Hậu!"
+        },
+        {
+            "wrong": "♞ Ăn Hậu d8!"
+        }
+    ],
+    "greek-gift-5": [
+        {
+            "wrong": "🎁 Tốt e5 đã đuổi Mã f6 đi, h7 không còn ai canh. Thí Tượng ở h7!"
+        },
+        {
+            "wrong": "♞ Mã nhảy lên g5 chiếu Vua"
+        },
+        {
+            "wrong": "♛ Hậu lên h5 dọa chiếu bí h7"
+        },
+        {
+            "wrong": "♛ Ăn f7 chiếu"
+        },
+        {
+            "wrong": "♛ Chiếu từ h5"
+        },
+        {
+            "wrong": "♛ Hậu vào h7"
+        },
+        {
+            "wrong": "♛ Chiếu từ h8"
+        },
+        {
+            "wrong": "♛ Chiếu bí!"
+        }
+    ],
+    "uncastled-2": [
+        {
+            "wrong": "⚔️ Vua đen còn ở e8. Đẩy e5 đuổi Mã f6"
+        },
+        {
+            "wrong": "♟ Ăn Mã f6"
+        },
+        {
+            "wrong": "♜ Cột e đã mở: Xe chiếu Vua chưa nhập thành!"
+        },
+        {
+            "wrong": "♞ Mã tấn công Tượng e6 đang bị ghim"
+        }
+    ],
+    "uncastled-3": [
+        {
+            "wrong": "📌 Tượng g5 ghim Mã f6 vào Hậu d8"
+        },
+        {
+            "wrong": "♝ Đổi Tượng lấy Mã"
+        },
+        {
+            "wrong": "♞ Mã lên d5 dọa Hậu f6 và ô c7"
+        }
+    ],
+    "uncastled-4": [
+        {
+            "wrong": "🚫 Tượng a3 khống chế ô f8: Vua đen không nhập thành được!"
+        }
+    ],
+    "pawn-storm-1": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "pawn-storm-2": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "pawn-storm-3": [
+        {
+            "wrong": "Tốt g4 xông lên."
+        },
+        {
+            "wrong": "Xe ra g1."
+        },
+        {
+            "wrong": "Tốt h4 tiếp tục."
+        }
+    ],
+    "pawn-storm-4": [
+        {
+            "wrong": "♜ Xe e3 sang ngang tới g3, nhắm thẳng Vua đen!"
+        },
+        {
+            "wrong": "♛ Hậu lên g5, cùng Xe nhắm ô g7"
+        },
+        {
+            "wrong": "♛ Hậu luồn sang h6"
+        },
+        {
+            "wrong": "♝ Thí Tượng phá Tốt g6!"
+        },
+        {
+            "wrong": "♜ Xe ăn g6 chiếu: Xe đã vào cuộc!"
+        }
+    ],
+    "weak-f7-1": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "weak-f7-2": [
+        {
+            "wrong": "♛ Hậu f3 cùng Tượng c4 nhắm f7"
+        },
+        {
+            "wrong": "♛ Ăn f7: chiếu bí!"
+        }
+    ],
+    "weak-f7-3": [
+        {
+            "wrong": "♟ Ăn Tốt d5"
+        },
+        {
+            "wrong": "🔥 Thí Mã ở f7 (Gan Rán)!"
+        },
+        {
+            "wrong": "♛ Hậu chiếu và dọa Mã d5"
+        },
+        {
+            "wrong": "♞ Thêm Mã tấn công d5: Vua đen rất nguy hiểm"
+        }
+    ],
+    "weak-f7-4": [
+        {
+            "wrong": "♞ Mã g5 và Tượng c4 cùng tấn công f7"
+        },
+        {
+            "wrong": "♟ Ăn Tốt d5, giữ đường chéo"
+        },
+        {
+            "wrong": "♝ Tượng chiếu và giữ Tốt d5"
+        }
+    ],
+    "weak-f7-5": [
+        {
+            "wrong": "♞ Đen lơ là: Mã ăn f7 chĩa đôi Hậu d8 và Xe h8!"
+        },
+        {
+            "wrong": "♞ Ăn Xe h8!"
+        }
+    ],
+    "overload-1": [
+        {
+            "wrong": "Tượng b3 ăn Tượng d5. Nếu Mã ăn lại thì bỏ trống h7, nếu không ăn lại thì ta lời Tượng."
+        },
+        {
+            "wrong": "♛ Mã đã bỏ việc canh h7: Hậu ăn h7, Mã g5 bảo vệ → chiếu bí!"
+        },
+        {
+            "wrong": "Hậu b2 ăn Mã d4. Hậu đen ăn lại thì không còn canh ô e8."
+        },
+        {
+            "wrong": "♜ Hậu đen đã rời d7: Xe chiếu bí hàng cuối!"
+        }
+    ],
+    "overload-2": [
+        {
+            "wrong": "Xe c1 kiểm soát cột c."
+        },
+        {
+            "wrong": "Trắng nhảy Mã e5."
+        },
+        {
+            "wrong": "Tốt ăn lại, đuổi Mã f6."
+        }
+    ],
+    "overload-4": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "open-file-2": [
+        {
+            "wrong": "♜ Cột h không có Tốt: Xe sang h3!"
+        },
+        {
+            "wrong": "♝ Tượng chiếu ở h7, Xe h3 bảo vệ"
+        }
+    ],
+    "open-file-3": [
+        {
+            "wrong": "♜ Cột e đang trống: Xe chiếm cột mở trước!"
+        },
+        {
+            "wrong": "♜ Xe theo cột mở xâm nhập hàng 7"
+        },
+        {
+            "wrong": "♜ Xe dọa Tốt c6"
+        }
+    ],
+    "open-file-4": [
+        {
+            "wrong": "♜ Xe lên hàng 7: dọa ăn các Tốt đen"
+        },
+        {
+            "wrong": "♜ Ăn Tốt b7!"
+        }
+    ],
+    "open-file-5": [
+        {
+            "wrong": "♜♜ Hai Xe chồng cột d tấn công Tượng d7, Đen chỉ có 1 Xe bảo vệ"
+        },
+        {
+            "wrong": "♜ Xe thứ hai ăn lại: lời một Tượng!"
+        }
+    ],
+    "back-rank-1": [
+        {
+            "wrong": "🎯 Vua đen bị 3 Tốt nhốt: Xe chiếu hàng cuối!"
+        },
+        {
+            "wrong": "🎯 Hậu cũng làm được!"
+        }
+    ],
+    "back-rank-2": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "back-rank-3": [
+        {
+            "wrong": "🎯 Hai Xe chồng cột e. Xe trước ăn Xe e8!"
+        },
+        {
+            "wrong": "🎯 Xe sau ăn Hậu: chiếu bí!"
+        }
+    ],
+    "smothered-1": [
+        {
+            "wrong": "♞ Mã chiếu ở f7"
+        },
+        {
+            "wrong": "⚡ Mã h6: chiếu đôi cùng Hậu c4!"
+        },
+        {
+            "wrong": "♛ Thí Hậu ở g8!"
+        },
+        {
+            "wrong": "😵 Mã chiếu bí ngạt thở!"
+        }
+    ],
+    "smothered-2": [
+        {
+            "wrong": "♞ Vua bị quân nhà vây kín: Mã nhảy tới f7"
+        }
+    ],
+    "smothered-3": [
+        {
+            "wrong": "♛ Thí Hậu ở g8!"
+        },
+        {
+            "wrong": "♞ Mã chiếu bí!"
+        }
+    ],
+    "adv-def-prophylaxis": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Hãy nghĩ: quân đen muốn nhảy vào ô nào? Chặn ô b4 bằng Tốt a3."
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "adv-def-counterattack": [
+        {
+            "wrong": "♜ Đang bị ép, nhưng thay vì co cụm, Xe xâm nhập hàng 7 phản công!"
+        },
+        {
+            "wrong": "♜ Xe ăn Tốt b7, tiếp theo dọa Tốt a7"
+        },
+        {
+            "wrong": "♜ Ăn tiếp Tốt a7"
+        },
+        {
+            "wrong": "♟ Đẩy b3 cho Tốt b2 an toàn, Vua có thêm chỗ thở"
+        },
+        {
+            "wrong": "♚ Tàn cuộc rồi: đưa Vua vào trận"
+        }
+    ],
+    "endgame-opposition": [
+        {
             "moves": {
-                "e4f6": "Mã f6 chiếu Vua nhưng không ăn được gì. Nhảy vào d6 để vừa ăn Hậu vừa mở đường cho Xe!"
+                "e6d5": "Lùi Vua về hàng 5 là mất đối Vua: hòa!",
+                "e6f5": "Lùi Vua về hàng 5 là mất đối Vua: hòa!"
             },
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Nhảy Mã ăn Hậu d6, Xe e1 sẽ lộ ra chiếu Vua."
+            "wrong": "👑 Vua trắng giữ hàng 6, bước sang bên: Kd6 hoặc Kf6"
         },
         {
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Đen chạy Vua d7."
+            "wrong": "♟ Vua canh ô d7, đẩy Tốt lên e6"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe trắng qua d1."
+            "wrong": "♟ Tốt lên e7"
         },
         {
-            "illegal": "Mã đi hình chữ L: 2 ô thẳng rồi rẽ 1 ô ngang!",
-            "wrong": "Mã rút c4."
+            "wrong": "👑 Vua canh ô e8: Tốt sẽ phong cấp!"
+        }
+    ],
+    "endgame-knight-pawn": [
+        {
+            "wrong": "♞ Tốt đen sắp phong cấp! Mã ăn ngay e2"
+        }
+    ],
+    "boden_mate": [
+        {
+            "wrong": "✝️ Thí Hậu ở c6 để phá lá chắn Tốt!"
         },
         {
-            "illegal": "Xe chỉ đi THẲNG (dọc hoặc ngang), không đi chéo và không nhảy qua quân khác!",
-            "wrong": "Xe rút e1."
+            "wrong": "✝️ Hai Tượng bắt chéo: chiếu bí Boden!"
+        }
+    ],
+    "anastasia_mate": [
+        {
+            "wrong": "♞ Mã chiếu ở e7, canh luôn ô g8 và g6",
+            "moves": {
+                "d5f6": "Nf6+ cũng rất mạnh! Nhưng bài này tập Mát Anastasia: Mã vào e7 trước."
+            }
+        },
+        {
+            "wrong": "♛ Thí Hậu ở h7 mở cột h!"
+        },
+        {
+            "wrong": "♜ Xe sang cột h: chiếu bí Anastasia!"
+        }
+    ],
+    "legal_mate": [
+        {
+            "wrong": "🪤 Mã ăn Tốt e5, bỏ mặc Hậu d1!"
+        },
+        {
+            "wrong": "♝ Tượng chiếu ở f7"
+        },
+        {
+            "wrong": "♞ Mã d5: chiếu bí bằng 3 quân nhẹ!"
+        }
+    ],
+    "opera_mate": [
+        {
+            "wrong": "🎭 Ván cờ Opera của Morphy: thí Hậu ở b8!"
+        },
+        {
+            "wrong": "♜ Xe chiếu bí, Tượng g5 canh ô e7!"
+        }
+    ],
+    "morphy_mate": [
+        {
+            "wrong": "♝ Tượng ăn Mã chiếu theo đường chéo dài, Xe canh cột g"
+        }
+    ],
+    "smothered_mate": [
+        {
+            "wrong": "♞ Mã chiếu ở f7"
+        },
+        {
+            "wrong": "⚡ Mã h6: chiếu đôi cùng Hậu b3!"
+        },
+        {
+            "wrong": "♛ Thí Hậu ở g8!"
+        },
+        {
+            "wrong": "😵 Chiếu bí thắt cổ!"
+        }
+    ],
+    "isolated_pawn": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "doubled_pawns": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "backward_pawn": [
+        {
+            "wrong": "Tạo áp lực để hình thành Tốt lạc hậu."
+        },
+        {
+            "wrong": "Đẩy b4 để khóa Tốt c5 và tạo Tốt lạc hậu."
+        },
+        {
+            "wrong": "Khóa chặt! Tốt Đen không thể tiến lên an toàn."
+        }
+    ],
+    "passed_pawn": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "pawn_chains": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "hanging_pawns": [
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        },
+        {
+            "wrong": "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!"
+        }
+    ],
+    "free-piece": [
+        {
+            "moves": {
+                "f3e5": "Tốt e5 có Tốt d6 canh: Mã vào đó sẽ bị ăn lại!"
+            },
+            "wrong": "🎁 Tốt e5 có Tốt d6 canh. Chọn quân không ai bảo vệ!"
+        },
+        {
+            "wrong": "🎁 Xe e5 không ai bảo vệ: Tượng ăn miễn phí!"
+        },
+        {
+            "wrong": "🎁 Mã c4 đứng một mình, không ai canh!"
+        }
+    ],
+    "remove-defender": [
+        {
+            "moves": {
+                "e1e5": "Tượng e5 đang có Mã c6 bảo vệ, Xe vào sẽ bị ăn lại!"
+            },
+            "wrong": "🛡 Tượng e5 có Mã c6 bảo vệ. Diệt Mã bảo vệ trước!"
+        },
+        {
+            "wrong": "🎯 Giờ Xe ăn Tượng e5 an toàn!"
+        }
+    ],
+    "escape": [
+        {
+            "wrong": "🏃 Vua bị chiếu! Chạy tới ô an toàn f2"
+        },
+        {
+            "wrong": "Ô e2 vẫn nằm trên cột e, Xe vẫn chiếu được!"
+        },
+        {
+            "wrong": "Ô d2 bị Tượng b4 tấn công. Chọn ô khác ngoài cột e!"
+        }
+    ],
+    "block": [
+        {
+            "wrong": "🛡 Dùng Tượng chắn đường chiếu ở f1 (Vua bảo vệ Tượng)"
+        },
+        {
+            "wrong": "🛡 Mã nhảy về f1 che chắn"
+        },
+        {
+            "moves": {
+                "f3f2": "Xe ở f2 không chắn được đường chiếu hàng 1."
+            },
+            "wrong": "Chắn ở ô sát Vua để Vua bảo vệ quân chắn."
+        }
+    ],
+    "capture": [
+        {
+            "wrong": "⚔️ Ăn luôn quân đang chiếu Vua!"
+        },
+        {
+            "wrong": "⚔️ Mã nhảy về ăn Hậu e1!"
+        },
+        {
+            "wrong": "⚔️ Tượng đi chéo ăn Hậu e1!"
+        },
+        {
+            "wrong": "⚔️ Hậu f1 không ai bảo vệ: Vua tự ăn!"
+        }
+    ],
+    "run-away": [
+        {
+            "wrong": "🏃 Tốt d5 dọa Mã. Mã chạy tới ô an toàn"
+        },
+        {
+            "wrong": "🏃 Tốt d5 dọa Xe. Xe chạy!"
+        },
+        {
+            "wrong": "🏃 Tượng bị dọa. Chạy, hoặc ăn luôn kẻ dọa!"
+        },
+        {
+            "wrong": "🏃 Hậu bị Tốt dọa. Hậu quý nhất, phải chạy ngay!"
+        }
+    ],
+    "defend-piece": [
+        {
+            "wrong": "🛡 Xe dọa Mã d4. Dùng Tốt bảo vệ Mã"
+        },
+        {
+            "wrong": "🛡 Tốt bảo vệ Tượng d4"
+        },
+        {
+            "moves": {
+                "c2c3": "Xe ăn Hậu, Tốt ăn lại Xe: mất 9 chỉ lấy 5. Hậu phải chạy!",
+                "e2e3": "Xe ăn Hậu, Tốt ăn lại Xe: mất 9 chỉ lấy 5. Hậu phải chạy!"
+            },
+            "wrong": "🛡 Hậu 9 điểm, Xe 5 điểm: bảo vệ không đủ, Hậu phải chạy!"
+        }
+    ],
+    "luft": [
+        {
+            "wrong": "🪟 Xe đen dọa chiếu bí hàng cuối. Mở cửa sổ cho Vua!"
+        },
+        {
+            "wrong": "🪟 Hậu đen dọa Qd1#. Mở ô thoát cho Vua!"
+        }
+    ],
+    "mate1": [
+        {
+            "wrong": "🎯 Điểm yếu là f7: Hậu ăn, Tượng c4 bảo vệ"
+        },
+        {
+            "wrong": "🎯 Hậu h5 cũng nhắm f7!"
+        },
+        {
+            "wrong": "🎯 Vua đen bị Tốt nhà mình chặn lối: chiếu hàng cuối!"
+        }
+    ],
+    "backrank": [
+        {
+            "wrong": "🎯 Chiếu hàng cuối!"
+        },
+        {
+            "wrong": "🎯 Ăn Xe canh hàng cuối, chiếu bí luôn!"
+        },
+        {
+            "wrong": "🎯 Hậu cũng chiếu hàng cuối được!"
+        }
+    ],
+    "queenmate": [
+        {
+            "wrong": "💋 Hậu áp sát Vua đen, Vua trắng bảo vệ Hậu"
+        },
+        {
+            "wrong": "💋 Hậu lên g7, Vua f6 bảo vệ"
+        },
+        {
+            "wrong": "💋 Hậu áp sát Vua đen ở e7"
+        }
+    ],
+    "rook-mate": [
+        {
+            "wrong": "♜ Vua trắng chặn trước mặt, Xe chiếu hàng cuối!"
+        },
+        {
+            "wrong": "♜ Xe chiếu từ bên phải!"
+        },
+        {
+            "wrong": "♜ Vua đen ở góc: chiếu hàng cuối!"
+        }
+    ],
+    "smothered": [
+        {
+            "wrong": "😵 Vua bị vây kín bởi quân nhà: Mã chiếu bí!"
+        },
+        {
+            "wrong": "😵 Thí Hậu ở g8 để Xe đen tự lấp lối thoát!"
+        },
+        {
+            "wrong": "😵 Giờ Mã chiếu bí ngạt thở!"
+        }
+    ],
+    "qb-mate": [
+        {
+            "wrong": "♛♝ Hậu lao vào h7, Tượng d3 bảo vệ"
+        },
+        {
+            "wrong": "♛♝ Tượng b1 nhắm thẳng h7 từ xa!"
+        },
+        {
+            "wrong": "♛♝ Tượng c3 canh g7: Hậu vào đó!"
+        }
+    ],
+    "fools-mate": [
+        {
+            "wrong": "🤡 Đen đẩy Tốt f và g quá sớm, mở toang đường chéo: Hậu h5!"
+        },
+        {
+            "wrong": "🤡 Lại thêm một lần: Vua đen hở đường chéo e8–h5!"
+        }
+    ],
+    "stalemate": [
+        {
+            "wrong": "⚠️ Phải CHIẾU! Nếu Vua đen hết nước mà không bị chiếu là hòa"
+        },
+        {
+            "wrong": "⚠️ Cẩn thận! Qf7 là hòa Pat. Tìm nước chiếu bí"
+        },
+        {
+            "wrong": "⚠️ Qg6 là hòa Pat! Chiếu bí bằng cách khác"
+        }
+    ],
+    "promote-mate": [
+        {
+            "moves": {
+                "g7g8r": "Phong Xe ở đây là hòa Pat! Hậu mới chiếu được."
+            },
+            "wrong": "👑 Phong cấp Hậu chiếu bí luôn!"
+        },
+        {
+            "wrong": "Phong Mã ở e8: Mã chiếu Vua g7 và dọa Hậu c7."
+        },
+        {
+            "wrong": "👑 Mã ăn Hậu!"
+        }
+    ],
+    "scholar-defense": [
+        {
+            "wrong": "🛡 Hậu h4 và Tượng c5 cùng dọa Qxf2#! Bảo vệ ô f2 (Qe2, Qf3 hoặc g3 đều được)"
+        },
+        {
+            "wrong": "🛡 Hậu đen quay sang f6, lại dọa f2! Ra Mã f3 chặn đường"
+        }
+    ],
+    "arabian": [
+        {
+            "wrong": "🐪 Mã f6 bảo vệ Xe h7 và canh g8: chiếu bí Ả Rập!"
+        },
+        {
+            "wrong": "🐪 Xe lên g8, Mã bảo vệ và canh h7"
+        }
+    ],
+    "ladder": [
+        {
+            "wrong": "🪜 Xe thứ nhất chặn hàng 7"
+        },
+        {
+            "wrong": "🪜 Xe thứ hai chiếu hàng 8!"
+        },
+        {
+            "wrong": "🪜 Thử lại: Xe c chặn hàng 7"
+        },
+        {
+            "wrong": "🪜 Xe b chiếu hàng 8"
+        }
+    ],
+    "pawn-race": [
+        {
+            "wrong": "🏁 Vua đen ở quá xa: cứ đẩy Tốt!"
+        },
+        {
+            "wrong": "⬆️ Lên a7"
+        },
+        {
+            "wrong": "👑 Về đích, phong Hậu!"
+        }
+    ],
+    "king-catch": [
+        {
+            "wrong": "♚ Vua đuổi theo: sang c4"
+        },
+        {
+            "wrong": "♚ Đứng sát Tốt: b3"
+        },
+        {
+            "wrong": "♚ Ăn Tốt!"
+        }
+    ],
+    "opening": [
+        {
+            "wrong": "🚀 Khai cuộc: đẩy Tốt trung tâm lên e4"
+        },
+        {
+            "wrong": "🚀 Ra Mã, dọa Tốt e5"
+        },
+        {
+            "wrong": "🚀 Ra Tượng nhắm ô f7"
+        },
+        {
+            "wrong": "🚀 Cách khác: chiếm trung tâm bằng d4"
+        }
+    ],
+    "develop": [
+        {
+            "wrong": "🐴 Ra Mã trước"
+        },
+        {
+            "wrong": "♝ Ra Tượng"
+        },
+        {
+            "wrong": "🏰 Nhập thành!"
+        }
+    ],
+    "center-d4": [
+        {
+            "wrong": "⚔️ Đẩy Tốt d4 tấn công trung tâm"
+        },
+        {
+            "wrong": "⚔️ Mã ăn lại Tốt, đứng giữa bàn!"
+        },
+        {
+            "wrong": "⚔️ Khai cuộc 4 Mã: cũng đẩy d4!"
+        }
+    ],
+    "double-check": [
+        {
+            "wrong": "Tìm nước để HAI quân cùng chiếu một lúc: Vua chỉ còn cách chạy, mà không còn ô nào!"
+        },
+        {
+            "wrong": "Tìm nước để HAI quân cùng chiếu một lúc: Vua chỉ còn cách chạy, mà không còn ô nào!"
+        },
+        {
+            "wrong": "Tìm nước để HAI quân cùng chiếu một lúc: Vua chỉ còn cách chạy, mà không còn ô nào!"
+        }
+    ],
+    "safe-knight-guard": [
+        {
+            "moves": {
+                "d1a1": "Giỏi! Bạn đã thấy nước an toàn rồi. Nhưng bước này hãy thử nước vội vàng để xem chuyện gì xảy ra nhé!"
+            },
+            "wrong": "Bước này hãy thử cho quân lao vào ăn xem sao!"
+        },
+        {
+            "moves": {
+                "d1d5": "Nước này vừa bị ăn lại ở bước trước đó! Ô d5 có Mã f6 canh. Tượng a1 thì không ai bảo vệ!"
+            },
+            "wrong": "Ô d5 có Mã f6 canh. Tượng a1 thì không ai bảo vệ!"
+        }
+    ],
+    "safe-knight-bait": [
+        {
+            "moves": {
+                "d3b4": "Giỏi! Bạn đã thấy nước an toàn rồi. Nhưng bước này hãy thử nước vội vàng để xem chuyện gì xảy ra nhé!"
+            },
+            "wrong": "Bước này hãy thử cho quân lao vào ăn xem sao!"
+        },
+        {
+            "moves": {
+                "d3e5": "Nước này vừa bị ăn lại ở bước trước đó! Tốt e5 có Tốt d6 canh. Tốt b4 thì không!"
+            },
+            "wrong": "Tốt e5 có Tốt d6 canh. Tốt b4 thì không!"
+        }
+    ],
+    "safe-bishop-bait": [
+        {
+            "moves": {
+                "c4a2": "Giỏi! Bạn đã thấy nước an toàn rồi. Nhưng bước này hãy thử nước vội vàng để xem chuyện gì xảy ra nhé!"
+            },
+            "wrong": "Bước này hãy thử cho quân lao vào ăn xem sao!"
+        },
+        {
+            "moves": {
+                "c4d5": "Nước này vừa bị ăn lại ở bước trước đó! Mã d5 có Tốt e6 canh. Xe a2 không ai bảo vệ!"
+            },
+            "wrong": "Mã d5 có Tốt e6 canh. Xe a2 không ai bảo vệ!"
         }
     ]
-,
-  "combo_attraction": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "combo_deflection": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "combo_interference": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "combo_remove_defender": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "combo_clearance": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "combo_overloading": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "combo_xray": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "combo_zwischenzug": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "combo_windmill": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "combo_zugzwang": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "opening_italian": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "opening_ruy_lopez": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "opening_queens_gambit": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "opening_sicilian": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "opening_french": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "opening_caro_kann": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "greek-gift-1": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "greek-gift-2": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "greek-gift-3": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "greek-gift-4": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "greek-gift-5": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "uncastled-1": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "uncastled-2": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "uncastled-3": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "uncastled-4": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "uncastled-5": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "pawn-storm-1": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "pawn-storm-2": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "pawn-storm-3": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "pawn-storm-4": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "pawn-storm-5": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "weak-f7-1": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "weak-f7-2": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "weak-f7-3": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "weak-f7-4": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "weak-f7-5": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "overload-1": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "overload-2": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "overload-3": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "overload-4": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "overload-5": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "open-file-1": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "open-file-2": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "open-file-3": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "open-file-4": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "open-file-5": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "back-rank-1": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "back-rank-2": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "back-rank-3": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "back-rank-4": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "back-rank-5": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "smothered-1": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "smothered-2": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "smothered-3": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "smothered-4": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "smothered-5": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "destroy-pawn-1": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "destroy-pawn-2": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "destroy-pawn-3": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "destroy-pawn-4": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "destroy-pawn-5": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "dev-lead-1": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "dev-lead-2": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "dev-lead-3": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "dev-lead-4": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "dev-lead-5": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "adv-def-prophylaxis": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "adv-def-mate": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "adv-def-blockade": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "adv-def-perpetual": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "adv-def-stalemate": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "adv-def-counterattack": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "endgame-opposition": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "endgame-philidor": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "endgame-lucena": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "endgame-vancura": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "endgame-kpvskp": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "endgame-knight-pawn": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "boden_mate": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "anastasia_mate": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "legal_mate": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "opera_mate": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "morphy_mate": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "smothered_mate": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "isolated_pawn": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "doubled_pawns": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "backward_pawn": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "passed_pawn": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "pawn_chains": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ],
-  "hanging_pawns": [
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" },
-    { wrong: "Nước đi chưa chính xác. Hãy suy nghĩ lại nhé!" }
-  ]
 };

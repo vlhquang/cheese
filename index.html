@@ -137,6 +137,9 @@
         .ch-name { flex: 1; min-width: 0; font-size: 15px; }
         .ch-prog { font-size: 13px; color: var(--muted); white-space: nowrap; }
         .chapter.complete .ch-prog { color: var(--ok); }
+        .level-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 10px 2px 0; padding-bottom: 4px; border-bottom: 2px solid var(--line); font-weight: 900; font-size: 15px; color: var(--accent, #e65100); }
+        .level-head:first-child { margin-top: 0; }
+        .level-head .muted { font-size: 12px; font-weight: 700; }
         .lesson-list { list-style: none; margin: 0; padding: 6px; display: flex; flex-direction: column; gap: 2px; }
         .lesson-row { width: 100%; display: flex; align-items: center; gap: 10px; border: none; background: none; border-radius: 9px; padding: 8px; font-size: 15px; font-weight: 700; color: var(--text); text-align: left; cursor: pointer; }
         .lesson-row:hover { background: var(--surface-2); }
@@ -471,6 +474,7 @@
                     <marker id="ah-blocked" viewBox="0 0 10 10" refX="4" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9e9e9e"/></marker>
                     <marker id="ah-history" viewBox="0 0 10 10" refX="4" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#90a4ae"/></marker>
                     <marker id="ah-hint" viewBox="0 0 10 10" refX="4" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1e88e5"/></marker>
+                    <marker id="ah-protect" viewBox="0 0 10 10" refX="4" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#00897b"/></marker>
                 </defs>
                 <g id="ovBase"></g>
                 <g id="ovFx"></g>
@@ -981,7 +985,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 return attemptStr.slice(0, 2) === step.targetMove.slice(0, 2) && !game.moves({ verbose: true }).some(m => m.to === attemptStr.slice(2, 4));
             if (step.goal === 'protect') return isProtected(step.square);
             if (step.goal === 'stop-mate') return !opponentHasMateInOne();
-            return attemptStr.startsWith(step.targetMove);
+            return attemptStr.startsWith(step.targetMove) || !!step.accept; // accept = các nước cũng đúng
         }
         // Quân (của bên vừa đi) ở ô sq có được bảo vệ: mọi cách đối phương ăn nó đều bị ăn lại được
         function isProtected(sq) {
@@ -1015,7 +1019,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
         // Lớp SVG viewBox 800x800 phủ lên 64 ô: mỗi ô 100 đơn vị, a8 ở góc trên trái.
         // ovBase: hình của bước hiện tại (giữ đến khi đổi bước) · ovFx: hiệu ứng thoáng qua.
         const SVG_NS = 'http://www.w3.org/2000/svg';
-        const OV_COLORS = { attack: '#e53935', path: '#43a047', blocked: '#9e9e9e', history: '#90a4ae', hint: '#1e88e5' };
+        const OV_COLORS = { attack: '#e53935', path: '#43a047', blocked: '#9e9e9e', history: '#90a4ae', hint: '#1e88e5', protect: '#00897b' };
         let ghostToken = 0;       // tăng lên để dừng các quân mờ đang trượt
         let hintUsedThisStep = false;
         let stepLocked = false;   // khóa bàn cờ sau khi đi đúng, trong lúc chờ chuyển bước/bài
@@ -1245,7 +1249,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             let chapters = [];
             ROADMAP.forEach((lesson, i) => {
                 let ch = chapters[chapters.length - 1];
-                if (!ch || ch.name !== lesson.category) chapters.push(ch = { name: lesson.category, items: [] });
+                if (!ch || ch.name !== lesson.category) chapters.push(ch = { name: lesson.category, level: lesson.level || '', items: [] });
                 ch.items.push(i);
             });
             let curChapter = ROADMAP[currentLessonIndex].category;
@@ -1260,6 +1264,10 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 <button class="btn btn-start" onclick="startLesson(${currentLessonIndex})">${startText}</button>
                 <div class="chapters">`;
             chapters.forEach((ch, ci) => {
+                if (ch.level && (ci === 0 || chapters[ci - 1].level !== ch.level)) { // tiêu đề cấp: Từng quân → 2 quân → 3 quân → cả đội
+                    let lv = chapters.filter(c => c.level === ch.level).flatMap(c => c.items), done = lv.filter(i => lessonStars[i]).length;
+                    html += `<div class="level-head"><span>${ch.level}</span><span class="muted">${done}/${lv.length} bài</span></div>`;
+                }
                 let got = ch.items.reduce((s, i) => s + (lessonStars[i] || 0), 0), max = ch.items.length * 3;
                 html += `<details class="chapter${got === max ? ' complete' : ''}" data-ch="${ci}" ${openChapters.has(ch.name) ? 'open' : ''}>
                     <summary><span class="ch-name">${ch.name}</span><span class="ch-prog">⭐ ${got}/${max}</span></summary><ol class="lesson-list">`;
@@ -1337,10 +1345,42 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
             });
             document.getElementById('promotionModal').style.display = 'flex';
         }
+        // Đi đúng một bước của bài (quân Trắng hay Đen đều dùng chung):
+        //  - bước có "reply": máy tự đi nước minh họa (vd. ăn lại quân vừa đi vào ô không an toàn) kèm lời giải thích "replyNote"
+        //  - sau đó sang bước kế tiếp, hoặc chấm sao khi là bước cuối
+        function advanceLessonStep(step, attemptStr) {
+            let lesson = ROADMAP[currentLessonIndex], isLast = currentStepIndex + 1 >= lesson.steps.length, li = currentLessonIndex;
+            let proceed = delay => {
+                if (!isLast) { currentStepIndex++; autoNextTimeout = setTimeout(() => loadStep(li, currentStepIndex), delay); }
+                else {
+                    mascotSpeak(lessonResultText(awardLessonStars(li)));
+                    renderRoadmapUI(false);
+                    if (li + 1 < ROADMAP.length) autoNextTimeout = setTimeout(() => startLesson(li + 1), 3500);
+                }
+            };
+            if (!step.reply) {
+                showSuccessVisuals(step, attemptStr);
+                if (!isLast) mascotSpeak("🚙 Tốt lắm! Đi tiếp nào...");
+                return proceed(step.after ? 2000 : 1000);
+            }
+            // Nước minh họa của đối phương: không chúc mừng (thường đây là "cái bẫy"), cho xem hậu quả rồi mới sang bước sau
+            stepLocked = true; clearOverlay();
+            mascotSpeak("👀 Xem đối phương đáp lại...");
+            autoNextTimeout = setTimeout(() => {
+                let r = step.reply, m = game.move({ from: r.slice(0, 2), to: r.slice(2, 4), promotion: r[4] || 'q' });
+                if (m) {
+                    board.position(game.fen()); playSound(m.captured ? 'error' : 'move');
+                    positionOverlay(); drawArrow(m.from, m.to, 'attack', ovLayer('base'));
+                    if (m.captured) drawMark(m.to, 'x', ovLayer('base'), 250);
+                }
+                mascotSpeak(step.replyNote || (m && m.captured ? `😱 Ôi! Đối phương ăn mất ${PIECE_NAMES[m.captured]} ở ${m.to}!` : '👀 Đối phương đã đáp lại.'));
+                proceed(3200);
+            }, 900);
+        }
         function confirmPromotion(pieceType) {
             document.getElementById('promotionModal').style.display = 'none';
             if (!pendingPromotionMove) return;
-            let attemptStr = pendingPromotionMove.from + pendingPromotionMove.to;
+            let attemptStr = pendingPromotionMove.from + pendingPromotionMove.to + (pieceType !== 'q' ? pieceType : ''); // phong Mã/Xe/Tượng: e7e8n
             var move = game.move({ from: pendingPromotionMove.from, to: pendingPromotionMove.to, promotion: pieceType });
             pendingPromotionMove = null;
             if (move !== null) finalizeUserMove(attemptStr); 
@@ -1354,18 +1394,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                 let step = lesson.steps[currentStepIndex];
 
                 if(isCorrectMove(step, attemptStr)) {
-                    showSuccessVisuals(step, attemptStr);
-                    if (currentStepIndex + 1 < lesson.steps.length) {
-                        mascotSpeak("🚙 Tốt lắm! Đi tiếp nào...");
-                        currentStepIndex++;
-                        autoNextTimeout = setTimeout(() => loadStep(currentLessonIndex, currentStepIndex), step.after ? 2000 : 1000);
-                    } else {
-                        mascotSpeak(lessonResultText(awardLessonStars(currentLessonIndex)));
-                        renderRoadmapUI(false);
-                        if (currentLessonIndex + 1 < ROADMAP.length) {
-                            autoNextTimeout = setTimeout(() => startLesson(currentLessonIndex + 1), 3500);
-                        }
-                    }
+                    advanceLessonStep(step, attemptStr);
                 } else {
                     currentLessonErrors++;
                     playSound('error');
@@ -1419,12 +1448,7 @@ var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t
                         if (testMove !== null) {
                             if (isCorrectMove(step, attemptStr)) {
                                 board.position(game.fen()); playSound('move');
-                                showSuccessVisuals(step, attemptStr);
-                                mascotSpeak(lessonResultText(awardLessonStars(currentLessonIndex)));
-                                renderRoadmapUI(false);
-                                if (currentLessonIndex + 1 < ROADMAP.length) {
-                                    autoNextTimeout = setTimeout(() => startLesson(currentLessonIndex + 1), 3500);
-                                }
+                                advanceLessonStep(step, attemptStr);
                             } else {
                                 currentLessonErrors++; showWrongVisuals(step, attemptStr);
                                 playSound('error'); mascotSpeak("🛑 " + (lessonHint(attemptStr, false) || "Nước này chưa cứu được Vua. Thử lại nhé!"));

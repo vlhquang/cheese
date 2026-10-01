@@ -1,0 +1,600 @@
+You are an expert chess developer. I have a list of 67 chess puzzle steps where the FEN is either invalid or the `targetMove` is illegal.
+Your task is to provide a fixed FEN for each step so that it becomes completely valid AND the `targetMove` becomes completely legal.
+
+Guidelines for fixing:
+1. "Missing black/white king": Add 'k' or 'K' to a safe square (e.g., h8, g8, h1, g1) so the FEN is valid.
+2. "pawns are on edge rows": Pawns cannot be on rank 1 or 8. Change them to a Queen (Q/q) or a Knight, or just remove them (replace with empty space).
+3. "Illegal move": The move cannot be played in the given FEN. Common reasons:
+   - A piece is blocking the path (e.g. targetMove is `h8a8` but there's a king on e8). Move the blocking piece to a nearby safe square.
+   - The King is in check, so moving another piece is illegal. Move the King to a safe square.
+   - The piece to move doesn't exist at the starting square. Add it.
+   - Note: If `targetMove` is in LAN (e.g., `h8a8`), it means the piece on h8 captures/moves to a8. If it's SAN (e.g., `Bxf7+`), ensure the bishop can legally capture on f7.
+4. "too many white kings": Remove the extra kings.
+5. "piece data is invalid": Fix the row strings so they sum up to 8 squares per row.
+
+Output your response as a RAW JSON array of objects (no markdown blocks, just the JSON string).
+Format:
+[
+  { "lesson": "lesson_id", "step": step_index, "fixedFen": "fixed_fen_string" },
+  ...
+]
+
+Here is the input JSON:
+[
+  {
+    "lesson": "rook-block",
+    "step": 2,
+    "fen": "n3k2R/8/8/8/P7/8/4K3/8 w - - 0 3",
+    "origFen": "n3k2R/8/8/8/P7/8/4K3/8 w - - 0 3",
+    "targetMove": "h8a8",
+    "reason": "Illegal move",
+    "validMoves": "Rh7, Rh6, Rh5, Rh4, Rh3, Rh2, Rh1, Rg8+, Rf8+, Rxe8, a5+, Kd3+, Ke3+, Kf3+, Kf2+, Kf1+, Ke1+, Kd1+, Kd2+"
+  },
+  {
+    "lesson": "rook-block",
+    "step": 3,
+    "fen": "R3k3/8/8/8/P7/8/4K3/8 w - - 0 4",
+    "origFen": "R3k3/8/8/8/P7/8/4K3/8 w - - 0 4",
+    "targetMove": "a8a4",
+    "reason": "Illegal move",
+    "validMoves": "Rb8+, Rc8+, Rd8+, Rxe8, Ra7, Ra6, Ra5, a5+, Kd3+, Ke3+, Kf3+, Kf2+, Kf1+, Ke1+, Kd1+, Kd2+"
+  },
+  {
+    "lesson": "bishop",
+    "step": 1,
+    "fen": "7k/5B2/8/8/8/8/1p6/K7 w - - 0 2",
+    "origFen": "7k/5B2/8/8/8/8/1p6/K7 w - - 0 2",
+    "targetMove": "f7b3",
+    "reason": "Illegal move",
+    "validMoves": "Ka2, Kxb2, Kb1"
+  },
+  {
+    "lesson": "bishop",
+    "step": 2,
+    "fen": "7k/8/8/8/8/1B6/1p6/K7 w - - 0 3",
+    "origFen": "7k/8/8/8/8/1B6/1p6/K7 w - - 0 3",
+    "targetMove": "b3a2",
+    "reason": "Illegal move",
+    "validMoves": "Ka2, Kxb2, Kb1"
+  },
+  {
+    "lesson": "bishop",
+    "step": 3,
+    "fen": "7k/8/8/8/8/8/B7/K5p1 w - - 0 4",
+    "origFen": "7k/8/8/8/8/8/B7/K5p1 w - - 0 4",
+    "targetMove": "a2d5",
+    "reason": "Invalid FEN: Invalid FEN: some pawns are on the edge rows"
+  },
+  {
+    "lesson": "bishop",
+    "step": 4,
+    "fen": "7k/8/8/3B4/8/8/8/K5p1 w - - 0 5",
+    "origFen": "7k/8/8/3B4/8/8/8/K5p1 w - - 0 5",
+    "targetMove": "d5g2",
+    "reason": "Invalid FEN: Invalid FEN: some pawns are on the edge rows"
+  },
+  {
+    "lesson": "knight",
+    "step": 2,
+    "fen": "7k/5N1p/8/8/8/8/8/K7 w - - 0 3",
+    "origFen": "7k/5N1p/8/8/8/8/8/K7 w - - 0 3",
+    "targetMove": "f6h7",
+    "reason": "Illegal move",
+    "validMoves": "Nd8, Nxh8, Nh6, Ng5, Ne5, Nd6, Ka2+, Kb2+, Kb1+"
+  },
+  {
+    "lesson": "castle",
+    "step": 3,
+    "fen": "4k3/8/8/8/8/8/8/4R1K1 w - - 0 4",
+    "origFen": "4k3/8/8/8/8/8/8/4R1K1 w - - 0 4",
+    "targetMove": "e2e3",
+    "reason": "Illegal move",
+    "validMoves": "Re2+, Re3+, Re4+, Re5+, Re6+, Re7+, Rxe8, Rf1, Rd1, Rc1, Rb1, Ra1, Kf2+, Kg2+, Kh2+, Kh1+, Kf1+"
+  },
+  {
+    "lesson": "castle",
+    "step": 4,
+    "fen": "4k3/8/8/8/8/8/8/4R1K1 w - - 0 5",
+    "origFen": "4k3/8/8/8/8/8/8/4R1K1 w - - 0 5",
+    "targetMove": "e3e4",
+    "reason": "Illegal move",
+    "validMoves": "Re2+, Re3+, Re4+, Re5+, Re6+, Re7+, Rxe8, Rf1, Rd1, Rc1, Rb1, Ra1, Kf2+, Kg2+, Kh2+, Kh1+, Kf1+"
+  },
+  {
+    "lesson": "castle-long",
+    "step": 3,
+    "fen": "4k3/8/8/8/8/8/8/2K1R3 w - - 0 4",
+    "origFen": "4k3/8/8/8/8/8/8/2K1R3 w - - 0 4",
+    "targetMove": "e2e3",
+    "reason": "Illegal move",
+    "validMoves": "Kb2+, Kc2+, Kd2+, Kd1+, Kb1+, Re2+, Re3+, Re4+, Re5+, Re6+, Re7+, Rxe8, Rf1, Rg1, Rh1, Rd1"
+  },
+  {
+    "lesson": "castle-long",
+    "step": 4,
+    "fen": "4k3/8/8/8/8/8/8/2K1R3 w - - 0 5",
+    "origFen": "4k3/8/8/8/8/8/8/2K1R3 w - - 0 5",
+    "targetMove": "e3e4",
+    "reason": "Illegal move",
+    "validMoves": "Kb2+, Kc2+, Kd2+, Kd1+, Kb1+, Re2+, Re3+, Re4+, Re5+, Re6+, Re7+, Rxe8, Rf1, Rg1, Rh1, Rd1"
+  },
+  {
+    "lesson": "queen-fork",
+    "step": 2,
+    "fen": "r4k1/6pp/8/3Q4/8/8/5PPP/6K1 w - - 0 2",
+    "origFen": "r4k1/6pp/8/3Q4/8/8/5PPP/6K1 w - - 0 2",
+    "targetMove": "d5a8",
+    "reason": "Invalid FEN: Invalid FEN: piece data is invalid (too many squares in rank)"
+  },
+  {
+    "lesson": "queen-fork",
+    "step": 3,
+    "fen": "Q4k1/6pp/8/8/8/8/5PPP/6K1 w - - 0 3",
+    "origFen": "Q4k1/6pp/8/8/8/8/5PPP/6K1 w - - 0 3",
+    "targetMove": "a8a5",
+    "reason": "Invalid FEN: Invalid FEN: piece data is invalid (too many squares in rank)"
+  },
+  {
+    "lesson": "queen-fork",
+    "step": 4,
+    "fen": "5k1/6pp/8/Q7/8/8/5PPP/6K1 w - - 0 4",
+    "origFen": "5k1/6pp/8/Q7/8/8/5PPP/6K1 w - - 0 4",
+    "targetMove": "a5a4",
+    "reason": "Invalid FEN: Invalid FEN: piece data is invalid (too many squares in rank)"
+  },
+  {
+    "lesson": "pawn-fork",
+    "step": 4,
+    "fen": "1n2k3/4P3/8/8/8/8/8/4K3 w - - 0 4",
+    "origFen": "1n2k3/4P3/8/8/8/8/8/4K3 w - - 0 4",
+    "targetMove": "e7e8q",
+    "reason": "Illegal move",
+    "validMoves": "Kd2, Ke2, Kf2, Kf1, Kd1"
+  },
+  {
+    "lesson": "free-piece",
+    "step": 3,
+    "fen": "8/8/4k3/8/1b6/2R5/8/4K3 w - - 0 1",
+    "origFen": "8/8/4k3/8/1b6/2R5/8/4K3 w - - 0 1",
+    "targetMove": "c3b3",
+    "reason": "Illegal move",
+    "validMoves": "Kd2, Ke2, Kf2, Kf1, Kd1"
+  },
+  {
+    "lesson": "remove-defender",
+    "step": 2,
+    "fen": "8/1p1k4/p1n5/3R4/8/8/1B6/6K1 w - - 0 1",
+    "origFen": "8/1p1k4/p1n5/3R4/8/8/1B6/6K1 w - - 0 1",
+    "targetMove": "b2n6",
+    "reason": "Illegal move",
+    "validMoves": "Rd6+, Rxd7, Re5, Rf5, Rg5, Rh5, Rd4+, Rd3+, Rd2+, Rd1+, Rc5, Rb5, Ra5, Ba3+, Bc3+, Bd4+, Be5+, Bf6+, Bg7+, Bh8+, Bc1+, Ba1+, Kf2+, Kg2+, Kh2+, Kh1+, Kf1+"
+  },
+  {
+    "lesson": "remove-defender",
+    "step": 4,
+    "fen": "8/3q2k1/5n2/4R3/8/8/8/6K1 w - - 0 1",
+    "origFen": "8/3q2k1/5n2/4R3/8/8/8/6K1 w - - 0 1",
+    "targetMove": "e5f6",
+    "reason": "Illegal move",
+    "validMoves": "Re6, Re7+, Re8, Rf5, Rg5+, Rh5, Re4, Re3, Re2, Re1, Rd5, Rc5, Rb5, Ra5, Kf2, Kg2, Kh2, Kh1, Kf1"
+  },
+  {
+    "lesson": "block",
+    "step": 1,
+    "fen": "6k1/5ppp/4N3/8/8/8/5PPP/r5K1 w - - 0 1",
+    "origFen": "6k1/5ppp/4N3/8/8/8/5PPP/r5K1 w - - 0 1",
+    "targetMove": "e6f8",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "block",
+    "step": 4,
+    "fen": "6k1/5ppp/8/8/8/8/P4PPP/r5K1 w - - 0 1",
+    "origFen": "6k1/5ppp/8/8/8/8/P4PPP/r5K1 w - - 0 1",
+    "targetMove": "a2a1",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "capture",
+    "step": 1,
+    "fen": "6k1/5ppp/8/4N3/8/8/5PPP/4q1K1 w - - 0 1",
+    "origFen": "6k1/5ppp/8/4N3/8/8/5PPP/4q1K1 w - - 0 1",
+    "targetMove": "e5e1",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "capture",
+    "step": 2,
+    "fen": "6k1/5ppp/8/4B3/8/8/5PPP/4q1K1 w - - 0 1",
+    "origFen": "6k1/5ppp/8/4B3/8/8/5PPP/4q1K1 w - - 0 1",
+    "targetMove": "e5e1",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "capture",
+    "step": 4,
+    "fen": "6k1/5ppp/8/8/8/8/4PPPP/4q1K1 w - - 0 1",
+    "origFen": "6k1/5ppp/8/8/8/8/4PPPP/4q1K1 w - - 0 1",
+    "targetMove": "e1e1",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "backrank",
+    "step": 3,
+    "fen": "6k1/5ppp/8/8/8/8/8/7K w - - 0 1",
+    "origFen": "6k1/5ppp/8/8/8/8/8/7K w - - 0 1",
+    "targetMove": "h1h8",
+    "reason": "Illegal move",
+    "validMoves": "Kg2, Kh2, Kg1"
+  },
+  {
+    "lesson": "smothered",
+    "step": 2,
+    "fen": "6rk/6pp/5N2/8/8/8/8/6K1 w - - 0 1",
+    "origFen": "6rk/6pp/5N2/8/8/8/8/6K1 w - - 0 1",
+    "targetMove": "f6f7",
+    "reason": "Illegal move",
+    "validMoves": "Nd7, Ne8, Nxg8, Nxh7, Nh5, Ng4, Ne4, Nd5, Kf2, Kg2, Kh2, Kh1, Kf1"
+  },
+  {
+    "lesson": "stalemate",
+    "step": 1,
+    "fen": "7k/5K2/8/8/8/8/8/5Q2 w - - 0 1",
+    "origFen": "7k/5K2/8/8/8/8/8/5Q2 w - - 0 1",
+    "targetMove": "f1g7",
+    "reason": "Illegal move",
+    "validMoves": "Ke8, Kf8, Kg6, Kf6, Ke6, Ke7, Qe2, Qd3, Qc4, Qb5, Qa6, Qf2, Qf3, Qf4, Qf5, Qf6+, Qg2, Qh3#, Qg1, Qh1#, Qe1, Qd1, Qc1, Qb1, Qa1+"
+  },
+  {
+    "lesson": "stalemate",
+    "step": 2,
+    "fen": "7k/5K2/8/8/8/8/8/4Q3 w - - 0 1",
+    "origFen": "7k/5K2/8/8/8/8/8/4Q3 w - - 0 1",
+    "targetMove": "e1g7",
+    "reason": "Illegal move",
+    "validMoves": "Ke8, Kf8, Kg6, Kf6, Ke6, Ke7, Qd2, Qc3+, Qb4, Qa5, Qe2, Qe3, Qe4, Qe5+, Qe6, Qe7, Qe8+, Qf2, Qg3, Qh4#, Qf1, Qg1, Qh1#, Qd1, Qc1, Qb1, Qa1+"
+  },
+  {
+    "lesson": "stalemate",
+    "step": 3,
+    "fen": "7k/5K2/8/8/8/8/8/3Q4 w - - 0 1",
+    "origFen": "7k/5K2/8/8/8/8/8/3Q4 w - - 0 1",
+    "targetMove": "d1g7",
+    "reason": "Illegal move",
+    "validMoves": "Ke8, Kf8, Kg6, Kf6, Ke6, Ke7, Qc2, Qb3, Qa4, Qd2, Qd3, Qd4+, Qd5, Qd6, Qd7, Qd8+, Qe2, Qf3, Qg4, Qh5#, Qe1, Qf1, Qg1, Qh1#, Qc1, Qb1, Qa1+"
+  },
+  {
+    "lesson": "combo_remove_defender",
+    "step": 2,
+    "fen": "4k3/4K3/8/8/8/8/8/8 w - - 0 2",
+    "origFen": "4k3/4K3/8/8/8/8/8/8 w - - 0 2",
+    "targetMove": "Kd2",
+    "reason": "Illegal move",
+    "validMoves": "Kxe8, Kf6, Ke6, Kd6"
+  },
+  {
+    "lesson": "combo_remove_defender",
+    "step": 3,
+    "fen": "4k3/4K3/8/8/8/8/3K4/8 b - - 1 2",
+    "origFen": "4k3/4K3/8/8/8/8/3K4/8 b - - 1 2",
+    "targetMove": "Kd7",
+    "reason": "Invalid FEN: Invalid FEN: too many white kings"
+  },
+  {
+    "lesson": "combo_clearance",
+    "step": 0,
+    "fen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "origFen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "targetMove": "Kb1",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_clearance",
+    "step": 1,
+    "fen": "8/8/8/8/8/8/8/1K6 b - - 1 1",
+    "origFen": "8/8/8/8/8/8/8/1K6 b - - 1 1",
+    "targetMove": "Ka7",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_overloading",
+    "step": 0,
+    "fen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "origFen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "targetMove": "Kb2",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_overloading",
+    "step": 1,
+    "fen": "8/8/8/8/8/8/1K6/8 b - - 1 1",
+    "origFen": "8/8/8/8/8/8/1K6/8 b - - 1 1",
+    "targetMove": "Ka7",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_xray",
+    "step": 0,
+    "fen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "origFen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "targetMove": "Kb2",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_xray",
+    "step": 1,
+    "fen": "8/8/8/8/8/8/1K6/8 b - - 1 1",
+    "origFen": "8/8/8/8/8/8/1K6/8 b - - 1 1",
+    "targetMove": "Ka7",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_zwischenzug",
+    "step": 0,
+    "fen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "origFen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "targetMove": "Kb2",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_zwischenzug",
+    "step": 1,
+    "fen": "8/8/8/8/8/8/1K6/8 b - - 1 1",
+    "origFen": "8/8/8/8/8/8/1K6/8 b - - 1 1",
+    "targetMove": "Ka7",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_windmill",
+    "step": 0,
+    "fen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "origFen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "targetMove": "Kb2",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_windmill",
+    "step": 1,
+    "fen": "8/8/8/8/8/8/1K6/8 b - - 1 1",
+    "origFen": "8/8/8/8/8/8/1K6/8 b - - 1 1",
+    "targetMove": "Ka7",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_zugzwang",
+    "step": 0,
+    "fen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "origFen": "8/8/8/8/8/8/8/K7 w - - 0 1",
+    "targetMove": "Kb2",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "combo_zugzwang",
+    "step": 1,
+    "fen": "8/8/8/8/8/8/1K6/8 b - - 1 1",
+    "origFen": "8/8/8/8/8/8/1K6/8 b - - 1 1",
+    "targetMove": "Ka7",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "back-rank-4",
+    "step": 1,
+    "fen": "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1",
+    "origFen": "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1",
+    "targetMove": "Kh7",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "back-rank-4",
+    "step": 2,
+    "fen": "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1",
+    "origFen": "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1",
+    "targetMove": "Kh7",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "back-rank-4",
+    "step": 3,
+    "fen": "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1",
+    "origFen": "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1",
+    "targetMove": "Kh7",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "back-rank-4",
+    "step": 4,
+    "fen": "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1",
+    "origFen": "4R1k1/5ppp/8/8/3Q4/8/5PPP/6K1 b - - 0 1",
+    "targetMove": "Kh7",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "adv-def-mate",
+    "step": 4,
+    "fen": "6k1/5p1p/6p1/8/8/8/5PPP/1q4K1 w - - 0 1",
+    "origFen": "6k1/5p1p/6p1/8/8/8/5PPP/1q4K1 w - - 0 1",
+    "targetMove": "g1h2",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "adv-def-blockade",
+    "step": 0,
+    "fen": "8/8/3p4/3N4/8/8/3K4/2k5 w - - 0 1",
+    "origFen": "8/8/3p4/3N4/8/8/3K4/2k5 w - - 0 1",
+    "targetMove": "d5c3",
+    "reason": "Illegal move",
+    "validMoves": "Kc3, Kd3, Ke3, Ke2, Ke1, Kxc1"
+  },
+  {
+    "lesson": "adv-def-stalemate",
+    "step": 0,
+    "fen": "8/8/8/8/8/5q2/5p1K/5k2 w - - 0 1",
+    "origFen": "8/8/8/8/8/5q2/5p1K/5k2 w - - 0 1",
+    "targetMove": "h2h3",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "adv-def-stalemate",
+    "step": 1,
+    "fen": "7k/7P/6K1/8/8/8/8/8 b - - 0 1",
+    "origFen": "7k/7P/6K1/8/8/8/8/8 b - - 0 1",
+    "targetMove": "h8g8",
+    "reason": "Illegal move",
+    "validMoves": ""
+  },
+  {
+    "lesson": "adv-def-counterattack",
+    "step": 1,
+    "fen": "8/pp3ppp/2p5/8/4P3/2P2P2/PP1r2PP/R5K1 b - - 0 1",
+    "origFen": "8/pp3ppp/2p5/8/4P3/2P2P2/PP1r2PP/R5K1 b - - 0 1",
+    "targetMove": "d2b2",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "adv-def-counterattack",
+    "step": 2,
+    "fen": "8/pp3ppp/2p5/8/4P3/2P2P2/Pr4PP/2R3K1 b - - 0 1",
+    "origFen": "8/pp3ppp/2p5/8/4P3/2P2P2/Pr4PP/2R3K1 b - - 0 1",
+    "targetMove": "b2a2",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "adv-def-counterattack",
+    "step": 3,
+    "fen": "8/pp3ppp/2p5/8/4P3/2P2P2/r5PP/1R4K1 b - - 0 1",
+    "origFen": "8/pp3ppp/2p5/8/4P3/2P2P2/r5PP/1R4K1 b - - 0 1",
+    "targetMove": "b7b6",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "adv-def-counterattack",
+    "step": 4,
+    "fen": "8/p4ppp/1pp5/8/4P3/2P2P2/r5PP/3R2K1 b - - 0 1",
+    "origFen": "8/p4ppp/1pp5/8/4P3/2P2P2/r5PP/3R2K1 b - - 0 1",
+    "targetMove": "g8f8",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "endgame-vancura",
+    "step": 0,
+    "fen": "8/8/8/8/1P6/8/6R1/3k3K b - - 0 1",
+    "origFen": "8/8/8/8/1P6/8/6R1/3k3K b - - 0 1",
+    "targetMove": "g2g3",
+    "reason": "Illegal move",
+    "validMoves": "Ke1, Kc1"
+  },
+  {
+    "lesson": "endgame-kpvskp",
+    "step": 4,
+    "fen": "8/8/2k5/4p3/2K1P3/8/8/8 w - - 0 5",
+    "origFen": "8/8/2k5/4p3/2K1P3/8/8/8 w - - 0 5",
+    "targetMove": "c4d5",
+    "reason": "Illegal move",
+    "validMoves": "Kd3, Kc3, Kb3, Kb4"
+  },
+  {
+    "lesson": "endgame-knight-pawn",
+    "step": 0,
+    "fen": "8/8/8/8/8/8/4p3/2N1K3 w - - 0 1",
+    "origFen": "8/8/8/8/8/8/4p3/2N1K3 w - - 0 1",
+    "targetMove": "c1e2",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "endgame-knight-pawn",
+    "step": 1,
+    "fen": "8/8/8/8/8/8/4N3/5K2 w - - 0 2",
+    "origFen": "8/8/8/8/8/8/4N3/5K2 w - - 0 2",
+    "targetMove": "e2c3",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "endgame-knight-pawn",
+    "step": 2,
+    "fen": "8/8/8/8/8/2N5/4K3/8 w - - 0 3",
+    "origFen": "8/8/8/8/8/2N5/4K3/8 w - - 0 3",
+    "targetMove": "c3d5",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "endgame-knight-pawn",
+    "step": 3,
+    "fen": "8/8/8/3N4/8/3K4/8/8 w - - 0 4",
+    "origFen": "8/8/8/3N4/8/3K4/8/8 w - - 0 4",
+    "targetMove": "d5f4",
+    "reason": "Invalid FEN: Invalid FEN: missing black king"
+  },
+  {
+    "lesson": "endgame-knight-pawn",
+    "step": 4,
+    "fen": "8/8/8/8/4kN2/8/8/8 w - - 0 5",
+    "origFen": "8/8/8/8/4kN2/8/8/8 w - - 0 5",
+    "targetMove": "f4e6",
+    "reason": "Invalid FEN: Invalid FEN: missing white king"
+  },
+  {
+    "lesson": "boden_mate",
+    "step": 2,
+    "fen": "2kr3r/p2n1ppp/2p1p3/8/1b1P1B2/2N4P/PPP2PP1/R4RK1 w - - 0 2",
+    "origFen": "2kr3r/p2n1ppp/2p1p3/8/1b1P1B2/2N4P/PPP2PP1/R4RK1 w - - 0 2",
+    "targetMove": "Ba6#",
+    "reason": "Illegal move",
+    "validMoves": "d5, Be5, Bd6, Bc7, Bb8, Bg5, Bh6, Bg3, Bh2, Be3, Bd2, Bc1, Na4, Nb5, Nd5, Ne4, Ne2, Nd1, Nb1, h4, a3, a4, b3, f3, g3, g4, Rab1, Rac1, Rad1, Rae1, Rfe1, Rfd1, Rfc1, Rfb1, Kh2, Kh1"
+  },
+  {
+    "lesson": "anastasia_mate",
+    "step": 1,
+    "fen": "r1b2r1k/pp2Nppp/8/3N4/8/8/PPP2PPP/R2R2K1 b - - 1 1",
+    "origFen": "r1b2r1k/pp2Nppp/8/3N4/8/8/PPP2PPP/R2R2K1 b - - 1 1",
+    "targetMove": "Kh8",
+    "reason": "Illegal move",
+    "validMoves": "Rb8, Bd7, Be6, Bf5, Bg4, Bh3, Rg8, Re8, Rd8, a6, a5, b6, b5, f6, f5, g6, g5, h6, h5"
+  },
+  {
+    "lesson": "anastasia_mate",
+    "step": 2,
+    "fen": "r1b2r1k/pp2Nppp/8/3N4/8/8/PPP2PPP/R2R2K1 w - - 1 2",
+    "origFen": "r1b2r1k/pp2Nppp/8/3N4/8/8/PPP2PPP/R2R2K1 w - - 1 2",
+    "targetMove": "Rxh7+",
+    "reason": "Illegal move",
+    "validMoves": "Nxc8, Ng8, Ng6+, Nf5, Nc6, Nb6, Nc7, Nf6, Nf4, Ne3, Nc3, Nb4, a3, a4, b3, b4, c3, c4, f3, f4, g3, g4, h3, h4, Rab1, Rac1, Rd2, Rd3, Rd4, Re1, Rf1, Rdc1, Rdb1, Kh1, Kf1"
+  },
+  {
+    "lesson": "anastasia_mate",
+    "step": 4,
+    "fen": "r1b2r2/pp2Nppk/8/3N4/8/8/PPP2PPP/3R2K1 w - - 0 3",
+    "origFen": "r1b2r2/pp2Nppk/8/3N4/8/8/PPP2PPP/3R2K1 w - - 0 3",
+    "targetMove": "Qh5#",
+    "reason": "Illegal move",
+    "validMoves": "Nxc8, Ng8, Ng6, Nf5, Nc6, Nb6, Nc7, Nf6+, Nf4, Ne3, Nc3, Nb4, a3, a4, b3, b4, c3, c4, f3, f4, g3, g4, h3, h4, Rd2, Rd3, Rd4, Re1, Rf1, Rc1, Rb1, Ra1, Kh1, Kf1"
+  },
+  {
+    "lesson": "legal_mate",
+    "step": 4,
+    "fen": "r2q1bnr/ppp1kBpp/2np4/4N3/4P3/8/PPPP1PPP/RNBbK2R w KQ - 1 6",
+    "origFen": "r2q1bnr/ppp1kBpp/2np4/4N3/4P3/8/PPPP1PPP/RNBbK2R w KQ - 1 6",
+    "targetMove": "Nd5#",
+    "reason": "Illegal move",
+    "validMoves": "Be8, Bxg8, Bg6, Bh5, Be6, Bd5, Bc4, Bb3, Nxc6+, Nd7, Ng6+, Ng4, Nf3, Nd3, Nc4, a3, a4, b3, b4, c3, c4, d3, d4, f3, f4, g3, g4, h3, h4, Na3, Nc3, Kf1, Kxd1, Rg1, Rf1, O-O"
+  },
+  {
+    "lesson": "smothered_mate",
+    "step": 4,
+    "fen": "r1b2r1k/pp4pN/7N/8/2B5/8/PPP3PP/R4RK1 w - - 4 3",
+    "origFen": "r1b2r1k/pp4pN/7N/8/2B5/8/PPP3PP/R4RK1 w - - 4 3",
+    "targetMove": "Qg8+",
+    "reason": "Illegal move",
+    "validMoves": "Nxf8, Ng5, Nf6, Nf7+, Ng8, Ng4, Nf5, Bb5, Ba6, Bd5, Be6, Bf7, Bg8, Bd3, Be2, Bb3, a3, a4, b3, b4, c3, g3, g4, h3, h4, Rab1, Rac1, Rad1, Rae1, Rf2, Rf3, Rf4, Rf5, Rf6, Rf7, Rxf8+, Rfe1, Rfd1, Rfc1, Rfb1, Kh1"
+  }
+]
